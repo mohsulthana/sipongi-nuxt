@@ -1,0 +1,95 @@
+.btn-primary{
+    padding: 10px 20px;
+    background-color: $sec;
+    border-color: $sec;
+    border-radius: 72px;
+    font-size: 17px;
+    font-family: $b;
+    font-weight: 800;
+    box-shadow: none !important;
+    &:hover, &:focus, &:active, &:disabled{
+        background-color: lighten($sec, 10%) !important;
+        border-color: lighten($sec, 10%) !important;
+        outline: none !important;
+    }
+}
+
+.btn-secondary{
+    padding: 10px 17px;
+    background-color: $sec;
+    color: $wt;
+    border-color: $sec;
+    border-radius: 12px;
+    font-size: 15px;
+    font-family: $b;
+    font-weight: 500;
+    box-shadow: none !important;
+    transition: all 0.3s ease;
+    img{
+        margin-left: 5px;
+        margin-right: 3px;
+        transition: all 0.3s ease;
+    }
+    &:hover, &:focus, &:active, &:disabled{
+        background-color: lighten($sec, 10%) !important;
+        border-color: lighten($sec, 10%) !important;
+        outline: none !important;
+        img{
+            margin-left: 8px;
+            margin-right: 0;
+        }
+    }
+}
+
+.btn-ghost{
+    padding: 10px 17px;
+    background-color: $wt;
+    color: #66615C;
+    border-color: #EAEAEA;
+    border-radius: 22px;
+    font-size: 15px;
+    box-shadow: none !important;
+    transition: all 0.3s ease;
+    &:hover, &:focus, &:active, &:disabled{
+        background-color: #66615C !important;
+        border-color: #66615C !important;
+        color: #FFF;
+        outline: none !important;
+    }
+}
+
+.btn-light{
+    padding: 10px 20px;
+    background-color: #F8F8FC;
+    border-color: #F8F8FC;
+    color: $t;
+    border-radius: 72px;
+    font-size: 17px;
+    font-family: $b;
+    font-weight: 800;
+    box-shadow: none !important;
+    &:hover, &:focus, &:active, &:disabled{
+        background-color: darken(#F8F8FC, 10%) !important;
+        border-color: darken(#F8F8FC, 10%) !important;
+        color: $t;
+        outline: none !important;
+    }
+}
+
+.btn-outline-light{
+    padding: 10px 20px;
+    background-color: transparent;
+    color: $wt;
+    border-color: $wt;
+    border-radius: 72px;
+    font-size: 17px;
+    font-family: $b;
+    font-weight: 800;
+    box-shadow: none !important;
+    &:hover, &:focus, &:active, &:disabled{
+        background-color: $wt !important;
+        border-color: $wt !important;
+        color: $pri;
+        outline: none !important;
+    }
+}

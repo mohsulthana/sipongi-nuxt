@@ -1,0 +1,24 @@
+body{
+    font-family: "Roboto", sans-serif;
+    color: #000;
+}
+
+/* js */
+@import "../../node_modules/leaflet.markercluster/dist/MarkerCluster.css";
+@import "../../node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css";
+  
+/* helpers */
+@import "helpers/variable.scss";
+@import "helpers/button.scss";
+@import "helpers/component.scss";
+
+/* layout */
+@import "layout/header.scss";
+@import "layout/footer.scss";
+
+/* per page */
+@import "pages/home.scss";
+@import "pages/grafik.scss";
+@import "pages/blog.scss";
+@import "pages/tentang.scss";
+@import "pages/peta.scss";
