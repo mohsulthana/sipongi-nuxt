@@ -1,12 +1,14 @@
 <template>
-  <b-navbar toggleable="md" :class="[{ 'in-inner': inners },'navbar-home']">
+  <b-navbar toggleable="md" :class="[{ 'in-inner': inners }, 'navbar-home']">
     <b-container>
       <b-navbar-brand href="/">
-        <img src="/logo.svg" alt="">
-        <img src="/logo-text.svg" alt="" class="ml-1">
+        <img src="/logo.svg" alt="" />
+        <img src="/logo-text.svg" alt="" class="ml-1" />
       </b-navbar-brand>
 
-      <b-navbar-toggle target="nav-collapse"><i class="fas fa-bars"></i></b-navbar-toggle>
+      <b-navbar-toggle target="nav-collapse"
+        ><i class="fas fa-bars"></i
+      ></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
         <!-- Left aligned nav items -->
@@ -20,15 +22,15 @@
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <b-nav-item to="/development-center">
-            <img src="/phone-white.svg" alt="" class="mr-1 home">
-            <img src="/phone-red.svg" alt="" class="mr-1 inner"> 
+            <img src="/phone-white.svg" alt="" class="mr-1 home" />
+            <img src="/phone-red.svg" alt="" class="mr-1 inner" />
             Call SiPongi+
           </b-nav-item>
           <b-nav-item-dropdown>
             <template v-slot:button-content>
               Menu Lainnya
-              <img src="/dots.svg" alt="" class="ml-1 home">
-              <img src="/dots-gray.svg" alt="" class="ml-1 inner">
+              <img src="/dots.svg" alt="" class="ml-1 home" />
+              <img src="/dots-gray.svg" alt="" class="ml-1 inner" />
             </template>
             <b-dropdown-item to="#">Menu</b-dropdown-item>
           </b-nav-item-dropdown>
@@ -38,13 +40,11 @@
   </b-navbar>
 </template>
 
-
 <script>
-
 export default {
+  name: 'Header',
   data() {
-    return {
-    }
+    return {}
   },
   mounted() {
     window.addEventListener('scroll', this.handleSCroll)
@@ -53,9 +53,9 @@ export default {
     window.removeEventListener('scroll', this.handleSCroll)
   },
   computed: {
-    inners(){
+    inners() {
       return this.$store.state.head.inner
-    }
+    },
   },
   methods: {
     handleSCroll(event) {

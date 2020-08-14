@@ -1,26 +1,23 @@
-
 export default {
   /*
-  ** Nuxt rendering mode
-  ** See https://nuxtjs.org/api/configuration-mode
-  */
+   ** Nuxt rendering mode
+   ** See https://nuxtjs.org/api/configuration-mode
+   */
   mode: 'universal',
   /*
-  ** Nuxt target
-  ** See https://nuxtjs.org/api/configuration-target
-  */
+   ** Nuxt target
+   ** See https://nuxtjs.org/api/configuration-target
+   */
   target: 'server',
   /*
-  ** Headers of the page
-  ** See https://nuxtjs.org/api/configuration-head
-  */
+   ** Headers of the page
+   ** See https://nuxtjs.org/api/configuration-head
+   */
   head: {
     title: '',
     titleTemplate: (titleChunk) => {
       // If undefined or blank then we don't need the hyphen
-      return titleChunk
-        ? `${titleChunk} - Sipongi+`
-        : 'Sipongi+'
+      return titleChunk ? `${titleChunk} - Sipongi+` : 'Sipongi+'
     },
     meta: [
       { charset: 'utf-8' },
@@ -46,68 +43,122 @@ export default {
       },
       {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Rubik:ital,wght@0,400;0,500;1,700&display=swap',
+        href:
+          'https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Rubik:ital,wght@0,400;0,500;1,700&display=swap',
       },
-    ]
+    ],
   },
   /*
-  ** Global CSS
-  */
+   ** Global CSS
+   */
   css: [
     {
       src: '~/assets/css/app.scss',
     },
   ],
   /*
-  ** Plugins to load before mounting the App
-  ** https://nuxtjs.org/guide/plugins
-  */
+   ** Plugins to load before mounting the App
+   ** https://nuxtjs.org/guide/plugins
+   */
   plugins: [
-    { 
-      src: '~/plugins/vue2-leaflet-markercluster.js', 
-      ssr: false, 
+    {
+      src: '~/plugins/vue2-leaflet-markercluster.js',
+      ssr: false,
     },
     {
       src: '~/plugins/vue-scrollto',
       ssr: true,
     },
+    {
+      src: '~/plugins/leaflet-velocity.js',
+      ssr: false,
+    },
   ],
   /*
-  ** Auto import components
-  ** See https://nuxtjs.org/api/configuration-components
-  */
+   ** Auto import components
+   ** See https://nuxtjs.org/api/configuration-components
+   */
   components: true,
   /*
-  ** Nuxt.js dev-modules
-  */
-  buildModules: [
-  ],
+   ** Nuxt.js dev-modules
+   */
+  buildModules: [],
   /*
-  ** Nuxt.js modules
-  */
+   ** Nuxt.js modules
+   */
   modules: [
     // Doc: https://bootstrap-vue.js.org
     'bootstrap-vue/nuxt',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     // Doc: https://github.com/nuxt-community/dotenv-module
+    '@nuxtjs/proxy',
+    '@nuxtjs/toast',
     '@nuxtjs/dotenv',
     'nuxt-leaflet',
   ],
+
+  toast: {
+    position: 'top-right',
+    iconPack: 'material',
+    register: [
+      // Register custom toasts
+      {
+        name: 'myError',
+        message: (message) => message,
+        options: {
+          type: 'error',
+          icon: 'cancel',
+          theme: 'outline',
+          duration: 3000,
+        },
+      },
+      {
+        name: 'myInfo',
+        message: (message) => message,
+        options: {
+          type: 'info',
+          icon: 'error_outline',
+          theme: 'outline',
+          duration: 3000,
+        },
+      },
+      {
+        name: 'mySuccess',
+        message: (message) => message,
+        options: {
+          type: 'success',
+          icon: 'check_circle_outline',
+          theme: 'outline',
+          duration: 3000,
+        },
+      },
+    ],
+  },
   /*
-  ** Axios module configuration
-  ** See https://axios.nuxtjs.org/options
-  */
+   ** Axios module configuration
+   ** See https://axios.nuxtjs.org/options
+   */
   axios: {
-    baseURL: process.env.API_URL,
-    browserBaseURL: process.env.API_URL
+    proxy: true,
+  },
+
+  proxy: {
+    '/v1': {
+      target: process.env.API_URL,
+      pathRewrite: {
+        '^/v1': '/api',
+      },
+    },
+    '/api': {
+      target: process.env.API_URL,
+    },
   },
   /*
-  ** Build configuration
-  ** See https://nuxtjs.org/api/configuration-build/
-  */
-  build: {
-  },
+   ** Build configuration
+   ** See https://nuxtjs.org/api/configuration-build/
+   */
+  build: {},
 
   server: {
     port: process.env.PORT || 3000, // default: 3000
