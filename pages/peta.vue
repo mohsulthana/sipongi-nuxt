@@ -309,7 +309,7 @@ export default {
     return {
       browser: process.browser,
       centerMap: [-2.548926, 118.0148634],
-      periodeData: 12,
+      periodeData: 24,
       trustData: 80,
       zoom: 5,
       windDir: false,
