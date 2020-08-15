@@ -38,3 +38,118 @@
         }
     }
 }
+
+.page-blog{
+    position: relative;
+    padding-bottom: 100px;
+    .back-link{
+        font-size: 16px;
+        color: rgba($color: #000000, $alpha: 0.6);
+        margin-bottom: 30px;
+        display: inline-block;
+        @media screen and (max-width: 767px){
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        img{
+            margin-right: 5px;
+        }
+        &:hover, &:focus{
+            text-decoration: none;
+        }
+    }
+    .image{
+        width: 100%;
+        height: 370px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        margin-bottom: 30px;
+        @media screen and (max-width: 991px){
+            height: 300px;
+        }
+        @media screen and (max-width: 767px){
+            height: 240px;
+        }
+    }
+    .title{
+        font-size: 30px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        @media screen and (max-width: 991px){
+            font-size: 26px;
+        }
+    }
+    .date{
+        font-size: 18px;
+        color: rgba($color: #66615C, $alpha: 0.6);
+        margin-bottom: 20px;
+        display: block;
+        @media screen and (max-width: 991px){
+            font-size: 15px;
+        }
+    }
+    p{
+        line-height: 1.8;
+        font-size: 18px;
+        margin-bottom: 30px;
+        color: rgba($color: #66615C, $alpha: 1.0);
+        @media screen and (max-width: 991px){
+            font-size: 15px;
+        }
+        @media screen and (max-width: 767px){
+            margin-bottom: 15px;
+        }
+    }
+    .share-wrap{
+        position: fixed;
+        left: 200px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 64px;
+        text-align: center;
+        @media screen and (max-width: 1199px){
+            left: 70px;
+            transform: translateY(0);
+            top: 200px;
+        }
+        @media screen and (max-width: 991px){
+            left: 20px
+        }
+        @media screen and (max-width: 767px){
+            position: relative;
+            left: auto;
+            top: auto;
+            width: auto;
+            display: block;
+            text-align: left;
+        }
+        h6{
+            font-size: 18px;
+            color: rgba($color: #66615C, $alpha: 0.6);
+            margin: 0 0 5px 0;
+            @media screen and (max-width: 991px){
+                font-size: 14px;
+            }
+        }
+        a{
+            display: block;
+            font-size: 31px;
+            color: #000;
+            padding: 5px 0;
+            text-align: center;
+            transition: all 0.3s ease;
+            @media screen and (max-width: 991px){
+                font-size: 24px;
+            }
+            @media screen and (max-width: 767px){
+                display: inline-block;
+                padding: 10px 20px 10px 0;
+            }
+            &:hover, &:focus{
+                cursor: pointer;
+                color: $pri;
+            }
+        }
+    }
+}

@@ -13,6 +13,7 @@
     "@nuxtjs/axios": "^5.11.0",
     "@nuxtjs/proxy": "^2.0.1",
     "@nuxtjs/toast": "^3.3.1",
+    "babel-runtime": "^6.26.0",
     "bootstrap": "^4.5.0",
     "bootstrap-vue": "^2.15.0",
     "chart.js": "^2.9.3",
@@ -22,7 +23,9 @@
     "nuxt-env": "^0.1.0",
     "nuxt-leaflet": "0.0.21",
     "vue-chartjs": "^3.5.0",
+    "vue-markdown": "^2.2.4",
     "vue-scrollto": "^2.18.1",
+    "vue-social-sharing": "^3.0.0-beta.11",
     "vue2-leaflet": "^2.5.2",
     "vue2-leaflet-markercluster": "^3.1.0"
   },

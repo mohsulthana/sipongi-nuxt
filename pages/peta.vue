@@ -14,7 +14,7 @@
       </b-link>
       <b-link class="main link-two" @click="openSidebarTwo">
         <div class="image">
-          <img src="/cowboy-hat.svg" alt="" />
+          <img src="/fire-extinguisher.svg" alt="" />
         </div>
         <h6>Kegiatan Pemadamam</h6>
       </b-link>
@@ -122,46 +122,33 @@
     <div class="map-wrap" style="height: 100vh;">
       <div class="legend-wrap">
         <b-link class="legend-head" @click="toggleOpen">
-          <img src="/windows.svg" alt="" class="hides" />
           <h6>Legenda</h6>
           <img src="/arrow-serong.svg" alt="" class="shown" />
         </b-link>
         <div class="legend-body">
           <div class="legend-item-contain">
+            <p>Tanda yang muncul sesuai hasil prosedur pengendalian kebakaran hutan melalui petugas patroli pencegahan</p>
             <div class="legend-item">
               <img src="/marker-blue.svg" alt="" />
               <h6>Aman</h6>
-              <p>
-                Proin ex ipsum, facilisis id tincidunt sed, vulputate in lacus.
-              </p>
             </div>
             <div class="legend-item">
               <img src="/marker-green.svg" alt="" />
               <h6>Waspada</h6>
-              <p>
-                Proin ex ipsum, facilisis id tincidunt sed, vulputate in lacus.
-              </p>
             </div>
             <div class="legend-item">
               <img src="/marker-yellow.svg" alt="" />
               <h6>Siaga</h6>
-              <p>
-                Proin ex ipsum, facilisis id tincidunt sed, vulputate in lacus.
-              </p>
             </div>
             <div class="legend-item">
               <img src="/marker-red.svg" alt="" />
               <h6>Bahaya</h6>
-              <p>
-                Proin ex ipsum, facilisis id tincidunt sed, vulputate in lacus.
-              </p>
             </div>
           </div>
           <div class="filter-wrap">
             <div class="select-wrap">
               <label class="mr-sm-2">Dengan periode data</label>
               <b-form-select
-                class="mb-2 mr-sm-2 mb-sm-0 big"
                 v-model="periodeData"
                 :options="[
                   { value: 12, text: '12 Jam Terakhir' },
@@ -171,8 +158,12 @@
               ></b-form-select>
             </div>
             <div class="select-wrap">
-              <label class="mr-sm-2">Dengan tingkat kepercayaan</label>
-              <b-form-select
+              <label class="mr-sm-2">Dengan tingkat kepercayaan data</label>
+              <b-form-input id="range-2" v-model="trustData" type="range" min="0" max="2"></b-form-input>
+              <span class="ket">Rendah</span>
+              <span class="ket text-center">Sedang</span>
+              <span class="ket text-right">Tinggi</span>
+              <!-- <b-form-select
                 class="mb-2 mr-sm-2 mb-sm-0"
                 v-model="trustData"
                 :options="[
@@ -181,18 +172,30 @@
                   { value: 60, text: '>= 60%' },
                   { value: 50, text: '>= 50%' },
                 ]"
-              ></b-form-select>
+              ></b-form-select> -->
             </div>
             <div class="select-wrap">
-              <label class="mr-sm-2">Pergerakan Angin</label>
-              <b-form-select
+              <label class="float-left">Pergerakan Angin</label>
+              <b-form-checkbox v-model="windDir" name="check-button" switch class="float-right">
+              </b-form-checkbox>
+              <div class="ket-wind" v-if="windDir">
+                <div class="bar"></div>
+                <span class="speed">0 m/s</span>
+                <span class="speed text-right">40 m/s</span>
+              </div>
+              <!-- <b-form-select
                 class="mb-2 mr-sm-2 mb-sm-0 big"
                 v-model="windDir"
                 :options="[
                   { value: true, text: 'Tampilkan' },
                   { value: false, text: 'Tidak Tampilkan' },
                 ]"
-              ></b-form-select>
+              ></b-form-select> -->
+            </div>
+            <div class="select-wrap mb-0">
+              <label class="float-left">Lokasi Unit Kerja</label>
+              <b-form-checkbox v-model="unitKerja" name="check-button" switch class="float-right">
+              </b-form-checkbox>
             </div>
           </div>
         </div>

@@ -6,10 +6,10 @@
           <b-col md="7">
             <h2>Pemantauan Kebakaran Hutan dan Lahan</h2>
             <h6>Sipongi+ menyajikan data kebakaran hutan dan lahan terkini yang dapat digunakan semua orang di mana saja untuk melindungi hutan dengan lebih baik.</h6>
-            <b-button variant="secondary">
+            <b-link to="/peta" class="btn btn-secondary">
                Jelajahi peringatan kebakaran di peta
                <img src="/mini_arrow_right.svg" alt="">
-            </b-button>
+            </b-link>
           </b-col>
         </b-row>
       </b-container>
@@ -61,7 +61,7 @@
               <div class="info-text">
                 <h3>Lihat peringatan kebakaran di peta</h3>
                 <h6>Lihat peringatan kebakaran di sekitarmu, data diperbarui setiap hari kamu dan kamu dapat mengaksesnya dimanapun</h6>
-                <b-link to="" class="btn btn-secondary">
+                <b-link to="/peta" class="btn btn-secondary">
                   Lihat dipeta
                 <img src="/mini_arrow_right.svg" alt="">
                 </b-link>
@@ -79,7 +79,7 @@
               <div class="info-text">
                 <h3>Dapatkan info kegiatan pemadamam</h3>
                 <h6>Dapatkan berbagai info terbaru seputar pemadaman hutan yang telah dilakukan oleh tim sipongi</h6>
-                <b-link to="" class="btn btn-secondary">
+                <b-link to="/blog" class="btn btn-secondary">
                   Dapatkan info terbaru
                 <img src="/mini_arrow_right.svg" alt="">
                 </b-link>
@@ -97,7 +97,7 @@
               <div class="info-text">
                 <h3>Lihat peringatan kebakaran secara kumulatif</h3>
                 <h6>Bandingkan dengan data kumulatif tahun tahun sebelumnya</h6>
-                <b-link to="" class="btn btn-secondary">
+                <b-link to="/grafik" class="btn btn-secondary">
                   Cari tahu lebih
                 <img src="/mini_arrow_right.svg" alt="">
                 </b-link>

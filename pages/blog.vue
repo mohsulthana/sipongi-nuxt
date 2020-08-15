@@ -15,7 +15,7 @@
       <b-container>
         <b-row>
           <b-col md="4" v-for="blog in blogs" :key="blog.id">
-            <b-link to="" class="blog-item">
+            <b-link :to="'/detail/' + blog.id" class="blog-item">
               <div class="image" :style="{backgroundImage: `url(${ blog.image })`}"></div>
               <h5>{{ blog.title }}</h5>
               <span>{{ blog.date }}</span>

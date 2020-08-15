@@ -73,6 +73,10 @@ export default {
       src: '~/plugins/leaflet-velocity.js',
       ssr: false,
     },
+    {
+      src: '~/plugins/vue-markdown.js',
+      ssr: false,
+    },
   ],
   /*
    ** Auto import components
@@ -96,6 +100,7 @@ export default {
     '@nuxtjs/toast',
     '@nuxtjs/dotenv',
     'nuxt-leaflet',
+    'vue-social-sharing/nuxt'
   ],
 
   toast: {
