@@ -387,6 +387,20 @@ export default {
         this.dataDaops.visible = this.unitKerja
       },
     },
+    btsAdmf: {
+      async handler() {
+        if (this.zoom < 10 || !this.btsAdmf) {
+          this.clusterKabKota.visible = false
+          this.clusterDesa.visible = false
+        } else if (this.zoom >= 10 && this.zoom <= 12) {
+          this.clusterKabKota.visible = true
+          this.clusterDesa.visible = false
+        } else if (this.zoom >= 13) {
+          this.clusterKabKota.visible = false
+          this.clusterDesa.visible = true
+        }
+      },
+    },
     zoom: {
       async handler() {
         if (this.zoom < 10 || !this.btsAdmf) {
