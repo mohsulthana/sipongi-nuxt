@@ -10,7 +10,7 @@
           <img src="/fire.svg" alt="" />
           <span class="notif">{{ totalHotspot }}</span>
         </div>
-        <h6>Peringatan Kebakaran</h6>
+        <h6>Lokasi <br />Titik Panas</h6>
       </b-link>
       <b-link class="main link-two" @click="openSidebarTwo">
         <div class="image">
@@ -33,7 +33,7 @@
           <b-link class="close" @click="openSidebarOne"
             ><i class="fas fa-times"></i
           ></b-link>
-          <h6>Peringatan Kebakaran</h6>
+          <h6>Lokasi Titik Panas</h6>
           <b-link
             :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
             @click="changeSumber('LPN-MODIS')"
@@ -42,28 +42,33 @@
           <b-link
             :class="`status ${checkSumber('LPN-NPP') ? 'active' : ''}`"
             @click="changeSumber('LPN-NPP')"
-            >NPP</b-link
+            >SNPP</b-link
           >
           <b-link
-            :class="`status ${checkSumber('NOAA18') ? 'active' : ''}`"
-            @click="changeSumber('NOAA18')"
-            >NOAA</b-link
+            :class="`status ${checkSumber('LPN-NOAA20') ? 'active' : ''}`"
+            @click="changeSumber('LPN-NOAA20')"
+            >NOAA20</b-link
+          >
+          <b-link
+            :class="`status ${checkSumber('LPN-LANDSAT8') ? 'active' : ''}`"
+            @click="changeSumber('LPN-LANDSAT8')"
+            >LANDSAT8</b-link
           >
         </div>
 
         <div class="content-list">
-          <template v-for="(sumber, index) in DataHotSpot">
-            <template v-for="(kotakab, index2) in sumber">
+          <template v-for="(datas, index) in DataHotSpot.kabkota">
+            <template v-for="(kotakab, index2) in datas">
               <b-link
                 class="list-item"
-                v-if="checkSumber(index)"
-                @click="changeCenter(kotakab[0])"
+                v-if="checkSumber(kotakab.data.sumber)"
+                @click="changeCenter(kotakab.data)"
               >
                 <h6>
-                  {{ kotakab[0].kabkota }} - {{ kotakab[0].nama_provinsi }}
+                  {{ kotakab.data.kabkota }} - {{ kotakab.data.nama_provinsi }}
                 </h6>
-                <p>Terra/Aqua</p>
-                <span class="count">{{ kotakab.length }}</span>
+                <p>{{ kotakab.data.ori_sumber }}</p>
+                <span class="count">{{ kotakab.count }}</span>
               </b-link>
             </template>
           </template>
@@ -127,7 +132,10 @@
         </b-link>
         <div class="legend-body">
           <div class="legend-item-contain">
-            <p>Tanda yang muncul sesuai hasil prosedur pengendalian kebakaran hutan melalui petugas patroli pencegahan</p>
+            <p>
+              Tanda yang muncul sesuai hasil prosedur pengendalian kebakaran
+              hutan melalui petugas patroli pencegahan
+            </p>
             <div class="legend-item">
               <img src="/marker-blue.svg" alt="" />
               <h6>Aman</h6>
@@ -159,42 +167,50 @@
             </div>
             <div class="select-wrap">
               <label class="mr-sm-2">Dengan tingkat kepercayaan data</label>
-              <b-form-input id="range-2" v-model="trustData" type="range" min="0" max="2"></b-form-input>
+              <b-form-input
+                id="range-2"
+                v-model="trustData"
+                type="range"
+                min="0"
+                max="2"
+              ></b-form-input>
               <span class="ket">Rendah</span>
               <span class="ket text-center">Sedang</span>
               <span class="ket text-right">Tinggi</span>
-              <!-- <b-form-select
-                class="mb-2 mr-sm-2 mb-sm-0"
-                v-model="trustData"
-                :options="[
-                  { value: 80, text: '>= 80%' },
-                  { value: 70, text: '>= 70%' },
-                  { value: 60, text: '>= 60%' },
-                  { value: 50, text: '>= 50%' },
-                ]"
-              ></b-form-select> -->
             </div>
             <div class="select-wrap">
               <label class="float-left">Pergerakan Angin</label>
-              <b-form-checkbox v-model="windDir" name="check-button" switch class="float-right">
+              <b-form-checkbox
+                v-model="windDir"
+                name="check-button"
+                switch
+                class="float-right"
+              >
               </b-form-checkbox>
               <div class="ket-wind" v-if="windDir">
                 <div class="bar"></div>
                 <span class="speed">0 m/s</span>
                 <span class="speed text-right">40 m/s</span>
               </div>
-              <!-- <b-form-select
-                class="mb-2 mr-sm-2 mb-sm-0 big"
-                v-model="windDir"
-                :options="[
-                  { value: true, text: 'Tampilkan' },
-                  { value: false, text: 'Tidak Tampilkan' },
-                ]"
-              ></b-form-select> -->
+            </div>
+            <div class="select-wrap">
+              <label class="float-left">Lokasi Unit Kerja</label>
+              <b-form-checkbox
+                v-model="unitKerja"
+                name="check-button"
+                switch
+                class="float-right"
+              >
+              </b-form-checkbox>
             </div>
             <div class="select-wrap mb-0">
-              <label class="float-left">Lokasi Unit Kerja</label>
-              <b-form-checkbox v-model="unitKerja" name="check-button" switch class="float-right">
+              <label class="float-left">Batas Administratif</label>
+              <b-form-checkbox
+                v-model="btsAdmf"
+                name="check-button"
+                switch
+                class="float-right"
+              >
               </b-form-checkbox>
             </div>
           </div>
@@ -207,95 +223,45 @@
           :maxZoom="17"
           :zoom="zoom"
           :center="centerMap"
+          :options="optionMaps"
+          @update:zoom="zoomUpdated"
         >
           <l-tile-layer
             url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
           ></l-tile-layer>
           <l-layer-group>
-            <l-geo-json :geojson="geojson"></l-geo-json>
+            <l-geo-json
+              :geojson="clusterKabKota.data"
+              :visible="clusterKabKota.visible"
+              :options="optionsKabKota"
+              :options-style="styleFunction"
+            ></l-geo-json>
+          </l-layer-group>
+          <l-layer-group>
+            <l-geo-json
+              :geojson="clusterDesa.data"
+              :visible="clusterDesa.visible"
+              :options="optionsDesa"
+              :options-style="styleFunction"
+            ></l-geo-json>
           </l-layer-group>
           <l-layer-group>
             <leaflet-velocity
-              v-if="!$fetchState.pending"
+              v-if="OptWind.data.length > 0"
               :options="OptWind"
               :visible="windDir"
             ></leaflet-velocity>
           </l-layer-group>
           <l-layer-group>
-            <v-marker-cluster>
-              <template v-for="(sumber, index) in DataHotSpot">
-                <template v-for="(kotakab, index2) in sumber">
-                  <template v-for="(marker, index3) in kotakab">
-                    <l-marker
-                      :lat-lng="[marker.lat, marker.long]"
-                      :icon="getIcon(marker)"
-                      :visible="checkSumber(index)"
-                    >
-                      <l-popup>
-                        <b-table-simple small striped responsive>
-                          <b-tbody>
-                            <b-tr>
-                              <b-th>Sumber</b-th>
-                              <b-td>{{ marker.ori_sumber }}</b-td>
-                            </b-tr>
-                            <b-tr>
-                              <b-th>Latitude</b-th>
-                              <b-td>{{ marker.lat }}</b-td>
-                            </b-tr>
-                            <b-tr>
-                              <b-th>Longitude</b-th>
-                              <b-td>{{ marker.long }}</b-td>
-                            </b-tr>
-                            <b-tr>
-                              <b-th>Tanggal</b-th>
-                              <b-td>{{ marker.date_hotspot }}</b-td>
-                            </b-tr>
-                            <b-tr>
-                              <b-th>Kepercayaan</b-th>
-                              <b-td>{{ marker.confidence }}%</b-td>
-                            </b-tr>
-                            <b-tr>
-                              <b-th>Kawasan</b-th>
-                              <b-td>{{
-                                marker.kawasan !== '' ? marker.kawasan : '-'
-                              }}</b-td>
-                            </b-tr>
-                            <b-tr>
-                              <b-th>Desa</b-th>
-                              <b-td>{{
-                                marker.desa !== '' ? marker.desa : '-'
-                              }}</b-td>
-                            </b-tr>
-                            <b-tr>
-                              <b-th>Kecamatan</b-th>
-                              <b-td>{{
-                                marker.kecamatan !== '' ? marker.kecamatan : '-'
-                              }}</b-td>
-                            </b-tr>
-                            <b-tr>
-                              <b-th>Kota/Kabupaten</b-th>
-                              <b-td>{{
-                                marker.kabkota !== '' ? marker.kabkota : '-'
-                              }}</b-td>
-                            </b-tr>
-                            <b-tr>
-                              <b-th>Provinsi</b-th>
-                              <b-td>{{
-                                marker.nama_provinsi !== ''
-                                  ? marker.nama_provinsi
-                                  : '-'
-                              }}</b-td>
-                            </b-tr>
-                          </b-tbody>
-                        </b-table-simple>
-                      </l-popup>
-                    </l-marker>
-                  </template>
-                </template>
-              </template>
-            </v-marker-cluster>
+            <l-geo-json
+              :geojson="dataDaops.data"
+              :visible="dataDaops.visible"
+              :options="optionsDaops"
+            ></l-geo-json>
           </l-layer-group>
-          <!-- <l-polygon :lat-lngs="polygon.latlngs" :color="polygon.color" /> -->
+          <l-layer-group>
+            <v-marker-cluster ref="markerCluster"></v-marker-cluster>
+          </l-layer-group>
         </l-map>
       </client-only>
     </div>
@@ -308,19 +274,35 @@ export default {
     await this.loadHotSpot()
     await this.loadWind()
   },
+  fetchOnServer: false,
   data() {
     return {
       browser: process.browser,
       centerMap: [-2.548926, 118.0148634],
       periodeData: 24,
-      trustData: 80,
+      trustData: 2,
       zoom: 5,
       windDir: false,
-      DataHotSpot: [],
-      totals: [],
-      sumber: [],
-      chkSumber: ['LPN-MODIS', 'LPN-NPP', 'NOAA18'],
-      geojson: null,
+      unitKerja: false,
+      btsAdmf: false,
+      DataHotSpot: {},
+      chkSumber: ['LPN-MODIS', 'LPN-NPP', 'LPN-NOAA20', 'LPN-LANDSAT8'],
+      clusterKabKota: {
+        data: null,
+        visible: false,
+        oldId: null,
+      },
+      clusterDesa: {
+        data: null,
+        visible: false,
+        oldId: null,
+      },
+      dataDaops: {
+        data: null,
+        visible: false,
+        loadData: false,
+      },
+      geoJsonLayerMarker: null,
       OptWind: {
         displayValues: true,
         displayOptions: {
@@ -332,13 +314,8 @@ export default {
         velocityScale: 0.015,
         maxVelocity: 10,
       },
-      polygon: {
-        latlngs: [
-          [-6.890985, 107.586215],
-          [-6.893999, 107.582707],
-          [-6.893988, 107.588222],
-        ],
-        color: '#ff00ff',
+      optionMaps: {
+        doubleClickZoom: false,
       },
       blogs: [
         {
@@ -397,6 +374,33 @@ export default {
         await this.loadHotSpot()
       },
     },
+    chkSumber: {
+      async handler() {
+        await this.loadMarker()
+      },
+    },
+    unitKerja: {
+      async handler() {
+        if (!this.dataDaops.loadData && this.unitKerja) {
+          await this.loadDaops()
+        }
+        this.dataDaops.visible = this.unitKerja
+      },
+    },
+    zoom: {
+      async handler() {
+        if (this.zoom < 10 || !this.btsAdmf) {
+          this.clusterKabKota.visible = false
+          this.clusterDesa.visible = false
+        } else if (this.zoom >= 10 && this.zoom <= 12) {
+          this.clusterKabKota.visible = true
+          this.clusterDesa.visible = false
+        } else if (this.zoom >= 13) {
+          this.clusterKabKota.visible = false
+          this.clusterDesa.visible = true
+        }
+      },
+    },
   },
   computed: {
     redIcon() {
@@ -431,21 +435,133 @@ export default {
         iconSize: [40, 40],
       })
     },
+    unitIcon() {
+      let icon = () => {}
+      if (process.browser) icon = this.$L.icon
+      return icon({
+        iconUrl: '/marker-unit.svg',
+        iconSize: [40, 40],
+      })
+    },
     totalHotspot() {
-      let datas = this.totals
+      let datas = this.DataHotSpot.totals
       let sum = 0
 
-      Object.keys(datas).forEach((key) => {
-        let index = this.chkSumber.indexOf(key)
-        if (index >= 0) {
-          sum += datas[key]
-        }
-      })
+      if (datas) {
+        Object.keys(datas).forEach((key) => {
+          let index = this.chkSumber.indexOf(key)
+          if (index >= 0) {
+            sum += datas[key]
+          }
+        })
+      }
 
       return sum
     },
+    optionsDaops() {
+      let self = this
+      return {
+        onEachFeature: this.onEachFeatureDaops,
+        pointToLayer: function (feature, latlng) {
+          let marker = self.$L.marker(latlng, {
+            icon: self.unitIcon,
+          })
+
+          marker.on('dblclick', function (e) {
+            self.$refs.mapSipongi.mapObject.setView(e.latlng, 13)
+          })
+
+          return marker
+        },
+      }
+    },
+    onEachFeatureDaops() {
+      return (feature, layer) => {
+        let popupHtml = `<div class='table-responsive'><table class='table b-table table-striped table-sm'>`
+        popupHtml += `<tbody>`
+        popupHtml += `<tr><th>Kode</th><td>${
+          feature.properties.kode_daops !== ''
+            ? feature.properties.kode_daops
+            : '-'
+        }</td></tr>`
+        popupHtml += `<tr><th>Nama</th><td>${
+          feature.properties.nama_daops !== ''
+            ? feature.properties.nama_daops
+            : '-'
+        }</td></tr>`
+        popupHtml += `<tr><th>Alamat</th><td>${
+          feature.properties.alamat !== '' ? feature.properties.alamat : '-'
+        }</td></tr>`
+        popupHtml += `<tr><th>Telepon</th><td>${
+          feature.properties.telepon !== '' ? feature.properties.telepon : '-'
+        }</td></tr>`
+        popupHtml += `</tbody>`
+        popupHtml += `</table></div>`
+        layer.bindPopup(popupHtml)
+      }
+    },
+    optionsDesa() {
+      return {
+        onEachFeature: this.onEachFeatureDesa,
+      }
+    },
+    onEachFeatureDesa() {
+      return (feature, layer) => {
+        let popupHtml = `<div class='table-responsive'><table class='table b-table table-striped table-sm'>`
+        popupHtml += `<tbody>`
+        popupHtml += `<tr><th>Desa</th><td>${
+          feature.properties.desa !== '' ? feature.properties.desa : '-'
+        }</td></tr>`
+        popupHtml += `<tr><th>Kecamatan</th><td>${
+          feature.properties.kec !== '' ? feature.properties.kec : '-'
+        }</td></tr>`
+        popupHtml += `<tr><th>Kota/Kabupaten</th><td>${
+          feature.properties.kabkota !== '' ? feature.properties.kabkota : '-'
+        }</td></tr>`
+        popupHtml += `<tr><th>Provinsi</th><td>${
+          feature.properties.provinsi !== '' ? feature.properties.provinsi : '-'
+        }</td></tr>`
+        popupHtml += `</tbody>`
+        popupHtml += `</table></div>`
+        layer.bindPopup(popupHtml)
+      }
+    },
+    optionsKabKota() {
+      return {
+        onEachFeature: this.onEachFeatureKabKota,
+      }
+    },
+    onEachFeatureKabKota() {
+      return (feature, layer) => {
+        let popupHtml = `<div class='table-responsive'><table class='table b-table table-striped table-sm'>`
+        popupHtml += `<tbody>`
+        popupHtml += `<tr><th>Kota/Kabupaten</th><td>${
+          feature.properties.nama !== '' ? feature.properties.nama : '-'
+        }</td></tr>`
+        popupHtml += `<tr><th>Provinsi</th><td>${
+          feature.properties.provinsi !== '' ? feature.properties.provinsi : '-'
+        }</td></tr>`
+        popupHtml += `</tbody>`
+        popupHtml += `</table></div>`
+        layer.bindPopup(popupHtml)
+      }
+    },
+    styleFunction() {
+      return () => {
+        return {
+          weight: 2,
+          color: '#d36301',
+          opacity: 1,
+          fillColor: '#d36301',
+          fillOpacity: 0.15,
+        }
+      }
+    },
   },
   methods: {
+    zoomUpdated(zoom) {
+      this.zoom = zoom
+    },
     changeSumber(val) {
       let index = this.chkSumber.indexOf(val)
       if (index < 0) {
@@ -458,8 +574,22 @@ export default {
       return this.chkSumber.indexOf(val) >= 0
     },
     changeCenter(item) {
-      console.log(this.totalHotspot)
-      this.$refs.mapSipongi.mapObject.setView([item.latcen, item.longcen], 8)
+      this.$refs.mapSipongi.mapObject.setView([item.latcen, item.longcen], 10)
+      if (this.btsAdmf) {
+        this.loadClusterKabKota(item)
+      } else {
+        this.clusterKabKota.visible = false
+        this.clusterDesa.visible = false
+      }
+    },
+    changeCenterMarker(e, item) {
+      this.$refs.mapSipongi.mapObject.setView(e.latlng, 13)
+      if (this.btsAdmf) {
+        this.loadClusterDesa(item)
+      } else {
+        this.clusterKabKota.visible = false
+        this.clusterDesa.visible = false
+      }
     },
     getIcon(item) {
       if (item.counter <= 1) {
@@ -482,12 +612,131 @@ export default {
             confidence: this.trustData,
           },
         })
-        .then(({ data, totals }) => {
+        .then(({ data }) => {
           this.DataHotSpot = data
-          this.totals = totals
-          this.$refs.mapSipongi.mapObject.setView([-2.548926, 118.0148634], 5)
+          this.loadMarker()
         })
         .catch((err) => {})
+    },
+    async loadMarker() {
+      if (this.geoJsonLayerMarker) {
+        this.$refs.markerCluster.mapObject.removeLayer(this.geoJsonLayerMarker)
+      }
+      let self = this
+      this.geoJsonLayerMarker = this.$L.geoJson(this.DataHotSpot, {
+        onEachFeature: function (feature, layer) {
+          let popupHtml = `<div class='table-responsive'><table class='table b-table table-striped table-sm'>`
+          popupHtml += `<tbody>`
+          popupHtml += `<tr><th>Tanggal</th><td>${feature.properties.date_hotspot}</td></tr>`
+          popupHtml += `<tr><th>Sumber</th><td>${feature.properties.ori_sumber}</td></tr>`
+          popupHtml += `<tr><th>Latitude</th><td>${feature.properties.lat}</td></tr>`
+          popupHtml += `<tr><th>Longitude</th><td>${feature.properties.long}</td></tr>`
+          popupHtml += `<tr><th>Kepercayaan</th><td>${
+            feature.properties.confidence_level === 'low'
+              ? 'Rendah'
+              : feature.properties.confidence_level === 'medium'
+              ? 'Sedang'
+              : feature.properties.confidence_level === 'high'
+              ? 'Tinggi'
+              : '-'
+          }</td></tr>`
+          popupHtml += `<tr><th>Kawasan</th><td>${
+            feature.properties.kawasan !== '' ? feature.properties.kawasan : '-'
+          }</td></tr>`
+          popupHtml += `<tr><th>Desa</th><td>${
+            feature.properties.desa !== '' ? feature.properties.desa : '-'
+          }</td></tr>`
+          popupHtml += `<tr><th>Kecamatan</th><td>${
+            feature.properties.kecamatan !== ''
+              ? feature.properties.kecamatan
+              : '-'
+          }</td></tr>`
+          popupHtml += `<tr><th>Kota/Kabupaten</th><td>${
+            feature.properties.kabkota !== '' ? feature.properties.kabkota : '-'
+          }</td></tr>`
+          popupHtml += `<tr><th>Provinsi</th><td>${
+            feature.properties.nama_provinsi !== ''
+              ? feature.properties.nama_provinsi
+              : '-'
+          }</td></tr>`
+          popupHtml += `</tbody>`
+          popupHtml += `</table></div>`
+          layer.bindPopup(popupHtml)
+        },
+        pointToLayer: function (feature, latlng) {
+          let marker = self.$L.marker(latlng, {
+            icon: self.getIcon(feature.properties),
+          })
+
+          marker.on('dblclick', function (e) {
+            self.changeCenterMarker(e, feature.properties)
+          })
+
+          return marker
+        },
+        filter: function (feature, layer) {
+          return self.checkSumber(feature.properties.sumber)
+        },
+      })
+      this.$refs.markerCluster.mapObject.addLayer(this.geoJsonLayerMarker)
+      this.$refs.mapSipongi.mapObject.setView([-2.548926, 118.0148634], 5)
+      this.$refs.mapSipongi.mapObject.doubleClickZoom = false
+    },
+    async loadClusterKabKota(item) {
+      if (this.clusterKabKota.oldId !== item.kotakab_id) {
+        const url = !process.server ? `/v1/getCluster` : `/api/getCluster`
+        this.clusterKabKota.visible = false
+        this.clusterKabKota.oldId = item.kotakab_id
+        await this.$axios
+          .$get(url, {
+            params: {
+              kotakab_id: item.kotakab_id,
+            },
+          })
+          .then((data) => {
+            this.clusterKabKota.data = data
+          })
+          .catch((err) => {})
+          .finally(() => {
+            this.clusterKabKota.visible = true
+          })
+      }
+    },
+    async loadClusterDesa(item) {
+      if (this.clusterDesa.oldId !== item.desa_id) {
+        const url = !process.server
+          ? `/v1/getClusterDesa`
+          : `/api/getClusterDesa`
+        this.clusterDesa.visible = false
+        this.clusterDesa.oldId = item.desa_id
+        await this.$axios
+          .$get(url, {
+            params: {
+              desa_id: item.desa_id,
+            },
+          })
+          .then((data) => {
+            this.clusterDesa.data = data
+          })
+          .catch((err) => {})
+          .finally(() => {
+            this.clusterDesa.visible = true
+          })
+      }
+    },
+    async loadDaops(item) {
+      const url = !process.server ? `/v1/daops/all` : `/api/daops/all`
+      this.dataDaops.visible = false
+      await this.$axios
+        .$get(url)
+        .then(({ data }) => {
+          this.dataDaops.data = data
+          this.dataDaops.loadData = true
+        })
+        .catch((err) => {})
+        .finally(() => {
+          this.dataDaops.visible = true
+        })
     },
     async loadWind() {
       const url = !process.server ? `/v1/gfs` : `/api/gfs`
