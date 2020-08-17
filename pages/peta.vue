@@ -77,7 +77,7 @@
 
       <div class="sidebar-slide sidebar-two big">
         <div class="content-head">
-          <b-link class="close" @click="openSidebarThree"
+          <b-link class="close" @click="openSidebarTwo"
             ><i class="fas fa-times"></i
           ></b-link>
           <h6>Kegiatan Pemadaman</h6>
@@ -102,7 +102,7 @@
 
       <div class="sidebar-slide sidebar-three">
         <div class="content-head">
-          <b-link class="close" @click="openSidebarTwo"
+          <b-link class="close" @click="openSidebarThree"
             ><i class="fas fa-times"></i
           ></b-link>
           <h6>Cari</h6>
@@ -125,23 +125,21 @@
           <b-form-select
             v-model="cariProvinsi"
             class="mb-3 form-control"
-            :options="[
-              { id: 12, text: 'Jawa Barat' },
-              { id: 24, text: 'Jawa Tengah' },
-              { id: 42, text: 'Jawa Timur' },
-            ]"
+            value-field="id"
+            text-field="nama_provinsi"
+            :options="provs"
           ></b-form-select>
           <label for="">Pilih Kota/Kabupaten</label>
           <b-form-select
             v-model="cariKota"
             class="form-control"
-            :options="[
-              { id: 12, text: 'Kota Bandung' },
-              { id: 24, text: 'Kota Cimahi' },
-              { id: 42, text: 'Kabupaten Bandung' },
-            ]"
+            value-field="id"
+            text-field="nama"
+            :disabled="
+              provs.length <= 0 || !cariProvinsi || kotakabs.length <= 1
+            "
+            :options="kotakabs"
           ></b-form-select>
-          
         </div>
       </div>
     </div>
@@ -289,7 +287,10 @@
     <div class="splash-screen" v-if="loading">
       <div class="wrap">
         <h4>Mohon Tunggu Sebentar</h4>
-        <b-spinner style="width: 3rem; height: 3rem;" label="Large Spinner"></b-spinner>
+        <b-spinner
+          style="width: 3rem; height: 3rem;"
+          label="Large Spinner"
+        ></b-spinner>
       </div>
     </div>
   </div>
@@ -299,6 +300,10 @@
 export default {
   async fetch() {
     await this.loadHotSpot()
+    if (this.firstLoad) {
+      await this.cmbProvs()
+    }
+
     await this.loadWind()
   },
   fetchOnServer: false,
@@ -344,6 +349,17 @@ export default {
       optionMaps: {
         doubleClickZoom: false,
       },
+      loading: false,
+      cariKota: null,
+      cariProvinsi: null,
+      provs: [],
+      kotakabs: [
+        {
+          id: null,
+          nama: 'Pilih Kota/Kabupaten',
+        },
+      ],
+      firstLoad: true,
       blogs: [
         {
           id: 1,
@@ -388,9 +404,6 @@ export default {
           date: '23 Sep 2020',
         },
       ],
-      loading: false,
-      cariKota: null,
-      cariProvinsi: null,
     }
   },
   watch: {
@@ -407,6 +420,27 @@ export default {
     chkSumber: {
       async handler() {
         await this.loadMarker()
+      },
+    },
+    cariProvinsi: {
+      async handler() {
+        this.kotakabs = [
+          {
+            id: null,
+            nama: 'Pilih Kota/Kabupaten',
+          },
+        ]
+        this.cariKota = null
+        if (this.cariProvinsi) {
+          await this.cmbKotaKab()
+        }
+      },
+    },
+    cariKota: {
+      async handler() {
+        if (this.cariKota) {
+          await this.loadClusterKabKota(this.cariKota)
+        }
       },
     },
     unitKerja: {
@@ -618,10 +652,10 @@ export default {
       return this.chkSumber.indexOf(val) >= 0
     },
     changeCenter(item) {
-      this.$refs.mapSipongi.mapObject.setView([item.latcen, item.longcen], 10)
       if (this.btsAdmf) {
-        this.loadClusterKabKota(item)
+        this.loadClusterKabKota(item.kotakab_id)
       } else {
+        this.$refs.mapSipongi.mapObject.setView([item.latcen, item.longcen], 10)
         this.clusterKabKota.visible = false
         this.clusterDesa.visible = false
       }
@@ -648,6 +682,7 @@ export default {
     },
     async loadHotSpot() {
       const url = !process.server ? `/v1/indoHotspot` : `/api/indoHotspot`
+      this.loading = true
 
       await this.$axios
         .$get(url, {
@@ -661,6 +696,9 @@ export default {
           this.loadMarker()
         })
         .catch((err) => {})
+        .finally(() => {
+          this.loading = false
+        })
     },
     async loadMarker() {
       if (this.geoJsonLayerMarker) {
@@ -726,51 +764,59 @@ export default {
       this.$refs.mapSipongi.mapObject.setView([-2.548926, 118.0148634], 5)
       this.$refs.mapSipongi.mapObject.doubleClickZoom = false
     },
-    async loadClusterKabKota(item) {
-      if (this.clusterKabKota.oldId !== item.kotakab_id) {
-        const url = !process.server ? `/v1/getCluster` : `/api/getCluster`
+    async loadClusterKabKota(kotakab_id) {
+      if (this.clusterKabKota.oldId !== kotakab_id) {
+        const url = !process.server
+          ? `/v1/getCluster/${kotakab_id}/kotakab`
+          : `/api/getCluster/${kotakab_id}/kotakab`
         this.clusterKabKota.visible = false
-        this.clusterKabKota.oldId = item.kotakab_id
+        this.clusterKabKota.oldId = kotakab_id
+        this.loading = true
+
         await this.$axios
-          .$get(url, {
-            params: {
-              kotakab_id: item.kotakab_id,
-            },
-          })
+          .$get(url)
           .then((data) => {
-            this.clusterKabKota.data = data
+            this.$refs.mapSipongi.mapObject.setView(
+              [data.center[1], data.center[0]],
+              10
+            )
+            let self = this
+            setTimeout(function () {
+              self.clusterKabKota.data = data
+              self.clusterKabKota.visible = true
+            }, 500)
           })
           .catch((err) => {})
           .finally(() => {
-            this.clusterKabKota.visible = true
+            this.loading = false
           })
       }
     },
     async loadClusterDesa(item) {
       if (this.clusterDesa.oldId !== item.desa_id) {
         const url = !process.server
-          ? `/v1/getClusterDesa`
-          : `/api/getClusterDesa`
+          ? `/v1/getCluster/${item.desa_id}/desa`
+          : `/api/getCluster/${item.desa_id}/desa`
         this.clusterDesa.visible = false
         this.clusterDesa.oldId = item.desa_id
+        this.loading = true
+
         await this.$axios
-          .$get(url, {
-            params: {
-              desa_id: item.desa_id,
-            },
-          })
+          .$get(url)
           .then((data) => {
             this.clusterDesa.data = data
           })
           .catch((err) => {})
           .finally(() => {
             this.clusterDesa.visible = true
+            this.loading = false
           })
       }
     },
     async loadDaops(item) {
       const url = !process.server ? `/v1/daops/all` : `/api/daops/all`
       this.dataDaops.visible = false
+      this.loading = true
       await this.$axios
         .$get(url)
         .then(({ data }) => {
@@ -780,6 +826,7 @@ export default {
         .catch((err) => {})
         .finally(() => {
           this.dataDaops.visible = true
+          this.loading = false
         })
     },
     async loadWind() {
@@ -791,6 +838,50 @@ export default {
           this.OptWind.data = res
         })
         .catch((err) => {})
+        .finally(() => {})
+    },
+    async cmbProvs() {
+      const url = !process.server
+        ? `/v1/getProvinsi/all`
+        : `/api/getProvinsi/all`
+      this.loading = true
+
+      await this.$axios
+        .$get(url)
+        .then((data) => {
+          this.provs = [
+            {
+              id: null,
+              nama_provinsi: 'Pilih Provinsi',
+            },
+          ]
+          Array.prototype.push.apply(this.provs, data)
+        })
+        .catch((err) => {})
+        .finally(() => {
+          this.loading = false
+          this.firstLoad = false
+        })
+    },
+    async cmbKotaKab() {
+      const url = !process.server
+        ? `/v1/getKotaKab/${this.cariProvinsi}`
+        : `/api/getKotaKab/${this.cariProvinsi}`
+
+      await this.$axios
+        .$get(url)
+        .then((data) => {
+          const datas = [
+            {
+              id: null,
+              nama: 'Pilih Kota/Kabupaten',
+            },
+          ]
+          Array.prototype.push.apply(datas, data)
+          this.kotakabs = datas
+        })
+        .catch((err) => {})
+        .finally(() => {})
     },
     toggleOpen() {
       var legend = document.querySelector('.legend-wrap')
