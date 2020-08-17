@@ -110,7 +110,7 @@
         </div>
 
         <div class="content-list">
-          <input
+          <!-- <input
             type="search"
             class="form-control search"
             name=""
@@ -120,7 +120,28 @@
           <p class="not-found">
             Masukkan pencarian dan tekan enter untuk menemukan dataset atau
             lokasi …
-          </p>
+          </p> -->
+          <label for="">Pilih Provinsi</label>
+          <b-form-select
+            v-model="cariProvinsi"
+            class="mb-3 form-control"
+            :options="[
+              { id: 12, text: 'Jawa Barat' },
+              { id: 24, text: 'Jawa Tengah' },
+              { id: 42, text: 'Jawa Timur' },
+            ]"
+          ></b-form-select>
+          <label for="">Pilih Kota/Kabupaten</label>
+          <b-form-select
+            v-model="cariKota"
+            class="form-control"
+            :options="[
+              { id: 12, text: 'Kota Bandung' },
+              { id: 24, text: 'Kota Cimahi' },
+              { id: 42, text: 'Kabupaten Bandung' },
+            ]"
+          ></b-form-select>
+          
         </div>
       </div>
     </div>
@@ -265,6 +286,12 @@
         </l-map>
       </client-only>
     </div>
+    <div class="splash-screen" v-if="loading">
+      <div class="wrap">
+        <h4>Mohon Tunggu Sebentar</h4>
+        <b-spinner style="width: 3rem; height: 3rem;" label="Large Spinner"></b-spinner>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -361,6 +388,9 @@ export default {
           date: '23 Sep 2020',
         },
       ],
+      loading: false,
+      cariKota: null,
+      cariProvinsi: null,
     }
   },
   watch: {

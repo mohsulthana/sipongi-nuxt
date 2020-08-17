@@ -158,15 +158,23 @@
                     border-top: 1px solid rgba($color: #66615C, $alpha: 0.12);
                 }
             }
-            .search{
+            label{
+                font-size: 12px;
+            }
+            .form-control{
                 font-size: 13px;
                 padding: 13px 15px;
                 border-radius: 8px;
                 height: auto;
                 border: none;
-                background-image: url('/search.svg');
+                appearance: none;
+                background-image: url('/mini_arrow_gray.svg');
                 background-repeat: no-repeat;
                 background-position: right 10px center;
+                &:hover, &:focus{
+                    outline: none;
+                    box-shadow: none;
+                }
             }
             .not-found{
                 text-align: center;
@@ -383,7 +391,7 @@
                 }
             }
             .legend-body{
-                max-height: 480px;
+                max-height: 505px;
                 overflow: hidden;
             }
         }
