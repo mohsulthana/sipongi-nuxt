@@ -70,3 +70,8 @@ export default {
   },
 }
 </script>
+<style lang="scss">
+.leaflet-control-velocity {
+  color: #fff;
+}
+</style>
