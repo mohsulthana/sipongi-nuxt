@@ -289,7 +289,10 @@
             ></l-geo-json>
           </l-layer-group>
           <l-layer-group>
-            <v-marker-cluster ref="markerCluster"></v-marker-cluster>
+            <v-marker-cluster
+              ref="markerCluster"
+              :options="optionsMarkerClaster"
+            ></v-marker-cluster>
           </l-layer-group>
         </l-map>
       </client-only>
@@ -635,6 +638,18 @@ export default {
           fillColor: '#d36301',
           fillOpacity: 0.15,
         }
+      }
+    },
+    optionsMarkerClaster() {
+      return {
+        iconCreateFunction: this.iconCreateFunction,
+      }
+    },
+    iconCreateFunction(cluster) {
+      return (cluster) => {
+        return this.$L.divIcon({
+          html: '<div>' + cluster.getChildCount() + '</div>',
+        })
       }
     },
   },
