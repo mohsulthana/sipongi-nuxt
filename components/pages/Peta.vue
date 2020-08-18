@@ -255,7 +255,7 @@
               [1021.5, 1023],
             ]"
             :bubblingMouseEvents="false"
-            :opacity="0.6"
+            :opacity="0.4"
             :visible="windDir"
           />
           <l-layer-group>
