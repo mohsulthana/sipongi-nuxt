@@ -247,12 +247,11 @@
         >
           <l-tile-layer
             url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
-            :visible="!windDir"
           ></l-tile-layer>
-          <l-tile-layer
+          <!-- <l-tile-layer
             url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
             :visible="windDir"
-          ></l-tile-layer>
+          ></l-tile-layer> -->
           <l-layer-group>
             <l-geo-json
               :geojson="clusterKabKota.data"
