@@ -44,6 +44,9 @@ export default {
       if (this.$parent._isMounted) {
         this.deferredMountedTo(this.$parent.mapObject)
       }
+      this.$nextTick(() => {
+        this.$emit('ready', this.$parent.mapObject)
+      })
     }
   },
 

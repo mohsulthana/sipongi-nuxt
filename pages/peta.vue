@@ -283,7 +283,10 @@
             ></l-geo-json>
           </l-layer-group>
           <l-layer-group>
-            <v-marker-cluster ref="markerCluster"></v-marker-cluster>
+            <v-marker-cluster
+              ref="markerCluster"
+              @ready="loadHotSpot()"
+            ></v-marker-cluster>
           </l-layer-group>
         </l-map>
       </client-only>
@@ -303,7 +306,7 @@
 <script>
 export default {
   async fetch() {
-    await this.loadHotSpot()
+    // await this.loadHotSpot()
     if (this.firstLoad) {
       await this.cmbProvs()
     }
