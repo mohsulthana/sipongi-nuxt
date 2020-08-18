@@ -248,10 +248,16 @@
           <l-tile-layer
             url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
           ></l-tile-layer>
-          <!-- <l-tile-layer
-            url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
+          <l-image-overlay
+            url="/gelap.png"
+            :bounds="[
+              [-26.5, -25],
+              [1021.5, 1023],
+            ]"
+            :bubblingMouseEvents="false"
+            :opacity="0.6"
             :visible="windDir"
-          ></l-tile-layer> -->
+          />
           <l-layer-group>
             <l-geo-json
               :geojson="clusterKabKota.data"
