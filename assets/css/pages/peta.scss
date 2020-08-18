@@ -363,6 +363,32 @@
                         background-color: #D36301;
                         border-color: #D36301;
                     }
+                    .custom-checkbox{
+                        display: inline-block;
+                        margin-right: 4px;
+                        .custom-control-label{
+                            &::before, &::after{
+                                top: 0;
+                            }
+                            .color{
+                                display: inline-block;
+                                vertical-align: top;
+                                width: 5px;
+                                height: 16px;
+                                border-radius: 5px;
+                                margin-right: 2px;
+                                &.low{
+                                    background-color: #009934;
+                                }
+                                &.med{
+                                    background-color: #ffdf01;
+                                }
+                                &.high{
+                                    background-color: #c52221;
+                                }
+                            }
+                        }
+                    }
                     .ket-wind{
                         float: left;
                         width: 100%;
@@ -394,6 +420,382 @@
                 max-height: 505px;
                 overflow: hidden;
             }
+        }
+    }
+    // cluster
+    .satellite-terra-low{
+        background-color: rgba(181,226,140,.6);
+        border-radius: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+        div{
+            width: 30px;
+            height: 30px;
+            margin-left: 5px;
+            margin-top: 5px;
+            text-align: center;
+            border-radius: 15px;
+            font: 12px "Helvetica Neue",Arial,Helvetica,sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(110,204,57,.6);
+        }
+    }
+    .satellite-terra-medium{
+        background-color: rgba(241,211,87,.6);
+        border-radius: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+        div{
+            width: 30px;
+            height: 30px;
+            margin-left: 5px;
+            margin-top: 5px;
+            text-align: center;
+            border-radius: 15px;
+            font: 12px "Helvetica Neue",Arial,Helvetica,sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(240,194,12,.6);
+        }
+    }
+    .satellite-terra-high{
+        background-color: rgba(253,156,115,.6);
+        border-radius: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+        div{
+            width: 30px;
+            height: 30px;
+            margin-left: 5px;
+            margin-top: 5px;
+            text-align: center;
+            border-radius: 15px;
+            font: 12px "Helvetica Neue",Arial,Helvetica,sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(241,128,23,.6);
+        }
+    }
+    .satellite-noaa-low{
+        background-color: rgba(181,226,140,.6);
+        border-radius: 0;
+        width: 40px;
+        height: 40px;
+        div{
+            width: 30px;
+            height: 30px;
+            margin-left: 5px;
+            margin-top: 5px;
+            text-align: center;
+            font: 12px "Helvetica Neue",Arial,Helvetica,sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(110,204,57,.6);
+        }
+    }
+    .satellite-noaa-medium{
+        background-color: rgba(241,211,87,.6);
+        border-radius: 0;
+        width: 40px;
+        height: 40px;
+        div{
+            width: 30px;
+            height: 30px;
+            margin-left: 5px;
+            margin-top: 5px;
+            text-align: center;
+            font: 12px "Helvetica Neue",Arial,Helvetica,sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(240,194,12,.6);
+        }
+    }
+    .satellite-noaa-high{
+        background-color: rgba(253,156,115,.6);
+        border-radius: 0;
+        width: 40px;
+        height: 40px;
+        div{
+            width: 30px;
+            height: 30px;
+            margin-left: 5px;
+            margin-top: 5px;
+            text-align: center;
+            font: 12px "Helvetica Neue",Arial,Helvetica,sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(241,128,23,.6);
+        }
+    }
+    .satellite-snpp-low{
+        border-radius: 0;
+        width: 40px;
+        height: 40px;
+        &:before{
+            content: "";
+            width: 0; 
+            height: 0; 
+            position: absolute;
+            z-index: 1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);   
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 40px solid rgba(181,226,140,.6);
+        }
+        &:after{
+            content: "";
+            width: 0; 
+            height: 0; 
+            position: absolute;
+            z-index: 2;
+            top: 7px;
+            left: 5px;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 30px solid rgba(110,204,57,.6);
+        }
+        div{
+            width: 30px;
+            height: 30px;
+            z-index: 3;
+            position: relative;
+            text-align: center;
+            font: 12px "Helvetica Neue",Arial,Helvetica,sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 27px;
+            margin-left: 5px;
+        }
+    }
+    .satellite-snpp-medium{
+        border-radius: 0;
+        width: 40px;
+        height: 40px;
+        &:before{
+            content: "";
+            width: 0; 
+            height: 0; 
+            position: absolute;
+            z-index: 1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);   
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 40px solid rgba(241,211,87,.6);
+        }
+        &:after{
+            content: "";
+            width: 0; 
+            height: 0; 
+            position: absolute;
+            z-index: 2;
+            top: 7px;
+            left: 5px;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 30px solid rgba(240,194,12,.6);
+        }
+        div{
+            width: 30px;
+            height: 30px;
+            z-index: 3;
+            position: relative;
+            text-align: center;
+            font: 12px "Helvetica Neue",Arial,Helvetica,sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 27px;
+            margin-left: 5px;
+        }
+    }
+    .satellite-snpp-high{
+        border-radius: 0;
+        width: 40px;
+        height: 40px;
+        &:before{
+            content: "";
+            width: 0; 
+            height: 0; 
+            position: absolute;
+            z-index: 1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);   
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 40px solid rgba(253,156,115,.6);
+        }
+        &:after{
+            content: "";
+            width: 0; 
+            height: 0; 
+            position: absolute;
+            z-index: 2;
+            top: 7px;
+            left: 5px;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 30px solid rgba(241,128,23,.6);
+        }
+        div{
+            width: 30px;
+            height: 30px;
+            z-index: 3;
+            position: relative;
+            text-align: center;
+            font: 12px "Helvetica Neue",Arial,Helvetica,sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 27px;
+            margin-left: 5px;
+        }
+    }
+    .satellite-landsat-low{
+        border-radius: 0;
+        width: 40px;
+        height: 40px;
+        &:before{
+            content: "";
+            width: 0; 
+            height: 0; 
+            position: absolute;
+            z-index: 1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);   
+            width: 30px;
+            height: 30px;
+            background-color: rgba(181,226,140,.6);
+        }
+        &:after{
+            content: "";
+            width: 0; 
+            height: 0; 
+            position: absolute;
+            z-index: 2;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);   
+            width: 20px;
+            height: 20px;
+            background-color: rgba(110,204,57,.6);
+        }
+        div{
+            width: 30px;
+            height: 30px;
+            z-index: 3;
+            position: relative;
+            text-align: center;
+            font: 12px "Helvetica Neue",Arial,Helvetica,sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 5px;
+            margin-top: 5px;
+        }
+    }
+    .satellite-landsat-medium{
+        border-radius: 0;
+        width: 40px;
+        height: 40px;
+        &:before{
+            content: "";
+            width: 0; 
+            height: 0; 
+            position: absolute;
+            z-index: 1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);   
+            width: 30px;
+            height: 30px;
+            background-color: rgba(241,211,87,.6);
+        }
+        &:after{
+            content: "";
+            width: 0; 
+            height: 0; 
+            position: absolute;
+            z-index: 2;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);   
+            width: 20px;
+            height: 20px;
+            background-color: rgba(240,194,12,.6);
+        }
+        div{
+            width: 30px;
+            height: 30px;
+            z-index: 3;
+            position: relative;
+            text-align: center;
+            font: 12px "Helvetica Neue",Arial,Helvetica,sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 5px;
+            margin-top: 5px;
+        }
+    }
+    .satellite-landsat-high{
+        border-radius: 0;
+        width: 40px;
+        height: 40px;
+        &:before{
+            content: "";
+            width: 0; 
+            height: 0; 
+            position: absolute;
+            z-index: 1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);   
+            width: 30px;
+            height: 30px;
+            background-color: rgba(253,156,115,.6);
+        }
+        &:after{
+            content: "";
+            width: 0; 
+            height: 0; 
+            position: absolute;
+            z-index: 2;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);   
+            width: 20px;
+            height: 20px;
+            background-color: rgba(241,128,23,.6);
+        }
+        div{
+            width: 30px;
+            height: 30px;
+            z-index: 3;
+            position: relative;
+            text-align: center;
+            font: 12px "Helvetica Neue",Arial,Helvetica,sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 5px;
+            margin-top: 5px;
         }
     }
     &.openSide{

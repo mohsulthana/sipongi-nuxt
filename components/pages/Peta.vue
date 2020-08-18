@@ -186,7 +186,7 @@
             </div>
             <div class="select-wrap">
               <label class="mr-sm-2">Dengan tingkat kepercayaan data</label>
-              <b-form-input
+              <!-- <b-form-input
                 id="range-2"
                 v-model="trustData"
                 type="range"
@@ -195,7 +195,34 @@
               ></b-form-input>
               <span class="ket">Rendah</span>
               <span class="ket text-center">Sedang</span>
-              <span class="ket text-right">Tinggi</span>
+              <span class="ket text-right">Tinggi</span> -->
+              <b-form-checkbox
+                id="checkbox-rendah"
+                v-model="trustData"
+                name="checkbox-rendah"
+                value="rendah"
+              >
+                <span class="color low"></span>
+                Rendah
+              </b-form-checkbox>
+              <b-form-checkbox
+                id="checkbox-sedang"
+                v-model="trustData"
+                name="checkbox-sedang"
+                value="sedang"
+              >
+                <span class="color med"></span>
+                Sedang
+              </b-form-checkbox>
+              <b-form-checkbox
+                id="checkbox-tinggi"
+                v-model="trustData"
+                name="checkbox-tinggi"
+                value="tinggi"
+              >
+                <span class="color high"></span>
+                Tinggi
+              </b-form-checkbox>
             </div>
             <div class="select-wrap">
               <label class="float-left">Pergerakan Angin</label>
@@ -518,6 +545,102 @@ export default {
         iconSize: [40, 40],
       })
     },
+    noaaGreenIcon() {
+      let icon = () => {}
+      if (process.browser) icon = this.$L.icon
+      return icon({
+        iconUrl: '/noaa_low.svg',
+        iconSize: [40, 40],
+      })
+    },
+    noaaYellowIcon() {
+      let icon = () => {}
+      if (process.browser) icon = this.$L.icon
+      return icon({
+        iconUrl: '/noaa_medium.svg',
+        iconSize: [40, 40],
+      })
+    },
+    noaaRedIcon() {
+      let icon = () => {}
+      if (process.browser) icon = this.$L.icon
+      return icon({
+        iconUrl: '/noaa_high.svg',
+        iconSize: [40, 40],
+      })
+    },
+    landsatGreenIcon() {
+      let icon = () => {}
+      if (process.browser) icon = this.$L.icon
+      return icon({
+        iconUrl: '/landsat_low.svg',
+        iconSize: [40, 40],
+      })
+    },
+    landsatYellowIcon() {
+      let icon = () => {}
+      if (process.browser) icon = this.$L.icon
+      return icon({
+        iconUrl: '/landsat_medium.svg',
+        iconSize: [40, 40],
+      })
+    },
+    landsatRedIcon() {
+      let icon = () => {}
+      if (process.browser) icon = this.$L.icon
+      return icon({
+        iconUrl: '/landsat_high.svg',
+        iconSize: [40, 40],
+      })
+    },
+    terraGreenIcon() {
+      let icon = () => {}
+      if (process.browser) icon = this.$L.icon
+      return icon({
+        iconUrl: '/terra_low.svg',
+        iconSize: [40, 40],
+      })
+    },
+    terraYellowIcon() {
+      let icon = () => {}
+      if (process.browser) icon = this.$L.icon
+      return icon({
+        iconUrl: '/terra_medium.svg',
+        iconSize: [40, 40],
+      })
+    },
+    terraRedIcon() {
+      let icon = () => {}
+      if (process.browser) icon = this.$L.icon
+      return icon({
+        iconUrl: '/terra_high.svg',
+        iconSize: [40, 40],
+      })
+    },
+    snppGreenIcon() {
+      let icon = () => {}
+      if (process.browser) icon = this.$L.icon
+      return icon({
+        iconUrl: '/snpp_low.svg',
+        iconSize: [40, 40],
+      })
+    },
+    snppYellowIcon() {
+      let icon = () => {}
+      if (process.browser) icon = this.$L.icon
+      return icon({
+        iconUrl: '/snpp_medium.svg',
+        iconSize: [40, 40],
+      })
+    },
+    snppRedIcon() {
+      let icon = () => {}
+      if (process.browser) icon = this.$L.icon
+      return icon({
+        iconUrl: '/snpp_high.svg',
+        iconSize: [40, 40],
+      })
+    },
     unitIcon() {
       let icon = () => {}
       if (process.browser) icon = this.$L.icon
@@ -649,6 +772,17 @@ export default {
       return (cluster) => {
         return this.$L.divIcon({
           html: '<div>' + cluster.getChildCount() + '</div>',
+          iconSize: L.point(40, 40),
+          className: 'satellite-terra-high',
+
+          // Terra Aqua Class Name (Bulat)
+          // satellite-terra-low, satellite-terra-medium, satellite-terra-high
+          // Noaa Class Name (Kotak)
+          // satellite-noaa-low, satellite-noaa-medium, satellite-noaa-high
+          // Snpp Class Name (Segitiga)
+          // satellite-snpp-low, satellite-snpp-medium, satellite-snpp-high
+          // Landsat Class Name (belah ketupat)
+          // satellite-landsat-low, satellite-landsat-medium, satellite-landsat-high
         })
       }
     },
