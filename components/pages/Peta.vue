@@ -200,7 +200,7 @@
                 id="checkbox-rendah"
                 v-model="trustData"
                 name="checkbox-rendah"
-                value="rendah"
+                value="low"
               >
                 <span class="color low"></span>
                 Rendah
@@ -209,7 +209,7 @@
                 id="checkbox-sedang"
                 v-model="trustData"
                 name="checkbox-sedang"
-                value="sedang"
+                value="medium"
               >
                 <span class="color med"></span>
                 Sedang
@@ -218,7 +218,7 @@
                 id="checkbox-tinggi"
                 v-model="trustData"
                 name="checkbox-tinggi"
-                value="tinggi"
+                value="high"
               >
                 <span class="color high"></span>
                 Tinggi
@@ -317,8 +317,58 @@
           </l-layer-group>
           <l-layer-group>
             <v-marker-cluster
-              ref="markerCluster"
-              :options="optionsMarkerClaster"
+              ref="markerClusterTerraHigh"
+              :options="optionsMarkerClaster('terra-high')"
+            ></v-marker-cluster>
+            <v-marker-cluster
+              ref="markerClusterTerraMed"
+              :options="optionsMarkerClaster('terra-med')"
+            ></v-marker-cluster>
+            <v-marker-cluster
+              ref="markerClusterTerraLow"
+              :options="optionsMarkerClaster('terra-low')"
+            ></v-marker-cluster>
+          </l-layer-group>
+          <l-layer-group>
+            <v-marker-cluster
+              ref="markerClusterSnppHigh"
+              :options="optionsMarkerClaster('snpp-high')"
+            ></v-marker-cluster>
+            <v-marker-cluster
+              ref="markerClusterSnppMed"
+              :options="optionsMarkerClaster('snpp-med')"
+            ></v-marker-cluster>
+            <v-marker-cluster
+              ref="markerClusterSnppLow"
+              :options="optionsMarkerClaster('snpp-low')"
+            ></v-marker-cluster>
+          </l-layer-group>
+          <l-layer-group>
+            <v-marker-cluster
+              ref="markerClusterNoaaHigh"
+              :options="optionsMarkerClaster('noaa-high')"
+            ></v-marker-cluster>
+            <v-marker-cluster
+              ref="markerClusterNoaaMed"
+              :options="optionsMarkerClaster('noaa-med')"
+            ></v-marker-cluster>
+            <v-marker-cluster
+              ref="markerClusterNoaaLow"
+              :options="optionsMarkerClaster('noaa-low')"
+            ></v-marker-cluster>
+          </l-layer-group>
+          <l-layer-group>
+            <v-marker-cluster
+              ref="markerClusterLansatHigh"
+              :options="optionsMarkerClaster('landsat-high')"
+            ></v-marker-cluster>
+            <v-marker-cluster
+              ref="markerClusterLansatMed"
+              :options="optionsMarkerClaster('landsat-med')"
+            ></v-marker-cluster>
+            <v-marker-cluster
+              ref="markerClusterLansatLow"
+              :options="optionsMarkerClaster('landsat-low')"
             ></v-marker-cluster>
           </l-layer-group>
         </l-map>
@@ -344,7 +394,7 @@ export default {
       browser: process.browser,
       centerMap: [-2.548926, 118.0148634],
       periodeData: 24,
-      trustData: 2,
+      trustData: ['high'],
       zoom: 5,
       windDir: false,
       unitKerja: false,
@@ -366,7 +416,7 @@ export default {
         visible: false,
         loadData: false,
       },
-      geoJsonLayerMarker: null,
+      geoJsonLayerMarker: {},
       OptWind: {
         displayValues: true,
         displayOptions: {
@@ -392,6 +442,20 @@ export default {
         },
       ],
       firstLoad: true,
+      classCluster: {
+        'terra-high': 'satellite-terra-high',
+        'terra-med': 'satellite-terra-medium',
+        'terra-low': 'satellite-terra-low',
+        'noaa-high': 'satellite-noaa-high',
+        'noaa-med': 'satellite-noaa-medium',
+        'noaa-low': 'satellite-noaa-low',
+        'snpp-high': 'satellite-snpp-high',
+        'snpp-med': 'satellite-snpp-medium',
+        'snpp-low': 'satellite-snpp-low',
+        'landsat-high': 'satellite-landsat-high',
+        'landsat-med': 'satellite-landsat-medium',
+        'landsat-low': 'satellite-landsat-low',
+      },
       blogs: [
         {
           id: 1,
@@ -513,38 +577,6 @@ export default {
     },
   },
   computed: {
-    redIcon() {
-      let icon = () => {}
-      if (process.browser) icon = this.$L.icon
-      return icon({
-        iconUrl: '/marker-red.svg',
-        iconSize: [40, 40],
-      })
-    },
-    blueIcon() {
-      let icon = () => {}
-      if (process.browser) icon = this.$L.icon
-      return icon({
-        iconUrl: '/marker-blue.svg',
-        iconSize: [40, 40],
-      })
-    },
-    greenIcon() {
-      let icon = () => {}
-      if (process.browser) icon = this.$L.icon
-      return icon({
-        iconUrl: '/marker-green.svg',
-        iconSize: [40, 40],
-      })
-    },
-    yellowIcon() {
-      let icon = () => {}
-      if (process.browser) icon = this.$L.icon
-      return icon({
-        iconUrl: '/marker-yellow.svg',
-        iconSize: [40, 40],
-      })
-    },
     noaaGreenIcon() {
       let icon = () => {}
       if (process.browser) icon = this.$L.icon
@@ -763,29 +795,6 @@ export default {
         }
       }
     },
-    optionsMarkerClaster() {
-      return {
-        iconCreateFunction: this.iconCreateFunction,
-      }
-    },
-    iconCreateFunction(cluster) {
-      return (cluster) => {
-        return this.$L.divIcon({
-          html: '<div>' + cluster.getChildCount() + '</div>',
-          iconSize: L.point(40, 40),
-          className: 'satellite-terra-high',
-
-          // Terra Aqua Class Name (Bulat)
-          // satellite-terra-low, satellite-terra-medium, satellite-terra-high
-          // Noaa Class Name (Kotak)
-          // satellite-noaa-low, satellite-noaa-medium, satellite-noaa-high
-          // Snpp Class Name (Segitiga)
-          // satellite-snpp-low, satellite-snpp-medium, satellite-snpp-high
-          // Landsat Class Name (belah ketupat)
-          // satellite-landsat-low, satellite-landsat-medium, satellite-landsat-high
-        })
-      }
-    },
   },
   async created() {
     await this.loadHotSpot()
@@ -829,14 +838,50 @@ export default {
       }
     },
     getIcon(item) {
-      if (item.counter <= 1) {
-        return this.blueIcon
-      } else if (item.counter === 2) {
-        return this.greenIcon
-      } else if (item.counter === 3) {
-        return this.yellowIcon
-      } else {
-        return this.redIcon
+      if (item.sumber === 'LPN-NPP') {
+        if (item.confidence_level === 'low') {
+          return this.snppGreenIcon
+        } else if (item.confidence_level === 'medium') {
+          return this.snppYellowIcon
+        } else {
+          return this.snppRedIcon
+        }
+      } else if (item.sumber === 'LPN-MODIS') {
+        if (item.confidence_level === 'low') {
+          return this.terraGreenIcon
+        } else if (item.confidence_level === 'medium') {
+          return this.terraYellowIcon
+        } else {
+          return this.terraRedIcon
+        }
+      } else if (item.sumber === 'LPN-NOAA20') {
+        if (item.confidence_level === 'low') {
+          return this.noaaGreenIcon
+        } else if (item.confidence_level === 'medium') {
+          return this.noaaYellowIcon
+        } else {
+          return this.noaaRedIcon
+        }
+      } else if (item.sumber === 'LPN-LANDSAT8') {
+        if (item.confidence_level === 'low') {
+          return this.landsatGreenIcon
+        } else if (item.confidence_level === 'medium') {
+          return this.landsatYellowIcon
+        } else {
+          return this.landsatRedIcon
+        }
+      }
+    },
+    optionsMarkerClaster(tipe) {
+      const self = this
+      return {
+        iconCreateFunction: (cluster) => {
+          return this.$L.divIcon({
+            html: '<div>' + cluster.getChildCount() + '</div>',
+            iconSize: L.point(40, 40),
+            className: self.classCluster[tipe],
+          })
+        },
       }
     },
     async loadHotSpot() {
@@ -859,67 +904,165 @@ export default {
           this.loading = false
         })
     },
-    async loadMarker() {
-      if (this.geoJsonLayerMarker) {
-        this.$refs.markerCluster.mapObject.removeLayer(this.geoJsonLayerMarker)
+    loadGeojsonMarker(geoJsonLayer, markerCluster, tipe, sumber) {
+      if (geoJsonLayer) {
+        markerCluster.mapObject.removeLayer(geoJsonLayer)
       }
-      let self = this
-      this.geoJsonLayerMarker = this.$L.geoJson(this.DataHotSpot, {
-        onEachFeature: function (feature, layer) {
-          let popupHtml = `<div class='table-responsive'><table class='table b-table table-striped table-sm'>`
-          popupHtml += `<tbody>`
-          popupHtml += `<tr><th>Tanggal</th><td>${feature.properties.date_hotspot}</td></tr>`
-          popupHtml += `<tr><th>Sumber</th><td>${feature.properties.ori_sumber}</td></tr>`
-          popupHtml += `<tr><th>Latitude</th><td>${feature.properties.lat}</td></tr>`
-          popupHtml += `<tr><th>Longitude</th><td>${feature.properties.long}</td></tr>`
-          popupHtml += `<tr><th>Kepercayaan</th><td>${
-            feature.properties.confidence_level === 'low'
-              ? 'Rendah'
-              : feature.properties.confidence_level === 'medium'
-              ? 'Sedang'
-              : feature.properties.confidence_level === 'high'
-              ? 'Tinggi'
-              : '-'
-          }</td></tr>`
-          popupHtml += `<tr><th>Kawasan</th><td>${
-            feature.properties.kawasan !== '' ? feature.properties.kawasan : '-'
-          }</td></tr>`
-          popupHtml += `<tr><th>Desa</th><td>${
-            feature.properties.desa !== '' ? feature.properties.desa : '-'
-          }</td></tr>`
-          popupHtml += `<tr><th>Kecamatan</th><td>${
-            feature.properties.kecamatan !== ''
-              ? feature.properties.kecamatan
-              : '-'
-          }</td></tr>`
-          popupHtml += `<tr><th>Kota/Kabupaten</th><td>${
-            feature.properties.kabkota !== '' ? feature.properties.kabkota : '-'
-          }</td></tr>`
-          popupHtml += `<tr><th>Provinsi</th><td>${
-            feature.properties.nama_provinsi !== ''
-              ? feature.properties.nama_provinsi
-              : '-'
-          }</td></tr>`
-          popupHtml += `</tbody>`
-          popupHtml += `</table></div>`
-          layer.bindPopup(popupHtml)
-        },
-        pointToLayer: function (feature, latlng) {
-          let marker = self.$L.marker(latlng, {
-            icon: self.getIcon(feature.properties),
-          })
 
-          marker.on('dblclick', function (e) {
-            self.changeCenterMarker(e, feature.properties)
-          })
+      geoJsonLayer = null
+      if (this.checkSumber(sumber)) {
+        let self = this
+        geoJsonLayer = this.$L.geoJson(this.DataHotSpot, {
+          onEachFeature: function (feature, layer) {
+            let popupHtml = `<div class='table-responsive'><table class='table b-table table-striped table-sm'>`
+            popupHtml += `<tbody>`
+            popupHtml += `<tr><th>Tanggal</th><td>${feature.properties.date_hotspot}</td></tr>`
+            popupHtml += `<tr><th>Sumber</th><td>${feature.properties.ori_sumber}</td></tr>`
+            popupHtml += `<tr><th>Latitude</th><td>${feature.properties.lat}</td></tr>`
+            popupHtml += `<tr><th>Longitude</th><td>${feature.properties.long}</td></tr>`
+            popupHtml += `<tr><th>Lama Titik Panas</th><td>${feature.properties.counter} hari</td></tr>`
+            popupHtml += `<tr><th>Kepercayaan</th><td>${
+              feature.properties.confidence_level === 'low'
+                ? 'Rendah'
+                : feature.properties.confidence_level === 'medium'
+                ? 'Sedang'
+                : feature.properties.confidence_level === 'high'
+                ? 'Tinggi'
+                : '-'
+            }</td></tr>`
+            popupHtml += `<tr><th>Kawasan</th><td>${
+              feature.properties.kawasan !== ''
+                ? feature.properties.kawasan
+                : '-'
+            }</td></tr>`
+            popupHtml += `<tr><th>Desa</th><td>${
+              feature.properties.desa !== '' ? feature.properties.desa : '-'
+            }</td></tr>`
+            popupHtml += `<tr><th>Kecamatan</th><td>${
+              feature.properties.kecamatan !== ''
+                ? feature.properties.kecamatan
+                : '-'
+            }</td></tr>`
+            popupHtml += `<tr><th>Kota/Kabupaten</th><td>${
+              feature.properties.kabkota !== ''
+                ? feature.properties.kabkota
+                : '-'
+            }</td></tr>`
+            popupHtml += `<tr><th>Provinsi</th><td>${
+              feature.properties.nama_provinsi !== ''
+                ? feature.properties.nama_provinsi
+                : '-'
+            }</td></tr>`
+            popupHtml += `</tbody>`
+            popupHtml += `</table></div>`
+            layer.bindPopup(popupHtml)
+          },
+          pointToLayer: function (feature, latlng) {
+            let marker = self.$L.marker(latlng, {
+              icon: self.getIcon(feature.properties),
+            })
 
-          return marker
-        },
-        filter: function (feature, layer) {
-          return self.checkSumber(feature.properties.sumber)
-        },
-      })
-      this.$refs.markerCluster.mapObject.addLayer(this.geoJsonLayerMarker)
+            marker.on('dblclick', function (e) {
+              self.changeCenterMarker(e, feature.properties)
+            })
+
+            return marker
+          },
+          filter: function (feature, layer) {
+            if (feature.properties.sumber === sumber) {
+              return feature.properties.confidence_level === tipe
+            }
+
+            return false
+          },
+        })
+
+        markerCluster.mapObject.addLayer(geoJsonLayer)
+      }
+
+      return geoJsonLayer
+    },
+    async loadMarker() {
+      //terra
+      this.geoJsonLayerMarker.terraHigh = this.loadGeojsonMarker(
+        this.geoJsonLayerMarker.terraHigh,
+        this.$refs.markerClusterTerraHigh,
+        'high',
+        'LPN-MODIS'
+      )
+      this.geoJsonLayerMarker.terraMed = this.loadGeojsonMarker(
+        this.geoJsonLayerMarker.terraMed,
+        this.$refs.markerClusterTerraMed,
+        'medium',
+        'LPN-MODIS'
+      )
+      this.geoJsonLayerMarker.terraLow = this.loadGeojsonMarker(
+        this.geoJsonLayerMarker.terraLow,
+        this.$refs.markerClusterTerraLow,
+        'low',
+        'LPN-MODIS'
+      )
+
+      //snpp
+      this.geoJsonLayerMarker.snppHigh = this.loadGeojsonMarker(
+        this.geoJsonLayerMarker.snppHigh,
+        this.$refs.markerClusterSnppHigh,
+        'high',
+        'LPN-NPP'
+      )
+      this.geoJsonLayerMarker.snppMed = this.loadGeojsonMarker(
+        this.geoJsonLayerMarker.snppMed,
+        this.$refs.markerClusterSnppMed,
+        'medium',
+        'LPN-NPP'
+      )
+      this.geoJsonLayerMarker.snppLow = this.loadGeojsonMarker(
+        this.geoJsonLayerMarker.snppLow,
+        this.$refs.markerClusterSnppLow,
+        'low',
+        'LPN-NPP'
+      )
+
+      //noaa
+      this.geoJsonLayerMarker.noaaHigh = this.loadGeojsonMarker(
+        this.geoJsonLayerMarker.noaaHigh,
+        this.$refs.markerClusterNoaaHigh,
+        'high',
+        'LPN-NOAA20'
+      )
+      this.geoJsonLayerMarker.noaaMed = this.loadGeojsonMarker(
+        this.geoJsonLayerMarker.noaaMed,
+        this.$refs.markerClusterNoaaMed,
+        'medium',
+        'LPN-NOAA20'
+      )
+      this.geoJsonLayerMarker.noaaLow = this.loadGeojsonMarker(
+        this.geoJsonLayerMarker.noaaLow,
+        this.$refs.markerClusterNoaaLow,
+        'low',
+        'LPN-NOAA20'
+      )
+
+      //landsat
+      this.geoJsonLayerMarker.landsatHigh = this.loadGeojsonMarker(
+        this.geoJsonLayerMarker.landsatHigh,
+        this.$refs.markerClusterLansatHigh,
+        'high',
+        'LPN-LANDSAT8'
+      )
+      this.geoJsonLayerMarker.landsatMed = this.loadGeojsonMarker(
+        this.geoJsonLayerMarker.landsatMed,
+        this.$refs.markerClusterLansatMed,
+        'medium',
+        'LPN-LANDSAT8'
+      )
+      this.geoJsonLayerMarker.landsatLow = this.loadGeojsonMarker(
+        this.geoJsonLayerMarker.landsatLow,
+        this.$refs.markerClusterLansatLow,
+        'low',
+        'LPN-LANDSAT8'
+      )
+
       this.$refs.mapSipongi.mapObject.setView([-2.548926, 118.0148634], 5)
       this.$refs.mapSipongi.mapObject.doubleClickZoom = false
     },
@@ -1132,3 +1275,9 @@ export default {
   },
 }
 </script>
+<style lang="css">
+.leaflet-fade-anim .leaflet-tile,
+.leaflet-zoom-anim .leaflet-zoom-animated {
+  will-change: auto !important;
+}
+</style>
