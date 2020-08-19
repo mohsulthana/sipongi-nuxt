@@ -236,7 +236,7 @@
               <div class="ket-wind" v-if="windDir">
                 <div class="bar"></div>
                 <span class="speed">0 m/s</span>
-                <span class="speed text-right">40 m/s</span>
+                <span class="speed text-right">30 m/s</span>
               </div>
             </div>
             <div class="select-wrap">
@@ -425,9 +425,20 @@ export default {
           displayEmptyString: 'No wind data',
         },
         data: [],
-        colorScale: ['#00ff3a', '#22f932', '#84ea1a', '#d8d507', '#ffbf00', '#ff9900', '#ff6e06', '#ff3d0e', '#ff1415', '#ff0018'],
+        colorScale: [
+          '#00ff3a',
+          '#22f932',
+          '#84ea1a',
+          '#d8d507',
+          '#ffbf00',
+          '#ff9900',
+          '#ff6e06',
+          '#ff3d0e',
+          '#ff1415',
+          '#ff0018',
+        ],
         velocityScale: 0.015,
-        maxVelocity: 10,
+        maxVelocity: 30,
       },
       optionMaps: {
         doubleClickZoom: false,
