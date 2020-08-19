@@ -425,6 +425,7 @@ export default {
           displayEmptyString: 'No wind data',
         },
         data: [],
+        colorScale: ['#28a745', '#64b332', '#9ebe20', '#dbc10e', '#ffc007', '#ffb40a', '#ff881d', '#ef6030', '#e3483c', '#dc3545'],
         velocityScale: 0.015,
         maxVelocity: 10,
       },
