@@ -151,25 +151,25 @@
         </b-link>
         <div class="legend-body">
           <div class="legend-item-contain">
-            <p>
+            <!-- <p>
               Tanda yang muncul sesuai hasil prosedur pengendalian kebakaran
               hutan melalui petugas patroli pencegahan
-            </p>
+            </p> -->
             <div class="legend-item">
-              <img src="/marker-blue.svg" alt="" />
-              <h6>Aman</h6>
+              <img src="/terra.svg" alt="" />
+              <h6>Satelit TERRA/AQUA</h6>
             </div>
             <div class="legend-item">
-              <img src="/marker-green.svg" alt="" />
-              <h6>Waspada</h6>
+              <img src="/snpp.svg" alt="" />
+              <h6>Satelit SNPP</h6>
             </div>
             <div class="legend-item">
-              <img src="/marker-yellow.svg" alt="" />
-              <h6>Siaga</h6>
+              <img src="/noaa.svg" alt="" />
+              <h6>Satelit NOAA20</h6>
             </div>
             <div class="legend-item">
-              <img src="/marker-red.svg" alt="" />
-              <h6>Bahaya</h6>
+              <img src="/landsat.svg" alt="" />
+              <h6>Satelit LANDSAT8</h6>
             </div>
           </div>
           <div class="filter-wrap">
