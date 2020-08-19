@@ -278,7 +278,7 @@
           <l-image-overlay
             url="/gelap.png"
             :bounds="[
-              [-26.5, -25],
+              [-85, -85],
               [1021.5, 1023],
             ]"
             :bubblingMouseEvents="false"
