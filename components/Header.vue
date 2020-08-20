@@ -1,7 +1,7 @@
 <template>
   <b-navbar toggleable="md" :class="[{ 'in-inner': inners }, 'navbar-home']">
     <b-container>
-      <b-navbar-brand href="/">
+      <b-navbar-brand to="/">
         <img src="/logo.svg" alt="" />
         <img src="/logo-text.svg" alt="" class="ml-1" />
       </b-navbar-brand>

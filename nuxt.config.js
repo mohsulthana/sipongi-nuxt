@@ -87,6 +87,7 @@ export default {
    ** Nuxt.js dev-modules
    */
   buildModules: [],
+
   /*
    ** Nuxt.js modules
    */
@@ -100,7 +101,8 @@ export default {
     '@nuxtjs/toast',
     '@nuxtjs/dotenv',
     'nuxt-leaflet',
-    'vue-social-sharing/nuxt'
+    'vue-social-sharing/nuxt',
+    ['@nuxtjs/moment', ['id']],
   ],
 
   toast: {

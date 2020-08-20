@@ -22,6 +22,7 @@
           <b-col md="8">
             <h6 class="charts-title">Data Peringatan kebakaran mingguan</h6>
             <line-chart
+              v-if="!$fetchState.pending"
               :data="kebMingguan"
               :options="kebMingguanOpt"
               class="charts"
@@ -35,17 +36,14 @@
               <b-form-select
                 id="inline-form-custom-select-pref"
                 class="mb-2 mr-sm-2 mb-sm-0"
+                value-field="id"
+                text-field="name"
                 v-model="compareYear"
-                :options="[
-                  'Tahun 2019',
-                  'Tahun 2018',
-                  'Tahun 2017',
-                  'Tahun 2016',
-                ]"
-                :value="null"
+                :options="tahuns"
               ></b-form-select>
             </div>
             <line-chart
+              v-if="!loadingGrafiKum"
               :data="kebKumulatif"
               :options="kebKumulatifOpt"
               class="charts"
@@ -55,31 +53,24 @@
             <b-row class="align-items-center">
               <b-col md="6">
                 <pie-chart
+                  v-if="!$fetchState.pending"
                   :data="kebLuas"
                   :options="kebLuasOpt"
                   class="charts"
                 />
               </b-col>
               <b-col md="6">
-                <div class="legend-pie">
-                  <span class="color blue"></span>
-                  <h6>2017</h6>
-                  <p>165.483,92 Ha</p>
-                </div>
-                <div class="legend-pie">
-                  <span class="color green"></span>
-                  <h6>2018</h6>
-                  <p>165.483,92 Ha</p>
-                </div>
-                <div class="legend-pie">
-                  <span class="color yellow"></span>
-                  <h6>2019</h6>
-                  <p>165.483,92 Ha</p>
-                </div>
-                <div class="legend-pie">
-                  <span class="color orange"></span>
-                  <h6>2020</h6>
-                  <p>165.483,92 Ha</p>
+                <div v-for="(data, index) in kebLuasData" class="legend-pie">
+                  <span :class="`color ${kebLuasColor[index]}`"></span>
+                  <h6>{{ data.year }}</h6>
+                  <p>
+                    {{
+                      parseFloat(data.value).toLocaleString('id', {
+                        maximumFractionDigits: 2,
+                      })
+                    }}
+                    Ha
+                  </p>
                 </div>
               </b-col>
             </b-row>
@@ -89,19 +80,28 @@
               <h5>Statistik</h5>
               <div class="statistik-item">
                 <img src="/forest-fire.svg" alt="" />
-                <h3>135</h3>
+                <h3>{{ totalTitik }}</h3>
                 <h6>Peringatan Kebakaran</h6>
                 <p>Dalam 2 minggu terakhir</p>
               </div>
               <div class="statistik-item">
                 <img src="/box-fire.svg" alt="" />
-                <h3>43.834</h3>
+                <h3>
+                  {{
+                    luasKebakaran.toLocaleString('id', {
+                      maximumFractionDigits: 2,
+                    })
+                  }}
+                </h3>
                 <h6>Hektar Hutan & Lahan</h6>
-                <p>Terbakar sepanjang tahun 2020 (juli)</p>
+                <p>
+                  Terbakar sepanjang tahun
+                  {{ $moment().format('YYYY (MMMM)') }}
+                </p>
               </div>
               <div class="statistik-item">
                 <img src="/world.svg" alt="" />
-                <h3>12</h3>
+                <h3>{{ totalProv }}</h3>
                 <h6>Provinsi</h6>
                 <p>Penyebaran titik panas 2 minggu terakhir</p>
               </div>
@@ -109,6 +109,15 @@
           </b-col>
         </b-row>
       </b-container>
+    </div>
+    <div class="splash-screen" v-if="$fetchState.pending || loadingGrafiKum">
+      <div class="wrap">
+        <h4>Mohon Tunggu Sebentar</h4>
+        <b-spinner
+          style="width: 3rem; height: 3rem;"
+          label="Large Spinner"
+        ></b-spinner>
+      </div>
     </div>
   </div>
 </template>
@@ -118,41 +127,78 @@ import LineChart from '~/components/LineChart'
 
 export default {
   layout: 'front',
-  data() {
-    return {
-      compareYear: null,
-      kebMingguan: {
-        labels: ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'],
-        datasets: [
-          {
-            label: 'Minggu Ini',
-            backgroundColor: '#FE6500',
-            borderColor: '#FE6500',
-            fill: false,
-            lineTension: 0,
-            data: [3, 8, 4, 5, 2, 12, 7],
-          },
-          {
-            label: 'Minggu Sebelumnya',
-            backgroundColor: '#C5CDD5',
-            borderColor: '#C5CDD5',
-            fill: false,
-            lineTension: 0,
-            data: [1, 3, 2, 4, 1, 7, 3],
-          },
-        ],
-      },
-      kebMingguanOpt: {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-          align: 'start',
-          labels: {
-            boxWidth: 10,
-          },
+  data: () => ({
+    totalTitik: 0,
+    totalProv: 0,
+    luasKebakaran: 0,
+    compareYear: null,
+    tahuns: [],
+    loadingGrafiKum: false,
+    kebLuasData: [],
+    kebLuasColor: ['blue', 'green', 'yellow', 'orange'],
+    kebMingguan: {
+      labels: ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'],
+      datasets: [
+        {
+          label: 'Minggu Ini',
+          backgroundColor: '#FE6500',
+          borderColor: '#FE6500',
+          fill: false,
+          lineTension: 0,
+          data: [],
+        },
+        {
+          label: 'Minggu Sebelumnya',
+          backgroundColor: '#C5CDD5',
+          borderColor: '#C5CDD5',
+          fill: false,
+          lineTension: 0,
+          data: [],
+        },
+      ],
+    },
+    kebMingguanOpt: {
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+        align: 'start',
+        labels: {
+          boxWidth: 10,
         },
       },
-      kebKumulatif: {
+    },
+    kebKumulatifOpt: {
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+        align: 'start',
+        labels: {
+          boxWidth: 10,
+        },
+      },
+    },
+    kebLuas: {
+      labels: [],
+      datasets: [
+        {
+          data: [],
+          backgroundColor: ['#0088FE', '#00C49F', '#FFBB28', '#FF7F42'],
+          borderdColor: ['#0088FE', '#00C49F', '#FFBB28', '#FF7F42'],
+        },
+      ],
+    },
+    kebLuasOpt: {
+      responsive: true,
+      maintainAspectRatio: false,
+      rotation: 1 * Math.PI,
+      circumference: 1 * Math.PI,
+      cutoutPercentage: 70,
+      legend: false,
+    },
+  }),
+  computed: {
+    kebKumulatif() {
+      return {
         labels: [
           'Jan',
           'Feb',
@@ -174,56 +220,162 @@ export default {
             borderColor: '#FE6500',
             fill: false,
             lineTension: 0,
-            data: [70, 140, 250, 160, 60, 40, 20],
+            data: [],
           },
           {
-            label: '2019',
+            label: this.compareYear,
             backgroundColor: '#C5CDD5',
             borderColor: '#C5CDD5',
             fill: false,
             lineTension: 0,
-            data: [20, 270, 300, 160, 170, 80, 310],
+            data: [],
           },
         ],
+      }
+    },
+  },
+  async fetch() {
+    await this.loadTotalTitik()
+    await this.loadLuasKebakaran()
+    await this.loadTotalProv()
+    await this.loadGrafikMingguan()
+    await this.loadGrafikLuasKebakaran()
+  },
+  watch: {
+    compareYear: {
+      async handler() {
+        await this.loadGrafikKumulatif()
       },
-      kebKumulatifOpt: {
-        responsive: true,
-        maintainAspectRatio: false,
-        legend: {
-          align: 'start',
-          labels: {
-            boxWidth: 10,
-          },
-        },
-      },
-      kebLuas: {
-        labels: ['2017', '2018', '2019', '2020'],
-        datasets: [
-          {
-            data: [165483.92, 529266.64, 1649258.0, 43834.0],
-            backgroundColor: ['#0088FE', '#00C49F', '#FFBB28', '#FF7F42'],
-            borderdColor: ['#0088FE', '#00C49F', '#FFBB28', '#FF7F42'],
-          },
-        ],
-      },
-      kebLuasOpt: {
-        responsive: true,
-        maintainAspectRatio: false,
-        rotation: 1 * Math.PI,
-        circumference: 1 * Math.PI,
-        cutoutPercentage: 70,
-        legend: false,
-      },
-    }
+    },
   },
   created() {
     this.$nextTick(function () {
       this.updateHeader()
     })
+
+    for (let x = parseInt(this.$moment().format('YYYY')) - 1; x >= 2016; x--) {
+      this.tahuns.push({
+        id: x,
+        name: x,
+      })
+    }
+    this.compareYear = parseInt(this.$moment().format('YYYY')) - 1
   },
   methods: {
     updateHeader() {
       this.$store.commit('head/innerHeader', true)
+    },
+    async loadTotalTitik() {
+      const url = !process.server
+        ? `/v1/totalIndoHotspot`
+        : `/api/totalIndoHotspot`
+
+      await this.$axios
+        .$get(url, {
+          params: {
+            day: 14,
+            confidence: ['high'],
+          },
+        })
+        .then((res) => {
+          this.totalTitik = res
+        })
+        .catch((err) => {})
+    },
+    async loadTotalProv() {
+      const url = !process.server
+        ? `/v1/totalIndoHotspotProv`
+        : `/api/totalIndoHotspotProv`
+
+      await this.$axios
+        .$get(url, {
+          params: {
+            day: 14,
+            confidence: ['high'],
+          },
+        })
+        .then((res) => {
+          this.totalProv = res
+        })
+        .catch((err) => {})
+    },
+    async loadLuasKebakaran() {
+      const url = !process.server
+        ? `/v1/totalLuasKebakaran`
+        : `/api/totalLuasKebakaran`
+
+      await this.$axios
+        .$get(url, {
+          params: {
+            year: this.$moment().format('YYYY'),
+            short: 0,
+          },
+        })
+        .then((res) => {
+          this.luasKebakaran = res
+        })
+        .catch((err) => {})
+    },
+    async loadGrafikMingguan() {
+      const url = !process.server ? `/v1/grafikMingguan` : `/api/grafikMingguan`
+
+      await this.$axios
+        .$get(url, {
+          params: {
+            confidence: ['high'],
+          },
+        })
+        .then((res) => {
+          this.kebMingguan.datasets[0].data = res.weekNow
+          this.kebMingguan.datasets[1].data = res.weekBefore
+        })
+        .catch((err) => {})
+    },
+    async loadGrafikKumulatif() {
+      this.loadingGrafiKum = true
+      const url = !process.server
+        ? `/v1/grafikKumulatif`
+        : `/api/grafikKumulatif`
+
+      await this.$axios
+        .$get(url, {
+          params: {
+            from: this.compareYear,
+            satelit: ['LPN-MODIS', 'LPN-NPP', 'LPN-NOAA20', 'LPN-LANDSAT8'],
+          },
+        })
+        .then((res) => {
+          this.kebKumulatif.datasets[0].data = res.yearNow
+          this.kebKumulatif.datasets[1].data = res.yearBefore
+        })
+        .catch((err) => {})
+        .finally(() => {
+          this.loadingGrafiKum = false
+        })
+    },
+    async loadGrafikLuasKebakaran() {
+      this.loadingGrafiKum = true
+      const url = !process.server
+        ? `/v1/grafikLuasKebakaran`
+        : `/api/grafikLuasKebakaran`
+
+      await this.$axios
+        .$get(url)
+        .then(async (res) => {
+          this.kebLuasData = res
+          await Promise.all(
+            res.forEach(async (data) => {
+              this.kebLuas.labels.push(data.year)
+              this.kebLuas.datasets[0].data.push(parseFloat(data.value))
+            })
+          )
+          // this.kebKumulatif.datasets[0].data = res.yearNow
+          // this.kebKumulatif.datasets[1].data = res.yearBefore
+        })
+        .catch((err) => {})
+        .finally(() => {
+          this.loadingGrafiKum = false
+        })
     },
   },
 }
