@@ -6,23 +6,37 @@
         <img src="/logo-text.svg" alt="" />
       </div>
       <b-link class="main its-new link-one" @click="openSidebarOne">
-        <div class="image">
-          <img src="/fire.svg" alt="" />
-          <span class="notif">{{ totalHotspot }}</span>
+        <div class="wrap">
+          <div class="image">
+            <img src="/fire.svg" alt="" />
+            <span class="notif">{{ totalHotspot }}</span>
+          </div>
+          <h6>Lokasi <br />Titik Panas</h6>
         </div>
-        <h6>Lokasi <br />Titik Panas</h6>
       </b-link>
       <b-link class="main link-two" @click="openSidebarTwo">
-        <div class="image">
-          <img src="/fire-extinguisher.svg" alt="" />
+        <div class="wrap">
+          <div class="image">
+            <img src="/fire-extinguisher.svg" alt="" />
+          </div>
+          <h6>Kegiatan Pemadamam</h6>
         </div>
-        <h6>Kegiatan Pemadamam</h6>
       </b-link>
       <b-link class="main link-three" @click="openSidebarThree">
-        <div class="image">
-          <img src="/cari.svg" alt="" />
+        <div class="wrap">
+          <div class="image">
+            <img src="/cari.svg" alt="" />
+          </div>
+          <h6>Cari</h6>
         </div>
-        <h6>Cari</h6>
+      </b-link>
+      <b-link class="main link-four d-md-none" @click="openLegend">
+        <div class="wrap">
+          <div class="image">
+            <img src="/cowboy-hat.svg" alt="" />
+          </div>
+          <h6>Legend</h6>
+        </div>
       </b-link>
       <b-link to="/" class="hide">
         <img src="/mini_arrow_left-gray.svg" alt="" />
@@ -86,7 +100,7 @@
 
         <div class="content-list">
           <b-row>
-            <b-col md="6" v-for="blog in blogs" :key="blog.id">
+            <b-col cols="6" v-for="blog in blogs" :key="blog.id">
               <b-link to="" class="blog-item">
                 <div
                   class="image"
@@ -144,6 +158,7 @@
       </div>
     </div>
     <div class="map-wrap" style="height: 100vh;">
+      <marquee behavior="" direction="">Langit biru tanpa asap, STOP kebakaran hutan dan lahan</marquee>
       <div class="legend-wrap">
         <b-link class="legend-head" @click="toggleOpen">
           <h6>Legenda</h6>
@@ -156,20 +171,68 @@
               hutan melalui petugas patroli pencegahan
             </p> -->
             <div class="legend-item">
-              <img src="/terra.svg" alt="" />
               <h6>Satelit TERRA/AQUA</h6>
+              <p class="count-total">0</p>
+              <span class="count-satellite">
+                <img src="/terra-red.svg" alt="" />
+                0
+              </span>
+              <span class="count-satellite">
+                <img src="/terra-yw.svg" alt="" />
+                0
+              </span>
+              <span class="count-satellite">
+                <img src="/terra-gr.svg" alt="" />
+                0
+              </span>
             </div>
             <div class="legend-item">
-              <img src="/snpp.svg" alt="" />
               <h6>Satelit SNPP</h6>
+              <p class="count-total">0</p>
+              <span class="count-satellite">
+                <img src="/snpp-red.svg" alt="" />
+                0
+              </span>
+              <span class="count-satellite">
+                <img src="/snpp-yw.svg" alt="" />
+                0
+              </span>
+              <span class="count-satellite">
+                <img src="/snpp-gr.svg" alt="" />
+                0
+              </span>
             </div>
             <div class="legend-item">
-              <img src="/noaa.svg" alt="" />
               <h6>Satelit NOAA20</h6>
+              <p class="count-total">0</p>
+              <span class="count-satellite">
+                <img src="/noaa-red.svg" alt="" />
+                0
+              </span>
+              <span class="count-satellite">
+                <img src="/noaa-yw.svg" alt="" />
+                0
+              </span>
+              <span class="count-satellite">
+                <img src="/noaa-gr.svg" alt="" />
+                0
+              </span>
             </div>
             <div class="legend-item">
-              <img src="/landsat.svg" alt="" />
               <h6>Satelit LANDSAT8</h6>
+              <p class="count-total">0</p>
+              <span class="count-satellite">
+                <img src="/land-red.svg" alt="" />
+                0
+              </span>
+              <span class="count-satellite">
+                <img src="/land-yw.svg" alt="" />
+                0
+              </span>
+              <span class="count-satellite">
+                <img src="/land-gr.svg" alt="" />
+                0
+              </span>
             </div>
           </div>
           <div class="filter-wrap">
@@ -186,16 +249,6 @@
             </div>
             <div class="select-wrap">
               <label class="mr-sm-2">Dengan tingkat kepercayaan data</label>
-              <!-- <b-form-input
-                id="range-2"
-                v-model="trustData"
-                type="range"
-                min="0"
-                max="2"
-              ></b-form-input>
-              <span class="ket">Rendah</span>
-              <span class="ket text-center">Sedang</span>
-              <span class="ket text-right">Tinggi</span> -->
               <b-form-checkbox
                 id="checkbox-rendah"
                 v-model="trustData"
@@ -226,6 +279,21 @@
             </div>
             <div class="select-wrap">
               <label class="float-left">Pergerakan Angin</label>
+              <b-form-checkbox
+                v-model="windDir"
+                name="check-button"
+                switch
+                class="float-right"
+              >
+              </b-form-checkbox>
+              <div class="ket-wind" v-if="windDir">
+                <div class="bar"></div>
+                <span class="speed">0 m/s</span>
+                <span class="speed text-right">30 m/s</span>
+              </div>
+            </div>
+            <div class="select-wrap">
+              <label class="float-left">Indeks Kualitas Udara</label>
               <b-form-checkbox
                 v-model="windDir"
                 name="check-button"
@@ -1203,18 +1271,21 @@ export default {
       legend.classList.toggle('open')
     },
     openSidebarOne() {
+      var legend = document.querySelector('.legend-wrap')
       var sidebar = document.querySelector('.sidebar-one')
       var sidebar2 = document.querySelector('.sidebar-two')
       var sidebar3 = document.querySelector('.sidebar-three')
       var link = document.querySelector('.link-one')
       var link2 = document.querySelector('.link-two')
       var link3 = document.querySelector('.link-three')
+      var link4 = document.querySelector('.link-four')
       var map = document.querySelector('.map-wrap')
 
       if (
         map.classList.contains('openSide') &&
         (sidebar2.classList.contains('opened') ||
-          sidebar3.classList.contains('opened'))
+          sidebar3.classList.contains('opened') ||
+          legend.classList.contains('open'))
       ) {
         sidebar2.classList.remove('opened')
         sidebar3.classList.remove('opened')
@@ -1223,6 +1294,10 @@ export default {
         map.classList.remove('big')
         link.classList.add('active')
         sidebar.classList.add('opened')
+        if (window.innerWidth < 767) {
+          legend.classList.remove('open')
+          link4.classList.remove('active')
+        }
       } else {
         sidebar.classList.toggle('opened')
         map.classList.toggle('openSide')
@@ -1230,18 +1305,21 @@ export default {
       }
     },
     openSidebarTwo() {
+      var legend = document.querySelector('.legend-wrap')
       var sidebar = document.querySelector('.sidebar-one')
       var sidebar2 = document.querySelector('.sidebar-two')
       var sidebar3 = document.querySelector('.sidebar-three')
       var link = document.querySelector('.link-one')
       var link2 = document.querySelector('.link-two')
       var link3 = document.querySelector('.link-three')
+      var link4 = document.querySelector('.link-four')
       var map = document.querySelector('.map-wrap')
 
       if (
         map.classList.contains('openSide') &&
         (sidebar.classList.contains('opened') ||
-          sidebar3.classList.contains('opened'))
+          sidebar3.classList.contains('opened') ||
+          legend.classList.contains('open'))
       ) {
         sidebar.classList.remove('opened')
         sidebar3.classList.remove('opened')
@@ -1250,6 +1328,10 @@ export default {
         map.classList.add('big')
         link2.classList.add('active')
         sidebar2.classList.add('opened')
+        if (window.innerWidth < 767) {
+          legend.classList.remove('open')
+          link4.classList.remove('active')
+        }
       } else {
         sidebar2.classList.toggle('opened')
         map.classList.toggle('openSide')
@@ -1258,18 +1340,21 @@ export default {
       }
     },
     openSidebarThree() {
+      var legend = document.querySelector('.legend-wrap')
       var sidebar = document.querySelector('.sidebar-one')
       var sidebar2 = document.querySelector('.sidebar-two')
       var sidebar3 = document.querySelector('.sidebar-three')
       var link = document.querySelector('.link-one')
       var link2 = document.querySelector('.link-two')
       var link3 = document.querySelector('.link-three')
+      var link4 = document.querySelector('.link-four')
       var map = document.querySelector('.map-wrap')
 
       if (
         map.classList.contains('openSide') &&
         (sidebar.classList.contains('opened') ||
-          sidebar2.classList.contains('opened'))
+          sidebar2.classList.contains('opened') ||
+          legend.classList.contains('open'))
       ) {
         sidebar.classList.remove('opened')
         sidebar2.classList.remove('opened')
@@ -1278,12 +1363,47 @@ export default {
         link3.classList.add('active')
         map.classList.remove('big')
         sidebar3.classList.add('opened')
+        if (window.innerWidth < 767) {
+          legend.classList.remove('open')
+          link4.classList.remove('active')
+        }
       } else {
         sidebar3.classList.toggle('opened')
         map.classList.toggle('openSide')
         link3.classList.toggle('active')
       }
     },
+    openLegend(){
+      var legend = document.querySelector('.legend-wrap')
+      var sidebar = document.querySelector('.sidebar-one')
+      var sidebar2 = document.querySelector('.sidebar-two')
+      var sidebar3 = document.querySelector('.sidebar-three')
+      var link = document.querySelector('.link-one')
+      var link2 = document.querySelector('.link-two')
+      var link3 = document.querySelector('.link-three')
+      var link4 = document.querySelector('.link-four')
+      var map = document.querySelector('.map-wrap')
+
+      if (
+        map.classList.contains('openSide') &&
+        (sidebar.classList.contains('opened') ||
+          sidebar2.classList.contains('opened') ||
+          sidebar3.classList.contains('opened'))
+      ) {
+        sidebar.classList.remove('opened')
+        sidebar2.classList.remove('opened')
+        sidebar3.classList.remove('opened')
+        link.classList.remove('active')
+        link2.classList.remove('active')
+        link3.classList.remove('active')
+        map.classList.remove('big')
+        legend.classList.toggle('open')
+        link4.classList.toggle('active')
+      } else {
+        legend.classList.toggle('open')
+        link4.classList.toggle('active')
+      }
+    }
   },
 }
 </script>
