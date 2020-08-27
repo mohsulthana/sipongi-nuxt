@@ -158,6 +158,10 @@
       </div>
     </div>
     <div class="map-wrap" style="height: 100vh;">
+      <div class="logo-responsive">
+        <img src="/logo.svg" alt="" />
+        <img src="/logo-text.svg" alt="" />
+      </div>
       <marquee behavior="" direction="">Langit biru tanpa asap, STOP kebakaran hutan dan lahan</marquee>
       <div class="legend-wrap">
         <b-link class="legend-head" @click="toggleOpen">
@@ -301,11 +305,13 @@
                 class="float-right"
               >
               </b-form-checkbox>
-              <div class="ket-wind" v-if="windDir">
-                <div class="bar"></div>
-                <span class="speed">0 m/s</span>
-                <span class="speed text-right">30 m/s</span>
-              </div>
+              <ul class="index-udara-list" v-if="windDir">
+                <li>Baik (0-50)</li>
+                <li>Sedang (50-100)</li>
+                <li>Tidak Sehat (101-199)</li>
+                <li>Sangat Tidak Sehat (200-299)</li>
+                <li>Berbahaya (> 300)</li>
+              </ul>
             </div>
             <div class="select-wrap">
               <label class="float-left">Lokasi Unit Kerja</label>

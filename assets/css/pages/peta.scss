@@ -306,9 +306,30 @@
         margin-left: 0;
         height: calc(100vh - 65px) !important;
     }
+    .leaflet-control-zoom{
+        margin: 40px 0 0 15px !important;
+    }
+    .logo-responsive{
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: #FDF5EF;
+        padding: 20px 15px;
+        display: none;
+        z-index: 9999;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        img{
+            display: inline-block;
+            vertical-align: middle;
+        }
+        @media screen and (max-width: 767px){
+            display: block;
+        }
+    }
     marquee{
         position: absolute;
-        z-index: 999;
+        z-index: 9998;
         top: 0;
         right: 0;
         left: 0;
@@ -524,6 +545,49 @@
                             width: 49%;
                         }
                     }
+                    .index-udara-list{
+                        margin-bottom: 0px;
+                        padding: 0;
+                        clear: both;
+                        li{
+                            padding-left: 20px;
+                            position: relative;
+                            font-size: 12px;
+                            color: $t;
+                            margin-bottom: 5px;
+                            list-style: none;
+                            &:before{
+                                content: "";
+                                position: absolute;
+                                top: 3px;
+                                left: 0;
+                                width: 11px;
+                                height: 11px;
+                                border-radius: 50%;
+                                background-color: #2ECC71;
+                            }
+                            &:nth-child(2){
+                                &:before{
+                                    background-color: #3498DB;
+                                }
+                            }
+                            &:nth-child(3){
+                                &:before{
+                                    background-color: #F1C40F;
+                                }
+                            }
+                            &:nth-child(4){
+                                &:before{
+                                    background-color: #E74C3C;
+                                }
+                            }
+                            &:nth-child(5){
+                                &:before{
+                                    background-color: #34495E;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -538,7 +602,7 @@
                 }
             }
             .legend-body{
-                max-height: 505px;
+                max-height: 625px;
                 overflow: hidden;
                 @media screen and (max-width: 767px){
                     max-height: 50vh;
