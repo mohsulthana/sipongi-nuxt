@@ -308,6 +308,9 @@
     }
     .leaflet-control-zoom{
         margin: 40px 0 0 15px !important;
+        @media screen and (max-width: 767px){
+            display: none !important;
+        }
     }
     .logo-responsive{
         position: absolute;
@@ -322,6 +325,9 @@
         img{
             display: inline-block;
             vertical-align: middle;
+        }
+        &:hover, &:focus{
+            text-decoration: none;
         }
         @media screen and (max-width: 767px){
             display: block;

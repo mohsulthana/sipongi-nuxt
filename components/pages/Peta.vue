@@ -158,10 +158,10 @@
       </div>
     </div>
     <div class="map-wrap" style="height: 100vh;">
-      <div class="logo-responsive">
+      <b-link to="/" class="logo-responsive">
         <img src="/logo.svg" alt="" />
         <img src="/logo-text.svg" alt="" />
-      </div>
+      </b-link>
       <marquee behavior="" direction="">Langit biru tanpa asap, STOP kebakaran hutan dan lahan</marquee>
       <div class="legend-wrap">
         <b-link class="legend-head" @click="toggleOpen">
