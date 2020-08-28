@@ -11,7 +11,7 @@
             <img src="/fire.svg" alt="" />
             <span class="notif">{{ totalHotspot }}</span>
           </div>
-          <h6>Lokasi <br />Titik Panas</h6>
+          <h6>Titik<br/>Panas</h6>
         </div>
       </b-link>
       <b-link class="main link-two" @click="openSidebarTwo">

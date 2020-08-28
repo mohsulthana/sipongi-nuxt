@@ -16,6 +16,8 @@
           <b-nav-item to="/peta">Peta</b-nav-item>
           <b-nav-item to="/grafik">Grafik</b-nav-item>
           <b-nav-item to="/blog">Blog</b-nav-item>
+          <b-nav-item to="/galeri">Galeri</b-nav-item>
+          <b-nav-item to="/publikasi">Publikasi</b-nav-item>
           <b-nav-item to="/tentang">Tentang</b-nav-item>
         </b-navbar-nav>
 

@@ -1,3 +1,7 @@
+const pkg = require('./package');
+var webpack = require('webpack');
+const nodeExternals = require('webpack-node-externals');
+
 export default {
   /*
    ** Nuxt rendering mode
@@ -76,6 +80,11 @@ export default {
     {
       src: '~/plugins/vue-markdown.js',
       ssr: false,
+    },
+    // { src: '~/plugins/vue-slick.js', ssr: false, },
+    {
+      src: '~/plugins/vue-slick-carousel.js',
+      ssr: true,
     },
   ],
   /*
@@ -165,7 +174,8 @@ export default {
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
    */
-  build: {},
+  build: {
+  },
 
   server: {
     port: process.env.PORT || 3000, // default: 3000
