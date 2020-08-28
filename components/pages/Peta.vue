@@ -158,6 +158,10 @@
       </div>
     </div>
     <div class="map-wrap" style="height: 100vh;">
+      <b-link to="#" class="call">
+        <img src="/phone-red.svg" alt="" class="mr-1 inner" />
+        Call SiPongi+
+      </b-link>
       <b-link to="/" class="logo-responsive">
         <img src="/logo.svg" alt="" />
         <img src="/logo-text.svg" alt="" />

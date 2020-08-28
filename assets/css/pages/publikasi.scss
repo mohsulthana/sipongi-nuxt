@@ -1,0 +1,106 @@
+.accordion-publikasi{
+    .card{
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid rgba($color: #707070, $alpha: 0.2);
+        .card-header{
+            border-radius: 0;
+            padding: 0;
+            border-bottom: none;
+            background-color: transparent;
+            .btn{
+                background-color: transparent;
+                border-radius: 0;
+                border: none;
+                padding: 20px 0;
+                position: relative;
+                h5{
+                    display: block;
+                    color: $t;
+                    font-size: 20px;
+                    font-weight: bold;
+                    margin: 0;
+                    text-align: left;
+                    padding-right: 30px;
+                    @media screen and (max-width: 767px){
+                        font-size: 16px;
+                    }
+                }
+                img{
+                    position: absolute;
+                    top: 50%;
+                    right: 0;
+                    transform: translateY(-50%);
+                }
+                &:hover, &:focus{
+                    outline: none;
+                    box-shadow: none;
+                }
+            }
+        }
+        .card-body{
+            padding: 15px 0;
+            @media screen and (max-width: 767px){
+                padding: 7px 0;
+            }
+            .uud-item{
+                text-align: left;
+                margin-bottom: 20px;
+                @media screen and (max-width: 767px){
+                    margin-bottom: 10px;
+                }
+                a{
+                    color: $pri;
+                    display: inline-block;
+                    font-size: 18px;
+                    margin-bottom: 5px;
+                    @media screen and (max-width: 767px){
+                        font-size: 15px;
+                    }
+                }
+                span{
+                    display: block;
+                    font-size: 15px;
+                    @media screen and (max-width: 767px){
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.document-item{
+    padding: 23px 120px 23px 30px;
+    width: 100%;
+    position: relative;
+    border-bottom: 1px solid rgba($color: #707070, $alpha: 0.2);
+    @media screen and (max-width: 767px){
+        padding: 20px 120px 20px 30px;
+    }
+    img{
+        position: absolute;
+        top: 50%;
+        left: 0px;
+        transform: translateY(-50%);
+    }
+    h5{
+        margin-bottom: 0;
+        display: inline-block;
+        vertical-align: middle;
+        @media screen and (max-width: 767px){
+            font-size: 16px;
+        }
+    }
+    a{
+        font-size: 13px;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        i{
+            margin-left: 3px;
+            opacity: 0.5;
+        }
+    }
+}

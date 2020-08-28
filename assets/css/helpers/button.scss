@@ -41,6 +41,33 @@
     }
 }
 
+.btn-third{
+    padding: 10px 17px;
+    background-color: $pri;
+    color: $wt;
+    border-color: $pri;
+    border-radius: 12px;
+    font-size: 15px;
+    font-family: $b;
+    font-weight: 500;
+    box-shadow: none !important;
+    transition: all 0.3s ease;
+    img{
+        margin-left: 5px;
+        margin-right: 3px;
+        transition: all 0.3s ease;
+    }
+    &:hover, &:focus, &:active, &:disabled{
+        background-color: lighten($pri, 10%) !important;
+        border-color: lighten($pri, 10%) !important;
+        outline: none !important;
+        img{
+            margin-left: 8px;
+            margin-right: 0;
+        }
+    }
+}
+
 .btn-ghost{
     padding: 10px 17px;
     background-color: $wt;

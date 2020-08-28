@@ -1,24 +1,11 @@
 <template>
   <div class="inner-page">
-    <div class="page-desc">
+    <div class="galeri-wrap">
       <b-container>
         <b-row>
-          <b-col md="7">
-            <h3>Sipongi+ Galeri</h3>
-            <h6>
-              Informasi seputar kegiatan pemadaman yang dilakukan oleh
-              manggalana agni serta updates informasi seputar peringatan
-              kebakaran
-            </h6>
-          </b-col>
-        </b-row>
-      </b-container>
-    </div>
-
-    <div class="tentang-wrap">
-      <b-container>
-        <b-row>
-          <b-col md="12">
+          <b-col md="10" offset-md="1">
+            <b-link to="/galeri" target="_self" class="back-link"><img src="/mini_arrow_left-gray.svg" alt=""> Kembali ke halaman Galeri</b-link>
+            <h3 class="title">{{ gallery.title }}</h3>
             <div class="gal-item">
               <VueSlickCarousel
                 v-bind="slickOptions"
@@ -31,7 +18,9 @@
                   v-for="img in gallery.image"
                   :key="img.id"
                   :style="{ backgroundImage: 'url(' + img.url + ')' }"
-                ></div>
+                >
+                  <div class="text">{{ img.title }}</div>
+                </div>
               </VueSlickCarousel>
               <VueSlickCarousel
                 v-bind="slickGuideOptions"
@@ -39,16 +28,16 @@
                 ref="sliderbig"
                 @beforeChange="syncSliders"
               >
-                <div
-                  class="image"
+                <div class="wrap"
                   v-for="img in gallery.image"
                   :key="img.id"
-                  :style="{ backgroundImage: 'url(' + img.url + ')' }"
-                ></div>
+                >
+                  <div
+                    class="image"
+                    :style="{ backgroundImage: 'url(' + img.url + ')' }"
+                  ></div>
+                </div>
               </VueSlickCarousel>
-
-              <h5>{{ gallery.title }}</h5>
-              <h6>{{ gallery.tgl }}</h6>
             </div>
           </b-col>
         </b-row>
@@ -65,15 +54,18 @@ export default {
       slickOptions: {
         slidesToShow: 1,
         focusOnSelect: true,
+        arrows: false,
+        infinite: true,
       },
       slickGuideOptions: {
-        slidesToShow: 4,
+        slidesToShow: 5,
         focusOnSelect: true,
+        infinite: true,
         responsive: [
           {
             breakpoint: 991,
             settings: {
-              slidesToShow: 5,
+              slidesToShow: 4,
             },
           },
           {
@@ -91,31 +83,37 @@ export default {
         image: [
           {
             id: 1,
+            title: 'Pemadaman Darat Daops Rengat, Riau (11 Sept 2019)',
             url:
               'https://images.unsplash.com/photo-1515354510367-70cfa0609079?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
           },
           {
             id: 2,
+            title: 'Pemadaman Darat Daops Rengat, Riau (11 Sept 2019)',
             url:
               'https://images.unsplash.com/photo-1536047662067-327f912f87a0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
           },
           {
             id: 3,
+            title: 'Pemadaman Darat Daops Rengat, Riau (11 Sept 2019)',
             url:
               'https://images.unsplash.com/photo-1561439740-e8863909de77?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1052&q=80',
           },
           {
             id: 4,
+            title: 'Pemadaman Darat Daops Rengat, Riau (11 Sept 2019)',
             url:
               'https://images.unsplash.com/photo-1518904868869-fbb2cdd0429a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1049&q=80',
           },
           {
             id: 5,
+            title: 'Pemadaman Darat Daops Rengat, Riau (11 Sept 2019)',
             url:
               'https://images.unsplash.com/photo-1561439740-e8863909de77?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1052&q=80',
           },
           {
             id: 6,
+            title: 'Pemadaman Darat Daops Rengat, Riau (11 Sept 2019)',
             url:
               'https://images.unsplash.com/photo-1518904868869-fbb2cdd0429a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1049&q=80',
           },
