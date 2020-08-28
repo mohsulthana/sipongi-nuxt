@@ -351,6 +351,9 @@
                         <h5>DALKARHUTLA GAMBUT</h5>
                         <b-link class="btn btn-third">Watch <i class="fas fa-angle-right"></i></b-link>
                     </div>
+                    <div class="text-center mt-4">
+                        <b-button variant="primary">Lihat lebih banyak</b-button>
+                    </div>
                   </b-col>
                 </b-row>
               </b-tab>

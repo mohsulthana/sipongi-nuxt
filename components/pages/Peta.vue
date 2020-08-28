@@ -110,6 +110,9 @@
                 <span>{{ blog.date }}</span>
               </b-link>
             </b-col>
+            <b-col md="12" class="text-center">
+              <b-button variant="primary" class="loadMore">Lihat lebih banyak</b-button>
+            </b-col>
           </b-row>
         </div>
       </div>
@@ -124,17 +127,6 @@
         </div>
 
         <div class="content-list">
-          <!-- <input
-            type="search"
-            class="form-control search"
-            name=""
-            id=""
-            placeholder="Cari Lokasi..."
-          />
-          <p class="not-found">
-            Masukkan pencarian dan tekan enter untuk menemukan dataset atau
-            lokasi …
-          </p> -->
           <label for="">Pilih Provinsi</label>
           <b-form-select
             v-model="cariProvinsi"
