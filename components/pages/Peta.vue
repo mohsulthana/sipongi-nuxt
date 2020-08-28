@@ -11,7 +11,7 @@
             <img src="/fire.svg" alt="" />
             <span class="notif">{{ totalHotspot }}</span>
           </div>
-          <h6>Titik<br/>Panas</h6>
+          <h6>Titik<br />Panas</h6>
         </div>
       </b-link>
       <b-link class="main link-two" @click="openSidebarTwo">
@@ -111,7 +111,9 @@
               </b-link>
             </b-col>
             <b-col md="12" class="text-center">
-              <b-button variant="primary" class="loadMore">Lihat lebih banyak</b-button>
+              <b-button variant="primary" class="loadMore"
+                >Lihat lebih banyak</b-button
+              >
             </b-col>
           </b-row>
         </div>
@@ -158,7 +160,9 @@
         <img src="/logo.svg" alt="" />
         <img src="/logo-text.svg" alt="" />
       </b-link>
-      <marquee behavior="" direction="">Langit biru tanpa asap, STOP kebakaran hutan dan lahan</marquee>
+      <marquee behavior="" direction=""
+        >Langit biru tanpa asap, STOP kebakaran hutan dan lahan</marquee
+      >
       <div class="legend-wrap">
         <b-link class="legend-head" @click="toggleOpen">
           <h6>Legenda</h6>
@@ -172,66 +176,74 @@
             </p> -->
             <div class="legend-item">
               <h6>Satelit TERRA/AQUA</h6>
-              <p class="count-total">0</p>
+              <p class="count-total">
+                {{ getTotal('LPN-MODIS') }}
+              </p>
               <span class="count-satellite">
                 <img src="/terra-red.svg" alt="" />
-                0
+                {{ getTotalLevel('LPN-MODIS', 'high') }}
               </span>
               <span class="count-satellite">
                 <img src="/terra-yw.svg" alt="" />
-                0
+                {{ getTotalLevel('LPN-MODIS', 'medium') }}
               </span>
               <span class="count-satellite">
                 <img src="/terra-gr.svg" alt="" />
-                0
+                {{ getTotalLevel('LPN-MODIS', 'low') }}
               </span>
             </div>
             <div class="legend-item">
               <h6>Satelit SNPP</h6>
-              <p class="count-total">0</p>
+              <p class="count-total">
+                {{ getTotal('LPN-NPP') }}
+              </p>
               <span class="count-satellite">
                 <img src="/snpp-red.svg" alt="" />
-                0
+                {{ getTotalLevel('LPN-NPP', 'high') }}
               </span>
               <span class="count-satellite">
                 <img src="/snpp-yw.svg" alt="" />
-                0
+                {{ getTotalLevel('LPN-NPP', 'medium') }}
               </span>
               <span class="count-satellite">
                 <img src="/snpp-gr.svg" alt="" />
-                0
+                {{ getTotalLevel('LPN-NPP', 'low') }}
               </span>
             </div>
             <div class="legend-item">
               <h6>Satelit NOAA20</h6>
-              <p class="count-total">0</p>
+              <p class="count-total">
+                {{ getTotal('LPN-NOAA20') }}
+              </p>
               <span class="count-satellite">
                 <img src="/noaa-red.svg" alt="" />
-                0
+                {{ getTotalLevel('LPN-NOAA20', 'high') }}
               </span>
               <span class="count-satellite">
                 <img src="/noaa-yw.svg" alt="" />
-                0
+                {{ getTotalLevel('LPN-NOAA20', 'medium') }}
               </span>
               <span class="count-satellite">
                 <img src="/noaa-gr.svg" alt="" />
-                0
+                {{ getTotalLevel('LPN-NOAA20', 'low') }}
               </span>
             </div>
             <div class="legend-item">
               <h6>Satelit LANDSAT8</h6>
-              <p class="count-total">0</p>
+              <p class="count-total">
+                {{ getTotal('LPN-LANDSAT8') }}
+              </p>
               <span class="count-satellite">
                 <img src="/land-red.svg" alt="" />
-                0
+                {{ getTotalLevel('LPN-LANDSAT8', 'high') }}
               </span>
               <span class="count-satellite">
                 <img src="/land-yw.svg" alt="" />
-                0
+                {{ getTotalLevel('LPN-LANDSAT8', 'medium') }}
               </span>
               <span class="count-satellite">
                 <img src="/land-gr.svg" alt="" />
-                0
+                {{ getTotalLevel('LPN-LANDSAT8', 'low') }}
               </span>
             </div>
           </div>
@@ -243,7 +255,7 @@
                 :options="[
                   { value: 12, text: '12 Jam Terakhir' },
                   { value: 24, text: '24 Jam Terakhir' },
-                  { value: 42, text: '42 Jam Terakhir' },
+                  { value: 48, text: '48 Jam Terakhir' },
                 ]"
               ></b-form-select>
             </div>
@@ -295,15 +307,15 @@
             <div class="select-wrap">
               <label class="float-left">Indeks Kualitas Udara</label>
               <b-form-checkbox
-                v-model="windDir"
+                v-model="aqmsShow"
                 name="check-button"
                 switch
                 class="float-right"
               >
               </b-form-checkbox>
-              <ul class="index-udara-list" v-if="windDir">
+              <ul class="index-udara-list" v-if="aqmsShow">
                 <li>Baik (0-50)</li>
-                <li>Sedang (50-100)</li>
+                <li>Sedang (51-100)</li>
                 <li>Tidak Sehat (101-199)</li>
                 <li>Sangat Tidak Sehat (200-299)</li>
                 <li>Berbahaya (> 300)</li>
@@ -377,6 +389,13 @@
               :options="OptWind"
               :visible="windDir"
             ></leaflet-velocity>
+          </l-layer-group>
+          <l-layer-group>
+            <l-geo-json
+              :geojson="aqmsData"
+              :visible="aqmsShow"
+              :options="optionsAqms"
+            ></l-geo-json>
           </l-layer-group>
           <l-layer-group>
             <l-geo-json
@@ -469,7 +488,36 @@ export default {
       windDir: false,
       unitKerja: false,
       btsAdmf: false,
-      DataHotSpot: {},
+      DataHotSpot: {
+        totals: {
+          'LPN-LANDSAT8': 0,
+          'LPN-NOAA20': 0,
+          'LPN-NPP': 0,
+          'LPN-MODIS': 0,
+        },
+        totalsLevel: {
+          'LPN-LANDSAT8': {
+            low: 0,
+            medium: 0,
+            high: 0,
+          },
+          'LPN-NOAA20': {
+            low: 0,
+            medium: 0,
+            high: 0,
+          },
+          'LPN-NPP': {
+            low: 0,
+            medium: 0,
+            high: 0,
+          },
+          'LPN-MODIS': {
+            low: 0,
+            medium: 0,
+            high: 0,
+          },
+        },
+      },
       chkSumber: ['LPN-MODIS', 'LPN-NPP', 'LPN-NOAA20', 'LPN-LANDSAT8'],
       clusterKabKota: {
         data: null,
@@ -487,6 +535,8 @@ export default {
         loadData: false,
       },
       geoJsonLayerMarker: {},
+      aqmsData: null,
+      aqmsShow: false,
       OptWind: {
         displayValues: true,
         displayOptions: {
@@ -763,6 +813,55 @@ export default {
         iconSize: [40, 40],
       })
     },
+    aqmsGreenIcon() {
+      let icon = () => {}
+      if (process.browser) icon = this.$L.icon
+      return icon({
+        iconUrl: '/marker-unit.svg',
+        iconSize: [40, 40],
+      })
+    },
+    aqmsGreenIcon() {
+      let icon = () => {}
+      if (process.browser) icon = this.$L.icon
+      return icon({
+        iconUrl: 'http://repo.just4dev.id/images/map/location/20_GREEN_LOC.gif',
+        iconSize: [20, 20],
+      })
+    },
+    aqmsBlueIcon() {
+      let icon = () => {}
+      if (process.browser) icon = this.$L.icon
+      return icon({
+        iconUrl: 'http://repo.just4dev.id/images/map/location/20_BLUE_LOC.gif',
+        iconSize: [20, 20],
+      })
+    },
+    aqmsYellowIcon() {
+      let icon = () => {}
+      if (process.browser) icon = this.$L.icon
+      return icon({
+        iconUrl:
+          'http://repo.just4dev.id/images/map/location/20_YELLOW_LOC.gif',
+        iconSize: [20, 20],
+      })
+    },
+    aqmsRedIcon() {
+      let icon = () => {}
+      if (process.browser) icon = this.$L.icon
+      return icon({
+        iconUrl: 'http://repo.just4dev.id/images/map/location/20_RED_LOC.gif',
+        iconSize: [20, 20],
+      })
+    },
+    aqmsBlackIcon() {
+      let icon = () => {}
+      if (process.browser) icon = this.$L.icon
+      return icon({
+        iconUrl: 'http://repo.just4dev.id/images/map/location/20_BLACK_LOC.gif',
+        iconSize: [20, 20],
+      })
+    },
     totalHotspot() {
       let datas = this.DataHotSpot.totals
       let sum = 0
@@ -877,6 +976,88 @@ export default {
         }
       }
     },
+    optionsAqms() {
+      let self = this
+      return {
+        onEachFeature: this.onEachFeatureAqms,
+        pointToLayer: function (feature, latlng) {
+          let marker = self.$L.marker(latlng, {
+            icon: self.getIconAqms(feature.properties),
+          })
+
+          marker.on('dblclick', function (e) {
+            self.changeCenterMarker(e, feature.properties)
+          })
+
+          return marker
+        },
+        filter: function (feature, layer) {
+          if (
+            feature.properties.tanggal &&
+            feature.properties.jam &&
+            feature.properties.kriteria.kategori !== 'NONAKTIF' &&
+            feature.properties.ispu
+          ) {
+            return true
+          }
+
+          return false
+        },
+      }
+    },
+    onEachFeatureAqms() {
+      let self = this
+      return (feature, layer) => {
+        let image = '/nophoto.jpg'
+        if (feature.properties.image) {
+          image = `http://iku.menlhk.go.id/aqms/uploads/stasiun/${feature.properties.image}`
+        }
+
+        let popupHtml = `<table class='table b-table table-striped table-sm'>`
+        popupHtml += `<tbody>`
+        popupHtml += `<tr><th>Tanggal/Jam</th><td>${
+          feature.properties.tanggal && feature.properties.jam
+            ? self
+                .$moment(
+                  `${feature.properties.tanggal} ${feature.properties.jam}`
+                )
+                .format('dddd, DD MMMM YYYY HH:mm')
+            : '-'
+        }</td><td rowspan="6" style="vertical-align:middle"><img src="${image}" width="200"></td></tr>`
+        popupHtml += `<tr><th>Stasiun</th><td>${
+          feature.properties.kode ? feature.properties.kode : '-'
+        }</td></tr>`
+        popupHtml += `<tr><th>Kab/Kota</th><td>${
+          feature.properties.kabupatenNama
+            ? feature.properties.kabupatenNama
+            : '-'
+        }</td></tr>`
+        popupHtml += `<tr><th>Provinsi</th><td>${
+          feature.properties.provinsiNama
+            ? feature.properties.provinsiNama
+            : '-'
+        }</td></tr>`
+        popupHtml += `<tr><th>ISPU</th><td>${
+          feature.properties.ispu
+            ? feature.properties.ispu.nilai
+              ? feature.properties.ispu.nilai
+              : '-'
+            : '-'
+        }</td></tr>`
+        popupHtml += `<tr><th>Parameter</th><td>${
+          feature.properties.ispu
+            ? feature.properties.ispu.parameter
+              ? feature.properties.ispu.parameter
+              : '-'
+            : '-'
+        }</td></tr>`
+        popupHtml += `</tbody>`
+        popupHtml += `</table>`
+        layer.bindPopup(popupHtml, {
+          maxWidth: 600,
+        })
+      }
+    },
   },
   async created() {
     await this.loadHotSpot()
@@ -884,9 +1065,22 @@ export default {
       await this.cmbProvs()
     }
 
+    await this.loadAqms()
     await this.loadWind()
   },
   methods: {
+    getTotalLevel(key, level) {
+      return this.DataHotSpot.totalsLevel[key] &&
+        this.DataHotSpot.totalsLevel[key][level] &&
+        this.checkSumber(key)
+        ? this.DataHotSpot.totalsLevel[key][level]
+        : 0
+    },
+    getTotal(key) {
+      return this.DataHotSpot.totals[key] && this.checkSumber(key)
+        ? this.DataHotSpot.totals[key]
+        : 0
+    },
     zoomUpdated(zoom) {
       this.zoom = zoom
     },
@@ -952,6 +1146,19 @@ export default {
         } else {
           return this.landsatRedIcon
         }
+      }
+    },
+    getIconAqms(item) {
+      if (item.ispu.nilai <= 50) {
+        return this.aqmsGreenIcon
+      } else if (item.ispu.nilai >= 51 && item.ispu.nilai <= 100) {
+        return this.aqmsBlueIcon
+      } else if (item.ispu.nilai >= 101 && item.ispu.nilai <= 199) {
+        return this.aqmsYellowIcon
+      } else if (item.ispu.nilai >= 200 && item.ispu.nilai <= 299) {
+        return this.aqmsRedIcon
+      } else if (item.ispu.nilai >= 300) {
+        return this.aqmsBlackIcon
       }
     },
     optionsMarkerClaster(tipe) {
@@ -1224,6 +1431,17 @@ export default {
         .catch((err) => {})
         .finally(() => {})
     },
+    async loadAqms() {
+      const url = !process.server ? `/v1/aqms` : `/api/aqms`
+
+      await this.$axios
+        .$get(url)
+        .then(({ data }) => {
+          this.aqmsData = data
+        })
+        .catch((err) => {})
+        .finally(() => {})
+    },
     async cmbProvs() {
       const url = !process.server
         ? `/v1/getProvinsi/all`
@@ -1375,7 +1593,7 @@ export default {
         link3.classList.toggle('active')
       }
     },
-    openLegend(){
+    openLegend() {
       var legend = document.querySelector('.legend-wrap')
       var sidebar = document.querySelector('.sidebar-one')
       var sidebar2 = document.querySelector('.sidebar-two')
@@ -1405,7 +1623,7 @@ export default {
         legend.classList.toggle('open')
         link4.classList.toggle('active')
       }
-    }
+    },
   },
 }
 </script>

@@ -378,5 +378,10 @@ export default {
         })
     },
   },
+  head() {
+    return {
+      title: 'Grafik',
+    }
+  },
 }
 </script>

@@ -10,5 +10,10 @@ export default {
   components: {
     Peta,
   },
+  head() {
+    return {
+      title: 'Peta',
+    }
+  },
 }
 </script>

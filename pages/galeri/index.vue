@@ -35,7 +35,9 @@
                     </b-link>
                   </b-col>
                   <b-col md="12" class="text-center">
-                    <button class="btn btn-ghost">Tampilkan Lebih Banyak</button>
+                    <button class="btn btn-ghost">
+                      Tampilkan Lebih Banyak
+                    </button>
                   </b-col>
                 </b-row>
               </b-tab>
@@ -133,6 +135,11 @@ export default {
     updateHeader() {
       this.$store.commit('head/innerHeader', true)
     },
+  },
+  head() {
+    return {
+      title: 'Galeri',
+    }
   },
 }
 </script>
