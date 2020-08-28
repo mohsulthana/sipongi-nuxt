@@ -123,9 +123,6 @@ export default {
       },
     }
   },
-  mounted() {
-    window.carousel = this.$refs.c1
-  },
   created() {
     this.$nextTick(function () {
       this.updateHeader()
