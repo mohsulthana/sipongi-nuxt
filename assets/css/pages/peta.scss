@@ -12,6 +12,7 @@
         background-color: #FFF;
     }
     .logo{
+        display: block;
         background-color: rgba($color: #D36301, $alpha: 0.06);
         padding: 10px 5px;
         text-align: center;
@@ -144,7 +145,6 @@
                 color: rgba($color: #000000, $alpha: 0.6);
                 transition: all 0.3s ease;
                 @media screen and (max-width: 767px){
-                    display: none;
                 }
                 &:hover, &:focus{
                     color: #000;
@@ -172,6 +172,23 @@
                 font-size: 12px;
                 margin-bottom: 0;
                 color: rgba($color: #66615C, $alpha: 0.6);
+            }
+            .mx-datepicker{
+                width: 100%;
+                .mx-input{
+                    border-radius: 0;
+                    padding: 0 30px 0 0;
+                    background-color: transparent;
+                    border: none;
+                    margin: 5px 0 10px 0;
+                    box-shadow: none;
+                    color: $t;
+                    font-size: 13px;
+                    height: auto;
+                }
+                .mx-icon-clear, .mx-icon-calendar{
+                    right: 0;
+                }
             }
         }
         .content-list{
@@ -284,6 +301,30 @@
                 font-size: 14px;
                 margin: 10px 0;
             }
+            &.titik{
+                max-height: calc(100vh - 166px);
+            }
+        }
+        .pdf{
+            display: block;
+            padding: 10px 0;
+            img{
+                vertical-align: middle;
+                display: inline-block;
+                margin-right: 5px;
+            }
+            span{
+                display: inline-block;
+                vertical-align: middle;
+                color: $t;
+                transition: all 0.3s ease;
+            }
+            &:hover, &:focus{
+                text-decoration: none;
+                span{
+                    color: $pri;
+                }
+            }
         }
         &.big{
             width: 500px;
@@ -381,7 +422,8 @@
         @media screen and (max-width: 767px){
             left: 0;
             right: 0;
-            bottom: -60px;
+            bottom: -60px;        
+            background-color: #F7F7F7;
         }
         .legend-head{
             overflow: hidden;
@@ -391,7 +433,6 @@
             padding: 20px 15px;
             @media screen and (max-width: 767px){
                 width: 100%;
-                pointer-events: none;
             }
             h6{
                 float: left;
@@ -415,6 +456,15 @@
                 transition: all 0.3s ease;
                 @media screen and (max-width: 767px){
                     display: none;
+                }
+            }
+            .close{
+                float: right;
+                display: none;
+                font-size: 16px;
+                color: rgba($color: #000000, $alpha: 0.6);
+                @media screen and (max-width: 767px){
+                    display: block;
                 }
             }
         }
@@ -468,8 +518,7 @@
                 }
             }
             .filter-wrap{
-                border-top: 1px solid rgba($color: #66615C, $alpha: 0.12);
-                padding: 16px 15px 16px 15px;
+                padding: 5px 15px 16px 15px;
                 .select-wrap{
                     margin-bottom: 10px;
                     &:after{
@@ -495,6 +544,9 @@
                         appearance: none;
                         border-color: #F7F7F7;
                         background-image: url('/mini_arrow_gray.svg');
+                        @media screen and (max-width: 767px){
+                            background-color: $wt;
+                        }
                     }
                     .ket{
                         font-size: 10px;
@@ -617,6 +669,20 @@
                                     background-color: #34495E;
                                 }
                             }
+                        }
+                    }
+                    &.w-border-bottom{
+                        position: relative;
+                        padding-bottom: 10px;
+                        margin-bottom: 15px;
+                        &:before{
+                            content: "";
+                            height: 1px;
+                            position: absolute;
+                            bottom: 0;
+                            right: -15px;
+                            left: -15px;
+                            background-color: rgba($color: #66615C, $alpha: 0.3);
                         }
                     }
                 }

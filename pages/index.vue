@@ -156,8 +156,15 @@ export default {
     await this.loadLuasKebakaran()
     await this.loadTotalProv()
   },
-
+  created() {
+    this.$nextTick(function () {
+      this.updateHeader()
+    })
+  },
   methods: {
+    updateHeader() {
+      this.$store.commit('head/innerHeader', false)
+    },
     async loadTotalTitik() {
       const url = !process.server
         ? `/v1/totalIndoHotspot`

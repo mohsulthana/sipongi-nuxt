@@ -81,7 +81,10 @@ export default {
       src: '~/plugins/vue-markdown.js',
       ssr: false,
     },
-    // { src: '~/plugins/vue-slick.js', ssr: false, },
+    { 
+      src: '~/plugins/vue2-datetimepicker', 
+      ssr: false, 
+    },
     {
       src: '~/plugins/vue-slick-carousel.js',
       ssr: true,

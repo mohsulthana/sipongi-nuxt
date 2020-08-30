@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="sidebar-map">
-      <div class="logo">
+      <b-link to="/" class="logo">
         <img src="/logo.svg" alt="" />
         <img src="/logo-text.svg" alt="" />
-      </div>
+      </b-link>
       <b-link class="main its-new link-one" @click="openSidebarOne">
         <div class="wrap">
           <div class="image">
@@ -19,7 +19,7 @@
           <div class="image">
             <img src="/fire-extinguisher.svg" alt="" />
           </div>
-          <h6>Kegiatan Pemadamam</h6>
+          <h6>Kegiatan Pemadaman</h6>
         </div>
       </b-link>
       <b-link class="main link-three" @click="openSidebarThree">
@@ -48,6 +48,9 @@
             ><i class="fas fa-times"></i
           ></b-link>
           <h6>Lokasi Titik Panas</h6>
+          <no-ssr>
+              <date-picker id="published_at" v-model="titikDate" type="date" format="dddd, DD MMMM YYYY" placeholder="Kamis, 27 Agustus 2020"></date-picker>
+          </no-ssr>
           <b-link
             :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
             @click="changeSumber('LPN-MODIS')"
@@ -70,7 +73,7 @@
           >
         </div>
 
-        <div class="content-list">
+        <div class="content-list titik">
           <template v-for="(datas, index) in DataHotSpot.kabkota">
             <template v-for="(kotakab, index2) in datas">
               <b-link
@@ -87,6 +90,11 @@
             </template>
           </template>
         </div>
+
+        <b-link to="" class="pdf">
+          <img src="/pdf.svg" alt="">
+          <span>Download PDF</span>
+        </b-link>
       </div>
 
       <div class="sidebar-slide sidebar-two big">
@@ -167,6 +175,7 @@
         <b-link class="legend-head" @click="toggleOpen">
           <h6>Legenda</h6>
           <img src="/arrow-serong.svg" alt="" class="shown" />
+          <i class="fas fa-times close"></i>
         </b-link>
         <div class="legend-body">
           <div class="legend-item-contain">
@@ -259,7 +268,7 @@
                 ]"
               ></b-form-select>
             </div>
-            <div class="select-wrap">
+            <div class="select-wrap w-border-bottom">
               <label class="mr-sm-2">Dengan tingkat kepercayaan data</label>
               <b-form-checkbox
                 id="checkbox-rendah"
@@ -480,6 +489,7 @@ export default {
   name: 'Peta',
   data() {
     return {
+      titikDate: "",
       browser: process.browser,
       centerMap: [-2.548926, 118.0148634],
       periodeData: 24,
@@ -825,7 +835,7 @@ export default {
       let icon = () => {}
       if (process.browser) icon = this.$L.icon
       return icon({
-        iconUrl: 'http://repo.just4dev.id/images/map/location/20_GREEN_LOC.gif',
+        iconUrl: '/udara-green.svg',
         iconSize: [20, 20],
       })
     },
@@ -833,7 +843,7 @@ export default {
       let icon = () => {}
       if (process.browser) icon = this.$L.icon
       return icon({
-        iconUrl: 'http://repo.just4dev.id/images/map/location/20_BLUE_LOC.gif',
+        iconUrl: '/udara-blue.svg',
         iconSize: [20, 20],
       })
     },
@@ -841,8 +851,7 @@ export default {
       let icon = () => {}
       if (process.browser) icon = this.$L.icon
       return icon({
-        iconUrl:
-          'http://repo.just4dev.id/images/map/location/20_YELLOW_LOC.gif',
+        iconUrl: '/udara-yellow.svg',
         iconSize: [20, 20],
       })
     },
@@ -850,7 +859,7 @@ export default {
       let icon = () => {}
       if (process.browser) icon = this.$L.icon
       return icon({
-        iconUrl: 'http://repo.just4dev.id/images/map/location/20_RED_LOC.gif',
+        iconUrl: '/udara-red.svg',
         iconSize: [20, 20],
       })
     },
@@ -858,7 +867,7 @@ export default {
       let icon = () => {}
       if (process.browser) icon = this.$L.icon
       return icon({
-        iconUrl: 'http://repo.just4dev.id/images/map/location/20_BLACK_LOC.gif',
+        iconUrl: '/udara-black.svg',
         iconSize: [20, 20],
       })
     },
@@ -1622,6 +1631,7 @@ export default {
       } else {
         legend.classList.toggle('open')
         link4.classList.toggle('active')
+        map.classList.toggle('openSide')
       }
     },
   },
