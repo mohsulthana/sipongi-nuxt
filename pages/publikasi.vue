@@ -24,454 +24,49 @@
                 <b-row>
                   <b-col md="9" class="text-center">
                     <div role="tablist" class="accordion-publikasi">
-                      <b-card no-body class="mb-1">
+                      <b-card
+                        v-for="(kat, index) in kategories"
+                        no-body
+                        class="mb-1"
+                        :key="kat.slug"
+                      >
                         <b-card-header header-tag="header" role="tab">
-                          <b-button block v-b-toggle.accordion-1 variant="info">
+                          <b-button
+                            block
+                            v-b-toggle="`${kat.slug}`"
+                            variant="info"
+                          >
                             <h5>
-                              PERATURAN MENTERI LINGKUNGAN HIDUP DAN KEHUTANAN
+                              {{ kat.name }}
                             </h5>
                             <img src="/arrow-orange.svg" alt="" />
                           </b-button>
                         </b-card-header>
                         <b-collapse
-                          id="accordion-1"
-                          visible
+                          :id="kat.slug"
+                          :visible="index === 0"
                           accordion="my-accordion"
                           role="tabpanel"
                         >
                           <b-card-body>
-                            <div class="uud-item">
-                              <b-link to=""
-                                >Kriteria Teknis Status Kesiagaan dan Darurat
-                                Kebakaran Hutan dan Lahan</b-link
+                            <div
+                              v-for="perpu in kat.perpu.data"
+                              :key="perpu.slug"
+                              class="uud-item"
+                            >
+                              <b-link
+                                :href="`${
+                                  perpu.tipe === 'file'
+                                    ? `/v1/peraturan-perundangan/file/${perpu.slug}`
+                                    : perpu.file_url
+                                }`"
+                                target="_blank"
                               >
-                              <span>P.9/MENLHK/SETJEN/KUM.1/3/2018</span>
-                            </div>
-                            <div class="uud-item">
-                              <b-link to=""
-                                >Prosedur Tetap Pengecekan Lapangan Informasi
-                                Titik Panas dan/atau Informasi Kebakaran Hutan
-                                dan Lahan</b-link
-                              >
-                              <span>P.8/MENLHK/SETJEN/KUM.1/3/2018</span>
-                            </div>
-                            <div class="uud-item">
-                              <b-link to=""
-                                >Pengendalian Kebakaran Hutan dan Lahan</b-link
-                              >
-                              <span>P.32/MenLHK/Setjen/Kum.1/3/2016</span>
-                            </div>
-                          </b-card-body>
-                        </b-collapse>
-                      </b-card>
-
-                      <b-card no-body class="mb-1">
-                        <b-card-header header-tag="header" role="tab">
-                          <b-button block v-b-toggle.accordion-2 variant="info">
-                            <h5>UNDANG-UNDANG</h5>
-                            <img src="/arrow-orange.svg" alt="" />
-                          </b-button>
-                        </b-card-header>
-                        <b-collapse
-                          id="accordion-2"
-                          accordion="my-accordion"
-                          role="tabpanel"
-                        >
-                          <b-card-body>
-                            <div class="uud-item">
-                              <b-link to=""
-                                >KETENTUAN-KETENTUAN POKOK PENGELOLAAN
-                                LINGKUNGAN HIDUP</b-link
-                              >
-                              <span>No. 4 Tahun 1982</span>
-                            </div>
-                            <div class="uud-item">
-                              <b-link to=""
-                                >Pengesahan United Nations Framework Convention
-                                On Climate Change (Konvensi Kerangka Kerja
-                                Perserikatan Bangsa Bangsa Mengenai Perubahan
-                                Iklim)</b-link
-                              >
-                              <span>No. 6 Tahun 1994</span>
-                            </div>
-                            <div class="uud-item">
-                              <b-link to=""
-                                >Ketentuan-ketentuan Pokok Kehutanan</b-link
-                              >
-                              <span>No. 5 Tahun 1967</span>
-                            </div>
-                            <div class="uud-item">
-                              <b-link to=""
-                                >PENGESAHAN UNITED NATIONS CONVENTION ON
-                                BIOLOGICAL DIVERSITY (KONVENSI PERSERIKATAN
-                                BANGSA-BANGSA MENGENAI KEANEKARAGAMAN
-                                HAYATI)</b-link
-                              >
-                              <span>No. 5 Tahun 1994</span>
-                            </div>
-                          </b-card-body>
-                        </b-collapse>
-                      </b-card>
-
-                      <b-card no-body class="mb-1">
-                        <b-card-header header-tag="header" role="tab">
-                          <b-button block v-b-toggle.accordion-3 variant="info">
-                            <h5>Peraturan Pemerintah</h5>
-                            <img src="/arrow-orange.svg" alt="" />
-                          </b-button>
-                        </b-card-header>
-                        <b-collapse
-                          id="accordion-3"
-                          accordion="my-accordion"
-                          role="tabpanel"
-                        >
-                          <b-card-body>
-                            <div class="uud-item">
-                              <b-link to="">PERLINDUNGAN HUTAN</b-link>
-                              <span>No. 28 Tahun 1985</span>
-                            </div>
-                            <div class="uud-item">
-                              <b-link to=""
-                                >Kewenangan Pemerintah Dan Kewenangan Propinsi
-                                Sebagai Otonom</b-link
-                              >
-                              <span>PP No. 25 Tahun 2000</span>
-                            </div>
-                            <div class="uud-item">
-                              <b-link to=""
-                                >Pedoman Organisasi Perangkat Daerah</b-link
-                              >
-                              <span>No. 84 Tahun 2000 </span>
-                            </div>
-                            <div class="uud-item">
-                              <b-link to=""
-                                >Pengendalian Kerusakan Dan Atau Pencemaran
-                                Lingkungan Hidup Yang Berkaitan Dengan Kebakaran
-                                Hutan Dan Atau Lahan</b-link
-                              >
-                              <span>No. 4 Tahun 2001</span>
-                            </div>
-                            <div class="uud-item">
-                              <b-link to=""
-                                >PENYELENGGARAAN DEKONSENTRASI</b-link
-                              >
-                              <span>No. 39 Tahun 2001</span>
-                            </div>
-                            <div class="uud-item">
-                              <b-link to="">PERLINDUNGAN HUTAN</b-link>
-                              <span>No. 45 Tahun 2004</span>
-                            </div>
-                            <div class="uud-item">
-                              <b-link to=""
-                                >BADAN NASIONAL PENANGGULANGAN BENCANA</b-link
-                              >
-                              <span>No. 8 Tahun 2008</span>
-                            </div>
-                            <div class="uud-item">
-                              <b-link to=""
-                                >Pembagian Urusan Pemerintahan Antara Pemerintah
-                                Pemda Provinsi dan Pemda Kabupaten/kota
-                                (lampiran pembagian urusan Kehutanan)</b-link
-                              >
-                              <span>PP.38 Tahun 2007 </span>
-                            </div>
-                            <div class="uud-item">
-                              <b-link to=""
-                                >Perusahaan Umum (Perum) Kehutanan Negara (Perum
-                                Perhutani)</b-link
-                              >
-                              <span>PP No.72 tahun 2010</span>
-                            </div>
-                            <div class="uud-item">
-                              <b-link to=""
-                                >Penerimaan Negara Bukan Pajak</b-link
-                              >
-                              <span>PP Nomor : 13 Tahun 2010</span>
-                            </div>
-                          </b-card-body>
-                        </b-collapse>
-                      </b-card>
-
-                      <b-card no-body class="mb-1">
-                        <b-card-header header-tag="header" role="tab">
-                          <b-button block v-b-toggle.accordion-4 variant="info">
-                            <h5>Keputusan Presiden</h5>
-                            <img src="/arrow-orange.svg" alt="" />
-                          </b-button>
-                        </b-card-header>
-                        <b-collapse
-                          id="accordion-4"
-                          accordion="my-accordion"
-                          role="tabpanel"
-                        >
-                          <b-card-body>
-                            <div class="uud-item">
-                              <b-link to=""
-                                >BADAN KOORDINASI NASIONAL PENANGGULANGAN
-                                BENCANA DAN PENANGANAN PENGUNGSI</b-link
-                              >
-                              <span>No. 3 Tahun 2001</span>
-                            </div>
-                            <div class="uud-item">
-                              <b-link to=""
-                                >PERUBAHAN ATAS KEPUTUSAN PRESIDEN NOMOR 101
-                                TAHUN 2001 TENTANG KEDUDUKAN, TUGAS, FUNGSI,
-                                KEWENANGAN, SUSUNAN ORGANISASI, DAN TATA KERJA
-                                MENTERI NEGARA</b-link
-                              >
-                              <span>No. 2 Tahun 2002</span>
-                            </div>
-                            <div class="uud-item">
-                              <b-link to=""
-                                >PERUBAHAN ATAS KEPUTUSAN PRESIDEN NOMOR 108
-                                TAHUN 2001 TENTANG UNIT ORGANISASI DAN TUGAS
-                                ESELON I MENTERI NEGARA</b-link
-                              >
-                              <span>No. 4 Tahun 2002</span>
-                            </div>
-                            <div class="uud-item">
-                              <b-link to="">Pengelolaan Kawasan Lindung</b-link>
-                              <span>No. 32 tahun 1990</span>
-                            </div>
-                          </b-card-body>
-                        </b-collapse>
-                      </b-card>
-
-                      <b-card no-body class="mb-1">
-                        <b-card-header header-tag="header" role="tab">
-                          <b-button block v-b-toggle.accordion-5 variant="info">
-                            <h5>SK Menteri Lingkungan Hidup</h5>
-                            <img src="/arrow-orange.svg" alt="" />
-                          </b-button>
-                        </b-card-header>
-                        <b-collapse
-                          id="accordion-5"
-                          accordion="my-accordion"
-                          role="tabpanel"
-                        >
-                          <b-card-body>
-                            <div class="uud-item">
-                              <b-link to="">
-                                Mekanisme pencegahan pencemaran dan/atau
-                                kerusakan lingkungan hidup yang berkaitan dengan
-                                kebakaran hutan dan/atau lahan</b-link
-                              >
-                              <span>No. 10 TAHUN 2010 </span>
-                            </div>
-                          </b-card-body>
-                        </b-collapse>
-                      </b-card>
-
-                      <b-card no-body class="mb-1">
-                        <b-card-header header-tag="header" role="tab">
-                          <b-button block v-b-toggle.accordion-6 variant="info">
-                            <h5>SK Menteri Kehutanan</h5>
-                            <img src="/arrow-orange.svg" alt="" />
-                          </b-button>
-                        </b-card-header>
-                        <b-collapse
-                          id="accordion-6"
-                          accordion="my-accordion"
-                          role="tabpanel"
-                        >
-                          <b-card-body>
-                            <div class="uud-item">
-                              <b-link to=""
-                                >ORGANISASI DAN TATA KERJA KEMENTERIAN
-                                KEHUTANAN</b-link
-                              >
-                              <span>NOMOR : P. 40/Menhut-II/2010</span>
-                            </div>
-                            <div class="uud-item">
-                              <b-link to=""
-                                >PROSEDUR PENANGANAN KRISIS KEBAKARAN
-                                HUTAN</b-link
-                              >
-                              <span>Nomor : 97/Kpts-II/1998</span>
-                            </div>
-                            <div class="uud-item">
-                              <b-link to=""
-                                >Pedoman Organisasi Perangkat Daerah</b-link
-                              >
-                              <span>No. 84 Tahun 2000 </span>
-                            </div>
-                            <div class="uud-item">
-                              <b-link to=""
-                                >Pengendalian Kerusakan Dan Atau Pencemaran
-                                Lingkungan Hidup Yang Berkaitan Dengan Kebakaran
-                                Hutan Dan Atau Lahan</b-link
-                              >
-                              <span>No. 4 Tahun 2001</span>
-                            </div>
-                            <div class="uud-item">
-                              <b-link to=""
-                                >PENYELENGGARAAN DEKONSENTRASI</b-link
-                              >
-                              <span>No. 39 Tahun 2001</span>
-                            </div>
-                            <div class="uud-item">
-                              <b-link to="">PERLINDUNGAN HUTAN</b-link>
-                              <span>No. 45 Tahun 2004</span>
-                            </div>
-                            <div class="uud-item">
-                              <b-link to=""
-                                >BADAN NASIONAL PENANGGULANGAN BENCANA</b-link
-                              >
-                              <span>No. 8 Tahun 2008</span>
-                            </div>
-                            <div class="uud-item">
-                              <b-link to=""
-                                >Pembagian Urusan Pemerintahan Antara Pemerintah
-                                Pemda Provinsi dan Pemda Kabupaten/kota
-                                (lampiran pembagian urusan Kehutanan)</b-link
-                              >
-                              <span>PP.38 Tahun 2007 </span>
-                            </div>
-                            <div class="uud-item">
-                              <b-link to=""
-                                >Perusahaan Umum (Perum) Kehutanan Negara (Perum
-                                Perhutani)</b-link
-                              >
-                              <span>PP No.72 tahun 2010</span>
-                            </div>
-                            <div class="uud-item">
-                              <b-link to=""
-                                >Penerimaan Negara Bukan Pajak</b-link
-                              >
-                              <span>PP Nomor : 13 Tahun 2010</span>
-                            </div>
-                          </b-card-body>
-                        </b-collapse>
-                      </b-card>
-
-                      <b-card no-body class="mb-1">
-                        <b-card-header header-tag="header" role="tab">
-                          <b-button block v-b-toggle.accordion-7 variant="info">
-                            <h5>SK Dirjen PHPA/PHKA</h5>
-                            <img src="/arrow-orange.svg" alt="" />
-                          </b-button>
-                        </b-card-header>
-                        <b-collapse
-                          id="accordion-7"
-                          accordion="my-accordion"
-                          role="tabpanel"
-                        >
-                          <b-card-body>
-                            <div class="uud-item">
-                              <b-link to="">
-                                Mekanisme pencegahan pencemaran dan/atau
-                                kerusakan lingkungan hidup yang berkaitan dengan
-                                kebakaran hutan dan/atau lahan</b-link
-                              >
-                              <span>No. 10 TAHUN 2010 </span>
-                            </div>
-                          </b-card-body>
-                        </b-collapse>
-                      </b-card>
-
-                      <b-card no-body class="mb-1">
-                        <b-card-header header-tag="header" role="tab">
-                          <b-button block v-b-toggle.accordion-8 variant="info">
-                            <h5>Peraturan Daerah</h5>
-                            <img src="/arrow-orange.svg" alt="" />
-                          </b-button>
-                        </b-card-header>
-                        <b-collapse
-                          id="accordion-8"
-                          accordion="my-accordion"
-                          role="tabpanel"
-                        >
-                          <b-card-body>
-                            <div class="uud-item">
-                              <b-link to="">
-                                Mekanisme pencegahan pencemaran dan/atau
-                                kerusakan lingkungan hidup yang berkaitan dengan
-                                kebakaran hutan dan/atau lahan</b-link
-                              >
-                              <span>No. 10 TAHUN 2010 </span>
-                            </div>
-                          </b-card-body>
-                        </b-collapse>
-                      </b-card>
-
-                      <b-card no-body class="mb-1">
-                        <b-card-header header-tag="header" role="tab">
-                          <b-button block v-b-toggle.accordion-9 variant="info">
-                            <h5>Peraturan Gubernur</h5>
-                            <img src="/arrow-orange.svg" alt="" />
-                          </b-button>
-                        </b-card-header>
-                        <b-collapse
-                          id="accordion-9"
-                          accordion="my-accordion"
-                          role="tabpanel"
-                        >
-                          <b-card-body>
-                            <div class="uud-item">
-                              <b-link to="">
-                                Mekanisme pencegahan pencemaran dan/atau
-                                kerusakan lingkungan hidup yang berkaitan dengan
-                                kebakaran hutan dan/atau lahan</b-link
-                              >
-                              <span>No. 10 TAHUN 2010 </span>
-                            </div>
-                          </b-card-body>
-                        </b-collapse>
-                      </b-card>
-
-                      <b-card no-body class="mb-1">
-                        <b-card-header header-tag="header" role="tab">
-                          <b-button
-                            block
-                            v-b-toggle.accordion-10
-                            variant="info"
-                          >
-                            <h5>SK Gubernur Kepala Daerah Tingkat I</h5>
-                            <img src="/arrow-orange.svg" alt="" />
-                          </b-button>
-                        </b-card-header>
-                        <b-collapse
-                          id="accordion-10"
-                          accordion="my-accordion"
-                          role="tabpanel"
-                        >
-                          <b-card-body>
-                            <div class="uud-item">
-                              <b-link to="">
-                                Mekanisme pencegahan pencemaran dan/atau
-                                kerusakan lingkungan hidup yang berkaitan dengan
-                                kebakaran hutan dan/atau lahan</b-link
-                              >
-                              <span>No. 10 TAHUN 2010 </span>
-                            </div>
-                          </b-card-body>
-                        </b-collapse>
-                      </b-card>
-
-                      <b-card no-body class="mb-1">
-                        <b-card-header header-tag="header" role="tab">
-                          <b-button
-                            block
-                            v-b-toggle.accordion-11
-                            variant="info"
-                          >
-                            <h5>Lain-lain</h5>
-                            <img src="/arrow-orange.svg" alt="" />
-                          </b-button>
-                        </b-card-header>
-                        <b-collapse
-                          id="accordion-11"
-                          accordion="my-accordion"
-                          role="tabpanel"
-                        >
-                          <b-card-body>
-                            <div class="uud-item">
-                              <b-link to="">
-                                Mekanisme pencegahan pencemaran dan/atau
-                                kerusakan lingkungan hidup yang berkaitan dengan
-                                kebakaran hutan dan/atau lahan</b-link
-                              >
-                              <span>No. 10 TAHUN 2010 </span>
+                                {{ perpu.title }}
+                              </b-link>
+                              <span>
+                                {{ perpu.nomor }}
+                              </span>
                             </div>
                           </b-card-body>
                         </b-collapse>
@@ -581,9 +176,29 @@ export default {
           }
         }
       })
+
+    const urlPerpu = !process.server ? `/v1/listPerpu` : `/api/listPerpu`
+
+    await this.$axios
+      .$get(urlPerpu)
+      .then((res) => {
+        this.kategories = res.data
+      })
+      .catch((err) => {
+        if (err.response) {
+          const { status, data } = err.response
+          if (status === 500) {
+            this.$nuxt.error({ statusCode: 500, message: data.message })
+          }
+          if (status === 404) {
+            this.$nuxt.error({ statusCode: 404, message: data.message })
+          }
+        }
+      })
   },
   data() {
     return {
+      kategories: [],
       dokumen: [],
       options: {
         direction: 'desc',

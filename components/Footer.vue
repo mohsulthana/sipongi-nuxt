@@ -21,27 +21,27 @@
             <h6 class="sec-title">Link Terkait</h6>
             <ul>
               <li>
-                <b-link to="/" class="w-logo"
+                <b-link href="http://www.menlhk.go.id/" class="w-logo"
                   ><img src="/kementerian-logo.svg" alt="" /> KLHK</b-link
                 >
               </li>
               <li>
-                <b-link to="/" class="w-logo"
+                <b-link href="http://ditjenppi.menlhk.go.id/" class="w-logo"
                   ><img src="/kementerian-logo.svg" alt="" /> DitjenPPI</b-link
                 >
               </li>
               <li>
-                <b-link to="/" class="w-logo"
+                <b-link href="http://bmkg.go.id/" class="w-logo"
                   ><img src="/bmkg.svg" alt="" /> BMKG</b-link
                 >
               </li>
               <li>
-                <b-link to="/" class="w-logo"
+                <b-link href="http://lapan.go.id/" class="w-logo"
                   ><img src="/lapan.svg" alt="" /> LAPAN</b-link
                 >
               </li>
               <li>
-                <b-link to="/" class="w-logo"
+                <b-link href="http://bnpb.go.id/" class="w-logo"
                   ><img src="/bnpb.svg" alt="" /> BNPB</b-link
                 >
               </li>
@@ -50,21 +50,30 @@
           <b-col md="2">
             <h6 class="sec-title">Menu Lainya</h6>
             <ul>
-              <li><b-link to="/">Publikasi</b-link></li>
-              <li><b-link to="/">Sebaran Titik Panas</b-link></li>
-              <li><b-link to="/">Luas Kebakaran</b-link></li>
-              <li><b-link to="/">Galeri Poto</b-link></li>
+              <li><b-link to="/publikasi">Publikasi</b-link></li>
+              <li><b-link to="/peta">Sebaran Titik Panas</b-link></li>
+              <li><b-link to="/grafik">Luas Kebakaran</b-link></li>
+              <li><b-link to="/galeri">Galeri Poto</b-link></li>
             </ul>
           </b-col>
           <b-col md="2">
             <h6 class="sec-title">Sosial Media</h6>
-            <b-link to="/" target="_blank" class="socmed"
+            <b-link
+              href="https://www.facebook.com/pages/SiPongi/1021459491201560"
+              target="_blank"
+              class="socmed"
               ><i class="fab fa-facebook-f"></i
             ></b-link>
-            <b-link to="/" target="_blank" class="socmed"
+            <b-link
+              href="https://twitter.com/sipongi_klhk"
+              target="_blank"
+              class="socmed"
               ><i class="fab fa-twitter"></i
             ></b-link>
-            <b-link to="/" target="_blank" class="socmed"
+            <b-link
+              href="https://www.instagram.com/sipongi_klhk/"
+              target="_blank"
+              class="socmed"
               ><i class="fab fa-instagram"></i
             ></b-link>
           </b-col>
