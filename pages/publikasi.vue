@@ -483,50 +483,51 @@
               <b-tab title="Dokumen Lainnya">
                 <b-row>
                   <b-col md="9">
-                    <div class="document-item">
-                      <img src="/paper.svg" alt="" />
-                      <h5>Wood Vinager</h5>
-                      <b-link class="btn btn-secondary"
-                        >Download <i class="fas fa-angle-right"></i
-                      ></b-link>
+                    <div
+                      v-for="dok in dokumen"
+                      :key="dok.slug"
+                      class="document-item"
+                    >
+                      <img
+                        :src="`/${
+                          dok.tipe === 'file'
+                            ? 'paper.svg'
+                            : dok.tipe === 'video'
+                            ? 'video.svg'
+                            : 'paper.svg'
+                        }`"
+                        alt="icon"
+                      />
+                      <h5>{{ dok.title }}</h5>
+                      <b-link
+                        :href="`${
+                          dok.tipe === 'file'
+                            ? `/v1/dokumen-lain/file/${dok.slug}`
+                            : dok.file_url
+                        }`"
+                        target="_blank"
+                        :class="`btn ${
+                          dok.tipe === 'file'
+                            ? 'btn-secondary'
+                            : dok.tipe === 'video'
+                            ? 'btn-third'
+                            : 'btn-secondary'
+                        }`"
+                      >
+                        {{
+                          dok.tipe === 'file'
+                            ? 'Download'
+                            : dok.tipe === 'video'
+                            ? 'Watch'
+                            : 'Open'
+                        }}
+                        <i class="fas fa-angle-right"></i>
+                      </b-link>
                     </div>
-                    <div class="document-item">
-                      <img src="/paper.svg" alt="" />
-                      <h5>Early Warning</h5>
-                      <b-link class="btn btn-secondary"
-                        >Download <i class="fas fa-angle-right"></i
-                      ></b-link>
-                    </div>
-                    <div class="document-item">
-                      <img src="/paper.svg" alt="" />
-                      <h5>Community Based Forest And Land Fire Prevention</h5>
-                      <b-link class="btn btn-secondary"
-                        >Download <i class="fas fa-angle-right"></i
-                      ></b-link>
-                    </div>
-                    <div class="document-item">
-                      <img src="/video.svg" alt="" />
-                      <h5>Selamatkan Hutan Dan Lahan Dari Kebakaran</h5>
-                      <b-link class="btn btn-third"
-                        >Watch <i class="fas fa-angle-right"></i
-                      ></b-link>
-                    </div>
-                    <div class="document-item">
-                      <img src="/video.svg" alt="" />
-                      <h5>5 Peran Serta Masyarakat</h5>
-                      <b-link class="btn btn-third"
-                        >Watch <i class="fas fa-angle-right"></i
-                      ></b-link>
-                    </div>
-                    <div class="document-item">
-                      <img src="/video.svg" alt="" />
-                      <h5>DALKARHUTLA GAMBUT</h5>
-                      <b-link class="btn btn-third"
-                        >Watch <i class="fas fa-angle-right"></i
-                      ></b-link>
-                    </div>
-                    <div class="text-center mt-4">
-                      <b-button variant="primary">Lihat lebih banyak</b-button>
+                    <div v-if="loadMore" class="text-center mt-4">
+                      <b-button @click="loadMoreData()" variant="primary"
+                        >Lihat lebih banyak</b-button
+                      >
                     </div>
                   </b-col>
                 </b-row>
@@ -536,14 +537,61 @@
         </b-row>
       </b-container>
     </div>
+    <div class="splash-screen" v-if="$fetchState.pending">
+      <div class="wrap">
+        <h4>Mohon Tunggu Sebentar</h4>
+        <b-spinner
+          style="width: 3rem; height: 3rem;"
+          label="Large Spinner"
+        ></b-spinner>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   layout: 'front',
+  async fetch() {
+    const url = !process.server ? `/v1/listDokumen` : `/api/listDokumen`
+
+    const params = {
+      direction: this.options.direction,
+      sortBy: this.options.sortBy,
+      page: this.options.page,
+      per_page: this.options.per_page,
+    }
+
+    await this.$axios
+      .$get(url, {
+        params,
+      })
+      .then((res) => {
+        this.dokumen = this.dokumen.concat(res.data)
+        this.loadMore = !!res.links.next
+      })
+      .catch((err) => {
+        if (err.response) {
+          const { status, data } = err.response
+          if (status === 500) {
+            this.$nuxt.error({ statusCode: 500, message: data.message })
+          }
+          if (status === 404) {
+            this.$nuxt.error({ statusCode: 404, message: data.message })
+          }
+        }
+      })
+  },
   data() {
     return {
+      dokumen: [],
+      options: {
+        direction: 'desc',
+        sortBy: 'created_at',
+        page: 1,
+        per_page: 15,
+      },
+      loadMore: false,
       gallerys: [
         {
           id: 1,
@@ -619,6 +667,10 @@ export default {
   methods: {
     updateHeader() {
       this.$store.commit('head/innerHeader', true)
+    },
+    async loadMoreData() {
+      this.options.page++
+      await this.$fetch()
     },
   },
   head() {
