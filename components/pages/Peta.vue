@@ -49,7 +49,13 @@
           ></b-link>
           <h6>Lokasi Titik Panas</h6>
           <no-ssr>
-              <date-picker id="published_at" v-model="titikDate" type="date" format="dddd, DD MMMM YYYY" placeholder="Kamis, 27 Agustus 2020"></date-picker>
+            <date-picker
+              id="published_at"
+              v-model="titikDate"
+              type="date"
+              format="dddd, DD MMMM YYYY"
+              placeholder="Kamis, 27 Agustus 2020"
+            ></date-picker>
           </no-ssr>
           <b-link
             :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
@@ -92,7 +98,7 @@
         </div>
 
         <b-link to="" class="pdf">
-          <img src="/pdf.svg" alt="">
+          <img src="/pdf.svg" alt="" />
           <span>Download PDF</span>
         </b-link>
       </div>
@@ -103,23 +109,28 @@
             ><i class="fas fa-times"></i
           ></b-link>
           <h6>Kegiatan Pemadaman</h6>
-          <p>Pencarian lokasi peringatan kebakaran</p>
+          <p>Informasi seputar kegiatan pemadaman</p>
         </div>
 
         <div class="content-list">
           <b-row>
-            <b-col cols="6" v-for="blog in blogs" :key="blog.id">
-              <b-link to="" class="blog-item">
+            <b-col cols="6" v-for="blog in pemadamans" :key="blog.slug">
+              <b-link :to="'/galeri/' + blog.slug" class="blog-item">
                 <div
                   class="image"
-                  :style="{ backgroundImage: `url(${blog.image})` }"
+                  :style="{ backgroundImage: `url(${blog.detail.image_url})` }"
                 ></div>
                 <h5>{{ blog.title }}</h5>
-                <span>{{ blog.date }}</span>
+                <span>{{
+                  $moment(blog.created_at).format('DD MMMM YYYY')
+                }}</span>
               </b-link>
             </b-col>
-            <b-col md="12" class="text-center">
-              <b-button variant="primary" class="loadMore"
+            <b-col v-if="loadMoreGal" md="12" class="text-center">
+              <b-button
+                variant="primary"
+                class="loadMore"
+                @click="loadMoreDataGal()"
                 >Lihat lebih banyak</b-button
               >
             </b-col>
@@ -489,7 +500,7 @@ export default {
   name: 'Peta',
   data() {
     return {
-      titikDate: "",
+      titikDate: '',
       browser: process.browser,
       centerMap: [-2.548926, 118.0148634],
       periodeData: 24,
@@ -598,50 +609,13 @@ export default {
         'landsat-med': 'satellite-landsat-medium',
         'landsat-low': 'satellite-landsat-low',
       },
-      blogs: [
-        {
-          id: 1,
-          image:
-            'https://images.unsplash.com/photo-1572204097183-e1ab140342ed?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
-          title: 'Pemadaman di wilker Daops Singkawang, Kalbar',
-          date: '23 Sep 2020',
-        },
-        {
-          id: 2,
-          image:
-            'https://images.unsplash.com/photo-1523861751938-121b5323b48b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1043&q=80',
-          title: 'Pemadaman di wilker Daops Singkawang, Kalbar',
-          date: '23 Sep 2020',
-        },
-        {
-          id: 3,
-          image:
-            'https://images.unsplash.com/photo-1455747634646-0ef67dfca23f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80',
-          title: 'Pemadaman di wilker Daops Singkawang, Kalbar',
-          date: '23 Sep 2020',
-        },
-        {
-          id: 4,
-          image:
-            'https://images.unsplash.com/photo-1483917841983-f83104f9ffa5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1061&q=80',
-          title: 'Pemadaman di wilker Daops Singkawang, Kalbar',
-          date: '23 Sep 2020',
-        },
-        {
-          id: 5,
-          image:
-            'https://images.unsplash.com/photo-1511149547418-801db51a015f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
-          title: 'Pemadaman di wilker Daops Singkawang, Kalbar',
-          date: '23 Sep 2020',
-        },
-        {
-          id: 6,
-          image:
-            'https://images.unsplash.com/photo-1481121871234-1f3fb96a5f45?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
-          title: 'Pemadaman di wilker Daops Singkawang, Kalbar',
-          date: '23 Sep 2020',
-        },
-      ],
+      pemadamans: [],
+      optionsGal: {
+        tipe: 'Pemadaman',
+        page: 1,
+        per_page: 6,
+      },
+      loadMoreGal: false,
     }
   },
   watch: {
@@ -1004,10 +978,12 @@ export default {
           if (
             feature.properties.tanggal &&
             feature.properties.jam &&
-            feature.properties.kriteria.kategori !== 'NONAKTIF' &&
+            feature.properties.kriteria &&
             feature.properties.ispu
           ) {
-            return true
+            if (feature.properties.kriteria.kategori !== 'NONAKTIF') {
+              return true
+            }
           }
 
           return false
@@ -1074,6 +1050,7 @@ export default {
       await this.cmbProvs()
     }
 
+    await this.loadPemadaman()
     await this.loadAqms()
     await this.loadWind()
   },
@@ -1493,6 +1470,43 @@ export default {
         })
         .catch((err) => {})
         .finally(() => {})
+    },
+    async loadPemadaman() {
+      this.loading = true
+      const url = !process.server ? `/v1/listGaleri` : `/api/listGaleri`
+
+      const params = {
+        tipe: this.optionsGal.tipe,
+        page: this.optionsGal.page,
+        per_page: this.optionsGal.per_page,
+      }
+
+      await this.$axios
+        .$get(url, {
+          params,
+        })
+        .then((res) => {
+          this.pemadamans = this.pemadamans.concat(res.data)
+          this.loadMoreGal = !!res.links.next
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+        .finally(async () => {
+          this.loading = false
+        })
+    },
+    async loadMoreDataGal() {
+      this.optionsGal.page++
+      await this.loadPemadaman()
     },
     toggleOpen() {
       var legend = document.querySelector('.legend-wrap')

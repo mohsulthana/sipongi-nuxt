@@ -22,20 +22,22 @@
             <b-tabs>
               <b-tab title="Kegiatan Pemadaman" active>
                 <b-row>
-                  <b-col md="4" v-for="gal in gallerys" :key="gal.id">
-                    <b-link :to="'/galeri/' + gal.id" class="gal-item">
+                  <b-col md="4" v-for="gal in pemadamans" :key="gal.id">
+                    <b-link :to="'/galeri/' + gal.slug" class="gal-item">
                       <div
                         class="image"
                         :style="{
-                          backgroundImage: 'url(' + gal.img + ')',
+                          backgroundImage: 'url(' + gal.detail.image_url + ')',
                         }"
                       ></div>
                       <h5>{{ gal.title }}</h5>
-                      <span>{{ gal.tgl }}</span>
+                      <span>{{
+                        $moment(gal.created_at).format('DD MMMM YYYY')
+                      }}</span>
                     </b-link>
                   </b-col>
-                  <b-col md="12" class="text-center">
-                    <button class="btn btn-ghost">
+                  <b-col v-if="loadMore" md="12" class="text-center">
+                    <button class="btn btn-ghost" @click="loadMoreData()">
                       Tampilkan Lebih Banyak
                     </button>
                   </b-col>
@@ -43,7 +45,25 @@
               </b-tab>
               <b-tab title="Kegiatan Lainnya">
                 <b-row>
-                  <b-col md="4" order-md="2"> </b-col>
+                  <b-col md="4" v-for="gal in lains" :key="gal.id">
+                    <b-link :to="'/galeri/' + gal.slug" class="gal-item">
+                      <div
+                        class="image"
+                        :style="{
+                          backgroundImage: 'url(' + gal.detail.image_url + ')',
+                        }"
+                      ></div>
+                      <h5>{{ gal.title }}</h5>
+                      <span>{{
+                        $moment(gal.created_at).format('DD MMMM YYYY')
+                      }}</span>
+                    </b-link>
+                  </b-col>
+                  <b-col v-if="loadMoreLain" md="12" class="text-center">
+                    <button class="btn btn-ghost" @click="loadMoreDataLain()">
+                      Tampilkan Lebih Banyak
+                    </button>
+                  </b-col>
                 </b-row>
               </b-tab>
             </b-tabs>
@@ -51,79 +71,42 @@
         </b-row>
       </b-container>
     </div>
+    <div class="splash-screen" v-if="loading">
+      <div class="wrap">
+        <h4>Mohon Tunggu Sebentar</h4>
+        <b-spinner
+          style="width: 3rem; height: 3rem;"
+          label="Large Spinner"
+        ></b-spinner>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   layout: 'front',
+  async fetch() {
+    await this.loadPemadaman()
+    await this.loadLain()
+  },
   data() {
     return {
-      gallerys: [
-        {
-          id: 1,
-          title: 'Pemadaman Darat',
-          tgl: '23 Sep 2020',
-          img:
-            'https://images.unsplash.com/photo-1515354510367-70cfa0609079?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
-        },
-        {
-          id: 2,
-          title: 'Pemadaman Darat',
-          tgl: '23 Sep 2020',
-          img:
-            'https://images.unsplash.com/photo-1536047662067-327f912f87a0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
-        },
-        {
-          id: 3,
-          title: 'Pemadaman Darat',
-          tgl: '23 Sep 2020',
-          img:
-            'https://images.unsplash.com/photo-1561439740-e8863909de77?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1052&q=80',
-        },
-        {
-          id: 4,
-          title: 'Pemadaman Darat',
-          tgl: '23 Sep 2020',
-          img:
-            'https://images.unsplash.com/photo-1518904868869-fbb2cdd0429a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1049&q=80',
-        },
-        {
-          id: 5,
-          title: 'Pemadaman Darat',
-          tgl: '23 Sep 2020',
-          img:
-            'https://images.unsplash.com/photo-1504591416434-49dfd16b211c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
-        },
-        {
-          id: 6,
-          title: 'Pemadaman Darat',
-          tgl: '23 Sep 2020',
-          img:
-            'https://images.unsplash.com/photo-1563062067-7700e1d9ae1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
-        },
-        {
-          id: 7,
-          title: 'Pemadaman Darat',
-          tgl: '23 Sep 2020',
-          img:
-            'https://images.unsplash.com/photo-1576707995936-a6cffe26ef7b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
-        },
-        {
-          id: 8,
-          title: 'Pemadaman Darat',
-          tgl: '23 Sep 2020',
-          img:
-            'https://images.unsplash.com/photo-1578225333359-34012ec94d39?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80',
-        },
-        {
-          id: 9,
-          title: 'Pemadaman Darat',
-          tgl: '23 Sep 2020',
-          img:
-            'https://images.unsplash.com/photo-1563062067-723c14a7c7ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1008&q=80',
-        },
-      ],
+      pemadamans: [],
+      lains: [],
+      options: {
+        tipe: 'Pemadaman',
+        page: 1,
+        per_page: 9,
+      },
+      optionsLain: {
+        tipe: 'Lainnya',
+        page: 1,
+        per_page: 9,
+      },
+      loadMore: false,
+      loadMoreLain: false,
+      loading: false,
     }
   },
   created() {
@@ -134,6 +117,80 @@ export default {
   methods: {
     updateHeader() {
       this.$store.commit('head/innerHeader', true)
+    },
+    async loadPemadaman() {
+      this.loading = true
+      const url = !process.server ? `/v1/listGaleri` : `/api/listGaleri`
+
+      const params = {
+        tipe: this.options.tipe,
+        page: this.options.page,
+        per_page: this.options.per_page,
+      }
+
+      await this.$axios
+        .$get(url, {
+          params,
+        })
+        .then((res) => {
+          this.pemadamans = this.pemadamans.concat(res.data)
+          this.loadMore = !!res.links.next
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+        .finally(async () => {
+          this.loading = false
+        })
+    },
+    async loadLain() {
+      this.loading = true
+      const url = !process.server ? `/v1/listGaleri` : `/api/listGaleri`
+
+      const params = {
+        tipe: this.optionsLain.tipe,
+        page: this.optionsLain.page,
+        per_page: this.optionsLain.per_page,
+      }
+
+      await this.$axios
+        .$get(url, {
+          params,
+        })
+        .then((res) => {
+          this.lains = this.lains.concat(res.data)
+          this.loadMoreLain = !!res.links.next
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+        .finally(async () => {
+          this.loading = false
+        })
+    },
+    async loadMoreData() {
+      this.options.page++
+      await this.loadPemadaman()
+    },
+    async loadMoreDataLain() {
+      this.optionsLain.page++
+      await this.loadLain()
     },
   },
   head() {

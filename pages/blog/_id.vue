@@ -39,6 +39,15 @@
         </div>
       </b-container>
     </div>
+    <div class="splash-screen" v-if="$fetchState.pending">
+      <div class="wrap">
+        <h4>Mohon Tunggu Sebentar</h4>
+        <b-spinner
+          style="width: 3rem; height: 3rem;"
+          label="Large Spinner"
+        ></b-spinner>
+      </div>
+    </div>
   </div>
 </template>
 

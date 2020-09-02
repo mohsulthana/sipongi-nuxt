@@ -2,10 +2,13 @@
   <div class="inner-page">
     <div class="galeri-wrap">
       <b-container>
-        <b-row>
+        <b-row v-if="!$fetchState.pending">
           <b-col md="10" offset-md="1">
-            <b-link to="/galeri" target="_self" class="back-link"><img src="/mini_arrow_left-gray.svg" alt=""> Kembali ke halaman Galeri</b-link>
-            <h3 class="title">{{ gallery.title }}</h3>
+            <b-link to="/galeri" target="_self" class="back-link"
+              ><img src="/mini_arrow_left-gray.svg" alt="" /> Kembali ke halaman
+              Galeri</b-link
+            >
+            <h3 class="title">{{ data.title }}</h3>
             <div class="gal-item">
               <VueSlickCarousel
                 v-bind="slickOptions"
@@ -15,11 +18,11 @@
               >
                 <div
                   class="image big"
-                  v-for="img in gallery.image"
+                  v-for="img in data.details.data"
                   :key="img.id"
-                  :style="{ backgroundImage: 'url(' + img.url + ')' }"
+                  :style="{ backgroundImage: 'url(' + img.image_url + ')' }"
                 >
-                  <div class="text">{{ img.title }}</div>
+                  <div class="text">{{ img.keterangan }}</div>
                 </div>
               </VueSlickCarousel>
               <VueSlickCarousel
@@ -28,13 +31,14 @@
                 ref="sliderbig"
                 @beforeChange="syncSliders"
               >
-                <div class="wrap"
-                  v-for="img in gallery.image"
+                <div
+                  class="wrap"
+                  v-for="img in data.details.data"
                   :key="img.id"
                 >
                   <div
                     class="image"
-                    :style="{ backgroundImage: 'url(' + img.url + ')' }"
+                    :style="{ backgroundImage: 'url(' + img.image_url + ')' }"
                   ></div>
                 </div>
               </VueSlickCarousel>
@@ -43,12 +47,44 @@
         </b-row>
       </b-container>
     </div>
+    <div class="splash-screen" v-if="$fetchState.pending">
+      <div class="wrap">
+        <h4>Mohon Tunggu Sebentar</h4>
+        <b-spinner
+          style="width: 3rem; height: 3rem;"
+          label="Large Spinner"
+        ></b-spinner>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   layout: 'front',
+  async fetch() {
+    const url = !process.server
+      ? `/v1/detailGaleries/${this.$route.params.id}`
+      : `/api/detailGaleries/${this.$route.params.id}`
+
+    await this.$axios
+      .$get(url)
+      .then((res) => {
+        this.data = res
+      })
+      .catch((err) => {
+        if (err.response) {
+          const { status, data } = err.response
+          if (status === 500) {
+            this.$nuxt.error({ statusCode: 500, message: data.message })
+          }
+
+          if (status === 404) {
+            this.$nuxt.error({ statusCode: 404, message: data.message })
+          }
+        }
+      })
+  },
   data() {
     return {
       slickOptions: {
@@ -76,6 +112,7 @@ export default {
           },
         ],
       },
+      data: {},
       gallery: {
         id: 1,
         title: 'Pemadaman Darat',
