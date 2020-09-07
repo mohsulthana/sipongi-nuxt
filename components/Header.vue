@@ -34,7 +34,11 @@
               <img src="/dots.svg" alt="" class="ml-1 home" />
               <img src="/dots-gray.svg" alt="" class="ml-1 inner" />
             </template>
-            <b-dropdown-item to="http://sipongi.menlhk.go.id/laporan_dalkarhutla_mitra/app2020/" target="_blank">Pelaporan Dalkarhutla</b-dropdown-item>
+            <b-dropdown-item
+              href="http://sipongi.menlhk.go.id/laporan_dalkarhutla_mitra/app2020/"
+              target="_blank"
+              >Pelaporan Dalkarhutla</b-dropdown-item
+            >
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
