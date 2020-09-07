@@ -28,13 +28,13 @@
             <img src="/phone-red.svg" alt="" class="mr-1 inner" />
             Call SiPongi+
           </b-nav-item>
-          <b-nav-item-dropdown>
+          <b-nav-item-dropdown right>
             <template v-slot:button-content>
               Menu Lainnya
               <img src="/dots.svg" alt="" class="ml-1 home" />
               <img src="/dots-gray.svg" alt="" class="ml-1 inner" />
             </template>
-            <b-dropdown-item to="#">Menu</b-dropdown-item>
+            <b-dropdown-item to="http://sipongi.menlhk.go.id/laporan_dalkarhutla_mitra/app2020/" target="_blank">Pelaporan Dalkarhutla</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
