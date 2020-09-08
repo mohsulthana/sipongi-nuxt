@@ -171,7 +171,11 @@
       </div>
     </div>
     <div class="map-wrap" style="height: 100vh;">
-      <b-link to="#" class="call">
+      <b-link 
+        href="https://wa.me/+6281316235000"
+        target="_blank"
+        class="call"
+      >
         <img src="/phone-red.svg" alt="" class="mr-1 inner" />
         Call SiPongi+
       </b-link>

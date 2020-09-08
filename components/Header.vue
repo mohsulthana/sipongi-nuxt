@@ -23,7 +23,10 @@
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-item to="/development-center">
+          <b-nav-item 
+            href="https://wa.me/+6281316235000"
+            target="_blank"
+          >
             <img src="/phone-white.svg" alt="" class="mr-1 home" />
             <img src="/phone-red.svg" alt="" class="mr-1 inner" />
             Call SiPongi+
