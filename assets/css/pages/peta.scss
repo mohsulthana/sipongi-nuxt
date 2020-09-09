@@ -39,6 +39,7 @@
         }
         h6{
             font-size: 11px;
+            margin: 0;
             @media screen and (max-width: 767px){
                 margin-bottom: 0;
             }
@@ -416,7 +417,7 @@
         left: 20px;
         z-index: 9999;
         border-radius: 4px;
-        background-color: #FFF;
+        background-color: rgba($color: $wt, $alpha: 0.5);
         box-shadow: 0 3px 13px rgba($color: #000000, $alpha: 0.06);
         transition: all 0.3s ease;
         @media screen and (max-width: 767px){
@@ -431,8 +432,10 @@
             display: block;
             width: 275px;
             padding: 20px 15px;
+            pointer-events: none;
             @media screen and (max-width: 767px){
                 width: 100%;
+                pointer-events: inherit;
             }
             h6{
                 float: left;
@@ -445,7 +448,7 @@
             .hides{
                 float: left;
                 margin-right: 10px;
-                display: none;
+                display: none !important;
                 @media screen and (max-width: 767px){
                     display: none;
                 }
@@ -454,6 +457,7 @@
                 float: right;
                 margin-top: 3px;
                 transition: all 0.3s ease;
+                display: none !important;
                 @media screen and (max-width: 767px){
                     display: none;
                 }
@@ -484,25 +488,26 @@
                 }
                 .legend-item{
                     position: relative;
-                    margin-bottom: 5px;
+                    padding: 5px 0 0 0;
                     h6{
                         font-size: 13px;
                         color: #000000;
                         margin: 0;
                     }
                     .count-total{
-                        font-size: 15px;
+                        font-size: 20px;
                         font-family: $b;
                         font-weight: bold;
                         color: #000000;
                         margin: 0;
                         position: absolute;
-                        top: -3px;
+                        top: 50%;
                         right: 0;
+                        transform: translateY(-50%);
                     }
                     .count-satellite{
                         display: inline-block;
-                        vertical-align: middle;
+                        vertical-align: top;
                         clear: both;
                         margin-right: 17px;
                         font-size: 11px;
@@ -513,6 +518,26 @@
                             display: inline-block;
                             vertical-align: top;
                             margin-top: 4px;
+                        }
+                    }
+                    &:after{
+                        content: "";
+                        height: 1px;
+                        position: absolute;
+                        bottom: 0;
+                        right: -15px;
+                        left: -15px;
+                        background-color: rgba(102, 97, 92, 0.3);
+                    }
+                    &.w-border-top{
+                        &:before{
+                            content: "";
+                            height: 1px;
+                            position: absolute;
+                            top: 0;
+                            right: -15px;
+                            left: -15px;
+                            background-color: rgba(102, 97, 92, 0.3);
                         }
                     }
                 }
@@ -1093,6 +1118,27 @@
             margin-left: 571px;
             @media screen and (max-width: 767px){
                 margin-left: 0px;
+            }
+        }
+    }
+}
+
+.modal-disclaimer{
+    p{
+        font-size: 14px;
+        color: $t;
+    }
+    ol{
+        li{
+            font-size: 14px;
+            color: $t;
+            ol{
+                padding-left: 25px;
+            }
+        }
+        &.lower-alpha{
+            li{
+                list-style: lower-alpha;
             }
         }
     }
