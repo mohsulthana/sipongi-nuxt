@@ -85,12 +85,18 @@
                 <b-table
                   show-empty
                   small
+                  responsive="sm"
                   class="text-center"
-                  stacked="md"
                   :items="kebMingguan.items"
                   :fields="kebMingguan.tableFields"
-                  :per-page="10"
-                />
+                  :per-page="perPage"
+                >
+                  <template #cell(trend)="data">
+                    <i class="fas fa-angle-up text-success" v-if="data.item.trend == 'naik'"></i>
+                    <i class="fas fa-angle-down text-danger" v-else-if="data.item.trend == 'turun'"></i>
+                    <div v-else> - </div>
+                  </template>
+                </b-table>
                 <b-row>
                   <b-col sm="7" md="6" class="mb-3 text-center">
                     <b-pagination
@@ -106,7 +112,7 @@
               </b-col>
             </b-row>
 
-                        <h6 class="charts-title">Tabel Peringatan kebakaran mingguan</h6>
+            <!-- <h6 class="charts-title">Tabel Peringatan kebakaran mingguan</h6>
             <b-row class="align-items-center">
               <b-col md="12">
                 <b-table
@@ -131,7 +137,7 @@
                   </b-col>
                 </b-row>
               </b-col>
-            </b-row>
+            </b-row> -->
           </b-col>
           <b-col md="4">
             <div class="statistik-wrap">
@@ -189,6 +195,7 @@ export default {
   data: () => ({
     currentPage: 1,
     totalRows: 1,
+    perPage: 10,
     totalTitik: 0,
     totalProv: 0,
     luasKebakaran: 0,
@@ -263,14 +270,13 @@ export default {
     },
     kebLuas: {
       labels: [],
-      datasets: [],
-      // datasets: [
-      //   {
-      //     data: [],
-      //     backgroundColor: ['#0088FE', '#00C49F', '#FFBB28', '#FF7F42'],
-      //     borderdColor: ['#0088FE', '#00C49F', '#FFBB28', '#FF7F42'],
-      //   },
-      // ],
+      datasets: [
+        {
+          data: [],
+          backgroundColor: ['#0088FE', '#00C49F', '#FFBB28', '#FF7F42'],
+          borderdColor: ['#0088FE', '#00C49F', '#FFBB28', '#FF7F42'],
+        },
+      ],
     },
     kebLuasOpt: {
       responsive: true,
@@ -282,11 +288,6 @@ export default {
     },
   }),
   computed: {
-    filterColumnDataKebakaran() {
-      // this.kebLuasData.forEach(element => {
-      //   if (this.kebLuasData.value )
-      // })
-    },
     kebKumulatif() {
       return {
         labels: [
@@ -417,10 +418,27 @@ export default {
         })
         .then((res) => {
           this.kebMingguan.items = res.map((data) => {
-            return {
-              weekNow: data.weekNow,
-              weekBefore: data.weekBefore,
-              provinsi: data.provinsi,
+            console.log(data)
+            if (data.weekNow > data.weekBefore) {
+              return {
+                weekNow: data.weekNow,
+                weekBefore: data.weekBefore,
+                provinsi: data.provinsi,
+                trend: 'naik',
+              }
+            } else if (data.weekNow < data.weekBefore) {
+              return {
+                weekNow: data.weekNow,
+                weekBefore: data.weekBefore,
+                provinsi: data.provinsi,
+                trend: 'turun',
+              }
+            } else {
+              return {
+                weekNow: data.weekNow,
+                weekBefore: data.weekBefore,
+                provinsi: data.provinsi,
+              }
             }
           })
         })
@@ -459,15 +477,16 @@ export default {
         .$get(url)
         .then(async (res) => {
           this.kebLuasData = res
+          console.log(res)
           await Promise.all(
             res.forEach(async (data) => {
-              console.log(data)
+              // console.log(data)
               // this.kebLuas.labels.push(data.year)
               // this.kebLuas.datasets[0].data.push(parseFloat(data.value))
             })
           )
-          // this.kebKumulatif.datasets[0].data = res.yearNow
-          // this.kebKumulatif.datasets[1].data = res.yearBefore
+          this.kebKumulatif.datasets[0].data = res.yearNow
+          this.kebKumulatif.datasets[1].data = res.yearBefore
         })
         .catch((err) => {})
         .finally(() => {

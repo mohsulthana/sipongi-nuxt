@@ -1,8 +1,18 @@
-1. Peta : Fungsi Show Hide Panah dipojok kiri bawah utk memunculkan sliding bar berita dan galery
-2. Peta : Menu Titik Panas : Opsi periode tanggal
-3. Peta : Menu Titik Panas : Fungsi download data dlm xls
-4. Peta : Opsi Summary Box : Overlay Peta Gambut dan Peta Moratorium
-5. Data & Grafik : Table Data Peringatan Kebakaran Minggguan dlm bentuk table naik turun
-6. Data & Grafik : Table Data Hotspot kebakaran berdasarkan opsi waktu ( tahunan, bulanan, mingguan), opsi wilayah ( Nasional, Regional, Provinsi, Kabupaten),
-opsi satelit ( ada 4 data satelit) , opsi Level (high , medium , low), bisa di download file xls
-7. Dokumentasi API utk keperluan Mobile Apps
+Menu Data & Grafik :
+1. Data Peringatan Kebakaran Minggguan dlm bentuk table naik turun
+2. Data kebakaran berdasarkan opsi waktu ( tahunan, bulanan, mingguan), opsi wilayah ( Nasional, Regionlal, Provinsi, Kabupaten)
+opsi satelit ( ada 4 data satelit) , opsi Level (high , medium , low)
+3. Data Luas kebakaran berdasarkan opsi tahun, nasional , regional, provinsi dan kabupaten
+4. Data & Grafik Grafik Emisi Co2, opsi tahun, nasional, regional, provinsi dan kabupaten
+5. CMS : CRUD Pengisian data CO2
+6. Dokumentasi API utk keperluan Mobile Apps
+
+1. Home : Munculkan menu statistik di halaman depan, dan perpendek halaman kedua (incl Footer)
+3. Peta : Fungsi Panah di buat utk memunculkan sliding blog dan galery
+4. Peta : Funsgi search wilayah dan periode tanggal dalam menu titik panas
+5. Peta : Fungsi data di download xls dari menu titik panas
+6. Peta : Overlay Peta Gambut dan Peta Moratorium
+7. FDRS : Overlay dengan peta gambar indonesia FDRS
+8. CMS : Mengedit disclaimer
+9. CMS : Mengedit Gambar Background Home
+10. CMS : CRUD utk data hostspot
