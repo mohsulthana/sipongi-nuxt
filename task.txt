@@ -1,0 +1,8 @@
+1. Peta : Fungsi Show Hide Panah dipojok kiri bawah utk memunculkan sliding bar berita dan galery
+2. Peta : Menu Titik Panas : Opsi periode tanggal
+3. Peta : Menu Titik Panas : Fungsi download data dlm xls
+4. Peta : Opsi Summary Box : Overlay Peta Gambut dan Peta Moratorium
+5. Data & Grafik : Table Data Peringatan Kebakaran Minggguan dlm bentuk table naik turun
+6. Data & Grafik : Table Data Hotspot kebakaran berdasarkan opsi waktu ( tahunan, bulanan, mingguan), opsi wilayah ( Nasional, Regional, Provinsi, Kabupaten),
+opsi satelit ( ada 4 data satelit) , opsi Level (high , medium , low), bisa di download file xls
+7. Dokumentasi API utk keperluan Mobile Apps

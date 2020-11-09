@@ -38,58 +38,58 @@
           <h6>Legend</h6>
         </div>
       </b-link>
-      <b-link 
+      <b-link
         href="http://sipongi.menlhk.go.id/laporan_dalkarhutla_mitra/app2020/"
-        target="_blank" 
+        target="_blank"
         class="main d-md-block d-none"
       >
         <h6>Luas Karthutla</h6>
       </b-link>
-      <b-link 
+      <b-link
         href=""
-        target="_blank" 
+        target="_blank"
         class="main d-md-block d-none"
       >
         <h6>FDRS</h6>
       </b-link>
-      <b-link 
+      <b-link
         to="/grafik"
         class="main d-md-block d-none"
       >
         <h6>Data dan Grafik</h6>
       </b-link>
-      <b-link 
+      <b-link
         href="/publikasi"
         class="main d-md-block d-none"
       >
         <h6>Publikasi</h6>
       </b-link>
-      <b-link 
+      <b-link
         href="http://sipongi.menlhk.go.id/laporan_dalkarhutla_mitra/app2020/"
-        target="_blank" 
+        target="_blank"
         class="main d-md-block d-none"
       >
         <h6>Pelaporan Hartkula</h6>
       </b-link>
-      <b-link 
+      <b-link
         href=""
         class="main d-md-block d-none"
       >
         <h6>Buat Peta Rawan</h6>
       </b-link>
-      <b-link 
+      <b-link
         href=""
         class="main d-md-block d-none"
       >
         <h6>Prediksi</h6>
       </b-link>
-      <b-link 
+      <b-link
         href="/tentang"
         class="main d-md-block d-none"
       >
         <h6>Tentang Kami</h6>
       </b-link>
-      <b-link 
+      <b-link
         v-b-modal.modal-disclaimer
         class="main d-md-block d-none"
       >
@@ -228,7 +228,7 @@
       </div>
     </div>
     <div class="map-wrap" style="height: 100vh;">
-      <b-link 
+      <b-link
         href="https://wa.me/+6281316235000"
         target="_blank"
         class="call"
@@ -240,7 +240,7 @@
         <img src="/logo.svg" alt="" />
         <img src="/logo-text.svg" alt="" />
       </b-link>
-      <marquee behavior="" direction=""
+      <marquee behavior="" direction="up"
         >Langit biru tanpa asap, STOP kebakaran hutan dan lahan</marquee
       >
       <div :class="['legend-wrap',  {'open' : openedLegend}]">
@@ -1170,7 +1170,7 @@ export default {
     await this.loadWind()
     this.openLeg()
 
-    
+
     window.addEventListener('resize', this.openLeg)
   },
   beforeDestroy() {
