@@ -7,7 +7,7 @@
             <h3>Sipongi+ Galeri</h3>
             <h6>
               Informasi seputar kegiatan pemadaman yang dilakukan oleh
-              manggalana agni serta updates informasi seputar peringatan
+              Manggalana Agni serta update informasi seputar peringatan
               kebakaran
             </h6>
           </b-col>

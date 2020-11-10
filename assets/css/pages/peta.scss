@@ -1,5 +1,6 @@
 .sidebar-map{
     position: fixed;
+    z-index: 99999;
     width: 76px;
     height: 100vh;
     @media screen and (max-width: 767px){
@@ -374,11 +375,17 @@
         }
     }
     .leaflet-control-zoom{
+    		display : none !important;
         margin: 40px 0 0 15px !important;
         @media screen and (max-width: 767px){
             display: none !important;
         }
     }
+    
+    .leaflet-zoom-box {
+		    display: none;
+		}
+    
     .logo-responsive{
         position: absolute;
         top: 0;
@@ -408,7 +415,7 @@
         left: 0;
         padding: 7px 15px;
         color: $wt;
-        font-size: 12px;
+        font-size: 16px;
         background-color: rgba($color: #66615C, $alpha: 0.6);
     }
     .legend-wrap{
@@ -511,6 +518,7 @@
                         clear: both;
                         margin-right: 17px;
                         font-size: 11px;
+                        width: 40px;
                         img{
                             margin-right: 3px;
                             font-size: 11px;

@@ -14,22 +14,25 @@
           <h6>Titik<br />Panas</h6>
         </div>
       </b-link>
+      
       <b-link class="main link-two" @click="openSidebarTwo">
+        <div class="wrap">
+          <div class="image d-md-none d-block">
+            <img src="/paper.svg" alt="" />
+          </div>
+          <h6>Berita</h6>
+        </div>
+      </b-link>
+      
+      <b-link class="main link-three" @click="openSidebarThree">
         <div class="wrap">
           <div class="image d-md-none d-block">
             <img src="/fire-extinguisher.svg" alt="" />
           </div>
-          <h6>Kegiatan Pemadaman</h6>
+          <h6>Galeri</h6>
         </div>
       </b-link>
-      <b-link class="main link-three" @click="openSidebarThree">
-        <div class="wrap">
-          <div class="image d-md-none d-block">
-            <img src="/cari.svg" alt="" />
-          </div>
-          <h6>Cari</h6>
-        </div>
-      </b-link>
+      
       <b-link class="main link-four d-md-none" @click="openLegend">
         <div class="wrap">
           <div class="image">
@@ -43,13 +46,14 @@
         target="_blank"
         class="main d-md-block d-none"
       >
-        <h6>Luas Karthutla</h6>
+        <h6>Luas Karhutla</h6>
       </b-link>
-      <b-link href="" target="_blank" class="main d-md-block d-none">
+      <!-- <b-link href="/fdrs" class="main d-md-block d-none"> -->
+      <b-link href="/fdrs" class="main d-md-block d-none">
         <h6>FDRS</h6>
       </b-link>
       <b-link to="/grafik" class="main d-md-block d-none">
-        <h6>Data dan Grafik</h6>
+        <h6>Data & Grafik</h6>
       </b-link>
       <b-link href="/publikasi" class="main d-md-block d-none">
         <h6>Publikasi</h6>
@@ -59,59 +63,92 @@
         target="_blank"
         class="main d-md-block d-none"
       >
-        <h6>Pelaporan Hartkula</h6>
+        <h6>Pelaporan Dalkarhutla</h6>
       </b-link>
       <b-link href="" class="main d-md-block d-none">
         <h6>Buat Peta Rawan</h6>
       </b-link>
+			
       <b-link href="" class="main d-md-block d-none">
         <h6>Prediksi</h6>
       </b-link>
+      
+      <b-dropdown id="dropdown-dropright" dropright text="Prediksi" variant="outline-danger" size="sm" class="btn-primary-outline">
+		    <b-dropdown-item href="#">Prediksi Hotspot</b-dropdown-item>
+		    <b-dropdown-item href="#">Prediksi Iklim</b-dropdown-item>
+		    <b-dropdown-item href="#">Prediksi El Nino</b-dropdown-item>
+		  </b-dropdown>
+      
       <b-link href="/tentang" class="main d-md-block d-none">
         <h6>Tentang Kami</h6>
       </b-link>
-      <b-link v-b-modal.modal-disclaimer class="main d-md-block d-none">
+      <b-link href="/disclaimer" class="main d-md-block d-none">
         <h6>Disclaimer</h6>
       </b-link>
       <b-link to="/" class="hide">
         <img src="/mini_arrow_left-gray.svg" alt="" />
       </b-link>
 
-      <div class="sidebar-slide sidebar-one">
+      <div class="sidebar-slide sidebar-one" >
         <div class="content-head">
-          <b-link class="close" @click="openSidebarOne"
-            ><i class="fas fa-times"></i
-          ></b-link>
+          <b-link class="close" @click="openSidebarOne">
+          	<i class="fas fa-times"></i>
+          </b-link>
           <h6>Lokasi Titik Panas</h6>
-          <no-ssr>
+          
+          <div class="content-list">
+          	
+		          <b-form-select
+		            v-model="cariProvinsi"
+		            class="mb-3 form-control"
+		            value-field="id"
+		            text-field="nama_provinsi"
+		            :options="provs"
+		          ></b-form-select>
+		          
+		          <b-form-select
+		            v-model="cariKota"
+		            class="form-control"
+		            value-field="id"
+		            text-field="nama"
+		            :disabled="
+		              provs.length <= 0 || !cariProvinsi || kotakabs.length <= 1
+		            "
+		            :options="kotakabs"
+		          ></b-form-select>
+        	</div>
+          
+          <client-only>
             <date-picker
               id="published_at"
               v-model="titikDate"
               type="date"
               format="dddd, DD MMMM YYYY"
-              placeholder="Kamis, 27 Agustus 2020"
+              placeholder="Pilih tanggal"
             ></date-picker>
-          </no-ssr>
+          </client-only>
+          
           <b-link
             :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
             @click="changeSumber('LPN-MODIS')"
-            >Terra/Aqua</b-link
-          >
+            >Terra/Aqua
+          </b-link>
           <b-link
             :class="`status ${checkSumber('LPN-NPP') ? 'active' : ''}`"
             @click="changeSumber('LPN-NPP')"
-            >SNPP</b-link
-          >
+            >SNPP
+          </b-link>
           <b-link
             :class="`status ${checkSumber('LPN-NOAA20') ? 'active' : ''}`"
             @click="changeSumber('LPN-NOAA20')"
-            >NOAA20</b-link
-          >
+            >NOAA20
+          </b-link>
           <b-link
             :class="`status ${checkSumber('LPN-LANDSAT8') ? 'active' : ''}`"
             @click="changeSumber('LPN-LANDSAT8')"
-            >LANDSAT8</b-link
-          >
+            >LANDSAT8
+          </b-link>
+          
         </div>
 
         <div class="content-list titik">
@@ -119,6 +156,7 @@
             <template v-for="(kotakab, index2) in datas">
               <b-link
                 class="list-item"
+                :key="index2"
                 v-if="checkSumber(kotakab.data.sumber)"
                 @click="changeCenter(kotakab.data)"
               >
@@ -138,85 +176,113 @@
         </b-link>
       </div>
 
-      <div class="sidebar-slide sidebar-two big">
+			<div class="sidebar-slide sidebar-two big">
         <div class="content-head">
           <b-link class="close" @click="openSidebarTwo"
-            ><i class="fas fa-times"></i
-          ></b-link>
-          <h6>Kegiatan Pemadaman</h6>
-          <p>Informasi seputar kegiatan pemadaman</p>
+            ><i class="fas fa-times"></i>
+          </b-link>
+          <h6>Berita Sipongi+</h6>
+          <p></p>
         </div>
-
-        <div class="content-list">
+          
+				<div class="content-list">
           <b-row>
-            <b-col cols="6" v-for="blog in pemadamans" :key="blog.slug">
-              <b-link :to="'/galeri/' + blog.slug" class="blog-item">
-                <div
-                  class="image"
-                  :style="{ backgroundImage: `url(${blog.detail.image_url})` }"
-                ></div>
-                <h5>{{ blog.title }}</h5>
-                <span>{{
-                  $moment(blog.created_at).format('DD MMMM YYYY')
-                }}</span>
-              </b-link>
-            </b-col>
-            <b-col v-if="loadMoreGal" md="12" class="text-center">
-              <b-button
-                variant="primary"
-                class="loadMore"
-                @click="loadMoreDataGal()"
-                >Lihat lebih banyak</b-button
-              >
-            </b-col>
+            <b-col cols="6" v-for="blog in beritas" :key="blog.slug">
+            	<b-link :to="`/blog/${blog.slug}`" class="blog-item">
+	              <div
+	                class="image"
+	                :style="{ backgroundImage: `url(${blog.image_url})` }"
+	              	></div>
+	              	<h5>{{ blog.title }}</h5>
+	              	<span>{{ blog.created_at }}</span>
+            	</b-link>
+          	</b-col>
+          	<b-col v-if="loadMore" md="12" class="text-center">
+            	<b-button
+            		variant="primary"
+            		class="loadMore"
+            		@click="loadMoreData()">
+              	Lihat Lebih Banyak
+            	</b-button>
+          	</b-col>
           </b-row>
-        </div>
-      </div>
+       </div>
+    </div>
 
-      <div class="sidebar-slide sidebar-three">
+      <div class="sidebar-slide sidebar-three big">
         <div class="content-head">
           <b-link class="close" @click="openSidebarThree"
             ><i class="fas fa-times"></i
           ></b-link>
-          <h6>Cari</h6>
-          <p>Pencarian lokasi peringatan kebakaran</p>
+          <h6>Galeri</h6>
+          <p>Informasi seputar kegiatan pemadaman</p>
         </div>
 
         <div class="content-list">
-          <label for="">Pilih Provinsi</label>
-          <b-form-select
-            v-model="cariProvinsi"
-            class="mb-3 form-control"
-            value-field="id"
-            text-field="nama_provinsi"
-            :options="provs"
-          ></b-form-select>
-          <label for="">Pilih Kota/Kabupaten</label>
-          <b-form-select
-            v-model="cariKota"
-            class="form-control"
-            value-field="id"
-            text-field="nama"
-            :disabled="
-              provs.length <= 0 || !cariProvinsi || kotakabs.length <= 1
-            "
-            :options="kotakabs"
-          ></b-form-select>
+        	<b-tabs>
+              <b-tab title="Kegiatan Pemadaman" active>
+				          <b-row>
+				            <b-col cols="6" v-for="blog in pemadamans" :key="blog.slug">
+				              <b-link :to="'/galeri/' + blog.slug" class="blog-item">
+				                <div
+				                  class="image"
+				                  :style="{ backgroundImage: `url(${blog.detail.image_url})` }"
+				                ></div>
+				                <h5>{{ blog.title }}</h5>
+				                <span>{{
+				                  $moment(blog.created_at).format('DD MMMM YYYY')
+				                }}</span>
+				              </b-link>
+				            </b-col>
+				            <b-col v-if="loadMoreGal" md="12" class="text-center">
+				              <b-button
+				                variant="primary"
+				                class="loadMore"
+				                @click="loadMoreDataGal()"
+				                >Lihat Lebih Banyak</b-button
+				              >
+				            </b-col>
+				          </b-row>
+				       </b-tab>
+				       <b-tab title="Kegiatan Lainnya">
+                <b-row>
+                  <b-col cols="6" v-for="blog in lains" :key="blog.slug">
+                    <b-link :to="'/galeri/' + blog.slug" class="blog-item">
+                      <div
+                        class="image"
+                        :style="{ backgroundImage: `url(${blog.detail.image_url})` }"
+				                ></div>
+                      <h5>{{ blog.title }}</h5>
+                     <span>{{ blog.created_at }}</span>
+                    </b-link>
+                  </b-col>
+                  <b-col v-if="loadMoreLain" md="12" class="text-center">
+                    <b-button
+				                variant="primary"
+				                class="loadMore"
+				                @click="loadMoreDataLain()"
+				                >Lihat Lebih Banyak</b-button
+				              >
+                  </b-col>
+                </b-row>
+              </b-tab>
+           </b-tabs>
         </div>
       </div>
-    </div>
-    <div class="map-wrap" style="height: 100vh;">
-      <b-link href="https://wa.me/+6281316235000" target="_blank" class="call">
+      
+   </div>
+    <div class="map-wrap" style="height: 100vh">
+      <b-link href="https://wa.me/+6281310035000" target="_blank" class="call">
         <img src="/phone-red.svg" alt="" class="mr-1 inner" />
-        Call SiPongi+
+        Sipongi+
       </b-link>
       <b-link to="/" class="logo-responsive">
         <img src="/logo.svg" alt="" />
         <img src="/logo-text.svg" alt="" />
       </b-link>
-      <marquee behavior="" direction=""
-        >Langit biru tanpa asap, STOP kebakaran hutan dan lahan</marquee
-      >
+      <marquee behavior="" direction="">
+        {{runningText}}
+      </marquee>
       <div :class="['legend-wrap', { open: openedLegend }]">
         <b-link class="legend-head" @click="toggleOpen">
           <h6 class="d-md-none d-block">Legenda</h6>
@@ -303,9 +369,35 @@
               </span>
             </div>
           </div>
+          <b-button variant="primary" style="opacity: 0.5" block squared v-b-toggle="'collapse-2'">Opsi</b-button>
+          <b-collapse id="collapse-2">
           <div class="filter-wrap">
+          	<div class="select-wrap">
+              	<label class="mr-sm-2">Satelit</label>
+              	<b-link style="display: inline-block; vertical-align: middle; font-size: 9px; padding: 4px 8px; background-color: #fff; border: 1px solid #eaeaea; margin-right: 2px; border-radius: 12px;"
+			            :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
+			            @click="changeSumber('LPN-MODIS')"
+			            >Terra/Aqua
+			          </b-link>
+			          <b-link style="display: inline-block; vertical-align: middle; font-size: 9px; padding: 4px 8px; background-color: #fff; border: 1px solid #eaeaea; margin-right: 2px; border-radius: 12px;"
+			            :class="`status ${checkSumber('LPN-NPP') ? 'active' : ''}`"
+			            @click="changeSumber('LPN-NPP')"
+			            >SNPP
+			          </b-link>
+			          <b-link style="display: inline-block; vertical-align: middle; font-size: 9px; padding: 4px 8px; background-color: #fff; border: 1px solid #eaeaea; margin-right: 2px; border-radius: 12px;"
+			            :class="`status ${checkSumber('LPN-NOAA20') ? 'active' : ''}`"
+			            @click="changeSumber('LPN-NOAA20')"
+			            >NOAA20
+			          </b-link>
+			          <b-link style="display: inline-block; vertical-align: middle; font-size: 9px; padding: 4px 8px; background-color: #fff; border: 1px solid #eaeaea; margin-right: 2px; border-radius: 12px;"
+			            :class="`status ${checkSumber('LPN-LANDSAT8') ? 'active' : ''}`"
+			            @click="changeSumber('LPN-LANDSAT8')"
+			            >LANDSAT8
+			          </b-link>
+            </div>
+          	
             <div class="select-wrap">
-              <label class="mr-sm-2">Dengan periode data</label>
+              <label class="mr-sm-2">Periode</label>
               <b-form-select
                 v-model="periodeData"
                 :options="[
@@ -316,7 +408,7 @@
               ></b-form-select>
             </div>
             <div class="select-wrap w-border-bottom">
-              <label class="mr-sm-2">Dengan tingkat kepercayaan data</label>
+              <label class="mr-sm-2">Confidence</label>
               <b-form-checkbox
                 id="checkbox-rendah"
                 v-model="trustData"
@@ -345,6 +437,8 @@
                 Tinggi
               </b-form-checkbox>
             </div>
+            
+            
             <div class="select-wrap">
               <label class="float-left">Pergerakan Angin</label>
               <b-form-checkbox
@@ -387,19 +481,22 @@
               >
               </b-form-checkbox>
             </div>
-            <div class="select-wrap mb-0">
-              <label class="float-left">Batas Administratif</label>
-              <b-form-checkbox
-                v-model="btsAdmf"
-                name="check-button"
-                switch
-                class="float-right"
-              >
-              </b-form-checkbox>
+            
+            <div class="select-wrap">
+              <label class="mr-sm-2">Basemap</label>
+              	<b-form-select v-model="currentTiles">
+				          <option
+				            v-for="(t, i) in tiles"
+				            :key="i"
+				            :value="i">
+				            {{ t.name }}
+				          </option>
+				        </b-form-select>
             </div>
           </div>
+          </b-collapse>
         </div>
-      </div>
+     </div>
       <client-only>
         <l-map
           ref="mapSipongi"
@@ -407,12 +504,14 @@
           :maxZoom="17"
           :zoom="zoom"
           :center="centerMap"
-          :options="optionMaps"
+          :options="{ zoomControl: false, attributionControl: false }"
           @update:zoom="zoomUpdated"
         >
           <l-tile-layer
-            url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
-          ></l-tile-layer>
+          :url="tilesUrl"
+          >
+          </l-tile-layer>
+         
           <l-image-overlay
             url="/gelap.png"
             :bounds="[
@@ -545,14 +644,14 @@
     >
       <div class="d-block">
         <p class="text-left">
-          Pengunaan anda atas setiap bagian dari Aplikasi ("Situs") online
+          Penggunaan anda atas setiap bagian dari Aplikasi ("Situs") online
           (SiPongi) ini atau informasi atau data yang disediakan di Situs ini
-          tunduk pada syarat dan kententuan yang tercantum sebagai berikut :
+          tunduk pada syarat dan ketentuan yang tercantum sebagai berikut :
         </p>
-        <p class="text-left mb-1">Pengunaan Terlarang</p>
+        <p class="text-left mb-1">Penggunaan Terlarang</p>
         <ol>
           <li class="text-left">
-            Sebagai ketentuan dari pengunaan anda dari Situs ini, anda menjamin
+            Sebagai ketentuan dari penggunaan anda dari Situs ini, anda menjamin
             kepada Kementerian LHK bahwa anda hanya akan menggunakan Informasi
             yang terkandung atau terhasilkan dari Situs ini untuk tujuan
             identifikasi dan pemantauan potensi kebakaran.
@@ -566,11 +665,11 @@
         <p class="text-left mb-1">Tanggung Jawab</p>
         <ol start="3">
           <li class="text-left">
-            Anda setuju untuk tidak terlibat dalam pengunaan situs ini secara
+            Anda setuju untuk tidak terlibat dalam penggunaan situs ini secara
             ilegal, yang meliputi, tapi tidak terbatas pada:
             <ol class="lower-alpha">
               <li>
-                pengunanaan Informasi tersedia untuk pengunduh dari Situs untuk
+                penggunaan Informasi tersedia untuk pengunduh dari Situs untuk
                 tujuan selain identifikasi dan pemantauan potensi kebakaran;
               </li>
               <li>
@@ -596,7 +695,7 @@
         <p class="text-left mb-1">Pernyataan</p>
         <ol start="4">
           <li class="text-left">
-            Anda setuju bahwa pengunaan Situs ini dengan resiko anda sendiri.
+            Anda setuju bahwa penggunaan Situs ini dengan resiko anda sendiri.
             Situs ini dan perangkat lunaknya, kumpulan data dan konten lainnya,
             termasuk konten dari pihak ketiga yang tersedia dalam hubungan
             dengan atau melaui Situs, diberikan tanpa jaminan atau representasi
@@ -695,9 +794,32 @@
 <script>
 export default {
   name: 'Peta',
-  data() {
+  data () {
     return {
-      openedLegend: false,
+       	
+      currentTiles: 0,
+      tiles: [
+        {
+          name: 'Open Street Map',
+          url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+        },
+        {
+          name: 'ESRI Map',
+          url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}'
+        },
+        {
+          name: 'Open Topo Map',
+          url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png'
+        },
+        
+        {
+          name: 'World Imagery Map',
+          url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+        },
+      ],
+
+      runningText : null,
+      openedLegend: true,
       titikDate: '',
       browser: process.browser,
       centerMap: [-2.548926, 118.0148634],
@@ -818,7 +940,22 @@ export default {
         page: 1,
         per_page: 6,
       },
+      lains: [],
+      optionsLain: {
+        tipe: 'Lainnya',
+        page: 1,
+        per_page: 6,
+      },
+      beritas: [],
+      options: {
+        direction: 'desc',
+        sortBy: 'created_at',
+        page: 1,
+        per_page: 6,
+      },
       loadMoreGal: false,
+      loadMoreLain: false,
+      loadMore: false,
     }
   },
   watch: {
@@ -902,6 +1039,10 @@ export default {
     },
   },
   computed: {
+  	tilesUrl () {
+      return this.tiles[this.currentTiles].url
+    },
+  
     noaaGreenIcon() {
       let icon = () => {}
       if (process.browser) icon = this.$L.icon
@@ -1322,8 +1463,10 @@ export default {
     if (this.firstLoad) {
       await this.cmbProvs()
     }
-
+    await this.getRunningText()
     await this.loadPemadaman()
+    await this.loadLain()
+    await this.loadBerita()
     await this.loadAqms()
     await this.loadWind()
     this.openLeg()
@@ -1334,6 +1477,28 @@ export default {
     window.removeEventListener('resize', this.openLeg)
   },
   methods: {
+    async getRunningText() {
+      const url = !process.server ? `/v1/data/running-text` : `/api/data/running-text`
+
+      await this.$axios
+        .$get(url)
+        .then((res) => {
+          this.runningText = res.text
+          // console.log(res)
+        })
+        .catch((err) => {
+            if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+                this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+
+            if (status === 404) {
+                this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+            }
+        })
+    },
     openLeg() {
       if (window.innerWidth > 767) {
         this.openedLegend = true
@@ -1628,9 +1793,87 @@ export default {
           this.loading = false
         })
     },
+    
+    async loadLain() {
+      this.loading = true
+      const url = !process.server ? `/v1/listGaleri` : `/api/listGaleri`
+
+      const params = {
+        tipe: this.optionsLain.tipe,
+        page: this.optionsLain.page,
+        per_page: this.optionsLain.per_page,
+      }
+
+      await this.$axios
+        .$get(url, {
+          params,
+        })
+        .then((res) => {
+          this.lains = this.lains.concat(res.data)
+          this.loadMoreLain = !!res.links.next
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+        .finally(async () => {
+          this.loading = false
+        })
+    },
+    
+    async loadBerita() {
+      this.loading = true
+      const url = !process.server ? `/v1/listBerita` : `/api/listBerita`
+
+      const params = {
+      direction: this.options.direction,
+      sortBy: this.options.sortBy,
+      page: this.options.page,
+      per_page: this.options.per_page,
+    }
+
+      await this.$axios
+        .$get(url, {
+          params,
+        })
+        .then((res) => {
+          this.beritas = this.beritas.concat(res.data)
+          this.loadMore = !!res.links.next
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+        .finally(async () => {
+          this.loading = false
+        })
+    },
+    
     async loadMoreDataGal() {
       this.optionsGal.page++
       await this.loadPemadaman()
+    },
+    async loadMoreDataLain() {
+      this.optionsLain.page++
+      await this.loadLain()
+    },
+    async loadMoreData() {
+      this.options.page++
+      await this.loadBerita()
     },
     toggleOpen() {
       var legend = document.querySelector('.legend-wrap')
@@ -1728,7 +1971,7 @@ export default {
         link.classList.remove('active')
         link2.classList.remove('active')
         link3.classList.add('active')
-        map.classList.remove('big')
+        map.classList.add('big')
         sidebar3.classList.add('opened')
         if (window.innerWidth < 767) {
           legend.classList.remove('open')
@@ -1737,6 +1980,7 @@ export default {
       } else {
         sidebar3.classList.toggle('opened')
         map.classList.toggle('openSide')
+        map.classList.toggle('big')
         link3.classList.toggle('active')
       }
     },
@@ -1772,12 +2016,17 @@ export default {
         map.classList.toggle('openSide')
       }
     },
-  },
+  },  
+  
 }
 </script>
+
 <style lang="css">
 .leaflet-fade-anim .leaflet-tile,
 .leaflet-zoom-anim .leaflet-zoom-animated {
   will-change: auto !important;
+}
+.leaflet-zoom-box {
+    display: none;
 }
 </style>
