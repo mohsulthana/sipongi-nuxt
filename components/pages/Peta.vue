@@ -5,13 +5,13 @@
         <img src="/logo.svg" alt="" />
         <img src="/logo-text.svg" alt="" />
       </b-link>
-      <b-link class="main its-new link-one" @click="openSidebarOne">
+      <b-link class="main link-one" @click="openSidebarOne">
         <div class="wrap">
           <div class="image d-md-none d-block">
             <img src="/fire.svg" alt="" />
             <span class="notif">{{ totalHotspot }}</span>
           </div>
-          <h6>Titik<br />Panas</h6>
+          <h6>Titik Panas</h6>
         </div>
       </b-link>
       
@@ -85,8 +85,9 @@
       <b-link href="/disclaimer" class="main d-md-block d-none">
         <h6>Disclaimer</h6>
       </b-link>
-      <b-link to="/" class="hide">
-        <img src="/mini_arrow_left-gray.svg" alt="" />
+      <b-link to="#" class="hide" @click="hideSlider()">
+        <img v-if="displaySlider" src="/mini_arrow_left-gray.svg" alt="" />
+        <img v-else src="/mini_arrow_right.svg" alt="" />
       </b-link>
 
       <div class="sidebar-slide sidebar-one" >
@@ -152,14 +153,15 @@
         </div>
 
         <div class="content-list titik">
-          <template v-for="(datas, index) in DataHotSpot.kabkota">
-            <template v-for="(kotakab, index2) in datas">
+          <template v-for="datas in DataHotSpot.kabkota">
+            <template v-for="(kotakab, index) in datas">
               <b-link
                 class="list-item"
-                :key="index2"
+                :key="index"
                 v-if="checkSumber(kotakab.data.sumber)"
                 @click="changeCenter(kotakab.data)"
               >
+                <!-- {{ kotakab.data }} -->
                 <h6>
                   {{ kotakab.data.kabkota }} - {{ kotakab.data.nama_provinsi }}
                 </h6>
@@ -170,10 +172,15 @@
           </template>
         </div>
 
-        <b-link to="" class="pdf">
+        <b-link @click="generateReport(DataHotSpot)" class="pdf">
           <img src="/pdf.svg" alt="" />
-          <span>Download PDF</span>
+          <span>Download XLS</span>
         </b-link>
+
+        <!-- <b-link to="" class="pdf">
+          <img src="/pdf.svg" alt="" />
+          <span>Download XLS</span>
+        </b-link> -->
       </div>
 
 			<div class="sidebar-slide sidebar-two big">
@@ -269,8 +276,7 @@
            </b-tabs>
         </div>
       </div>
-      
-   </div>
+    </div>
     <div class="map-wrap" style="height: 100vh">
       <b-link href="https://wa.me/+6281310035000" target="_blank" class="call">
         <img src="/phone-red.svg" alt="" class="mr-1 inner" />
@@ -497,6 +503,26 @@
           </b-collapse>
         </div>
      </div>
+           <marquee behavior="" direction="" style="bottom: 0; left: 0">
+        <span v-for="(value, index) in pemadamans" :key="index">
+          <img :src="value.detail.image_url" width="50" height="50" />
+          <b-link
+            :to="`/galeri/${value.slug}`"
+            class="logo"
+            style="color: #fff"
+          >
+            {{ value.title }}
+          </b-link>
+        </span>
+      </marquee>
+      <!-- <marquee behavior="" direction="" style="bottom: 0; width: 49%; right: 0">
+        <span v-for="(value, index) in beritas" :key="index">
+          <img :src="value.image_url" width="50" height="50" />
+          <b-link :to="`/blog/${value.slug}`" class="logo" style="color: #fff">
+            {{ value.title }}
+          </b-link>
+        </span>
+      </marquee> -->
       <client-only>
         <l-map
           ref="mapSipongi"
@@ -630,7 +656,7 @@
       <div class="wrap">
         <h4>Mohon Tunggu Sebentar</h4>
         <b-spinner
-          style="width: 3rem; height: 3rem;"
+          style="width: 3rem; height: 3rem"
           label="Large Spinner"
         ></b-spinner>
       </div>
@@ -788,15 +814,24 @@
         </ol>
       </div>
     </b-modal>
+    <client-only>
+      <vue-html2pdf>
+        <section slot="pdf-content">Hello</section>
+      </vue-html2pdf>
+    </client-only>
   </div>
 </template>
 
 <script>
+import VueHtml2Pdf from 'vue-html2pdf'
+
 export default {
   name: 'Peta',
   data () {
     return {
-       	
+      beritas: [],
+      displaySlider: true,
+      range: '',
       currentTiles: 0,
       tiles: [
         {
@@ -883,6 +918,12 @@ export default {
       geoJsonLayerMarker: {},
       aqmsData: null,
       aqmsShow: false,
+      options: {
+        direction: 'desc',
+        sortBy: 'created_at',
+        page: 1,
+        per_page: 6,
+      },
       OptWind: {
         displayValues: true,
         displayOptions: {
@@ -957,6 +998,9 @@ export default {
       loadMoreLain: false,
       loadMore: false,
     }
+  },
+  components: {
+    VueHtml2Pdf,
   },
   watch: {
     periodeData: {
@@ -1464,6 +1508,8 @@ export default {
       await this.cmbProvs()
     }
     await this.getRunningText()
+    await this.$fetch()
+
     await this.loadPemadaman()
     await this.loadLain()
     await this.loadBerita()
@@ -1475,6 +1521,37 @@ export default {
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.openLeg)
+  },
+  async fetch() {
+    const url = !process.server ? `/v1/listBerita` : `/api/listBerita`
+
+    const params = {
+      direction: this.options.direction,
+      sortBy: this.options.sortBy,
+      page: this.options.page,
+      per_page: this.options.per_page,
+    }
+
+    await this.$axios
+      .$get(url, {
+        params,
+      })
+      .then((res) => {
+        console.log(res)
+        this.beritas = this.beritas.concat(res.data)
+        this.loadMore = !!res.links.next
+      })
+      .catch((err) => {
+        if (err.response) {
+          const { status, data } = err.response
+          if (status === 500) {
+            this.$nuxt.error({ statusCode: 500, message: data.message })
+          }
+          if (status === 404) {
+            this.$nuxt.error({ statusCode: 404, message: data.message })
+          }
+        }
+      })
   },
   methods: {
     async getRunningText() {
@@ -1498,6 +1575,12 @@ export default {
             }
             }
         })
+    },
+    generateReport(args) {
+      console.log(args)
+    },
+    hideSlider() {
+      this.displaySlider = !this.displaySlider
     },
     openLeg() {
       if (window.innerWidth > 767) {
@@ -2028,5 +2111,9 @@ export default {
 }
 .leaflet-zoom-box {
     display: none;
+}
+.main:hover {
+  background-color: #009c3a;
+  color: white;
 }
 </style>

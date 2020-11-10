@@ -6,7 +6,7 @@
           <b-col md="7">
             <h3>Data & Grafik</h3>
             <h6>
-              Pada tahun 2001, Indonesia memiliki 93,8 juta hektar hutan primer
+              Pada tahun 2001s, Indonesia memiliki 93,8 juta hektar hutan primer
               , yang mencakup lebih dari 50% wilayah daratannya. Pada tahun
               2019, ia kehilangan 324kha hutan primer , setara dengan 187 juta
               ton CO₂ dari emisi.
@@ -60,7 +60,11 @@
                 />
               </b-col>
               <b-col md="6">
-                <div v-for="(data, index) in kebLuasData" class="legend-pie">
+                <div
+                  v-for="(data, index) in kebLuasData"
+                  :key="index"
+                  class="legend-pie"
+                >
                   <span :class="`color ${kebLuasColor[index]}`"></span>
                   <h6>{{ data.year }}</h6>
                   <p>
@@ -74,6 +78,66 @@
                 </div>
               </b-col>
             </b-row>
+
+            <h6 class="charts-title">Tabel Peringatan kebakaran mingguan</h6>
+            <b-row class="align-items-center">
+              <b-col md="12">
+                <b-table
+                  show-empty
+                  small
+                  responsive="sm"
+                  class="text-center"
+                  :items="kebMingguan.items"
+                  :fields="kebMingguan.tableFields"
+                  :per-page="perPage"
+                >
+                  <template #cell(trend)="data">
+                    <i class="fas fa-angle-up text-success" v-if="data.item.trend == 'naik'"></i>
+                    <i class="fas fa-angle-down text-danger" v-else-if="data.item.trend == 'turun'"></i>
+                    <div v-else> - </div>
+                  </template>
+                </b-table>
+                <b-row>
+                  <b-col sm="7" md="6" class="mb-3 text-center">
+                    <b-pagination
+                      v-model="currentPage"
+                      :total-rows="totalRows"
+                      :per-page="perPage"
+                      align="fill"
+                      size="sm"
+                      class="my-0"
+                    ></b-pagination>
+                  </b-col>
+                </b-row>
+              </b-col>
+            </b-row>
+
+            <!-- <h6 class="charts-title">Tabel Peringatan kebakaran mingguan</h6>
+            <b-row class="align-items-center">
+              <b-col md="12">
+                <b-table
+                  show-empty
+                  small
+                  class="text-center"
+                  stacked="md"
+                  :items="kebMingguan.items"
+                  :fields="kebMingguan.tableFields"
+                  :per-page="10"
+                />
+                <b-row>
+                  <b-col sm="7" md="6" class="mb-3 text-center">
+                    <b-pagination
+                      v-model="currentPage"
+                      :total-rows="totalRows"
+                      :per-page="perPage"
+                      align="fill"
+                      size="sm"
+                      class="my-0"
+                    ></b-pagination>
+                  </b-col>
+                </b-row>
+              </b-col>
+            </b-row> -->
           </b-col>
           <b-col md="4">
             <div class="statistik-wrap">
@@ -114,7 +178,7 @@
       <div class="wrap">
         <h4>Mohon Tunggu Sebentar</h4>
         <b-spinner
-          style="width: 3rem; height: 3rem;"
+          style="width: 3rem; height: 3rem"
           label="Large Spinner"
         ></b-spinner>
       </div>
@@ -124,19 +188,46 @@
 
 <script>
 import LineChart from '~/components/LineChart'
+import { BIconArrowUp, BIconArrowDown } from 'bootstrap-vue'
 
 export default {
   layout: 'front',
   data: () => ({
+    currentPage: 1,
+    totalRows: 1,
+    perPage: 10,
     totalTitik: 0,
     totalProv: 0,
     luasKebakaran: 0,
     compareYear: null,
-    tahuns: [],
+    tahuns: ['2019', '2018'],
     loadingGrafiKum: false,
     kebLuasData: [],
     kebLuasColor: ['blue', 'green', 'yellow', 'orange'],
     kebMingguan: {
+      items: [],
+      tableFields: [
+        {
+          key: 'provinsi',
+          label: 'Provinsi',
+          sortable: true,
+          sortDirection: 'desc',
+        },
+        {
+          key: 'weekNow',
+          label: 'Minggu Ini',
+          sortable: true,
+          sortDirection: 'desc',
+        },
+        {
+          key: 'weekBefore',
+          label: 'Minggu Lalu',
+          sortable: true,
+          sortDirection: 'desc',
+        },
+        { key: 'trend', label: 'Trend', sortable: true, sortDirection: 'desc' },
+      ],
+      data: [],
       labels: ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'],
       datasets: [
         {
@@ -326,8 +417,30 @@ export default {
           },
         })
         .then((res) => {
-          this.kebMingguan.datasets[0].data = res.weekNow
-          this.kebMingguan.datasets[1].data = res.weekBefore
+          this.kebMingguan.items = res.map((data) => {
+            console.log(data)
+            if (data.weekNow > data.weekBefore) {
+              return {
+                weekNow: data.weekNow,
+                weekBefore: data.weekBefore,
+                provinsi: data.provinsi,
+                trend: 'naik',
+              }
+            } else if (data.weekNow < data.weekBefore) {
+              return {
+                weekNow: data.weekNow,
+                weekBefore: data.weekBefore,
+                provinsi: data.provinsi,
+                trend: 'turun',
+              }
+            } else {
+              return {
+                weekNow: data.weekNow,
+                weekBefore: data.weekBefore,
+                provinsi: data.provinsi,
+              }
+            }
+          })
         })
         .catch((err) => {})
     },
@@ -347,6 +460,7 @@ export default {
         .then((res) => {
           this.kebKumulatif.datasets[0].data = res.yearNow
           this.kebKumulatif.datasets[1].data = res.yearBefore
+          console.log(this.kebKumulatif)
         })
         .catch((err) => {})
         .finally(() => {
@@ -363,14 +477,16 @@ export default {
         .$get(url)
         .then(async (res) => {
           this.kebLuasData = res
+          console.log(res)
           await Promise.all(
             res.forEach(async (data) => {
-              this.kebLuas.labels.push(data.year)
-              this.kebLuas.datasets[0].data.push(parseFloat(data.value))
+              // console.log(data)
+              // this.kebLuas.labels.push(data.year)
+              // this.kebLuas.datasets[0].data.push(parseFloat(data.value))
             })
           )
-          // this.kebKumulatif.datasets[0].data = res.yearNow
-          // this.kebKumulatif.datasets[1].data = res.yearBefore
+          this.kebKumulatif.datasets[0].data = res.yearNow
+          this.kebKumulatif.datasets[1].data = res.yearBefore
         })
         .catch((err) => {})
         .finally(() => {

@@ -152,7 +152,7 @@
         </div>
 
         <div class="content-list titik">
-          <template v-for="(datas, index) in DataHotSpot.kabkota">
+          <template v-for="datas in DataHotSpot.kabkota">
             <template v-for="(kotakab, index2) in datas">
               <b-link
                 class="list-item"
