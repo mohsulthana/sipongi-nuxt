@@ -9,12 +9,12 @@
               <h6>Kementerian Lingkungan Hidup dan Kehutanan</h6>
             </div>
             <p>
-              Gedung Pusat Kehutanan Manggala Wanabakti Blok VII Lt. 13 Jl.
+              Gedung Pusat Kehutanan Manggala Wanabakti Blok VII Lt. 13 <br />Jl.
               Jend. Gatot Subroto Jakarta 10270
             </p>
             <p>
-              posko.karhutla@menlhk.go.id<br />
-              021-5704618
+              <i class="far fa-envelope"></i> posko.karhutla@menlhk.go.id<br />
+              <i class="fas fa-phone"></i> 021-5704618
             </p>
           </b-col>
           <b-col md="2">
@@ -53,7 +53,7 @@
               <li><b-link to="/publikasi">Publikasi</b-link></li>
               <li><b-link to="/peta">Sebaran Titik Panas</b-link></li>
               <li><b-link to="/grafik">Luas Kebakaran</b-link></li>
-              <li><b-link to="/galeri">Galeri Poto</b-link></li>
+              <li><b-link to="/galeri">Galeri Foto</b-link></li>
             </ul>
           </b-col>
           <b-col md="2">
@@ -76,13 +76,21 @@
               class="socmed"
               ><i class="fab fa-instagram"></i
             ></b-link>
+            <b-link>
+            	<p></p>
+            </b-link>
+            <b-link
+            id="counter">
+            		<p>Visitor Counters</p><h6 class="sec-title">{{counter}}</h6> 
+            </b-link>
+            
           </b-col>
         </b-row>
         <b-row>
           <b-col>
             <p class="copyright">
               Copyright © 2020. Kementerian Lingkungan Hidup dan Kehutanan
-              Republik Indonesia.
+              Republik Indonesia. | <nuxt-link to="/disclaimer">Disclaimer</nuxt-link>
             </p>
           </b-col>
         </b-row>
@@ -94,5 +102,41 @@
 <script>
 export default {
   name: 'Footer',
+  data() {
+    return {
+      counter : 0,
+    }
+  },
+  methods: {
+    async visitor(){
+      const url = !process.server ? `/v1/visitor` : `/api/visitor`
+
+      await this.$axios
+        .$get(url)
+        .then((res) => {
+          this.counter = res.visitor
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+        .finally(async () => {
+          this.loading = false
+        })
+    }
+  },
+  mounted() {
+    this.$nextTick(function () {
+      this.visitor()
+    })
+  },
 }
 </script>
+
