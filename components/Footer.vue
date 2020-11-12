@@ -76,11 +76,11 @@
               class="socmed"
               ><i class="fab fa-instagram"></i
             ></b-link>
-            <b-link
+            <b-link>
             	<p></p>
             </b-link>
             <b-link
-            id="counter"
+            id="counter">
             		<p>Visitor Counters</p><h6 class="sec-title">{{counter}}</h6> 
             </b-link>
             

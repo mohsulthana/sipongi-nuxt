@@ -207,13 +207,15 @@
         </div>
 
         <div class="content-list titik">
-          <template v-for="(datas, index) in DataHotSpot.kabkota">
-            <template v-for="(kotakab, index2) in datas">
+          <template v-for="datas in DataHotSpot.kabkota">
+            <template v-for="(kotakab, index) in datas">
               <b-link
                 class="list-item"
+                :key="index"
                 v-if="checkSumber(kotakab.data.sumber)"
                 @click="changeCenter(kotakab.data)"
               >
+                <!-- {{ kotakab.data }} -->
                 <h6>
                   {{ kotakab.data.kabkota }} - {{ kotakab.data.nama_provinsi }}
                 </h6>
@@ -224,10 +226,15 @@
           </template>
         </div>
 
-        <b-link to="" class="pdf">
+        <b-link @click="generateReport(DataHotSpot)" class="pdf">
           <img src="/pdf.svg" alt="" />
-          <span>Download PDF</span>
+          <span>Download XLS</span>
         </b-link>
+
+        <!-- <b-link to="" class="pdf">
+          <img src="/pdf.svg" alt="" />
+          <span>Download XLS</span>
+        </b-link> -->
       </div>
 			</transition>
 
@@ -1053,7 +1060,7 @@
       <div class="wrap">
         <h4>Mohon Tunggu Sebentar</h4>
         <b-spinner
-          style="width: 3rem; height: 3rem;"
+          style="width: 3rem; height: 3rem"
           label="Large Spinner"
         ></b-spinner>
       </div>
@@ -1211,10 +1218,17 @@
         </ol>
       </div>
     </b-modal>
+    <client-only>
+      <vue-html2pdf>
+        <section slot="pdf-content">Hello</section>
+      </vue-html2pdf>
+    </client-only>
   </div>
 </template>
 
 <script>
+import VueHtml2Pdf from 'vue-html2pdf'
+
 export default {
   name: 'Peta',
   data () {
@@ -1310,6 +1324,12 @@ export default {
       geoJsonLayerMarker: {},
       aqmsData: null,
       aqmsShow: false,
+      options: {
+        direction: 'desc',
+        sortBy: 'created_at',
+        page: 1,
+        per_page: 6,
+      },
       OptWind: {
         displayValues: true,
         displayOptions: {
@@ -1415,6 +1435,9 @@ export default {
       loadMorePerundangan: false,
       loadMoreLaporan: false,
     }
+  },
+  components: {
+    VueHtml2Pdf,
   },
   watch: {
     periodeData: {
@@ -1935,6 +1958,37 @@ export default {
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.openLeg)
+  },
+  async fetch() {
+    const url = !process.server ? `/v1/listBerita` : `/api/listBerita`
+
+    const params = {
+      direction: this.options.direction,
+      sortBy: this.options.sortBy,
+      page: this.options.page,
+      per_page: this.options.per_page,
+    }
+
+    await this.$axios
+      .$get(url, {
+        params,
+      })
+      .then((res) => {
+        console.log(res)
+        this.beritas = this.beritas.concat(res.data)
+        this.loadMore = !!res.links.next
+      })
+      .catch((err) => {
+        if (err.response) {
+          const { status, data } = err.response
+          if (status === 500) {
+            this.$nuxt.error({ statusCode: 500, message: data.message })
+          }
+          if (status === 404) {
+            this.$nuxt.error({ statusCode: 404, message: data.message })
+          }
+        }
+      })
   },
   methods: {
   
@@ -2796,6 +2850,7 @@ export default {
       } else {
         sidebar3.classList.toggle('opened')
         map.classList.toggle('openSide')
+        map.classList.toggle('big')
         link3.classList.toggle('active')
       }
     },
