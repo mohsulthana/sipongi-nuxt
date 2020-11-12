@@ -31,7 +31,7 @@
               <img src="/forest-fire.svg" alt="" />
               <h2>{{ totalTitik }}</h2>
               <h5>Peringatan Kebakaran</h5>
-              <span>2 minggu terakhir</span>
+              <span>2 (dua)  minggu terakhir</span>
             </div>
           </b-col>
           <b-col md="4">
@@ -96,7 +96,7 @@
                 <h3>Dapatkan info kegiatan pemadamam</h3>
                 <h6>
                   Dapatkan berbagai info terbaru seputar pemadaman hutan yang
-                  telah dilakukan oleh tim sipongi
+                  telah dilakukan oleh tim Sipongi
                 </h6>
                 <b-link to="/blog" class="btn btn-secondary">
                   Dapatkan info terbaru

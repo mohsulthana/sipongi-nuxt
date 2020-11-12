@@ -14,9 +14,22 @@
         <!-- Left aligned nav items -->
         <b-navbar-nav>
           <b-nav-item to="/peta">Peta</b-nav-item>
-          <b-nav-item to="/grafik">Grafik</b-nav-item>
-          <b-nav-item to="/blog">Blog</b-nav-item>
+          
+          <b-nav-item-dropdown right>
+          	<template v-slot:button-content>
+              Data & Grafik
+            </template>
+          		<b-dropdown-item
+              to="/grafik">Grafik
+              </b-dropdown-item>
+              <b-dropdown-item
+              to="/emisi">Emisi CO2
+              </b-dropdown-item>
+          </b-nav-item-dropdown>
+          
+          <b-nav-item to="/blog">Berita</b-nav-item>
           <b-nav-item to="/galeri">Galeri</b-nav-item>
+          <b-nav-item to="/fdrs">FDRS</b-nav-item>
           <b-nav-item to="/publikasi">Publikasi</b-nav-item>
           <b-nav-item to="/tentang">Tentang</b-nav-item>
         </b-navbar-nav>
@@ -24,12 +37,12 @@
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <b-nav-item 
-            href="https://wa.me/+6281316235000"
+            href="https://wa.me/+6281310035000"
             target="_blank"
           >
             <img src="/phone-white.svg" alt="" class="mr-1 home" />
             <img src="/phone-red.svg" alt="" class="mr-1 inner" />
-            Call SiPongi+
+            Sipongi+
           </b-nav-item>
           <b-nav-item-dropdown right>
             <template v-slot:button-content>
