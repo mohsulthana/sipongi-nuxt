@@ -66,12 +66,7 @@ export default {
    */
   plugins: [
     {
-      src: '@/plugins/vue-html2pdf', mode: 'client',
-      ssr: false
-    },
-    {
-      src: '@/plugins/vue-json-excel', mode: 'client',
-      ssr: false
+      src: '~plugins/vue-analytics.js', mode: 'client'
     },
     {
       src: '~/plugins/vue2-leaflet-markercluster.js',
