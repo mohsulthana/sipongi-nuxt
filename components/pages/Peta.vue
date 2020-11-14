@@ -1,244 +1,356 @@
-<template> 
+<template>
   <div>
     <div class="sidebar-map">
       <b-link to="/" class="logo">
         <img src="/logo.svg" alt="" />
       </b-link>
-      <b-link class="logotext" v-b-toggle.sidebar-backdrop>  
-      	<img src="/logo-text.svg" alt=""/>
+      <b-link class="logotext" v-b-toggle.sidebar-backdrop>
+        <img src="/logo-text.svg" alt="" />
       </b-link>
-        <b-button variant="primary-outline" block @click="hide"> </b-button>
-      
-     <div>
-   
-    <b-sidebar id="sidebar-backdrop"
-      title=""
-      :backdrop-variant="variant"
-      backdrop
-      shadow width="250px" >
-      	
-      <div class="px-3 py-2" >
-      	<nav class="mb-3">
-            <b-nav vertical>
-          
-            <b-nav-item class="link-one" @click="openSidebarOne" v-b-toggle="'collapse-3'">Titik Panas</b-nav-item>
-			
-     	<b-nav-item-dropdown
-						      id="my-nav-dropdown"
-						      text="Karhutla"
-						      toggle-class="nav-link-custom"
-						      left size="sm">
-		    <b-dropdown-item href="#" class="d-md-block d-none" style="text-align: left">Luas Karhutla</b-dropdown-item>
-		    <b-dropdown-item href="#" class="d-md-block d-none" style="text-align: left">Emisi CO2</b-dropdown-item>
-		    <b-dropdown-item href="#" class="d-md-block d-none" style="text-align: left">Pemadaman</b-dropdown-item>
-		  </b-nav-item-dropdown>
-		 
-		  <b-nav-item-dropdown
-						      id="my-nav-dropdown"
-						      text="Dalkarhutla"
-						      toggle-class="nav-link-custom"
-						      left size="sm">
-		    <b-dropdown-item href="http://sipongi.menlhk.go.id/laporan_dalkarhutla_mitra/app2020/"
-        target="_blank" class="d-md-block d-none" style="text-align: left">Pelaporan Dalkarhutla</b-dropdown-item>
-		    <b-dropdown-item href="#" class="d-md-block d-none" style="text-align: left">FDRS</b-dropdown-item>
-		  </b-nav-item-dropdown>
-		
-		  <b-nav-item-dropdown
-						      id="my-nav-dropdown"
-						      text="Prediksi Karhutla"
-						      toggle-class="nav-link-custom"
-						      left size="sm">
-		    <b-dropdown-item href="#" class="d-md-block d-none" style="text-align: left">Peta Rawan </b-dropdown-item>
-		    <b-dropdown-item href="#" class="d-md-block d-none" style="text-align: left">Prediksi Titik Panas</b-dropdown-item>
-		    <b-dropdown-item href="#" class="d-md-block d-none" style="text-align: left">Prediksi Iklim</b-dropdown-item>
-		    <b-dropdown-item href="#" class="d-md-block d-none" style="text-align: left">Prediksi Elnino </b-dropdown-item>
-		  </b-nav-item-dropdown>
-		  
-		  <b-nav-item-dropdown
-						      id="my-nav-dropdown"
-						      text="Publikasi"
-						      toggle-class="nav-link-custom"
-						      left size="sm">
-		    <b-dropdown-item class="link-two" @click="openSidebarTwo" style="text-align: left">Berita</b-dropdown-item>
-		    <b-dropdown-item class="link-three" @click="openSidebarThree" style="text-align: left">Galeri</b-dropdown-item>
-		    <b-dropdown-item class="link-five" @click="openSidebarFive" style="text-align: left">Peraturan Perundangan</b-dropdown-item>
-		    <b-dropdown-item class="link-twelve" @click="openSidebarTwelve" style="text-align: left">Laporan Harian Posko</b-dropdown-item>
-		    <b-dropdown-item class="link-six" @click="openSidebarSix" style="text-align: left">Dokumen Lainnya</b-dropdown-item>
-		  </b-nav-item-dropdown>
-		  
-		  <b-nav-item-dropdown
-						      id="my-nav-dropdown"
-						      text="Tentang Sipongi"
-						      toggle-class="nav-link-custom"
-						      left size="sm">
-		    <b-dropdown-item class="link-seven" @click="openSidebarSeven" style="text-align: left">Direktorat PKHL</b-dropdown-item>
-		    <b-dropdown-item class="link-eight" @click="openSidebarEight" style="text-align: left">Manggala Agni</b-dropdown-item>
-		    <b-dropdown-item class="link-nine" @click="openSidebarNine" style="text-align: left">Struktur Organisasi</b-dropdown-item>
-		    <b-dropdown-item class="link-ten" @click="openSidebarTen" style="text-align: left">Kontak Kami</b-dropdown-item>
-		    <b-dropdown-item class="link-eleven" @click="openSidebarEleven" style="text-align: left">Link Terkait</b-dropdown-item>
-		    <b-dropdown-item v-b-modal.modal-disclaimer class="d-md-block d-none" style="text-align: left">Disclaimer</b-dropdown-item>
-		  </b-nav-item-dropdown>
-		  
-		  </nav>
+      <b-button variant="primary-outline" block @click="hide"> </b-button>
+
+      <div>
+        <b-sidebar
+          id="sidebar-backdrop"
+          title=""
+          :backdrop-variant="variant"
+          backdrop
+          shadow
+          width="250px"
+        >
+          <div class="px-3 py-2">
+            <nav class="mb-3">
+              <b-nav vertical>
+                <b-nav-item
+                  class="link-one"
+                  @click="openSidebarOne"
+                  v-b-toggle="'collapse-3'"
+                  >Titik Panas</b-nav-item
+                >
+
+                <b-nav-item-dropdown
+                  id="my-nav-dropdown"
+                  text="Karhutla"
+                  toggle-class="nav-link-custom"
+                  left
+                  size="sm"
+                >
+                  <b-dropdown-item
+                    to="/luas-karhutla"
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Luas Karhutla</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    href="#"
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    to="/emisi"
+                    >Emisi CO2</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    href="#"
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Pemadaman</b-dropdown-item
+                  >
+                </b-nav-item-dropdown>
+
+                <b-nav-item-dropdown
+                  id="my-nav-dropdown"
+                  text="Dalkarhutla"
+                  toggle-class="nav-link-custom"
+                  left
+                  size="sm"
+                >
+                  <b-dropdown-item
+                    href="http://sipongi.menlhk.go.id/laporan_dalkarhutla_mitra/app2020/"
+                    target="_blank"
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Pelaporan Dalkarhutla</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    href="#"
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >FDRS</b-dropdown-item
+                  >
+                </b-nav-item-dropdown>
+
+                <b-nav-item-dropdown
+                  id="my-nav-dropdown"
+                  text="Prediksi Karhutla"
+                  toggle-class="nav-link-custom"
+                  left
+                  size="sm"
+                >
+                  <b-dropdown-item
+                    href="#"
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Peta Rawan
+                  </b-dropdown-item>
+                  <b-dropdown-item
+                    href="#"
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Prediksi Titik Panas</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    href="#"
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Prediksi Iklim</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    href="#"
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Prediksi Elnino
+                  </b-dropdown-item>
+                </b-nav-item-dropdown>
+
+                <b-nav-item-dropdown
+                  id="my-nav-dropdown"
+                  text="Publikasi"
+                  toggle-class="nav-link-custom"
+                  left
+                  size="sm"
+                >
+                  <b-dropdown-item
+                    class="link-two"
+                    @click="openSidebarTwo"
+                    style="text-align: left"
+                    >Berita</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    class="link-three"
+                    @click="openSidebarThree"
+                    style="text-align: left"
+                    >Galeri</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    class="link-five"
+                    @click="openSidebarFive"
+                    style="text-align: left"
+                    >Peraturan Perundangan</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    class="link-twelve"
+                    @click="openSidebarTwelve"
+                    style="text-align: left"
+                    >Laporan Harian Posko</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    class="link-six"
+                    @click="openSidebarSix"
+                    style="text-align: left"
+                    >Dokumen Lainnya</b-dropdown-item
+                  >
+                </b-nav-item-dropdown>
+
+                <b-nav-item-dropdown
+                  id="my-nav-dropdown"
+                  text="Tentang Sipongi"
+                  toggle-class="nav-link-custom"
+                  left
+                  size="sm"
+                >
+                  <b-dropdown-item
+                    class="link-seven"
+                    @click="openSidebarSeven"
+                    style="text-align: left"
+                    >Direktorat PKHL</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    class="link-eight"
+                    @click="openSidebarEight"
+                    style="text-align: left"
+                    >Manggala Agni</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    class="link-nine"
+                    @click="openSidebarNine"
+                    style="text-align: left"
+                    >Struktur Organisasi</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    class="link-ten"
+                    @click="openSidebarTen"
+                    style="text-align: left"
+                    >Kontak Kami</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    class="link-eleven"
+                    @click="openSidebarEleven"
+                    style="text-align: left"
+                    >Link Terkait</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    v-b-modal.modal-disclaimer
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Disclaimer</b-dropdown-item
+                  >
+                </b-nav-item-dropdown>
+              </b-nav>
+            </nav>
+          </div>
+        </b-sidebar>
+
+        <b-link class="main link-two d-md-none" @click="openSidebarTwo">
+          <div class="wrap">
+            <div class="image d-md-none d-block">
+              <img src="/paper.svg" alt="" />
+            </div>
+            <h6>Berita</h6>
+          </div>
+        </b-link>
+
+        <b-link class="main link-three d-md-none" @click="openSidebarThree">
+          <div class="wrap">
+            <div class="image d-md-none d-block">
+              <img src="/fire-extinguisher.svg" alt="" />
+            </div>
+            <h6>Galeri</h6>
+          </div>
+        </b-link>
+
+        <b-link class="main link-four d-md-none" @click="openLegend">
+          <div class="wrap">
+            <div class="image">
+              <img src="/cowboy-hat.svg" alt="" />
+            </div>
+            <h6>Legend</h6>
+          </div>
+        </b-link>
+
+        <b-link class="main link-one d-md-none" @click="openSidebarOne">
+          <div class="wrap">
+            <div class="image">
+              <img src="/fire-extinguisher.svg" alt="" />
+            </div>
+            <h6>Titik Panas</h6>
+          </div>
+        </b-link>
       </div>
-      </b-sidebar>
-      
-      <b-link class="main link-two d-md-none" @click="openSidebarTwo">
-        <div class="wrap">
-          <div class="image d-md-none d-block">
-            <img src="/paper.svg" alt="" />
-          </div>
-          <h6>Berita</h6>
-        </div>
-      </b-link>
-      
-      <b-link class="main link-three d-md-none" @click="openSidebarThree">
-        <div class="wrap">
-          <div class="image d-md-none d-block">
-            <img src="/fire-extinguisher.svg" alt="" />
-          </div>
-          <h6>Galeri</h6>
-        </div>
-      </b-link>
-     
-      <b-link class="main link-four d-md-none" @click="openLegend">
-        <div class="wrap">
-          <div class="image">
-            <img src="/cowboy-hat.svg" alt="" />
-          </div>
-          <h6>Legend</h6>
-        </div>
-      </b-link>
-      
-      <b-link class="main link-one d-md-none" @click="openSidebarOne">
-        <div class="wrap">
-          <div class="image">
-            <img src="/fire-extinguisher.svg" alt="" />
-          </div>
-          <h6>Titik Panas</h6>
-        </div>
-      </b-link>
-      
-  </div>
-		  
-		  
-		  
-		  <!--
+
+      <!--
       <b-link to="/grafik" class="main d-md-block d-none">
         <h6>Data & Grafik</h6>
       </b-link>
       <b-link href="/publikasi" class="main d-md-block d-none">
         <h6>Publikasi</h6>
       </b-link>
-      
+
       <b-link href="/tentang" class="main d-md-block d-none">
         <h6>Tentang Kami</h6>
       </b-link>
-      
+
       <b-link v-b-modal.modal-disclaimer class="main d-md-block d-none">
         <h6>Disclaimer</h6>
       </b-link>
       -->
-      <b-link to="/" class="hide">
+      <b-link @click="hideBerita" class="hide">
         <img src="/mini_arrow_left-gray.svg" alt="" />
       </b-link>
-			
-			<transition name="fade">
-      <div class="sidebar-slide sidebar-one" >
-        <div class="content-head">
-          <b-link class="close" @click="openSidebarOne">
-          	<i class="fas fa-times"></i>
-          </b-link>
-          <h6>Lokasi Titik Panas</h6>
-          
-          <div class="content-list">
-          	
-		          <b-form-select
-		            v-model="cariProvinsi"
-		            class="mb-3 form-control"
-		            value-field="id"
-		            text-field="nama_provinsi"
-		            :options="provs"
-		          ></b-form-select>
-		          
-		          <b-form-select
-		            v-model="cariKota"
-		            class="form-control"
-		            value-field="id"
-		            text-field="nama"
-		            :disabled="
-		              provs.length <= 0 || !cariProvinsi || kotakabs.length <= 1
-		            "
-		            :options="kotakabs"
-		          ></b-form-select>
-        	</div>
-          
-          <client-only>
-            <date-picker
-              id="published_at"
-              v-model="titikDate"
-              type="date"
-              format="dddd, DD MMMM YYYY"
-              placeholder="Pilih tanggal"
-            ></date-picker>
-          </client-only>
-          
-          <b-link
-            :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
-            @click="changeSumber('LPN-MODIS')"
-            >Terra/Aqua
-          </b-link>
-          <b-link
-            :class="`status ${checkSumber('LPN-NPP') ? 'active' : ''}`"
-            @click="changeSumber('LPN-NPP')"
-            >SNPP
-          </b-link>
-          <b-link
-            :class="`status ${checkSumber('LPN-NOAA20') ? 'active' : ''}`"
-            @click="changeSumber('LPN-NOAA20')"
-            >NOAA20
-          </b-link>
-          <b-link
-            :class="`status ${checkSumber('LPN-LANDSAT8') ? 'active' : ''}`"
-            @click="changeSumber('LPN-LANDSAT8')"
-            >LANDSAT8
-          </b-link>
-          
-        </div>
 
-        <div class="content-list titik">
-          <template v-for="datas in DataHotSpot.kabkota">
-            <template v-for="(kotakab, index) in datas">
-              <b-link
-                class="list-item"
-                :key="index"
-                v-if="checkSumber(kotakab.data.sumber)"
-                @click="changeCenter(kotakab.data)"
-              >
-                <!-- {{ kotakab.data }} -->
-                <h6>
-                  {{ kotakab.data.kabkota }} - {{ kotakab.data.nama_provinsi }}
-                </h6>
-                <p>{{ kotakab.data.ori_sumber }}</p>
-                <span class="count">{{ kotakab.count }}</span>
-              </b-link>
+      <transition name="fade">
+        <div class="sidebar-slide sidebar-one">
+          <div class="content-head">
+            <b-link class="close" @click="openSidebarOne">
+              <i class="fas fa-times"></i>
+            </b-link>
+            <h6>Lokasi Titik Panas</h6>
+
+            <div class="content-list">
+              <b-form-select
+                v-model="cariProvinsi"
+                class="mb-3 form-control"
+                value-field="id"
+                text-field="nama_provinsi"
+                :options="provs"
+              ></b-form-select>
+
+              <b-form-select
+                v-model="cariKota"
+                class="form-control"
+                value-field="id"
+                text-field="nama"
+                :disabled="
+                  provs.length <= 0 || !cariProvinsi || kotakabs.length <= 1
+                "
+                :options="kotakabs"
+              ></b-form-select>
+            </div>
+
+            <client-only>
+              <date-picker
+                id="published_at"
+                v-model="titikDate"
+                type="date"
+                format="dddd, DD MMMM YYYY"
+                placeholder="Pilih tanggal"
+              ></date-picker>
+            </client-only>
+
+            <b-link
+              :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
+              @click="changeSumber('LPN-MODIS')"
+              >Terra/Aqua
+            </b-link>
+            <b-link
+              :class="`status ${checkSumber('LPN-NPP') ? 'active' : ''}`"
+              @click="changeSumber('LPN-NPP')"
+              >SNPP
+            </b-link>
+            <b-link
+              :class="`status ${checkSumber('LPN-NOAA20') ? 'active' : ''}`"
+              @click="changeSumber('LPN-NOAA20')"
+              >NOAA20
+            </b-link>
+            <b-link
+              :class="`status ${checkSumber('LPN-LANDSAT8') ? 'active' : ''}`"
+              @click="changeSumber('LPN-LANDSAT8')"
+              >LANDSAT8
+            </b-link>
+          </div>
+
+          <div class="content-list titik">
+            <template v-for="datas in DataHotSpot.kabkota">
+              <template v-for="(kotakab, index) in datas">
+                <b-link
+                  class="list-item"
+                  :key="index"
+                  v-if="checkSumber(kotakab.data.sumber)"
+                  @click="changeCenter(kotakab.data)"
+                >
+                  <!-- {{ kotakab.data }} -->
+                  <h6>
+                    {{ kotakab.data.kabkota }} -
+                    {{ kotakab.data.nama_provinsi }}
+                  </h6>
+                  <p>{{ kotakab.data.ori_sumber }}</p>
+                  <span class="count">{{ kotakab.count }}</span>
+                </b-link>
+              </template>
             </template>
-          </template>
-        </div>
+          </div>
 
-        <b-link @click="generateReport(DataHotSpot)" class="pdf">
-          <img src="/pdf.svg" alt="" />
-          <span>Download XLS</span>
-        </b-link>
+          <b-link @click="generateReport(DataHotSpot)" class="pdf">
+            <img src="/pdf.svg" alt="" />
+            <span>Download XLS</span>
+          </b-link>
 
-        <!-- <b-link to="" class="pdf">
+          <!-- <b-link to="" class="pdf">
           <img src="/pdf.svg" alt="" />
           <span>Download XLS</span>
         </b-link> -->
-      </div>
-			</transition>
+        </div>
+      </transition>
 
-			<div class="sidebar-slide sidebar-two big">
+      <div class="sidebar-slide sidebar-two big">
         <div class="content-head">
           <b-link class="close" @click="openSidebarTwo"
             ><i class="fas fa-times"></i>
@@ -246,30 +358,31 @@
           <h6>Berita Sipongi+</h6>
           <p></p>
         </div>
-          
-				<div class="content-list">
+
+        <div class="content-list">
           <b-row>
             <b-col cols="6" v-for="blog in beritas" :key="blog.slug">
-            	<b-link :to="`/blog/${blog.slug}`" class="blog-item">
-	              <div
-	                class="image"
-	                :style="{ backgroundImage: `url(${blog.image_url})` }"
-	              	></div>
-	              	<h5>{{ blog.title }}</h5>
-	              	<span>{{ blog.created_at }}</span>
-            	</b-link>
-          	</b-col>
-          	<b-col v-if="loadMore" md="12" class="text-center">
-            	<b-button
-            		variant="primary"
-            		class="loadMore"
-            		@click="loadMoreData()">
-              	Lihat Lebih Banyak
-            	</b-button>
-          	</b-col>
+              <b-link :to="`/blog/${blog.slug}`" class="blog-item">
+                <div
+                  class="image"
+                  :style="{ backgroundImage: `url(${blog.image_url})` }"
+                ></div>
+                <h5>{{ blog.title }}</h5>
+                <span>{{ blog.created_at }}</span>
+              </b-link>
+            </b-col>
+            <b-col v-if="loadMore" md="12" class="text-center">
+              <b-button
+                variant="primary"
+                class="loadMore"
+                @click="loadMoreData()"
+              >
+                Lihat Lebih Banyak
+              </b-button>
+            </b-col>
           </b-row>
-       </div>
-    </div>
+        </div>
+      </div>
 
       <div class="sidebar-slide sidebar-three big">
         <div class="content-head">
@@ -281,59 +394,61 @@
         </div>
 
         <div class="content-list">
-        	<b-tabs>
-              <b-tab title="Kegiatan Pemadaman" active>
-				          <b-row>
-				            <b-col cols="6" v-for="blog in pemadamans" :key="blog.slug">
-				              <b-link :to="'/galeri/' + blog.slug" class="blog-item">
-				                <div
-				                  class="image"
-				                  :style="{ backgroundImage: `url(${blog.detail.image_url})` }"
-				                ></div>
-				                <h5>{{ blog.title }}</h5>
-				                <span>{{
-				                  $moment(blog.created_at).format('DD MMMM YYYY')
-				                }}</span>
-				              </b-link>
-				            </b-col>
-				            <b-col v-if="loadMoreGal" md="12" class="text-center">
-				              <b-button
-				                variant="primary"
-				                class="loadMore"
-				                @click="loadMoreDataGal()"
-				                >Lihat Lebih Banyak</b-button
-				              >
-				            </b-col>
-				          </b-row>
-				       </b-tab>
-				       <b-tab title="Kegiatan Lainnya">
-                <b-row>
-                  <b-col cols="6" v-for="blog in lains" :key="blog.slug">
-                    <b-link :to="'/galeri/' + blog.slug" class="blog-item">
-                      <div
-                        class="image"
-                        :style="{ backgroundImage: `url(${blog.detail.image_url})` }"
-				                ></div>
-                      <h5>{{ blog.title }}</h5>
-                     <span>{{ blog.created_at }}</span>
-                    </b-link>
-                  </b-col>
-                  <b-col v-if="loadMoreLain" md="12" class="text-center">
-                    <b-button
-				                variant="primary"
-				                class="loadMore"
-				                @click="loadMoreDataLain()"
-				                >Lihat Lebih Banyak</b-button
-				              >
-                  </b-col>
-                </b-row>
-              </b-tab>
-           </b-tabs>
+          <b-tabs>
+            <b-tab title="Kegiatan Pemadaman" active>
+              <b-row>
+                <b-col cols="6" v-for="blog in pemadamans" :key="blog.slug">
+                  <b-link :to="'/galeri/' + blog.slug" class="blog-item">
+                    <div
+                      class="image"
+                      :style="{
+                        backgroundImage: `url(${blog.detail.image_url})`,
+                      }"
+                    ></div>
+                    <h5>{{ blog.title }}</h5>
+                    <span>{{
+                      $moment(blog.created_at).format('DD MMMM YYYY')
+                    }}</span>
+                  </b-link>
+                </b-col>
+                <b-col v-if="loadMoreGal" md="12" class="text-center">
+                  <b-button
+                    variant="primary"
+                    class="loadMore"
+                    @click="loadMoreDataGal()"
+                    >Lihat Lebih Banyak</b-button
+                  >
+                </b-col>
+              </b-row>
+            </b-tab>
+            <b-tab title="Kegiatan Lainnya">
+              <b-row>
+                <b-col cols="6" v-for="blog in lains" :key="blog.slug">
+                  <b-link :to="'/galeri/' + blog.slug" class="blog-item">
+                    <div
+                      class="image"
+                      :style="{
+                        backgroundImage: `url(${blog.detail.image_url})`,
+                      }"
+                    ></div>
+                    <h5>{{ blog.title }}</h5>
+                    <span>{{ blog.created_at }}</span>
+                  </b-link>
+                </b-col>
+                <b-col v-if="loadMoreLain" md="12" class="text-center">
+                  <b-button
+                    variant="primary"
+                    class="loadMore"
+                    @click="loadMoreDataLain()"
+                    >Lihat Lebih Banyak</b-button
+                  >
+                </b-col>
+              </b-row>
+            </b-tab>
+          </b-tabs>
         </div>
       </div>
-      
-      
-      
+
       <div class="sidebar-slide sidebar-five big">
         <div class="content-head">
           <b-link class="close" @click="openSidebarFive"
@@ -343,62 +458,59 @@
           <p></p>
         </div>
         <div class="content-list">
-        	<b-row>
-          	<b-col md="12" class="text-center">
-            	<div role="tablist" class="accordion-publikasipeta">
-              	<b-card style="background-color:#f7f7f7"
-                	v-for="(kat, index) in kategories"
+          <b-row>
+            <b-col md="12" class="text-center">
+              <div role="tablist" class="accordion-publikasipeta">
+                <b-card
+                  style="background-color: #f7f7f7"
+                  v-for="(kat, index) in kategories"
                   no-body
                   class="mb-1"
                   :key="kat.slug"
+                >
+                  <b-card-header header-tag="header" role="tab">
+                    <b-button block v-b-toggle="`${kat.slug}`" variant="info">
+                      <h5>
+                        {{ kat.name }}
+                      </h5>
+                      <img src="/arrow-orange.svg" alt="" />
+                    </b-button>
+                  </b-card-header>
+                  <b-collapse
+                    :id="kat.slug"
+                    :visible="index === 0"
+                    accordion="my-accordion"
+                    role="tabpanel"
                   >
-                  	<b-card-header header-tag="header" role="tab">
-                    	<b-button
-                      	block
-                        v-b-toggle="`${kat.slug}`"
-                        variant="info"
-                      	>
-                      	<h5>
-                        	{{ kat.name }}
-                      	</h5>
-                        	<img src="/arrow-orange.svg" alt="" />
-                      </b-button>
-                     	</b-card-header>
-                      	<b-collapse
-                          :id="kat.slug"
-                          :visible="index === 0"
-                          accordion="my-accordion"
-                          role="tabpanel"
+                    <b-card-body>
+                      <div
+                        v-for="perpu in kat.perpu.data"
+                        :key="perpu.slug"
+                        class="uud-item"
+                      >
+                        <b-link
+                          :href="`${
+                            perpu.tipe === 'file'
+                              ? `/v1/peraturan-perundangan/file/${perpu.slug}`
+                              : perpu.file_url
+                          }`"
+                          target="_blank"
                         >
-                        <b-card-body>
-                        	<div
-                          	v-for="perpu in kat.perpu.data"
-                            :key="perpu.slug"
-                            class="uud-item"
-                            >
-                              <b-link
-                                :href="`${
-                                  perpu.tipe === 'file'
-                                    ? `/v1/peraturan-perundangan/file/${perpu.slug}`
-                                    : perpu.file_url
-                                }`"
-                                target="_blank"
-                              >
-                                {{ perpu.title }}
-                              </b-link>
-                              <span>
-                                {{ perpu.nomor }}
-                              </span>
-                            </div>
-                          </b-card-body>
-                        </b-collapse>
-                      </b-card>
-                    </div>
-                  </b-col>
-                </b-row>
+                          {{ perpu.title }}
+                        </b-link>
+                        <span>
+                          {{ perpu.nomor }}
+                        </span>
+                      </div>
+                    </b-card-body>
+                  </b-collapse>
+                </b-card>
+              </div>
+            </b-col>
+          </b-row>
         </div>
       </div>
-      
+
       <div class="sidebar-slide sidebar-six big">
         <div class="content-head">
           <b-link class="close" @click="openSidebarSix"
@@ -408,60 +520,62 @@
           <p></p>
         </div>
         <div class="content-list">
-        	<b-row>
-                  <b-col md="12">
-                    <div
-                      v-for="dok in dokumen"
-                      :key="dok.slug"
-                      class="document-itempeta"
-                    >
-                      <img
-                        :src="`/${
-                          dok.tipe === 'file'
-                            ? 'paper.svg'
-                            : dok.tipe === 'video'
-                            ? 'video.svg'
-                            : 'paper.svg'
-                        }`"
-                        alt="icon"
-                      />
-                      <h5>{{ dok.title }}</h5>
-                      <b-link
-                        :href="`${
-                          dok.tipe === 'file'
-                            ? `/v1/dokumen-lain/file/${dok.slug}`
-                            : dok.file_url
-                        }`"
-                        target="_blank"
-                        :class="`btn ${
-                          dok.tipe === 'file'
-                            ? 'btn-secondary'
-                            : dok.tipe === 'video'
-                            ? 'btn-third'
-                            : 'btn-secondary'
-                        }`"
-                      >
-                        {{
-                          dok.tipe === 'file'
-                            ? 'Download'
-                            : dok.tipe === 'video'
-                            ? 'Watch'
-                            : 'Open'
-                        }}
-                        <i class="fas fa-angle-right"></i>
-                      </b-link>
-                    </div>
-                    <div v-if="loadMorePerundangan" md="12" class="text-center">
-                      <b-button class="loadMore" @click="loadMoreDataPerundangan()" variant="primary"
-                        >Lihat lebih banyak</b-button
-                      >
-                    </div>
-                  </b-col>
-                </b-row>
+          <b-row>
+            <b-col md="12">
+              <div
+                v-for="dok in dokumen"
+                :key="dok.slug"
+                class="document-itempeta"
+              >
+                <img
+                  :src="`/${
+                    dok.tipe === 'file'
+                      ? 'paper.svg'
+                      : dok.tipe === 'video'
+                      ? 'video.svg'
+                      : 'paper.svg'
+                  }`"
+                  alt="icon"
+                />
+                <h5>{{ dok.title }}</h5>
+                <b-link
+                  :href="`${
+                    dok.tipe === 'file'
+                      ? `/v1/dokumen-lain/file/${dok.slug}`
+                      : dok.file_url
+                  }`"
+                  target="_blank"
+                  :class="`btn ${
+                    dok.tipe === 'file'
+                      ? 'btn-secondary'
+                      : dok.tipe === 'video'
+                      ? 'btn-third'
+                      : 'btn-secondary'
+                  }`"
+                >
+                  {{
+                    dok.tipe === 'file'
+                      ? 'Download'
+                      : dok.tipe === 'video'
+                      ? 'Watch'
+                      : 'Open'
+                  }}
+                  <i class="fas fa-angle-right"></i>
+                </b-link>
+              </div>
+              <div v-if="loadMorePerundangan" md="12" class="text-center">
+                <b-button
+                  class="loadMore"
+                  @click="loadMoreDataPerundangan()"
+                  variant="primary"
+                  >Lihat lebih banyak</b-button
+                >
+              </div>
+            </b-col>
+          </b-row>
         </div>
-     </div>
-      
-      
+      </div>
+
       <div class="sidebar-slide sidebar-seven big">
         <div class="content-head">
           <b-link class="close" @click="openSidebarSeven"
@@ -469,187 +583,220 @@
           ></b-link>
           <b-button variant="primary-outline" block @click="hide"> </b-button>
           <h6>Tentang Sipongi+</h6>
-          <p>SiPongi bertujuan untuk mengantisipasi dan melakukan upaya pencegahan kebakaran hutan dengan lebih cepat sehingga bencana tersebut dapat dikurangi.</p>
+          <p>
+            SiPongi bertujuan untuk mengantisipasi dan melakukan upaya
+            pencegahan kebakaran hutan dengan lebih cepat sehingga bencana
+            tersebut dapat dikurangi.
+          </p>
         </div>
         <div class="content-list">
-        		<b-row>
-                  <b-col md="4" order-md="2">
-                    <img
-                      :src="direktoratPKHL.logo_url"
-                      alt=""
-                      class="img-fluid img-logo"
-                    />
-                  </b-col>
-                  <b-col md="8" order-md="1" v-html="direktoratPKHL.text">
-                    
-                  </b-col>
-             </b-row>
+          <b-row>
+            <b-col md="4" order-md="2">
+              <img
+                :src="direktoratPKHL.logo_url"
+                alt=""
+                class="img-fluid img-logo"
+              />
+            </b-col>
+            <b-col md="8" order-md="1" v-html="direktoratPKHL.text"> </b-col>
+          </b-row>
         </div>
       </div>
-      
+
       <div class="sidebar-slide sidebar-eight big">
         <div class="content-head">
           <b-link class="close" @click="openSidebarEight"
             ><i class="fas fa-times"></i
           ></b-link>
           <h6>Tentang Sipongi+</h6>
-          <p>SiPongi bertujuan untuk mengantisipasi dan melakukan upaya pencegahan kebakaran hutan dengan lebih cepat sehingga bencana tersebut dapat dikurangi.</p>
+          <p>
+            SiPongi bertujuan untuk mengantisipasi dan melakukan upaya
+            pencegahan kebakaran hutan dengan lebih cepat sehingga bencana
+            tersebut dapat dikurangi.
+          </p>
         </div>
         <div class="content-list">
-             <b-row>
-                  <b-col md="8">
-                    <div class="nav-agni">
-                      <b-link @click="showProfile" :class="{ 'active': profile }">Profil</b-link>
-                      <b-link @click="showDaerahOp" :class="{ 'active': daerahOp }">Daerah Operasional</b-link>
-                      <b-link @click="showSarana" :class="{ 'active': sarana }">Sarana & Prasarana</b-link>
-                    </div>
-                  </b-col>
-                  <b-col lg="12">
-                    <!-- Profil -->
-                    <b-row v-if="profile">
-                      <b-col lg="4" order-lg="2">
-                        <div :class="[{ 'toBot' : scrolledToBottom }, { 'scrolling': isScroll  }, 'nav-content']">
-                          <h3>Profil</h3>
-                          <b-link v-for="prof in profil" :key="prof.id" v-scroll-to="'#data'+prof.urutan" to="#">{{prof.title}}</b-link>
-                        </div>
+          <b-row>
+            <b-col md="8">
+              <div class="nav-agni">
+                <b-link @click="showProfile" :class="{ active: profile }"
+                  >Profil</b-link
+                >
+                <b-link @click="showDaerahOp" :class="{ active: daerahOp }"
+                  >Daerah Operasional</b-link
+                >
+                <b-link @click="showSarana" :class="{ active: sarana }"
+                  >Sarana & Prasarana</b-link
+                >
+              </div>
+            </b-col>
+            <b-col lg="12">
+              <!-- Profil -->
+              <b-row v-if="profile">
+                <b-col lg="4" order-lg="2">
+                  <div
+                    :class="[
+                      { toBot: scrolledToBottom },
+                      { scrolling: isScroll },
+                      'nav-content',
+                    ]"
+                  >
+                    <h3>Profil</h3>
+                    <b-link
+                      v-for="prof in profil"
+                      :key="prof.id"
+                      v-scroll-to="'#data' + prof.urutan"
+                      to="#"
+                      >{{ prof.title }}</b-link
+                    >
+                  </div>
+                </b-col>
+                <b-col lg="8" order-lg="1">
+                  <h5 class="title">Profil</h5>
+                  <div v-for="prof in profil" :key="prof.id">
+                    <h6 class="subtitle" :id="'data' + prof.urutan">
+                      {{ prof.title }}
+                    </h6>
+                    <img
+                      v-if="prof.image !== null"
+                      :src="prof.image_url"
+                      alt=""
+                      class="img-fluid mb-3"
+                    />
+                    <div v-html="prof.text"></div>
+                  </div>
+                </b-col>
+              </b-row>
+              <!-- Daerah Operasi -->
+              <b-row v-if="daerahOp">
+                <b-col md="8">
+                  <h6 class="title">Daerah Operasional</h6>
+                  <div class="daerah-item" v-for="(d, i) in daerah" :key="i">
+                    <!-- <h5>Sumatra Utara-01</h5> -->
+                    <h5>{{ d.daerah }}</h5>
+                    <b-row v-for="(k, j) in d.kota" :key="j">
+                      <b-col md="6">
+                        <p class="heading">{{ k.daerah }}</p>
+                        <span class="alamat">{{ k.alamat }}</span>
                       </b-col>
-                      <b-col lg="8" order-lg="1">
-                        <h5 class="title">
-                          Profil
-                        </h5>
-                        <div v-for="prof in profil" :key="prof.id">
-                          <h6 class="subtitle" :id="'data'+prof.urutan">{{prof.title}}</h6>
-                          <img v-if="prof.image !== null" :src="prof.image_url" alt="" class="img-fluid mb-3">
-                          <div v-html="prof.text"></div>
-                        </div>
+                      <b-col md="3" cols="6">
+                        <span class="jumlah">Jumlah Regu</span>
+                        <span class="count">{{ k.jumlah_regu }}</span>
+                      </b-col>
+                      <b-col md="3" cols="6">
+                        <span class="jumlah">Jumlah Anggota </span>
+                        <span class="count">{{ k.jumlah_anggota }}</span>
                       </b-col>
                     </b-row>
-                    <!-- Daerah Operasi -->
-                    <b-row v-if="daerahOp">
-                      <b-col md="8">
-                        <h6 class="title">
-                          Daerah Operasional
-                        </h6>
-                        <div class="daerah-item" v-for="(d,i) in daerah" :key="i">
-                          <!-- <h5>Sumatra Utara-01</h5> -->
-                          <h5>{{d.daerah}}</h5>
-                          <b-row v-for="(k,j) in d.kota" :key="j">
-                            <b-col md="6">
-                              <p class="heading">{{k.daerah}}</p>
-                              <span class="alamat">{{k.alamat}}</span>
-                            </b-col>
-                            <b-col md="3" cols="6">
-                              <span class="jumlah">Jumlah Regu</span>
-                              <span class="count">{{k.jumlah_regu}}</span>
-                            </b-col>
-                            <b-col md="3" cols="6">
-                              <span class="jumlah">Jumlah Anggota </span>
-                              <span class="count">{{k.jumlah_anggota}}</span>
-                            </b-col>
-                          </b-row>
-                        </div>
-                      </b-col>
-                    </b-row>
-                    <!-- Sarana & Prasarana -->
-                    <b-row v-if="sarana">
-                      <b-col md="12" v-html="sarpras.text">
-                        Sarana
-                      </b-col>
-                    </b-row>
-                  </b-col>
-                </b-row>
+                  </div>
+                </b-col>
+              </b-row>
+              <!-- Sarana & Prasarana -->
+              <b-row v-if="sarana">
+                <b-col md="12" v-html="sarpras.text"> Sarana </b-col>
+              </b-row>
+            </b-col>
+          </b-row>
         </div>
       </div>
-      
-      
-      
+
       <div class="sidebar-slide sidebar-nine big">
         <div class="content-head">
           <b-link class="close" @click="openSidebarNine"
             ><i class="fas fa-times"></i
           ></b-link>
           <h6>Tentang Sipongi+</h6>
-          <p>SiPongi bertujuan untuk mengantisipasi dan melakukan upaya pencegahan kebakaran hutan dengan lebih cepat sehingga bencana tersebut dapat dikurangi.</p>
+          <p>
+            SiPongi bertujuan untuk mengantisipasi dan melakukan upaya
+            pencegahan kebakaran hutan dengan lebih cepat sehingga bencana
+            tersebut dapat dikurangi.
+          </p>
         </div>
         <div class="content-list">
-        	<b-row>
-                  <b-col md="8"> 
-                    <img :src="strukturOrganisasi.image_url" alt="" class="img-fluid">
-                  </b-col>
-                </b-row>
+          <b-row>
+            <b-col md="8">
+              <img
+                :src="strukturOrganisasi.image_url"
+                alt=""
+                class="img-fluid"
+              />
+            </b-col>
+          </b-row>
         </div>
       </div>
-      
+
       <div class="sidebar-slide sidebar-ten big">
         <div class="content-head">
           <b-link class="close" @click="openSidebarTen"
             ><i class="fas fa-times"></i
           ></b-link>
           <h6>Kontak Kami</h6>
-    	  </div>
+        </div>
         <div class="content-list">
-        	<b-row>
-          <b-col md="12">
-            <div class="logo-footer">
-              <img src="/kementerian-logo.svg" />
-              <h6>Kementerian Lingkungan Hidup dan Kehutanan</h6>
-            </div>
-            <p font-size="14px" font-weight="100">
-              Gedung Pusat Kehutanan Manggala Wanabakti Blok VII Lt. 13 <br />Jl.
-              Jend. Gatot Subroto Jakarta 10270
-            </p>
-            <p>
-              <i class="far fa-envelope"></i> posko.karhutla@menlhk.go.id<br />
-              <i class="fas fa-phone"></i> 021-5704618
-            </p>
-          </b-col>
+          <b-row>
+            <b-col md="12">
+              <div class="logo-footer">
+                <img src="/kementerian-logo.svg" />
+                <h6>Kementerian Lingkungan Hidup dan Kehutanan</h6>
+              </div>
+              <p font-size="14px" font-weight="100">
+                Gedung Pusat Kehutanan Manggala Wanabakti Blok VII Lt. 13
+                <br />Jl. Jend. Gatot Subroto Jakarta 10270
+              </p>
+              <p>
+                <i class="far fa-envelope"></i>
+                posko.karhutla@menlhk.go.id<br />
+                <i class="fas fa-phone"></i> 021-5704618
+              </p>
+            </b-col>
           </b-row>
         </div>
       </div>
-      
+
       <div class="sidebar-slide sidebar-eleven big">
         <div class="content-head">
           <b-link class="close" @click="openSidebarEleven"
             ><i class="fas fa-times"></i
           ></b-link>
           <h6>Link Terkait</h6>
-    	  </div>
+        </div>
         <div class="content-list">
-        	<b-row>
-          <b-col md="12">
-            <h6 class="sec-title">Link Terkait</h6>
-            <ul>
-              <li>
-                <b-link href="http://www.menlhk.go.id/" class="w-logo"
-                  ><img src="/kementerian-logo.svg" alt="" /> KLHK</b-link
-                >
-              </li>
-              <li>
-                <b-link href="http://ditjenppi.menlhk.go.id/" class="w-logo"
-                  ><img src="/kementerian-logo.svg" alt="" /> DitjenPPI</b-link
-                >
-              </li>
-              <li>
-                <b-link href="http://bmkg.go.id/" class="w-logo"
-                  ><img src="/bmkg.svg" alt="" /> BMKG</b-link
-                >
-              </li>
-              <li>
-                <b-link href="http://lapan.go.id/" class="w-logo"
-                  ><img src="/lapan.svg" alt="" /> LAPAN</b-link
-                >
-              </li>
-              <li>
-                <b-link href="http://bnpb.go.id/" class="w-logo"
-                  ><img src="/bnpb.svg" alt="" /> BNPB</b-link
-                >
-              </li>
-            </ul>
-          </b-col>
+          <b-row>
+            <b-col md="12">
+              <h6 class="sec-title">Link Terkait</h6>
+              <ul>
+                <li>
+                  <b-link href="http://www.menlhk.go.id/" class="w-logo"
+                    ><img src="/kementerian-logo.svg" alt="" /> KLHK</b-link
+                  >
+                </li>
+                <li>
+                  <b-link href="http://ditjenppi.menlhk.go.id/" class="w-logo"
+                    ><img src="/kementerian-logo.svg" alt="" />
+                    DitjenPPI</b-link
+                  >
+                </li>
+                <li>
+                  <b-link href="http://bmkg.go.id/" class="w-logo"
+                    ><img src="/bmkg.svg" alt="" /> BMKG</b-link
+                  >
+                </li>
+                <li>
+                  <b-link href="http://lapan.go.id/" class="w-logo"
+                    ><img src="/lapan.svg" alt="" /> LAPAN</b-link
+                  >
+                </li>
+                <li>
+                  <b-link href="http://bnpb.go.id/" class="w-logo"
+                    ><img src="/bnpb.svg" alt="" /> BNPB</b-link
+                  >
+                </li>
+              </ul>
+            </b-col>
           </b-row>
         </div>
       </div>
-      
+
       <div class="sidebar-slide sidebar-twelve big">
         <div class="content-head">
           <b-link class="close" @click="openSidebarTwelve"
@@ -659,47 +806,40 @@
           <p></p>
         </div>
         <div class="content-list">
-        	<b-row>
-                  <b-col md="12">
-                    <div
-                      v-for="(laporan,i) in laporanHarian"
-                      :key="i"
-                      class="document-item"
-                    >
-                      <img
-                        :src="`/paper.svg`"
-                        alt="icon"
-                      />
-                      <h5>{{ laporan.bulan_nama }}&nbsp;{{ laporan.tahun }}</h5>
-                      <b-link
-                        :href="laporan.link"
-                        target="_blank"
-                        class="btn btn-secondary"
-                      >
-                        Open
-                        <i class="fas fa-angle-right"></i>
-                      </b-link>
-                    </div>
-                    <div v-if="loadMoreLaporan" class="text-center mt-4">
-                      <b-button @click="loadMoreDataLaporan()" variant="primary"
-                        >Lihat lebih banyak</b-button
-                      >
-                    </div>
-                  </b-col>
-                </b-row>
+          <b-row>
+            <b-col md="12">
+              <div
+                v-for="(laporan, i) in laporanHarian"
+                :key="i"
+                class="document-item"
+              >
+                <img :src="`/paper.svg`" alt="icon" />
+                <h5>{{ laporan.bulan_nama }}&nbsp;{{ laporan.tahun }}</h5>
+                <b-link
+                  :href="laporan.link"
+                  target="_blank"
+                  class="btn btn-secondary"
+                >
+                  Open
+                  <i class="fas fa-angle-right"></i>
+                </b-link>
+              </div>
+              <div v-if="loadMoreLaporan" class="text-center mt-4">
+                <b-button @click="loadMoreDataLaporan()" variant="primary"
+                  >Lihat lebih banyak</b-button
+                >
+              </div>
+            </b-col>
+          </b-row>
         </div>
-     </div>
-      
-      
+      </div>
+    </div>
 
-   </div>
-   
-   
     <div class="map-wrap" style="height: 100vh">
-    
-    <div id="logo_maps"><img src="/sipongi_maps.png" class="img img-responsives"></div>
-    
-    
+      <div id="logo_maps">
+        <img src="/sipongi_maps.png" class="img img-responsives" />
+      </div>
+
       <b-link href="https://wa.me/+6281310035000" target="_blank" class="call">
         <img src="/phone-red.svg" alt="" class="mr-1 inner" />
         Sipongi+
@@ -709,9 +849,9 @@
         <img src="/logo-text.svg" alt="" />
       </b-link>
       <marquee behavior="" direction="">
-      {{runningText}}
+        {{ runningText }}
       </marquee>
-      <div :class="['legend-wrap','content-list', { open: openedLegend }]">
+      <div :class="['legend-wrap', 'content-list', { open: openedLegend }]" class="mb-5">
         <b-link class="legend-head" @click="toggleOpen">
           <h6 class="d-md-none d-block">Summary</h6>
           <h6 class="d-md-block d-none">Summary</h6>
@@ -725,7 +865,9 @@
               hutan melalui petugas patroli pencegahan
             </p> -->
             <div class="legend-item w-border-top">
-              <b-link @click="changeSumber('LPN-MODIS')"><h6> Satelit TERRA/AQUA</h6></b-link>
+              <b-link @click="changeSumber('LPN-MODIS')"
+                ><h6>Satelit TERRA/AQUA</h6></b-link
+              >
               <p class="count-total">
                 {{ getTotal('LPN-MODIS') }}
               </p>
@@ -743,7 +885,9 @@
               </span>
             </div>
             <div class="legend-item">
-              <b-link @click="changeSumber('LPN-NPP')"><h6>Satelit SNPP</h6></b-link>
+              <b-link @click="changeSumber('LPN-NPP')"
+                ><h6>Satelit SNPP</h6></b-link
+              >
               <p class="count-total">
                 {{ getTotal('LPN-NPP') }}
               </p>
@@ -761,7 +905,9 @@
               </span>
             </div>
             <div class="legend-item">
-              <b-link @click="changeSumber('LPN-NOAA20')"><h6>Satelit NOAA20</h6></b-link>
+              <b-link @click="changeSumber('LPN-NOAA20')"
+                ><h6>Satelit NOAA20</h6></b-link
+              >
               <p class="count-total">
                 {{ getTotal('LPN-NOAA20') }}
               </p>
@@ -779,7 +925,9 @@
               </span>
             </div>
             <div class="legend-item">
-              <b-link @click="changeSumber('LPN-LANDSAT8')"><h6>Satelit LANDSAT8</h6></b-link>
+              <b-link @click="changeSumber('LPN-LANDSAT8')"
+                ><h6>Satelit LANDSAT8</h6></b-link
+              >
               <p class="count-total">
                 {{ getTotal('LPN-LANDSAT8') }}
               </p>
@@ -797,10 +945,17 @@
               </span>
             </div>
           </div>
-          <b-button variant="primary" style="opacity: 0.5" block squared v-b-toggle="'collapse-2'">Opsi</b-button>
+          <b-button
+            variant="primary"
+            style="opacity: 0.5"
+            block
+            squared
+            v-b-toggle="'collapse-2'"
+            >Opsi</b-button
+          >
           <b-collapse id="collapse-2">
-          <div class="filter-wrap">
-          	<!--<div class="select-wrap">
+            <div class="filter-wrap">
+              <!--<div class="select-wrap">
               	<label class="mr-sm-2">Satelit</label>
               	<b-link style="display: inline-block; vertical-align: middle; font-size: 9px; padding: 4px 8px; background-color: #fff; border: 1px solid #eaeaea; margin-right: 2px; border-radius: 12px;"
 			            :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
@@ -823,110 +978,123 @@
 			            >LANDSAT8
 			          </b-link>
             </div>-->
-          	
-            <div class="select-wrap">
-              <label class="mr-sm-2">Periode</label>
-              <b-form-select
-                v-model="periodeData"
-                :options="[
-                  { value: 12, text: '12 Jam Terakhir' },
-                  { value: 24, text: '24 Jam Terakhir' },
-                  { value: 48, text: '48 Jam Terakhir' },
-                ]"
-              ></b-form-select>
-            </div>
-            <div class="select-wrap w-border-bottom">
-      						 <label class="mr-sm-2">Confidence</label>
 
-			              <b-form-checkbox background-color="green"
-			                id="checkbox-rendah" class="checkbox-rendah"
-			                v-model="trustData"
-			                name="checkbox-rendah"
-			                value="low"
-			              >
-			                <span class="color low"></span>
-			                Rendah
-			              </b-form-checkbox>
-			              <b-form-checkbox background-color="yellow"
-			                id="checkbox-sedang"
-			                v-model="trustData"
-			                name="checkbox-sedang"
-			                value="medium"
-			              >
-			                <span class="color med"></span>
-			                Sedang
-			              </b-form-checkbox>
-			              <b-form-checkbox background-color="red"
-			                id="checkbox-tinggi"
-			                v-model="trustData"
-			                name="checkbox-tinggi"
-			                value="high"
-			              >
-			                <span class="color high"></span>
-			                Tinggi
-			              </b-form-checkbox>
-			   
-            </div>
-            
-            
-            <div class="select-wrap">
-              <label class="float-left">Pergerakan Angin</label>
-              <b-form-checkbox
-                v-model="windDir"
-                name="check-button"
-                switch
-                class="float-right"
-              >
-              </b-form-checkbox>
-              <div class="ket-wind" v-if="windDir">
-                <div class="bar"></div>
-                <span class="speed">0 m/s</span>
-                <span class="speed text-right">30 m/s</span>
+              <div class="select-wrap">
+                <label class="mr-sm-2">Periode</label>
+                <b-form-select
+                  v-model="periodeData"
+                  :options="[
+                    { value: 12, text: '12 Jam Terakhir' },
+                    { value: 24, text: '24 Jam Terakhir' },
+                    { value: 48, text: '48 Jam Terakhir' },
+                  ]"
+                ></b-form-select>
+              </div>
+              <div class="select-wrap w-border-bottom">
+                <label class="mr-sm-2">Confidence</label>
+
+                <b-form-checkbox
+                  background-color="green"
+                  id="checkbox-rendah"
+                  class="checkbox-rendah"
+                  v-model="trustData"
+                  name="checkbox-rendah"
+                  value="low"
+                >
+                  <span class="color low"></span>
+                  Rendah
+                </b-form-checkbox>
+                <b-form-checkbox
+                  background-color="yellow"
+                  id="checkbox-sedang"
+                  v-model="trustData"
+                  name="checkbox-sedang"
+                  value="medium"
+                >
+                  <span class="color med"></span>
+                  Sedang
+                </b-form-checkbox>
+                <b-form-checkbox
+                  background-color="red"
+                  id="checkbox-tinggi"
+                  v-model="trustData"
+                  name="checkbox-tinggi"
+                  value="high"
+                >
+                  <span class="color high"></span>
+                  Tinggi
+                </b-form-checkbox>
+              </div>
+
+              <div class="select-wrap">
+                <label class="float-left">Pergerakan Angin</label>
+                <b-form-checkbox
+                  v-model="windDir"
+                  name="check-button"
+                  switch
+                  class="float-right"
+                >
+                </b-form-checkbox>
+                <div class="ket-wind" v-if="windDir">
+                  <div class="bar"></div>
+                  <span class="speed">0 m/s</span>
+                  <span class="speed text-right">30 m/s</span>
+                </div>
+              </div>
+              <div class="select-wrap">
+                <label class="float-left">Indeks Kualitas Udara</label>
+                <b-form-checkbox
+                  v-model="aqmsShow"
+                  name="check-button"
+                  switch
+                  class="float-right"
+                >
+                </b-form-checkbox>
+                <ul class="index-udara-list" v-if="aqmsShow">
+                  <li>Baik (0-50)</li>
+                  <li>Sedang (51-100)</li>
+                  <li>Tidak Sehat (101-199)</li>
+                  <li>Sangat Tidak Sehat (200-299)</li>
+                  <li>Berbahaya (> 300)</li>
+                </ul>
+              </div>
+              <div class="select-wrap">
+                <label class="float-left">Lokasi Unit Kerja</label>
+                <b-form-checkbox
+                  v-model="unitKerja"
+                  name="check-button"
+                  switch
+                  class="float-right"
+                >
+                </b-form-checkbox>
+              </div>
+
+              <div class="select-wrap">
+                <label class="mr-sm-2"></label>
+                <b-form-select v-model="currentTiles">
+                  <option v-for="(t, i) in tiles" :key="i" :value="i">
+                    {{ t.name }}
+                  </option>
+                </b-form-select>
               </div>
             </div>
-            <div class="select-wrap">
-              <label class="float-left">Indeks Kualitas Udara</label>
-              <b-form-checkbox
-                v-model="aqmsShow"
-                name="check-button"
-                switch
-                class="float-right"
-              >
-              </b-form-checkbox>
-              <ul class="index-udara-list" v-if="aqmsShow">
-                <li>Baik (0-50)</li>
-                <li>Sedang (51-100)</li>
-                <li>Tidak Sehat (101-199)</li>
-                <li>Sangat Tidak Sehat (200-299)</li>
-                <li>Berbahaya (> 300)</li>
-              </ul>
-            </div>
-            <div class="select-wrap">
-              <label class="float-left">Lokasi Unit Kerja</label>
-              <b-form-checkbox
-                v-model="unitKerja"
-                name="check-button"
-                switch
-                class="float-right"
-              >
-              </b-form-checkbox>
-            </div>
-            
-            <div class="select-wrap">
-              <label class="mr-sm-2"></label>
-              	<b-form-select v-model="currentTiles">
-				          <option
-				            v-for="(t, i) in tiles"
-				            :key="i"
-				            :value="i">
-				            {{ t.name }}
-				          </option>
-				        </b-form-select>
-            </div>
-          </div>
           </b-collapse>
         </div>
-     </div>
+      </div>
+      <transition name="fade">
+        <marquee v-show="beritaMarqueeText" behavior="" direction="" :class="{marqueeBottomMobile: !openedLegend, marqueeBottom: openedLegend}">
+            <span v-for="(value, index) in pemadamans" :key="index">
+              <img :src="value.detail.image_url" width="60" height="40" />
+              <b-link
+                :to="`/galeri/${value.slug}`"
+                class="logo"
+                style="color: #fff"
+              >
+                {{ value.title }}
+              </b-link>
+            </span>
+        </marquee>
+      </transition>
       <client-only>
         <l-map
           ref="mapSipongi"
@@ -937,11 +1105,8 @@
           :options="{ zoomControl: false, attributionControl: false }"
           @update:zoom="zoomUpdated"
         >
-          <l-tile-layer
-          :url="tilesUrl"
-          >
-          </l-tile-layer>
-         
+          <l-tile-layer :url="tilesUrl"> </l-tile-layer>
+
           <l-image-overlay
             url="/gelap.png"
             :bounds="[
@@ -1216,50 +1381,44 @@
             atau lisan atau pemahaman terhadap materi pelajaran tersebut.
           </li>
         </ol>
-      </div>
-    </b-modal>
-    <client-only>
-      <vue-html2pdf>
-        <section slot="pdf-content">Hello</section>
-      </vue-html2pdf>
-    </client-only>
+      </div> </b-modal
+    >\
   </div>
 </template>
 
 <script>
-import VueHtml2Pdf from 'vue-html2pdf'
-
 export default {
   name: 'Peta',
-  data () {
+  data() {
     return {
-           	
+      beritaMarqueeText: true,
       currentTiles: 0,
       tiles: [
         {
           name: 'Basemap Street Map',
-          url: 'https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png'
+          url:
+            'https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png',
         },
-        
+
         {
           name: 'Basemap Topo Map',
-          url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png'
+          url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
         },
-        
+
         {
           name: 'Basemap Imagery Map',
-          url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+          url:
+            'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
         },
       ],
-      
-      
+
       isScroll: null,
       scrolledToBottom: false,
       profile: true,
       daerahOp: false,
       sarana: false,
 
-  		runningText : null,
+      runningText: null,
       openedLegend: true,
       titikDate: '',
       browser: process.browser,
@@ -1400,7 +1559,7 @@ export default {
         page: 1,
         per_page: 6,
       },
-      
+
       kategories: [],
       dokumen: [],
       options: {
@@ -1408,8 +1567,8 @@ export default {
         sortBy: 'created_at',
         page: 1,
         per_page: 15,
-      },   
-      
+      },
+
       laporanHarian: [],
       optionsLaporan: {
         direction: 'desc',
@@ -1417,7 +1576,7 @@ export default {
         page: 1,
         per_page: 15,
       },
-      
+
       direktoratPKHL: [],
       strukturOrganisasi: [],
       profil: [],
@@ -1428,16 +1587,13 @@ export default {
       profile: true,
       daerahOp: false,
       sarana: false,
-      
+
       loadMoreGal: false,
       loadMoreLain: false,
       loadMore: false,
       loadMorePerundangan: false,
       loadMoreLaporan: false,
     }
-  },
-  components: {
-    VueHtml2Pdf,
   },
   watch: {
     periodeData: {
@@ -1520,10 +1676,10 @@ export default {
     },
   },
   computed: {
-  	tilesUrl () {
+    tilesUrl() {
       return this.tiles[this.currentTiles].url
     },
-  
+
     noaaGreenIcon() {
       let icon = () => {}
       if (process.browser) icon = this.$L.icon
@@ -1940,12 +2096,12 @@ export default {
     },
   },
   async created() {
-  	await this.loadHotSpot()
+    await this.loadHotSpot()
     await this.loadHotSpot()
     if (this.firstLoad) {
       await this.cmbProvs()
     }
-		await this.getRunningText()
+    await this.getRunningText()
     await this.loadPemadaman()
     await this.loadLain()
     await this.loadBerita()
@@ -1991,20 +2147,23 @@ export default {
       })
   },
   methods: {
-  
-  	toggleSidebar () { 
-  		if (this.$sidebar.showSidebar) { 
-  			this.$sidebar.displaySidebar(false) 
-  			} 
-  	},
-  	
-  	updateHeader() {
+    hideBerita() {
+      this.beritaMarqueeText = !this.beritaMarqueeText
+    },
+    toggleSidebar() {
+      if (this.$sidebar.showSidebar) {
+        this.$sidebar.displaySidebar(false)
+      }
+    },
+    updateHeader() {
       this.$store.commit('head/innerHeader', true)
     },
     handleScroll(e) {
       this.isScroll = window.scrollY || window.scrollTop
       let heightDoc = document.documentElement.offsetHeight - 250
-      let bottomOfWindow = Math.ceil((window.scrollY || window.scrollTop) + window.innerHeight) >= heightDoc
+      let bottomOfWindow =
+        Math.ceil((window.scrollY || window.scrollTop) + window.innerHeight) >=
+        heightDoc
       console.log(heightDoc)
       console.log(bottomOfWindow)
       if (bottomOfWindow) {
@@ -2013,25 +2172,26 @@ export default {
         this.scrolledToBottom = false
       }
     },
-    showProfile(){
+    showProfile() {
       this.profile = true
       this.daerahOp = false
       this.sarana = false
     },
-    showDaerahOp(){
+    showDaerahOp() {
       this.profile = false
       this.daerahOp = true
       this.sarana = false
     },
-    showSarana(){
+    showSarana() {
       this.profile = false
       this.daerahOp = false
       this.sarana = true
     },
-    
-    
+
     async getRunningText() {
-      const url = !process.server ? `/v1/data/running-text` : `/api/data/running-text`
+      const url = !process.server
+        ? `/v1/data/running-text`
+        : `/api/data/running-text`
 
       await this.$axios
         .$get(url)
@@ -2040,20 +2200,18 @@ export default {
           // console.log(res)
         })
         .catch((err) => {
-            if (err.response) {
+          if (err.response) {
             const { status, data } = err.response
             if (status === 500) {
-                this.$nuxt.error({ statusCode: 500, message: data.message })
+              this.$nuxt.error({ statusCode: 500, message: data.message })
             }
 
             if (status === 404) {
-                this.$nuxt.error({ statusCode: 404, message: data.message })
+              this.$nuxt.error({ statusCode: 404, message: data.message })
             }
-            }
+          }
         })
     },
-    
-    
 
     openLeg() {
       if (window.innerWidth > 767) {
@@ -2349,7 +2507,7 @@ export default {
           this.loading = false
         })
     },
-    
+
     async loadLain() {
       this.loading = true
       const url = !process.server ? `/v1/listGaleri` : `/api/listGaleri`
@@ -2383,17 +2541,17 @@ export default {
           this.loading = false
         })
     },
-    
+
     async loadBerita() {
       this.loading = true
       const url = !process.server ? `/v1/listBerita` : `/api/listBerita`
 
       const params = {
-      direction: this.options.direction,
-      sortBy: this.options.sortBy,
-      page: this.options.page,
-      per_page: this.options.per_page,
-    }
+        direction: this.options.direction,
+        sortBy: this.options.sortBy,
+        page: this.options.page,
+        per_page: this.options.per_page,
+      }
 
       await this.$axios
         .$get(url, {
@@ -2418,187 +2576,191 @@ export default {
           this.loading = false
         })
     },
-    
+
     async loadPerundangan() {
-    const url = !process.server ? `/v1/listDokumen` : `/api/listDokumen`
+      const url = !process.server ? `/v1/listDokumen` : `/api/listDokumen`
 
-    const params = {
-      direction: this.options.direction,
-      sortBy: this.options.sortBy,
-      page: this.options.page,
-      per_page: this.options.per_page,
-    }
+      const params = {
+        direction: this.options.direction,
+        sortBy: this.options.sortBy,
+        page: this.options.page,
+        per_page: this.options.per_page,
+      }
 
-    await this.$axios
-      .$get(url, {
-        params,
-      })
-      .then((res) => {
-        this.dokumen = this.dokumen.concat(res.data)
-        this.loadMorePerundangan = !!res.links.next
-      })
-      .catch((err) => {
-        if (err.response) {
-          const { status, data } = err.response
-          if (status === 500) {
-            this.$nuxt.error({ statusCode: 500, message: data.message })
+      await this.$axios
+        .$get(url, {
+          params,
+        })
+        .then((res) => {
+          this.dokumen = this.dokumen.concat(res.data)
+          this.loadMorePerundangan = !!res.links.next
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
           }
-          if (status === 404) {
-            this.$nuxt.error({ statusCode: 404, message: data.message })
-          }
-        }
-      })
-      
-    const urlPerpu = !process.server ? `/v1/listPerpu` : `/api/listPerpu`
+        })
 
-    await this.$axios
-      .$get(urlPerpu)
-      .then((res) => {
-        this.kategories = res.data
-      })
-      .catch((err) => {
-        if (err.response) {
-          const { status, data } = err.response
-          if (status === 500) {
-            this.$nuxt.error({ statusCode: 500, message: data.message })
-          }
-          if (status === 404) {
-            this.$nuxt.error({ statusCode: 404, message: data.message })
-          }
-        }
-      })
-  
-  // Laporan Harian
-    const urlLaporan = !process.server ? `/v1/data/laporan-harian` : `/api/data/laporan-harian`
+      const urlPerpu = !process.server ? `/v1/listPerpu` : `/api/listPerpu`
 
-    const paramsLaporan = {
-      direction: this.options.direction,
-      sortBy: this.options.sortBy,
-      page: this.options.page,
-      per_page: this.options.per_page,
-    }
+      await this.$axios
+        .$get(urlPerpu)
+        .then((res) => {
+          this.kategories = res.data
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
 
-    await this.$axios
-      .$get(urlLaporan, {
-        paramsLaporan,
-      })
-      .then((res) => {
-        this.laporanHarian = this.laporanHarian.concat(res.data)
-        this.loadMoreLaporan = !!res.links.next
-      })
-      .catch((err) => {
-        if (err.response) {
-          const { status, data } = err.response
-          if (status === 500) {
-            this.$nuxt.error({ statusCode: 500, message: data.message })
+      // Laporan Harian
+      const urlLaporan = !process.server
+        ? `/v1/data/laporan-harian`
+        : `/api/data/laporan-harian`
+
+      const paramsLaporan = {
+        direction: this.options.direction,
+        sortBy: this.options.sortBy,
+        page: this.options.page,
+        per_page: this.options.per_page,
+      }
+
+      await this.$axios
+        .$get(urlLaporan, {
+          paramsLaporan,
+        })
+        .then((res) => {
+          this.laporanHarian = this.laporanHarian.concat(res.data)
+          this.loadMoreLaporan = !!res.links.next
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
           }
-          if (status === 404) {
-            this.$nuxt.error({ statusCode: 404, message: data.message })
-          }
-        }
-      })
-      
-      
+        })
+
       // Direktorat PKHL
-    const urlPKHL = !process.server ? `/v1/data/direktorat-pkhl` : `/api/data/direktorat-pkhl`
-    await this.$axios
-      .$get(urlPKHL)
-      .then((res) => {
-        this.direktoratPKHL = res
-      })
-      .catch((err) => { 
-        if (err.response) {
-          const { status, data } = err.response
-          if (status === 500) {
-            this.$nuxt.error({ statusCode: 500, message: data.message })
+      const urlPKHL = !process.server
+        ? `/v1/data/direktorat-pkhl`
+        : `/api/data/direktorat-pkhl`
+      await this.$axios
+        .$get(urlPKHL)
+        .then((res) => {
+          this.direktoratPKHL = res
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
           }
-          if (status === 404) {
-            this.$nuxt.error({ statusCode: 404, message: data.message })
-          }
-        }
-      })
+        })
 
-    // Struktur Organisasi
-    const urlOrg = !process.server ? `/v1/data/struktur-organisasi` : `/api/data/struktur-organisasi`
-    await this.$axios
-      .$get(urlOrg)
-      .then((res) => {
-        this.strukturOrganisasi = res
-      })
-      .catch((err) => { 
-        if (err.response) {
-          const { status, data } = err.response
-          if (status === 500) {
-            this.$nuxt.error({ statusCode: 500, message: data.message })
+      // Struktur Organisasi
+      const urlOrg = !process.server
+        ? `/v1/data/struktur-organisasi`
+        : `/api/data/struktur-organisasi`
+      await this.$axios
+        .$get(urlOrg)
+        .then((res) => {
+          this.strukturOrganisasi = res
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
           }
-          if (status === 404) {
-            this.$nuxt.error({ statusCode: 404, message: data.message })
-          }
-        }
-      })
+        })
 
-    // Manggala Agni Profil
-    const urlProfil = !process.server ? `/v1/data/profil` : `/api/data/profil`
-    await this.$axios
-      .$get(urlProfil)
-      .then((res) => {
-        this.profil = res.data
-      })
-      .catch((err) => { 
-        if (err.response) {
-          const { status, data } = err.response
-          if (status === 500) {
-            this.$nuxt.error({ statusCode: 500, message: data.message })
+      // Manggala Agni Profil
+      const urlProfil = !process.server ? `/v1/data/profil` : `/api/data/profil`
+      await this.$axios
+        .$get(urlProfil)
+        .then((res) => {
+          this.profil = res.data
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
           }
-          if (status === 404) {
-            this.$nuxt.error({ statusCode: 404, message: data.message })
-          }
-        }
-      })
+        })
 
-    // Manggala Agni Sarpas
-    const urlSarpras = !process.server ? `/v1/data/sarpras` : `/api/data/sarpras`
-    await this.$axios
-      .$get(urlSarpras)
-      .then((res) => {
-        this.sarpras = res
-      })
-      .catch((err) => { 
-        if (err.response) {
-          const { status, data } = err.response
-          if (status === 500) {
-            this.$nuxt.error({ statusCode: 500, message: data.message })
+      // Manggala Agni Sarpas
+      const urlSarpras = !process.server
+        ? `/v1/data/sarpras`
+        : `/api/data/sarpras`
+      await this.$axios
+        .$get(urlSarpras)
+        .then((res) => {
+          this.sarpras = res
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
           }
-          if (status === 404) {
-            this.$nuxt.error({ statusCode: 404, message: data.message })
-          }
-        }
-      })
+        })
 
-    // Manggala Agni Daerah Operasional
-    const urlDaerah = !process.server ? `/v1/data/daerah` : `/api/data/daerah`
-    // const urlDaerah = 'http://127.0.0.1:8081/api/data/daerah'
-    await this.$axios
-      .$get(urlDaerah)
-      .then((res) => {
-        this.daerah = res
-      })
-      .catch((err) => { 
-        if (err.response) {
-          const { status, data } = err.response
-          if (status === 500) {
-            this.$nuxt.error({ statusCode: 500, message: data.message })
+      // Manggala Agni Daerah Operasional
+      const urlDaerah = !process.server ? `/v1/data/daerah` : `/api/data/daerah`
+      // const urlDaerah = 'http://127.0.0.1:8081/api/data/daerah'
+      await this.$axios
+        .$get(urlDaerah)
+        .then((res) => {
+          this.daerah = res
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
           }
-          if (status === 404) {
-            this.$nuxt.error({ statusCode: 404, message: data.message })
-          }
-        }
-      })
-      
-      
-  },
-  
-  
+        })
+    },
+
     async loadMoreDataGal() {
       this.optionsGal.page++
       await this.loadPemadaman()
@@ -2611,23 +2773,23 @@ export default {
       this.options.page++
       await this.loadBerita()
     },
-    
+
     async loadMoreDataPerundangan() {
       this.options.page++
       await this.loadPerundangan()
     },
-    
+
     async loadMoreDataLaporan() {
       this.optionsLaporan.page++
       await this.$fetch()
     },
-     
+
     toggleOpen() {
       var legend = document.querySelector('.legend-wrap')
 
       legend.classList.toggle('open')
     },
-    
+
     openSidebarOne() {
       var legend = document.querySelector('.legend-wrap')
       var sidebar = document.querySelector('.sidebar-one')
@@ -2658,7 +2820,7 @@ export default {
       if (
         map.classList.contains('openSide') &&
         (sidebar2.classList.contains('opened') ||
-        	sidebar3.classList.contains('opened') ||
+          sidebar3.classList.contains('opened') ||
           sidebar5.classList.contains('opened') ||
           sidebar6.classList.contains('opened') ||
           sidebar7.classList.contains('opened') ||
@@ -2669,7 +2831,7 @@ export default {
           sidebar12.classList.contains('opened') ||
           legend.classList.contains('open'))
       ) {
-      	sidebar2.classList.remove('opened')
+        sidebar2.classList.remove('opened')
         sidebar3.classList.remove('opened')
         sidebar5.classList.remove('opened')
         sidebar6.classList.remove('opened')
@@ -2703,7 +2865,7 @@ export default {
         legend.classList.remove('open')
       }
     },
-    
+
     openSidebarTwo() {
       var legend = document.querySelector('.legend-wrap')
       var sidebar = document.querySelector('.sidebar-one')
@@ -2734,7 +2896,7 @@ export default {
       if (
         map.classList.contains('openSide') &&
         (sidebar.classList.contains('opened') ||
-        	sidebar3.classList.contains('opened') ||
+          sidebar3.classList.contains('opened') ||
           sidebar5.classList.contains('opened') ||
           sidebar6.classList.contains('opened') ||
           sidebar7.classList.contains('opened') ||
@@ -2745,7 +2907,7 @@ export default {
           sidebar12.classList.contains('opened') ||
           legend.classList.contains('open'))
       ) {
-      	sidebar.classList.remove('opened')
+        sidebar.classList.remove('opened')
         sidebar3.classList.remove('opened')
         sidebar5.classList.remove('opened')
         sidebar6.classList.remove('opened')
@@ -2778,8 +2940,8 @@ export default {
         link2.classList.toggle('active')
       }
     },
-    
-     openSidebarThree() {
+
+    openSidebarThree() {
       var legend = document.querySelector('.legend-wrap')
       var sidebar = document.querySelector('.sidebar-one')
       var sidebar2 = document.querySelector('.sidebar-two')
@@ -2809,7 +2971,7 @@ export default {
       if (
         map.classList.contains('openSide') &&
         (sidebar.classList.contains('opened') ||
-        	sidebar2.classList.contains('opened') ||
+          sidebar2.classList.contains('opened') ||
           sidebar5.classList.contains('opened') ||
           sidebar6.classList.contains('opened') ||
           sidebar7.classList.contains('opened') ||
@@ -2820,7 +2982,7 @@ export default {
           sidebar12.classList.contains('opened') ||
           legend.classList.contains('open'))
       ) {
-      	sidebar.classList.remove('opened')
+        sidebar.classList.remove('opened')
         sidebar2.classList.remove('opened')
         sidebar5.classList.remove('opened')
         sidebar6.classList.remove('opened')
@@ -2854,8 +3016,8 @@ export default {
         link3.classList.toggle('active')
       }
     },
-    
-     openSidebarFive() {
+
+    openSidebarFive() {
       var legend = document.querySelector('.legend-wrap')
       var sidebar = document.querySelector('.sidebar-one')
       var sidebar2 = document.querySelector('.sidebar-two')
@@ -2885,7 +3047,7 @@ export default {
       if (
         map.classList.contains('openSide') &&
         (sidebar.classList.contains('opened') ||
-        	sidebar2.classList.contains('opened') ||
+          sidebar2.classList.contains('opened') ||
           sidebar3.classList.contains('opened') ||
           sidebar6.classList.contains('opened') ||
           sidebar7.classList.contains('opened') ||
@@ -2896,7 +3058,7 @@ export default {
           sidebar12.classList.contains('opened') ||
           legend.classList.contains('open'))
       ) {
-      	sidebar.classList.remove('opened')
+        sidebar.classList.remove('opened')
         sidebar2.classList.remove('opened')
         sidebar3.classList.remove('opened')
         sidebar6.classList.remove('opened')
@@ -2929,7 +3091,7 @@ export default {
         link5.classList.toggle('active')
       }
     },
-    
+
     openSidebarSix() {
       var legend = document.querySelector('.legend-wrap')
       var sidebar = document.querySelector('.sidebar-one')
@@ -2960,7 +3122,7 @@ export default {
       if (
         map.classList.contains('openSide') &&
         (sidebar.classList.contains('opened') ||
-        	sidebar2.classList.contains('opened') ||
+          sidebar2.classList.contains('opened') ||
           sidebar3.classList.contains('opened') ||
           sidebar5.classList.contains('opened') ||
           sidebar7.classList.contains('opened') ||
@@ -2971,7 +3133,7 @@ export default {
           sidebar12.classList.contains('opened') ||
           legend.classList.contains('open'))
       ) {
-      	sidebar.classList.remove('opened')
+        sidebar.classList.remove('opened')
         sidebar2.classList.remove('opened')
         sidebar3.classList.remove('opened')
         sidebar5.classList.remove('opened')
@@ -3004,7 +3166,7 @@ export default {
         link6.classList.toggle('active')
       }
     },
-    
+
     openSidebarSeven() {
       var legend = document.querySelector('.legend-wrap')
       var sidebar = document.querySelector('.sidebar-one')
@@ -3035,7 +3197,7 @@ export default {
       if (
         map.classList.contains('openSide') &&
         (sidebar.classList.contains('opened') ||
-        	sidebar2.classList.contains('opened') ||
+          sidebar2.classList.contains('opened') ||
           sidebar3.classList.contains('opened') ||
           sidebar5.classList.contains('opened') ||
           sidebar6.classList.contains('opened') ||
@@ -3046,7 +3208,7 @@ export default {
           sidebar12.classList.contains('opened') ||
           legend.classList.contains('open'))
       ) {
-      	sidebar.classList.remove('opened')
+        sidebar.classList.remove('opened')
         sidebar2.classList.remove('opened')
         sidebar3.classList.remove('opened')
         sidebar5.classList.remove('opened')
@@ -3079,8 +3241,8 @@ export default {
         link7.classList.toggle('active')
       }
     },
-    
-     openSidebarEight() {
+
+    openSidebarEight() {
       var legend = document.querySelector('.legend-wrap')
       var sidebar = document.querySelector('.sidebar-one')
       var sidebar2 = document.querySelector('.sidebar-two')
@@ -3110,7 +3272,7 @@ export default {
       if (
         map.classList.contains('openSide') &&
         (sidebar.classList.contains('opened') ||
-        	sidebar2.classList.contains('opened') ||
+          sidebar2.classList.contains('opened') ||
           sidebar3.classList.contains('opened') ||
           sidebar5.classList.contains('opened') ||
           sidebar6.classList.contains('opened') ||
@@ -3121,7 +3283,7 @@ export default {
           sidebar12.classList.contains('opened') ||
           legend.classList.contains('open'))
       ) {
-      	sidebar.classList.remove('opened')
+        sidebar.classList.remove('opened')
         sidebar2.classList.remove('opened')
         sidebar3.classList.remove('opened')
         sidebar5.classList.remove('opened')
@@ -3154,7 +3316,7 @@ export default {
         link8.classList.toggle('active')
       }
     },
-    
+
     openSidebarNine() {
       var legend = document.querySelector('.legend-wrap')
       var sidebar = document.querySelector('.sidebar-one')
@@ -3185,7 +3347,7 @@ export default {
       if (
         map.classList.contains('openSide') &&
         (sidebar.classList.contains('opened') ||
-        	sidebar2.classList.contains('opened') ||
+          sidebar2.classList.contains('opened') ||
           sidebar3.classList.contains('opened') ||
           sidebar5.classList.contains('opened') ||
           sidebar6.classList.contains('opened') ||
@@ -3196,7 +3358,7 @@ export default {
           sidebar12.classList.contains('opened') ||
           legend.classList.contains('open'))
       ) {
-      	sidebar.classList.remove('opened')
+        sidebar.classList.remove('opened')
         sidebar2.classList.remove('opened')
         sidebar3.classList.remove('opened')
         sidebar5.classList.remove('opened')
@@ -3229,7 +3391,7 @@ export default {
         link9.classList.toggle('active')
       }
     },
-    
+
     openSidebarTen() {
       var legend = document.querySelector('.legend-wrap')
       var sidebar = document.querySelector('.sidebar-one')
@@ -3260,7 +3422,7 @@ export default {
       if (
         map.classList.contains('openSide') &&
         (sidebar.classList.contains('opened') ||
-        	sidebar2.classList.contains('opened') ||
+          sidebar2.classList.contains('opened') ||
           sidebar3.classList.contains('opened') ||
           sidebar5.classList.contains('opened') ||
           sidebar6.classList.contains('opened') ||
@@ -3271,7 +3433,7 @@ export default {
           sidebar12.classList.contains('opened') ||
           legend.classList.contains('open'))
       ) {
-      	sidebar.classList.remove('opened')
+        sidebar.classList.remove('opened')
         sidebar2.classList.remove('opened')
         sidebar3.classList.remove('opened')
         sidebar5.classList.remove('opened')
@@ -3304,7 +3466,7 @@ export default {
         link10.classList.toggle('active')
       }
     },
-    
+
     openSidebarEleven() {
       var legend = document.querySelector('.legend-wrap')
       var sidebar = document.querySelector('.sidebar-one')
@@ -3335,7 +3497,7 @@ export default {
       if (
         map.classList.contains('openSide') &&
         (sidebar.classList.contains('opened') ||
-        	sidebar2.classList.contains('opened') ||
+          sidebar2.classList.contains('opened') ||
           sidebar3.classList.contains('opened') ||
           sidebar5.classList.contains('opened') ||
           sidebar6.classList.contains('opened') ||
@@ -3346,7 +3508,7 @@ export default {
           sidebar12.classList.contains('opened') ||
           legend.classList.contains('open'))
       ) {
-      	sidebar.classList.remove('opened')
+        sidebar.classList.remove('opened')
         sidebar2.classList.remove('opened')
         sidebar3.classList.remove('opened')
         sidebar5.classList.remove('opened')
@@ -3379,7 +3541,7 @@ export default {
         link11.classList.toggle('active')
       }
     },
-    
+
     openSidebarTwelve() {
       var legend = document.querySelector('.legend-wrap')
       var sidebar = document.querySelector('.sidebar-one')
@@ -3410,7 +3572,7 @@ export default {
       if (
         map.classList.contains('openSide') &&
         (sidebar.classList.contains('opened') ||
-        	sidebar2.classList.contains('opened') ||
+          sidebar2.classList.contains('opened') ||
           sidebar3.classList.contains('opened') ||
           sidebar5.classList.contains('opened') ||
           sidebar6.classList.contains('opened') ||
@@ -3421,7 +3583,7 @@ export default {
           sidebar11.classList.contains('opened') ||
           legend.classList.contains('open'))
       ) {
-      	sidebar.classList.remove('opened')
+        sidebar.classList.remove('opened')
         sidebar2.classList.remove('opened')
         sidebar3.classList.remove('opened')
         sidebar5.classList.remove('opened')
@@ -3454,7 +3616,7 @@ export default {
         link12.classList.toggle('active')
       }
     },
-    
+
     openLegend() {
       var legend = document.querySelector('.legend-wrap')
       var sidebar = document.querySelector('.sidebar-one')
@@ -3528,23 +3690,28 @@ export default {
         map.classList.toggle('openSide')
       }
     },
-  },  
-  
+  },
 }
 </script>
 
 <style lang="css">
+      .marqueeBottomMobile {
+        bottom: 45px;
+      }
+      .marqueeBottom {
+        bottom: 0px;
+      }
 .leaflet-fade-anim .leaflet-tile,
 .leaflet-zoom-anim .leaflet-zoom-animated {
   will-change: auto !important;
 }
 
-.btn-group-sm>.btn, .btn-sm {
-    padding: .25rem .5rem;
-    font-size: 11px;
-    line-height: 1.5;
-    border-radius: .2rem;
-    color: rgba(0,0,0,.6);
+.btn-group-sm > .btn,
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 11px;
+  line-height: 1.5;
+  border-radius: 0.2rem;
+  color: rgba(0, 0, 0, 0.6);
 }
-
 </style>

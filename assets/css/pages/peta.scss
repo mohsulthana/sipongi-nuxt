@@ -23,7 +23,7 @@
             display: none;
         }
     }
-    
+
     .logotext{
         display: block;
         /*background-color: rgba($color: #D36301, $alpha: 0.06);*/
@@ -34,7 +34,7 @@
             display: none;
         }
     }
-    
+
     .main{
         padding: 10px 5px;
         text-align: center;
@@ -110,7 +110,7 @@
         & + .main{
             margin-left: 0px;
         }
-        
+
         ul{
             padding: 0;
             li{
@@ -150,7 +150,7 @@
         display: flex;
         /*width: 76px;*/
         width: 100px;
-    		height: 25px;
+    		height: 54px;
         align-items: center;
         justify-content: center;
         background-color: #FDF5EF;
@@ -395,7 +395,7 @@
                 left: auto;
             }
         }
-        
+
         &.hidden{
             display: none;
             @media screen and (max-width: 767px){
@@ -442,11 +442,11 @@
             display: none !important;
         }
     }
-    
+
     .leaflet-zoom-box {
 		    display: none;
 		}
-    
+
     .logo-responsive{
         position: absolute;
         top: 0;
@@ -471,9 +471,6 @@
     marquee{
         position: absolute;
         z-index: 1023;
-        top: 0;
-        right: 0;
-        left: 0;
         padding: 7px 15px;
         color: $wt;
         font-size: 16px;
@@ -1191,7 +1188,7 @@
                 margin-left: 0px;
             }
         }
-        
+
     }
 }
 
@@ -1302,7 +1299,7 @@
             }
         }
     }
-    
+
 .daerah-item{
             padding: 25px 25px 10px 25px;
             border: 1px solid #E3E3E3;
@@ -1351,7 +1348,7 @@
                 }
             }
         }
-        
+
 .accordion-publikasipeta{
     .card{
         border: none;
