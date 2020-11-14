@@ -19,9 +19,12 @@
           	<template v-slot:button-content>
               Data & Grafik
             </template>
-          		<b-dropdown-item to="/grafik">Grafik</b-dropdown-item>
-              <b-dropdown-item to="/luas-kebakaran">Luas Kabakaran</b-dropdown-item>
-            	<b-dropdown-item to="/emisi-co2">Emisi CO2</b-dropdown-item>
+          		<b-dropdown-item
+              to="/grafik">Grafik
+              </b-dropdown-item>
+              <b-dropdown-item
+              to="/emisi">Emisi CO2
+              </b-dropdown-item>
           </b-nav-item-dropdown>
           
           <b-nav-item to="/blog">Berita</b-nav-item>

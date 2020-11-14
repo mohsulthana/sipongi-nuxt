@@ -1,6 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-  <g id="terra_medium" transform="translate(2 2)" fill="#ffe000" stroke="rgba(255,224,0,0.3)" stroke-width="2">
-    <circle cx="7" cy="7" r="7" stroke="none"/>
-    <circle cx="7" cy="7" r="8" fill="none"/>
-  </g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="10px" height="10px" viewBox="0 0 10 10" enable-background="new 0 0 10 10" xml:space="preserve">  <image id="image0" width="10" height="10" x="0" y="0"
+    xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKBAMAAAB/HNKOAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
+AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAMFBMVEUAAACRhUOShkSZmWaU
+hkKZiEK3mjyejECXiEOymDyThEK3mzyXiUH4wDL5wTL///9X6wAtAAAADXRSTlMAQWkF2fX177D5
+aPX2xT04OwAAAAFiS0dEDxi6ANkAAAAHdElNRQfkCgcNORcT6UgCAAAAPklEQVQI12NgYFQSYGBg
+dk2rMGDgmPvupgOD+L13bwMZVr979y4JSsoARQoZWICyDQzM7buPGDAwMK4SYAAAq8wYJ1AVoDMA
+AAAldEVYdGRhdGU6Y3JlYXRlADIwMjAtMTAtMDdUMTM6NTc6MjMrMDM6MDBGNC1MAAAAJXRFWHRk
+YXRlOm1vZGlmeQAyMDIwLTEwLTA3VDEzOjU3OjIzKzAzOjAwN2mV8AAAAABJRU5ErkJggg==" />
 </svg>

@@ -3,223 +3,857 @@
     <div class="sidebar-map">
       <b-link to="/" class="logo">
         <img src="/logo.svg" alt="" />
+      </b-link>
+      <b-link class="logotext" v-b-toggle.sidebar-backdrop>
         <img src="/logo-text.svg" alt="" />
       </b-link>
-      <b-link class="main its-new link-one" @click="openSidebarOne">
-        <div class="wrap">
-          <div class="image d-md-none d-block">
-            <img src="/fire.svg" alt="" />
-            <span class="notif">{{ totalHotspot }}</span>
+      <b-button variant="primary-outline" block @click="hide"> </b-button>
+
+      <div>
+        <b-sidebar
+          id="sidebar-backdrop"
+          title=""
+          :backdrop-variant="variant"
+          backdrop
+          shadow
+          width="250px"
+        >
+          <div class="px-3 py-2">
+            <nav class="mb-3">
+              <b-nav vertical>
+                <b-nav-item
+                  class="link-one"
+                  @click="openSidebarOne"
+                  v-b-toggle="'collapse-3'"
+                  >Titik Panas</b-nav-item
+                >
+
+                <b-nav-item-dropdown
+                  id="my-nav-dropdown"
+                  text="Karhutla"
+                  toggle-class="nav-link-custom"
+                  left
+                  size="sm"
+                >
+                  <b-dropdown-item
+                    to="/luas-karhutla"
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Luas Karhutla</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    href="#"
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    to="/emisi"
+                    >Emisi CO2</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    href="#"
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Pemadaman</b-dropdown-item
+                  >
+                </b-nav-item-dropdown>
+
+                <b-nav-item-dropdown
+                  id="my-nav-dropdown"
+                  text="Dalkarhutla"
+                  toggle-class="nav-link-custom"
+                  left
+                  size="sm"
+                >
+                  <b-dropdown-item
+                    href="http://sipongi.menlhk.go.id/laporan_dalkarhutla_mitra/app2020/"
+                    target="_blank"
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Pelaporan Dalkarhutla</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    href="#"
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >FDRS</b-dropdown-item
+                  >
+                </b-nav-item-dropdown>
+
+                <b-nav-item-dropdown
+                  id="my-nav-dropdown"
+                  text="Prediksi Karhutla"
+                  toggle-class="nav-link-custom"
+                  left
+                  size="sm"
+                >
+                  <b-dropdown-item
+                    href="#"
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Peta Rawan
+                  </b-dropdown-item>
+                  <b-dropdown-item
+                    href="#"
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Prediksi Titik Panas</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    href="#"
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Prediksi Iklim</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    href="#"
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Prediksi Elnino
+                  </b-dropdown-item>
+                </b-nav-item-dropdown>
+
+                <b-nav-item-dropdown
+                  id="my-nav-dropdown"
+                  text="Publikasi"
+                  toggle-class="nav-link-custom"
+                  left
+                  size="sm"
+                >
+                  <b-dropdown-item
+                    class="link-two"
+                    @click="openSidebarTwo"
+                    style="text-align: left"
+                    >Berita</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    class="link-three"
+                    @click="openSidebarThree"
+                    style="text-align: left"
+                    >Galeri</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    class="link-five"
+                    @click="openSidebarFive"
+                    style="text-align: left"
+                    >Peraturan Perundangan</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    class="link-twelve"
+                    @click="openSidebarTwelve"
+                    style="text-align: left"
+                    >Laporan Harian Posko</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    class="link-six"
+                    @click="openSidebarSix"
+                    style="text-align: left"
+                    >Dokumen Lainnya</b-dropdown-item
+                  >
+                </b-nav-item-dropdown>
+
+                <b-nav-item-dropdown
+                  id="my-nav-dropdown"
+                  text="Tentang Sipongi"
+                  toggle-class="nav-link-custom"
+                  left
+                  size="sm"
+                >
+                  <b-dropdown-item
+                    class="link-seven"
+                    @click="openSidebarSeven"
+                    style="text-align: left"
+                    >Direktorat PKHL</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    class="link-eight"
+                    @click="openSidebarEight"
+                    style="text-align: left"
+                    >Manggala Agni</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    class="link-nine"
+                    @click="openSidebarNine"
+                    style="text-align: left"
+                    >Struktur Organisasi</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    class="link-ten"
+                    @click="openSidebarTen"
+                    style="text-align: left"
+                    >Kontak Kami</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    class="link-eleven"
+                    @click="openSidebarEleven"
+                    style="text-align: left"
+                    >Link Terkait</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    v-b-modal.modal-disclaimer
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Disclaimer</b-dropdown-item
+                  >
+                </b-nav-item-dropdown>
+              </b-nav>
+            </nav>
           </div>
-          <h6>Titik<br />Panas</h6>
-        </div>
-      </b-link>
-      <b-link class="main link-two" @click="openSidebarTwo">
-        <div class="wrap">
-          <div class="image d-md-none d-block">
-            <img src="/fire-extinguisher.svg" alt="" />
+        </b-sidebar>
+
+        <b-link class="main link-two d-md-none" @click="openSidebarTwo">
+          <div class="wrap">
+            <div class="image d-md-none d-block">
+              <img src="/paper.svg" alt="" />
+            </div>
+            <h6>Berita</h6>
           </div>
-          <h6>Kegiatan Pemadaman</h6>
-        </div>
-      </b-link>
-      <b-link class="main link-three" @click="openSidebarThree">
-        <div class="wrap">
-          <div class="image d-md-none d-block">
-            <img src="/cari.svg" alt="" />
+        </b-link>
+
+        <b-link class="main link-three d-md-none" @click="openSidebarThree">
+          <div class="wrap">
+            <div class="image d-md-none d-block">
+              <img src="/fire-extinguisher.svg" alt="" />
+            </div>
+            <h6>Galeri</h6>
           </div>
-          <h6>Cari</h6>
-        </div>
-      </b-link>
-      <b-link class="main link-four d-md-none" @click="openLegend">
-        <div class="wrap">
-          <div class="image">
-            <img src="/cowboy-hat.svg" alt="" />
+        </b-link>
+
+        <b-link class="main link-four d-md-none" @click="openLegend">
+          <div class="wrap">
+            <div class="image">
+              <img src="/cowboy-hat.svg" alt="" />
+            </div>
+            <h6>Legend</h6>
           </div>
-          <h6>Legend</h6>
-        </div>
-      </b-link>
-      <b-link
-        href="http://sipongi.menlhk.go.id/laporan_dalkarhutla_mitra/app2020/"
-        target="_blank"
-        class="main d-md-block d-none"
-      >
-        <h6>Luas Karthutla</h6>
-      </b-link>
-      <b-link href="" target="_blank" class="main d-md-block d-none">
-        <h6>FDRS</h6>
-      </b-link>
+        </b-link>
+
+        <b-link class="main link-one d-md-none" @click="openSidebarOne">
+          <div class="wrap">
+            <div class="image">
+              <img src="/fire-extinguisher.svg" alt="" />
+            </div>
+            <h6>Titik Panas</h6>
+          </div>
+        </b-link>
+      </div>
+
+      <!--
       <b-link to="/grafik" class="main d-md-block d-none">
-        <h6>Data dan Grafik</h6>
+        <h6>Data & Grafik</h6>
       </b-link>
       <b-link href="/publikasi" class="main d-md-block d-none">
         <h6>Publikasi</h6>
       </b-link>
-      <b-link
-        href="http://sipongi.menlhk.go.id/laporan_dalkarhutla_mitra/app2020/"
-        target="_blank"
-        class="main d-md-block d-none"
-      >
-        <h6>Pelaporan Hartkula</h6>
-      </b-link>
-      <b-link href="" class="main d-md-block d-none">
-        <h6>Buat Peta Rawan</h6>
-      </b-link>
-      <b-link href="" class="main d-md-block d-none">
-        <h6>Prediksi</h6>
-      </b-link>
+
       <b-link href="/tentang" class="main d-md-block d-none">
         <h6>Tentang Kami</h6>
       </b-link>
+
       <b-link v-b-modal.modal-disclaimer class="main d-md-block d-none">
         <h6>Disclaimer</h6>
       </b-link>
-      <b-link to="/" class="hide">
+      -->
+      <b-link @click="hideBerita" class="hide">
         <img src="/mini_arrow_left-gray.svg" alt="" />
       </b-link>
 
-      <div class="sidebar-slide sidebar-one">
-        <div class="content-head">
-          <b-link class="close" @click="openSidebarOne"
-            ><i class="fas fa-times"></i
-          ></b-link>
-          <h6>Lokasi Titik Panas</h6>
-          <no-ssr>
-            <date-picker
-              id="published_at"
-              v-model="titikDate"
-              type="date"
-              format="dddd, DD MMMM YYYY"
-              placeholder="Kamis, 27 Agustus 2020"
-            ></date-picker>
-          </no-ssr>
-          <b-link
-            :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
-            @click="changeSumber('LPN-MODIS')"
-            >Terra/Aqua</b-link
-          >
-          <b-link
-            :class="`status ${checkSumber('LPN-NPP') ? 'active' : ''}`"
-            @click="changeSumber('LPN-NPP')"
-            >SNPP</b-link
-          >
-          <b-link
-            :class="`status ${checkSumber('LPN-NOAA20') ? 'active' : ''}`"
-            @click="changeSumber('LPN-NOAA20')"
-            >NOAA20</b-link
-          >
-          <b-link
-            :class="`status ${checkSumber('LPN-LANDSAT8') ? 'active' : ''}`"
-            @click="changeSumber('LPN-LANDSAT8')"
-            >LANDSAT8</b-link
-          >
-        </div>
+      <transition name="fade">
+        <div class="sidebar-slide sidebar-one">
+          <div class="content-head">
+            <b-link class="close" @click="openSidebarOne">
+              <i class="fas fa-times"></i>
+            </b-link>
+            <h6>Lokasi Titik Panas</h6>
 
-        <div class="content-list titik">
-          <template v-for="(datas, index) in DataHotSpot.kabkota">
-            <template v-for="(kotakab, index2) in datas">
-              <b-link
-                class="list-item"
-                v-if="checkSumber(kotakab.data.sumber)"
-                @click="changeCenter(kotakab.data)"
-              >
-                <h6>
-                  {{ kotakab.data.kabkota }} - {{ kotakab.data.nama_provinsi }}
-                </h6>
-                <p>{{ kotakab.data.ori_sumber }}</p>
-                <span class="count">{{ kotakab.count }}</span>
-              </b-link>
+            <div class="content-list">
+              <b-form-select
+                v-model="cariProvinsi"
+                class="mb-3 form-control"
+                value-field="id"
+                text-field="nama_provinsi"
+                :options="provs"
+              ></b-form-select>
+
+              <b-form-select
+                v-model="cariKota"
+                class="form-control"
+                value-field="id"
+                text-field="nama"
+                :disabled="
+                  provs.length <= 0 || !cariProvinsi || kotakabs.length <= 1
+                "
+                :options="kotakabs"
+              ></b-form-select>
+            </div>
+
+            <client-only>
+              <date-picker
+                id="published_at"
+                v-model="titikDate"
+                type="date"
+                format="dddd, DD MMMM YYYY"
+                placeholder="Pilih tanggal"
+              ></date-picker>
+            </client-only>
+
+            <b-link
+              :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
+              @click="changeSumber('LPN-MODIS')"
+              >Terra/Aqua
+            </b-link>
+            <b-link
+              :class="`status ${checkSumber('LPN-NPP') ? 'active' : ''}`"
+              @click="changeSumber('LPN-NPP')"
+              >SNPP
+            </b-link>
+            <b-link
+              :class="`status ${checkSumber('LPN-NOAA20') ? 'active' : ''}`"
+              @click="changeSumber('LPN-NOAA20')"
+              >NOAA20
+            </b-link>
+            <b-link
+              :class="`status ${checkSumber('LPN-LANDSAT8') ? 'active' : ''}`"
+              @click="changeSumber('LPN-LANDSAT8')"
+              >LANDSAT8
+            </b-link>
+          </div>
+
+          <div class="content-list titik">
+            <template v-for="datas in DataHotSpot.kabkota">
+              <template v-for="(kotakab, index) in datas">
+                <b-link
+                  class="list-item"
+                  :key="index"
+                  v-if="checkSumber(kotakab.data.sumber)"
+                  @click="changeCenter(kotakab.data)"
+                >
+                  <!-- {{ kotakab.data }} -->
+                  <h6>
+                    {{ kotakab.data.kabkota }} -
+                    {{ kotakab.data.nama_provinsi }}
+                  </h6>
+                  <p>{{ kotakab.data.ori_sumber }}</p>
+                  <span class="count">{{ kotakab.count }}</span>
+                </b-link>
+              </template>
             </template>
-          </template>
-        </div>
+          </div>
 
-        <b-link to="" class="pdf">
+          <b-link @click="generateReport(DataHotSpot)" class="pdf">
+            <img src="/pdf.svg" alt="" />
+            <span>Download XLS</span>
+          </b-link>
+
+          <!-- <b-link to="" class="pdf">
           <img src="/pdf.svg" alt="" />
-          <span>Download PDF</span>
-        </b-link>
-      </div>
+          <span>Download XLS</span>
+        </b-link> -->
+        </div>
+      </transition>
 
       <div class="sidebar-slide sidebar-two big">
         <div class="content-head">
           <b-link class="close" @click="openSidebarTwo"
-            ><i class="fas fa-times"></i
-          ></b-link>
-          <h6>Kegiatan Pemadaman</h6>
-          <p>Informasi seputar kegiatan pemadaman</p>
+            ><i class="fas fa-times"></i>
+          </b-link>
+          <h6>Berita Sipongi+</h6>
+          <p></p>
         </div>
 
         <div class="content-list">
           <b-row>
-            <b-col cols="6" v-for="blog in pemadamans" :key="blog.slug">
-              <b-link :to="'/galeri/' + blog.slug" class="blog-item">
+            <b-col cols="6" v-for="blog in beritas" :key="blog.slug">
+              <b-link :to="`/blog/${blog.slug}`" class="blog-item">
                 <div
                   class="image"
-                  :style="{ backgroundImage: `url(${blog.detail.image_url})` }"
+                  :style="{ backgroundImage: `url(${blog.image_url})` }"
                 ></div>
                 <h5>{{ blog.title }}</h5>
-                <span>{{
-                  $moment(blog.created_at).format('DD MMMM YYYY')
-                }}</span>
+                <span>{{ blog.created_at }}</span>
               </b-link>
             </b-col>
-            <b-col v-if="loadMoreGal" md="12" class="text-center">
+            <b-col v-if="loadMore" md="12" class="text-center">
               <b-button
                 variant="primary"
                 class="loadMore"
-                @click="loadMoreDataGal()"
-                >Lihat lebih banyak</b-button
+                @click="loadMoreData()"
               >
+                Lihat Lebih Banyak
+              </b-button>
             </b-col>
           </b-row>
         </div>
       </div>
 
-      <div class="sidebar-slide sidebar-three">
+      <div class="sidebar-slide sidebar-three big">
         <div class="content-head">
           <b-link class="close" @click="openSidebarThree"
             ><i class="fas fa-times"></i
           ></b-link>
-          <h6>Cari</h6>
-          <p>Pencarian lokasi peringatan kebakaran</p>
+          <h6>Galeri</h6>
+          <p>Informasi seputar kegiatan pemadaman</p>
         </div>
 
         <div class="content-list">
-          <label for="">Pilih Provinsi</label>
-          <b-form-select
-            v-model="cariProvinsi"
-            class="mb-3 form-control"
-            value-field="id"
-            text-field="nama_provinsi"
-            :options="provs"
-          ></b-form-select>
-          <label for="">Pilih Kota/Kabupaten</label>
-          <b-form-select
-            v-model="cariKota"
-            class="form-control"
-            value-field="id"
-            text-field="nama"
-            :disabled="
-              provs.length <= 0 || !cariProvinsi || kotakabs.length <= 1
-            "
-            :options="kotakabs"
-          ></b-form-select>
+          <b-tabs>
+            <b-tab title="Kegiatan Pemadaman" active>
+              <b-row>
+                <b-col cols="6" v-for="blog in pemadamans" :key="blog.slug">
+                  <b-link :to="'/galeri/' + blog.slug" class="blog-item">
+                    <div
+                      class="image"
+                      :style="{
+                        backgroundImage: `url(${blog.detail.image_url})`,
+                      }"
+                    ></div>
+                    <h5>{{ blog.title }}</h5>
+                    <span>{{
+                      $moment(blog.created_at).format('DD MMMM YYYY')
+                    }}</span>
+                  </b-link>
+                </b-col>
+                <b-col v-if="loadMoreGal" md="12" class="text-center">
+                  <b-button
+                    variant="primary"
+                    class="loadMore"
+                    @click="loadMoreDataGal()"
+                    >Lihat Lebih Banyak</b-button
+                  >
+                </b-col>
+              </b-row>
+            </b-tab>
+            <b-tab title="Kegiatan Lainnya">
+              <b-row>
+                <b-col cols="6" v-for="blog in lains" :key="blog.slug">
+                  <b-link :to="'/galeri/' + blog.slug" class="blog-item">
+                    <div
+                      class="image"
+                      :style="{
+                        backgroundImage: `url(${blog.detail.image_url})`,
+                      }"
+                    ></div>
+                    <h5>{{ blog.title }}</h5>
+                    <span>{{ blog.created_at }}</span>
+                  </b-link>
+                </b-col>
+                <b-col v-if="loadMoreLain" md="12" class="text-center">
+                  <b-button
+                    variant="primary"
+                    class="loadMore"
+                    @click="loadMoreDataLain()"
+                    >Lihat Lebih Banyak</b-button
+                  >
+                </b-col>
+              </b-row>
+            </b-tab>
+          </b-tabs>
+        </div>
+      </div>
+
+      <div class="sidebar-slide sidebar-five big">
+        <div class="content-head">
+          <b-link class="close" @click="openSidebarFive"
+            ><i class="fas fa-times"></i
+          ></b-link>
+          <h6>Peraturan Perundangan</h6>
+          <p></p>
+        </div>
+        <div class="content-list">
+          <b-row>
+            <b-col md="12" class="text-center">
+              <div role="tablist" class="accordion-publikasipeta">
+                <b-card
+                  style="background-color: #f7f7f7"
+                  v-for="(kat, index) in kategories"
+                  no-body
+                  class="mb-1"
+                  :key="kat.slug"
+                >
+                  <b-card-header header-tag="header" role="tab">
+                    <b-button block v-b-toggle="`${kat.slug}`" variant="info">
+                      <h5>
+                        {{ kat.name }}
+                      </h5>
+                      <img src="/arrow-orange.svg" alt="" />
+                    </b-button>
+                  </b-card-header>
+                  <b-collapse
+                    :id="kat.slug"
+                    :visible="index === 0"
+                    accordion="my-accordion"
+                    role="tabpanel"
+                  >
+                    <b-card-body>
+                      <div
+                        v-for="perpu in kat.perpu.data"
+                        :key="perpu.slug"
+                        class="uud-item"
+                      >
+                        <b-link
+                          :href="`${
+                            perpu.tipe === 'file'
+                              ? `/v1/peraturan-perundangan/file/${perpu.slug}`
+                              : perpu.file_url
+                          }`"
+                          target="_blank"
+                        >
+                          {{ perpu.title }}
+                        </b-link>
+                        <span>
+                          {{ perpu.nomor }}
+                        </span>
+                      </div>
+                    </b-card-body>
+                  </b-collapse>
+                </b-card>
+              </div>
+            </b-col>
+          </b-row>
+        </div>
+      </div>
+
+      <div class="sidebar-slide sidebar-six big">
+        <div class="content-head">
+          <b-link class="close" @click="openSidebarSix"
+            ><i class="fas fa-times"></i
+          ></b-link>
+          <h6>Dokumen Lainnya</h6>
+          <p></p>
+        </div>
+        <div class="content-list">
+          <b-row>
+            <b-col md="12">
+              <div
+                v-for="dok in dokumen"
+                :key="dok.slug"
+                class="document-itempeta"
+              >
+                <img
+                  :src="`/${
+                    dok.tipe === 'file'
+                      ? 'paper.svg'
+                      : dok.tipe === 'video'
+                      ? 'video.svg'
+                      : 'paper.svg'
+                  }`"
+                  alt="icon"
+                />
+                <h5>{{ dok.title }}</h5>
+                <b-link
+                  :href="`${
+                    dok.tipe === 'file'
+                      ? `/v1/dokumen-lain/file/${dok.slug}`
+                      : dok.file_url
+                  }`"
+                  target="_blank"
+                  :class="`btn ${
+                    dok.tipe === 'file'
+                      ? 'btn-secondary'
+                      : dok.tipe === 'video'
+                      ? 'btn-third'
+                      : 'btn-secondary'
+                  }`"
+                >
+                  {{
+                    dok.tipe === 'file'
+                      ? 'Download'
+                      : dok.tipe === 'video'
+                      ? 'Watch'
+                      : 'Open'
+                  }}
+                  <i class="fas fa-angle-right"></i>
+                </b-link>
+              </div>
+              <div v-if="loadMorePerundangan" md="12" class="text-center">
+                <b-button
+                  class="loadMore"
+                  @click="loadMoreDataPerundangan()"
+                  variant="primary"
+                  >Lihat lebih banyak</b-button
+                >
+              </div>
+            </b-col>
+          </b-row>
+        </div>
+      </div>
+
+      <div class="sidebar-slide sidebar-seven big">
+        <div class="content-head">
+          <b-link class="close" @click="openSidebarSeven"
+            ><i class="fas fa-times"></i
+          ></b-link>
+          <b-button variant="primary-outline" block @click="hide"> </b-button>
+          <h6>Tentang Sipongi+</h6>
+          <p>
+            SiPongi bertujuan untuk mengantisipasi dan melakukan upaya
+            pencegahan kebakaran hutan dengan lebih cepat sehingga bencana
+            tersebut dapat dikurangi.
+          </p>
+        </div>
+        <div class="content-list">
+          <b-row>
+            <b-col md="4" order-md="2">
+              <img
+                :src="direktoratPKHL.logo_url"
+                alt=""
+                class="img-fluid img-logo"
+              />
+            </b-col>
+            <b-col md="8" order-md="1" v-html="direktoratPKHL.text"> </b-col>
+          </b-row>
+        </div>
+      </div>
+
+      <div class="sidebar-slide sidebar-eight big">
+        <div class="content-head">
+          <b-link class="close" @click="openSidebarEight"
+            ><i class="fas fa-times"></i
+          ></b-link>
+          <h6>Tentang Sipongi+</h6>
+          <p>
+            SiPongi bertujuan untuk mengantisipasi dan melakukan upaya
+            pencegahan kebakaran hutan dengan lebih cepat sehingga bencana
+            tersebut dapat dikurangi.
+          </p>
+        </div>
+        <div class="content-list">
+          <b-row>
+            <b-col md="8">
+              <div class="nav-agni">
+                <b-link @click="showProfile" :class="{ active: profile }"
+                  >Profil</b-link
+                >
+                <b-link @click="showDaerahOp" :class="{ active: daerahOp }"
+                  >Daerah Operasional</b-link
+                >
+                <b-link @click="showSarana" :class="{ active: sarana }"
+                  >Sarana & Prasarana</b-link
+                >
+              </div>
+            </b-col>
+            <b-col lg="12">
+              <!-- Profil -->
+              <b-row v-if="profile">
+                <b-col lg="4" order-lg="2">
+                  <div
+                    :class="[
+                      { toBot: scrolledToBottom },
+                      { scrolling: isScroll },
+                      'nav-content',
+                    ]"
+                  >
+                    <h3>Profil</h3>
+                    <b-link
+                      v-for="prof in profil"
+                      :key="prof.id"
+                      v-scroll-to="'#data' + prof.urutan"
+                      to="#"
+                      >{{ prof.title }}</b-link
+                    >
+                  </div>
+                </b-col>
+                <b-col lg="8" order-lg="1">
+                  <h5 class="title">Profil</h5>
+                  <div v-for="prof in profil" :key="prof.id">
+                    <h6 class="subtitle" :id="'data' + prof.urutan">
+                      {{ prof.title }}
+                    </h6>
+                    <img
+                      v-if="prof.image !== null"
+                      :src="prof.image_url"
+                      alt=""
+                      class="img-fluid mb-3"
+                    />
+                    <div v-html="prof.text"></div>
+                  </div>
+                </b-col>
+              </b-row>
+              <!-- Daerah Operasi -->
+              <b-row v-if="daerahOp">
+                <b-col md="8">
+                  <h6 class="title">Daerah Operasional</h6>
+                  <div class="daerah-item" v-for="(d, i) in daerah" :key="i">
+                    <!-- <h5>Sumatra Utara-01</h5> -->
+                    <h5>{{ d.daerah }}</h5>
+                    <b-row v-for="(k, j) in d.kota" :key="j">
+                      <b-col md="6">
+                        <p class="heading">{{ k.daerah }}</p>
+                        <span class="alamat">{{ k.alamat }}</span>
+                      </b-col>
+                      <b-col md="3" cols="6">
+                        <span class="jumlah">Jumlah Regu</span>
+                        <span class="count">{{ k.jumlah_regu }}</span>
+                      </b-col>
+                      <b-col md="3" cols="6">
+                        <span class="jumlah">Jumlah Anggota </span>
+                        <span class="count">{{ k.jumlah_anggota }}</span>
+                      </b-col>
+                    </b-row>
+                  </div>
+                </b-col>
+              </b-row>
+              <!-- Sarana & Prasarana -->
+              <b-row v-if="sarana">
+                <b-col md="12" v-html="sarpras.text"> Sarana </b-col>
+              </b-row>
+            </b-col>
+          </b-row>
+        </div>
+      </div>
+
+      <div class="sidebar-slide sidebar-nine big">
+        <div class="content-head">
+          <b-link class="close" @click="openSidebarNine"
+            ><i class="fas fa-times"></i
+          ></b-link>
+          <h6>Tentang Sipongi+</h6>
+          <p>
+            SiPongi bertujuan untuk mengantisipasi dan melakukan upaya
+            pencegahan kebakaran hutan dengan lebih cepat sehingga bencana
+            tersebut dapat dikurangi.
+          </p>
+        </div>
+        <div class="content-list">
+          <b-row>
+            <b-col md="8">
+              <img
+                :src="strukturOrganisasi.image_url"
+                alt=""
+                class="img-fluid"
+              />
+            </b-col>
+          </b-row>
+        </div>
+      </div>
+
+      <div class="sidebar-slide sidebar-ten big">
+        <div class="content-head">
+          <b-link class="close" @click="openSidebarTen"
+            ><i class="fas fa-times"></i
+          ></b-link>
+          <h6>Kontak Kami</h6>
+        </div>
+        <div class="content-list">
+          <b-row>
+            <b-col md="12">
+              <div class="logo-footer">
+                <img src="/kementerian-logo.svg" />
+                <h6>Kementerian Lingkungan Hidup dan Kehutanan</h6>
+              </div>
+              <p font-size="14px" font-weight="100">
+                Gedung Pusat Kehutanan Manggala Wanabakti Blok VII Lt. 13
+                <br />Jl. Jend. Gatot Subroto Jakarta 10270
+              </p>
+              <p>
+                <i class="far fa-envelope"></i>
+                posko.karhutla@menlhk.go.id<br />
+                <i class="fas fa-phone"></i> 021-5704618
+              </p>
+            </b-col>
+          </b-row>
+        </div>
+      </div>
+
+      <div class="sidebar-slide sidebar-eleven big">
+        <div class="content-head">
+          <b-link class="close" @click="openSidebarEleven"
+            ><i class="fas fa-times"></i
+          ></b-link>
+          <h6>Link Terkait</h6>
+        </div>
+        <div class="content-list">
+          <b-row>
+            <b-col md="12">
+              <h6 class="sec-title">Link Terkait</h6>
+              <ul>
+                <li>
+                  <b-link href="http://www.menlhk.go.id/" class="w-logo"
+                    ><img src="/kementerian-logo.svg" alt="" /> KLHK</b-link
+                  >
+                </li>
+                <li>
+                  <b-link href="http://ditjenppi.menlhk.go.id/" class="w-logo"
+                    ><img src="/kementerian-logo.svg" alt="" />
+                    DitjenPPI</b-link
+                  >
+                </li>
+                <li>
+                  <b-link href="http://bmkg.go.id/" class="w-logo"
+                    ><img src="/bmkg.svg" alt="" /> BMKG</b-link
+                  >
+                </li>
+                <li>
+                  <b-link href="http://lapan.go.id/" class="w-logo"
+                    ><img src="/lapan.svg" alt="" /> LAPAN</b-link
+                  >
+                </li>
+                <li>
+                  <b-link href="http://bnpb.go.id/" class="w-logo"
+                    ><img src="/bnpb.svg" alt="" /> BNPB</b-link
+                  >
+                </li>
+              </ul>
+            </b-col>
+          </b-row>
+        </div>
+      </div>
+
+      <div class="sidebar-slide sidebar-twelve big">
+        <div class="content-head">
+          <b-link class="close" @click="openSidebarTwelve"
+            ><i class="fas fa-times"></i
+          ></b-link>
+          <h6>Laporan Harian Posko</h6>
+          <p></p>
+        </div>
+        <div class="content-list">
+          <b-row>
+            <b-col md="12">
+              <div
+                v-for="(laporan, i) in laporanHarian"
+                :key="i"
+                class="document-item"
+              >
+                <img :src="`/paper.svg`" alt="icon" />
+                <h5>{{ laporan.bulan_nama }}&nbsp;{{ laporan.tahun }}</h5>
+                <b-link
+                  :href="laporan.link"
+                  target="_blank"
+                  class="btn btn-secondary"
+                >
+                  Open
+                  <i class="fas fa-angle-right"></i>
+                </b-link>
+              </div>
+              <div v-if="loadMoreLaporan" class="text-center mt-4">
+                <b-button @click="loadMoreDataLaporan()" variant="primary"
+                  >Lihat lebih banyak</b-button
+                >
+              </div>
+            </b-col>
+          </b-row>
         </div>
       </div>
     </div>
-    <div class="map-wrap" style="height: 100vh;">
-      <b-link href="https://wa.me/+6281316235000" target="_blank" class="call">
+
+    <div class="map-wrap" style="height: 100vh">
+      <div id="logo_maps">
+        <img src="/sipongi_maps.png" class="img img-responsives" />
+      </div>
+
+      <b-link href="https://wa.me/+6281310035000" target="_blank" class="call">
         <img src="/phone-red.svg" alt="" class="mr-1 inner" />
-        Call SiPongi+
+        Sipongi+
       </b-link>
-      <b-link to="/" class="logo-responsive">
+      <b-link class="logo-responsive" v-b-toggle.sidebar-backdrop>
         <img src="/logo.svg" alt="" />
         <img src="/logo-text.svg" alt="" />
       </b-link>
-      <marquee behavior="" direction=""
-        >Langit biru tanpa asap, STOP kebakaran hutan dan lahan</marquee
-      >
-      <div :class="['legend-wrap', { open: openedLegend }]">
+      <marquee behavior="" direction="">
+        {{ runningText }}
+      </marquee>
+      <div :class="['legend-wrap', 'content-list', { open: openedLegend }]" class="mb-5">
         <b-link class="legend-head" @click="toggleOpen">
-          <h6 class="d-md-none d-block">Legenda</h6>
+          <h6 class="d-md-none d-block">Summary</h6>
           <h6 class="d-md-block d-none">Summary</h6>
           <img src="/arrow-serong.svg" alt="" class="shown" />
           <i class="fas fa-times close"></i>
@@ -231,7 +865,9 @@
               hutan melalui petugas patroli pencegahan
             </p> -->
             <div class="legend-item w-border-top">
-              <h6>Satelit TERRA/AQUA</h6>
+              <b-link @click="changeSumber('LPN-MODIS')"
+                ><h6>Satelit TERRA/AQUA</h6></b-link
+              >
               <p class="count-total">
                 {{ getTotal('LPN-MODIS') }}
               </p>
@@ -249,7 +885,9 @@
               </span>
             </div>
             <div class="legend-item">
-              <h6>Satelit SNPP</h6>
+              <b-link @click="changeSumber('LPN-NPP')"
+                ><h6>Satelit SNPP</h6></b-link
+              >
               <p class="count-total">
                 {{ getTotal('LPN-NPP') }}
               </p>
@@ -267,7 +905,9 @@
               </span>
             </div>
             <div class="legend-item">
-              <h6>Satelit NOAA20</h6>
+              <b-link @click="changeSumber('LPN-NOAA20')"
+                ><h6>Satelit NOAA20</h6></b-link
+              >
               <p class="count-total">
                 {{ getTotal('LPN-NOAA20') }}
               </p>
@@ -285,7 +925,9 @@
               </span>
             </div>
             <div class="legend-item">
-              <h6>Satelit LANDSAT8</h6>
+              <b-link @click="changeSumber('LPN-LANDSAT8')"
+                ><h6>Satelit LANDSAT8</h6></b-link
+              >
               <p class="count-total">
                 {{ getTotal('LPN-LANDSAT8') }}
               </p>
@@ -303,103 +945,156 @@
               </span>
             </div>
           </div>
-          <div class="filter-wrap">
-            <div class="select-wrap">
-              <label class="mr-sm-2">Dengan periode data</label>
-              <b-form-select
-                v-model="periodeData"
-                :options="[
-                  { value: 12, text: '12 Jam Terakhir' },
-                  { value: 24, text: '24 Jam Terakhir' },
-                  { value: 48, text: '48 Jam Terakhir' },
-                ]"
-              ></b-form-select>
-            </div>
-            <div class="select-wrap w-border-bottom">
-              <label class="mr-sm-2">Dengan tingkat kepercayaan data</label>
-              <b-form-checkbox
-                id="checkbox-rendah"
-                v-model="trustData"
-                name="checkbox-rendah"
-                value="low"
-              >
-                <span class="color low"></span>
-                Rendah
-              </b-form-checkbox>
-              <b-form-checkbox
-                id="checkbox-sedang"
-                v-model="trustData"
-                name="checkbox-sedang"
-                value="medium"
-              >
-                <span class="color med"></span>
-                Sedang
-              </b-form-checkbox>
-              <b-form-checkbox
-                id="checkbox-tinggi"
-                v-model="trustData"
-                name="checkbox-tinggi"
-                value="high"
-              >
-                <span class="color high"></span>
-                Tinggi
-              </b-form-checkbox>
-            </div>
-            <div class="select-wrap">
-              <label class="float-left">Pergerakan Angin</label>
-              <b-form-checkbox
-                v-model="windDir"
-                name="check-button"
-                switch
-                class="float-right"
-              >
-              </b-form-checkbox>
-              <div class="ket-wind" v-if="windDir">
-                <div class="bar"></div>
-                <span class="speed">0 m/s</span>
-                <span class="speed text-right">30 m/s</span>
+          <b-button
+            variant="primary"
+            style="opacity: 0.5"
+            block
+            squared
+            v-b-toggle="'collapse-2'"
+            >Opsi</b-button
+          >
+          <b-collapse id="collapse-2">
+            <div class="filter-wrap">
+              <!--<div class="select-wrap">
+              	<label class="mr-sm-2">Satelit</label>
+              	<b-link style="display: inline-block; vertical-align: middle; font-size: 9px; padding: 4px 8px; background-color: #fff; border: 1px solid #eaeaea; margin-right: 2px; border-radius: 12px;"
+			            :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
+			            @click="changeSumber('LPN-MODIS')"
+			            >Terra/Aqua
+			          </b-link>
+			          <b-link style="display: inline-block; vertical-align: middle; font-size: 9px; padding: 4px 8px; background-color: #fff; border: 1px solid #eaeaea; margin-right: 2px; border-radius: 12px;"
+			            :class="`status ${checkSumber('LPN-NPP') ? 'active' : ''}`"
+			            @click="changeSumber('LPN-NPP')"
+			            >SNPP
+			          </b-link>
+			          <b-link style="display: inline-block; vertical-align: middle; font-size: 9px; padding: 4px 8px; background-color: #fff; border: 1px solid #eaeaea; margin-right: 2px; border-radius: 12px;"
+			            :class="`status ${checkSumber('LPN-NOAA20') ? 'active' : ''}`"
+			            @click="changeSumber('LPN-NOAA20')"
+			            >NOAA20
+			          </b-link>
+			          <b-link style="display: inline-block; vertical-align: middle; font-size: 9px; padding: 4px 8px; background-color: #fff; border: 1px solid #eaeaea; margin-right: 2px; border-radius: 12px;"
+			            :class="`status ${checkSumber('LPN-LANDSAT8') ? 'active' : ''}`"
+			            @click="changeSumber('LPN-LANDSAT8')"
+			            >LANDSAT8
+			          </b-link>
+            </div>-->
+
+              <div class="select-wrap">
+                <label class="mr-sm-2">Periode</label>
+                <b-form-select
+                  v-model="periodeData"
+                  :options="[
+                    { value: 12, text: '12 Jam Terakhir' },
+                    { value: 24, text: '24 Jam Terakhir' },
+                    { value: 48, text: '48 Jam Terakhir' },
+                  ]"
+                ></b-form-select>
+              </div>
+              <div class="select-wrap w-border-bottom">
+                <label class="mr-sm-2">Confidence</label>
+
+                <b-form-checkbox
+                  background-color="green"
+                  id="checkbox-rendah"
+                  class="checkbox-rendah"
+                  v-model="trustData"
+                  name="checkbox-rendah"
+                  value="low"
+                >
+                  <span class="color low"></span>
+                  Rendah
+                </b-form-checkbox>
+                <b-form-checkbox
+                  background-color="yellow"
+                  id="checkbox-sedang"
+                  v-model="trustData"
+                  name="checkbox-sedang"
+                  value="medium"
+                >
+                  <span class="color med"></span>
+                  Sedang
+                </b-form-checkbox>
+                <b-form-checkbox
+                  background-color="red"
+                  id="checkbox-tinggi"
+                  v-model="trustData"
+                  name="checkbox-tinggi"
+                  value="high"
+                >
+                  <span class="color high"></span>
+                  Tinggi
+                </b-form-checkbox>
+              </div>
+
+              <div class="select-wrap">
+                <label class="float-left">Pergerakan Angin</label>
+                <b-form-checkbox
+                  v-model="windDir"
+                  name="check-button"
+                  switch
+                  class="float-right"
+                >
+                </b-form-checkbox>
+                <div class="ket-wind" v-if="windDir">
+                  <div class="bar"></div>
+                  <span class="speed">0 m/s</span>
+                  <span class="speed text-right">30 m/s</span>
+                </div>
+              </div>
+              <div class="select-wrap">
+                <label class="float-left">Indeks Kualitas Udara</label>
+                <b-form-checkbox
+                  v-model="aqmsShow"
+                  name="check-button"
+                  switch
+                  class="float-right"
+                >
+                </b-form-checkbox>
+                <ul class="index-udara-list" v-if="aqmsShow">
+                  <li>Baik (0-50)</li>
+                  <li>Sedang (51-100)</li>
+                  <li>Tidak Sehat (101-199)</li>
+                  <li>Sangat Tidak Sehat (200-299)</li>
+                  <li>Berbahaya (> 300)</li>
+                </ul>
+              </div>
+              <div class="select-wrap">
+                <label class="float-left">Lokasi Unit Kerja</label>
+                <b-form-checkbox
+                  v-model="unitKerja"
+                  name="check-button"
+                  switch
+                  class="float-right"
+                >
+                </b-form-checkbox>
+              </div>
+
+              <div class="select-wrap">
+                <label class="mr-sm-2"></label>
+                <b-form-select v-model="currentTiles">
+                  <option v-for="(t, i) in tiles" :key="i" :value="i">
+                    {{ t.name }}
+                  </option>
+                </b-form-select>
               </div>
             </div>
-            <div class="select-wrap">
-              <label class="float-left">Indeks Kualitas Udara</label>
-              <b-form-checkbox
-                v-model="aqmsShow"
-                name="check-button"
-                switch
-                class="float-right"
-              >
-              </b-form-checkbox>
-              <ul class="index-udara-list" v-if="aqmsShow">
-                <li>Baik (0-50)</li>
-                <li>Sedang (51-100)</li>
-                <li>Tidak Sehat (101-199)</li>
-                <li>Sangat Tidak Sehat (200-299)</li>
-                <li>Berbahaya (> 300)</li>
-              </ul>
-            </div>
-            <div class="select-wrap">
-              <label class="float-left">Lokasi Unit Kerja</label>
-              <b-form-checkbox
-                v-model="unitKerja"
-                name="check-button"
-                switch
-                class="float-right"
-              >
-              </b-form-checkbox>
-            </div>
-            <div class="select-wrap mb-0">
-              <label class="float-left">Batas Administratif</label>
-              <b-form-checkbox
-                v-model="btsAdmf"
-                name="check-button"
-                switch
-                class="float-right"
-              >
-              </b-form-checkbox>
-            </div>
-          </div>
+          </b-collapse>
         </div>
       </div>
+      <transition name="fade">
+        <marquee v-show="beritaMarqueeText" behavior="" direction="" :class="{marqueeBottomMobile: !openedLegend, marqueeBottom: openedLegend}">
+            <span v-for="(value, index) in pemadamans" :key="index">
+              <img :src="value.detail.image_url" width="60" height="40" />
+              <b-link
+                :to="`/galeri/${value.slug}`"
+                class="logo"
+                style="color: #fff"
+              >
+                {{ value.title }}
+              </b-link>
+            </span>
+        </marquee>
+      </transition>
       <client-only>
         <l-map
           ref="mapSipongi"
@@ -407,12 +1102,11 @@
           :maxZoom="17"
           :zoom="zoom"
           :center="centerMap"
-          :options="optionMaps"
+          :options="{ zoomControl: false, attributionControl: false }"
           @update:zoom="zoomUpdated"
         >
-          <l-tile-layer
-            url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
-          ></l-tile-layer>
+          <l-tile-layer :url="tilesUrl"> </l-tile-layer>
+
           <l-image-overlay
             url="/gelap.png"
             :bounds="[
@@ -531,7 +1225,7 @@
       <div class="wrap">
         <h4>Mohon Tunggu Sebentar</h4>
         <b-spinner
-          style="width: 3rem; height: 3rem;"
+          style="width: 3rem; height: 3rem"
           label="Large Spinner"
         ></b-spinner>
       </div>
@@ -545,14 +1239,14 @@
     >
       <div class="d-block">
         <p class="text-left">
-          Pengunaan anda atas setiap bagian dari Aplikasi ("Situs") online
+          Penggunaan anda atas setiap bagian dari Aplikasi ("Situs") online
           (SiPongi) ini atau informasi atau data yang disediakan di Situs ini
-          tunduk pada syarat dan kententuan yang tercantum sebagai berikut :
+          tunduk pada syarat dan ketentuan yang tercantum sebagai berikut :
         </p>
-        <p class="text-left mb-1">Pengunaan Terlarang</p>
+        <p class="text-left mb-1">Penggunaan Terlarang</p>
         <ol>
           <li class="text-left">
-            Sebagai ketentuan dari pengunaan anda dari Situs ini, anda menjamin
+            Sebagai ketentuan dari penggunaan anda dari Situs ini, anda menjamin
             kepada Kementerian LHK bahwa anda hanya akan menggunakan Informasi
             yang terkandung atau terhasilkan dari Situs ini untuk tujuan
             identifikasi dan pemantauan potensi kebakaran.
@@ -566,11 +1260,11 @@
         <p class="text-left mb-1">Tanggung Jawab</p>
         <ol start="3">
           <li class="text-left">
-            Anda setuju untuk tidak terlibat dalam pengunaan situs ini secara
+            Anda setuju untuk tidak terlibat dalam penggunaan situs ini secara
             ilegal, yang meliputi, tapi tidak terbatas pada:
             <ol class="lower-alpha">
               <li>
-                pengunanaan Informasi tersedia untuk pengunduh dari Situs untuk
+                penggunaan Informasi tersedia untuk pengunduh dari Situs untuk
                 tujuan selain identifikasi dan pemantauan potensi kebakaran;
               </li>
               <li>
@@ -596,7 +1290,7 @@
         <p class="text-left mb-1">Pernyataan</p>
         <ol start="4">
           <li class="text-left">
-            Anda setuju bahwa pengunaan Situs ini dengan resiko anda sendiri.
+            Anda setuju bahwa penggunaan Situs ini dengan resiko anda sendiri.
             Situs ini dan perangkat lunaknya, kumpulan data dan konten lainnya,
             termasuk konten dari pihak ketiga yang tersedia dalam hubungan
             dengan atau melaui Situs, diberikan tanpa jaminan atau representasi
@@ -687,8 +1381,8 @@
             atau lisan atau pemahaman terhadap materi pelajaran tersebut.
           </li>
         </ol>
-      </div>
-    </b-modal>
+      </div> </b-modal
+    >\
   </div>
 </template>
 
@@ -697,7 +1391,35 @@ export default {
   name: 'Peta',
   data() {
     return {
-      openedLegend: false,
+      beritaMarqueeText: true,
+      currentTiles: 0,
+      tiles: [
+        {
+          name: 'Basemap Street Map',
+          url:
+            'https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png',
+        },
+
+        {
+          name: 'Basemap Topo Map',
+          url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+        },
+
+        {
+          name: 'Basemap Imagery Map',
+          url:
+            'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+        },
+      ],
+
+      isScroll: null,
+      scrolledToBottom: false,
+      profile: true,
+      daerahOp: false,
+      sarana: false,
+
+      runningText: null,
+      openedLegend: true,
       titikDate: '',
       browser: process.browser,
       centerMap: [-2.548926, 118.0148634],
@@ -761,6 +1483,12 @@ export default {
       geoJsonLayerMarker: {},
       aqmsData: null,
       aqmsShow: false,
+      options: {
+        direction: 'desc',
+        sortBy: 'created_at',
+        page: 1,
+        per_page: 6,
+      },
       OptWind: {
         displayValues: true,
         displayOptions: {
@@ -818,7 +1546,53 @@ export default {
         page: 1,
         per_page: 6,
       },
+      lains: [],
+      optionsLain: {
+        tipe: 'Lainnya',
+        page: 1,
+        per_page: 6,
+      },
+      beritas: [],
+      options: {
+        direction: 'desc',
+        sortBy: 'created_at',
+        page: 1,
+        per_page: 6,
+      },
+
+      kategories: [],
+      dokumen: [],
+      options: {
+        direction: 'desc',
+        sortBy: 'created_at',
+        page: 1,
+        per_page: 15,
+      },
+
+      laporanHarian: [],
+      optionsLaporan: {
+        direction: 'desc',
+        sortBy: 'created_at',
+        page: 1,
+        per_page: 15,
+      },
+
+      direktoratPKHL: [],
+      strukturOrganisasi: [],
+      profil: [],
+      sarpras: [],
+      daerah: [],
+      isScroll: null,
+      scrolledToBottom: false,
+      profile: true,
+      daerahOp: false,
+      sarana: false,
+
       loadMoreGal: false,
+      loadMoreLain: false,
+      loadMore: false,
+      loadMorePerundangan: false,
+      loadMoreLaporan: false,
     }
   },
   watch: {
@@ -902,6 +1676,10 @@ export default {
     },
   },
   computed: {
+    tilesUrl() {
+      return this.tiles[this.currentTiles].url
+    },
+
     noaaGreenIcon() {
       let icon = () => {}
       if (process.browser) icon = this.$L.icon
@@ -1319,11 +2097,15 @@ export default {
   },
   async created() {
     await this.loadHotSpot()
+    await this.loadHotSpot()
     if (this.firstLoad) {
       await this.cmbProvs()
     }
-
+    await this.getRunningText()
     await this.loadPemadaman()
+    await this.loadLain()
+    await this.loadBerita()
+    await this.loadPerundangan()
     await this.loadAqms()
     await this.loadWind()
     this.openLeg()
@@ -1333,7 +2115,104 @@ export default {
   beforeDestroy() {
     window.removeEventListener('resize', this.openLeg)
   },
+  async fetch() {
+    const url = !process.server ? `/v1/listBerita` : `/api/listBerita`
+
+    const params = {
+      direction: this.options.direction,
+      sortBy: this.options.sortBy,
+      page: this.options.page,
+      per_page: this.options.per_page,
+    }
+
+    await this.$axios
+      .$get(url, {
+        params,
+      })
+      .then((res) => {
+        console.log(res)
+        this.beritas = this.beritas.concat(res.data)
+        this.loadMore = !!res.links.next
+      })
+      .catch((err) => {
+        if (err.response) {
+          const { status, data } = err.response
+          if (status === 500) {
+            this.$nuxt.error({ statusCode: 500, message: data.message })
+          }
+          if (status === 404) {
+            this.$nuxt.error({ statusCode: 404, message: data.message })
+          }
+        }
+      })
+  },
   methods: {
+    hideBerita() {
+      this.beritaMarqueeText = !this.beritaMarqueeText
+    },
+    toggleSidebar() {
+      if (this.$sidebar.showSidebar) {
+        this.$sidebar.displaySidebar(false)
+      }
+    },
+    updateHeader() {
+      this.$store.commit('head/innerHeader', true)
+    },
+    handleScroll(e) {
+      this.isScroll = window.scrollY || window.scrollTop
+      let heightDoc = document.documentElement.offsetHeight - 250
+      let bottomOfWindow =
+        Math.ceil((window.scrollY || window.scrollTop) + window.innerHeight) >=
+        heightDoc
+      console.log(heightDoc)
+      console.log(bottomOfWindow)
+      if (bottomOfWindow) {
+        this.scrolledToBottom = true
+      } else {
+        this.scrolledToBottom = false
+      }
+    },
+    showProfile() {
+      this.profile = true
+      this.daerahOp = false
+      this.sarana = false
+    },
+    showDaerahOp() {
+      this.profile = false
+      this.daerahOp = true
+      this.sarana = false
+    },
+    showSarana() {
+      this.profile = false
+      this.daerahOp = false
+      this.sarana = true
+    },
+
+    async getRunningText() {
+      const url = !process.server
+        ? `/v1/data/running-text`
+        : `/api/data/running-text`
+
+      await this.$axios
+        .$get(url)
+        .then((res) => {
+          this.runningText = res.text
+          // console.log(res)
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+    },
+
     openLeg() {
       if (window.innerWidth > 767) {
         this.openedLegend = true
@@ -1628,36 +2507,350 @@ export default {
           this.loading = false
         })
     },
+
+    async loadLain() {
+      this.loading = true
+      const url = !process.server ? `/v1/listGaleri` : `/api/listGaleri`
+
+      const params = {
+        tipe: this.optionsLain.tipe,
+        page: this.optionsLain.page,
+        per_page: this.optionsLain.per_page,
+      }
+
+      await this.$axios
+        .$get(url, {
+          params,
+        })
+        .then((res) => {
+          this.lains = this.lains.concat(res.data)
+          this.loadMoreLain = !!res.links.next
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+        .finally(async () => {
+          this.loading = false
+        })
+    },
+
+    async loadBerita() {
+      this.loading = true
+      const url = !process.server ? `/v1/listBerita` : `/api/listBerita`
+
+      const params = {
+        direction: this.options.direction,
+        sortBy: this.options.sortBy,
+        page: this.options.page,
+        per_page: this.options.per_page,
+      }
+
+      await this.$axios
+        .$get(url, {
+          params,
+        })
+        .then((res) => {
+          this.beritas = this.beritas.concat(res.data)
+          this.loadMore = !!res.links.next
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+        .finally(async () => {
+          this.loading = false
+        })
+    },
+
+    async loadPerundangan() {
+      const url = !process.server ? `/v1/listDokumen` : `/api/listDokumen`
+
+      const params = {
+        direction: this.options.direction,
+        sortBy: this.options.sortBy,
+        page: this.options.page,
+        per_page: this.options.per_page,
+      }
+
+      await this.$axios
+        .$get(url, {
+          params,
+        })
+        .then((res) => {
+          this.dokumen = this.dokumen.concat(res.data)
+          this.loadMorePerundangan = !!res.links.next
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+
+      const urlPerpu = !process.server ? `/v1/listPerpu` : `/api/listPerpu`
+
+      await this.$axios
+        .$get(urlPerpu)
+        .then((res) => {
+          this.kategories = res.data
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+
+      // Laporan Harian
+      const urlLaporan = !process.server
+        ? `/v1/data/laporan-harian`
+        : `/api/data/laporan-harian`
+
+      const paramsLaporan = {
+        direction: this.options.direction,
+        sortBy: this.options.sortBy,
+        page: this.options.page,
+        per_page: this.options.per_page,
+      }
+
+      await this.$axios
+        .$get(urlLaporan, {
+          paramsLaporan,
+        })
+        .then((res) => {
+          this.laporanHarian = this.laporanHarian.concat(res.data)
+          this.loadMoreLaporan = !!res.links.next
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+
+      // Direktorat PKHL
+      const urlPKHL = !process.server
+        ? `/v1/data/direktorat-pkhl`
+        : `/api/data/direktorat-pkhl`
+      await this.$axios
+        .$get(urlPKHL)
+        .then((res) => {
+          this.direktoratPKHL = res
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+
+      // Struktur Organisasi
+      const urlOrg = !process.server
+        ? `/v1/data/struktur-organisasi`
+        : `/api/data/struktur-organisasi`
+      await this.$axios
+        .$get(urlOrg)
+        .then((res) => {
+          this.strukturOrganisasi = res
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+
+      // Manggala Agni Profil
+      const urlProfil = !process.server ? `/v1/data/profil` : `/api/data/profil`
+      await this.$axios
+        .$get(urlProfil)
+        .then((res) => {
+          this.profil = res.data
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+
+      // Manggala Agni Sarpas
+      const urlSarpras = !process.server
+        ? `/v1/data/sarpras`
+        : `/api/data/sarpras`
+      await this.$axios
+        .$get(urlSarpras)
+        .then((res) => {
+          this.sarpras = res
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+
+      // Manggala Agni Daerah Operasional
+      const urlDaerah = !process.server ? `/v1/data/daerah` : `/api/data/daerah`
+      // const urlDaerah = 'http://127.0.0.1:8081/api/data/daerah'
+      await this.$axios
+        .$get(urlDaerah)
+        .then((res) => {
+          this.daerah = res
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+    },
+
     async loadMoreDataGal() {
       this.optionsGal.page++
       await this.loadPemadaman()
     },
+    async loadMoreDataLain() {
+      this.optionsLain.page++
+      await this.loadLain()
+    },
+    async loadMoreData() {
+      this.options.page++
+      await this.loadBerita()
+    },
+
+    async loadMoreDataPerundangan() {
+      this.options.page++
+      await this.loadPerundangan()
+    },
+
+    async loadMoreDataLaporan() {
+      this.optionsLaporan.page++
+      await this.$fetch()
+    },
+
     toggleOpen() {
       var legend = document.querySelector('.legend-wrap')
 
       legend.classList.toggle('open')
     },
+
     openSidebarOne() {
       var legend = document.querySelector('.legend-wrap')
       var sidebar = document.querySelector('.sidebar-one')
       var sidebar2 = document.querySelector('.sidebar-two')
       var sidebar3 = document.querySelector('.sidebar-three')
+      var sidebar5 = document.querySelector('.sidebar-five')
+      var sidebar6 = document.querySelector('.sidebar-six')
+      var sidebar7 = document.querySelector('.sidebar-seven')
+      var sidebar8 = document.querySelector('.sidebar-eight')
+      var sidebar9 = document.querySelector('.sidebar-nine')
+      var sidebar10 = document.querySelector('.sidebar-ten')
+      var sidebar11 = document.querySelector('.sidebar-eleven')
+      var sidebar12 = document.querySelector('.sidebar-twelve')
       var link = document.querySelector('.link-one')
       var link2 = document.querySelector('.link-two')
       var link3 = document.querySelector('.link-three')
       var link4 = document.querySelector('.link-four')
+      var link5 = document.querySelector('.link-five')
+      var link6 = document.querySelector('.link-six')
+      var link7 = document.querySelector('.link-seven')
+      var link8 = document.querySelector('.link-eight')
+      var link9 = document.querySelector('.link-nine')
+      var link10 = document.querySelector('.link-ten')
+      var link11 = document.querySelector('.link-eleven')
+      var link12 = document.querySelector('.link-twelve')
       var map = document.querySelector('.map-wrap')
 
       if (
         map.classList.contains('openSide') &&
         (sidebar2.classList.contains('opened') ||
           sidebar3.classList.contains('opened') ||
+          sidebar5.classList.contains('opened') ||
+          sidebar6.classList.contains('opened') ||
+          sidebar7.classList.contains('opened') ||
+          sidebar8.classList.contains('opened') ||
+          sidebar9.classList.contains('opened') ||
+          sidebar10.classList.contains('opened') ||
+          sidebar11.classList.contains('opened') ||
+          sidebar12.classList.contains('opened') ||
           legend.classList.contains('open'))
       ) {
         sidebar2.classList.remove('opened')
         sidebar3.classList.remove('opened')
+        sidebar5.classList.remove('opened')
+        sidebar6.classList.remove('opened')
+        sidebar7.classList.remove('opened')
+        sidebar8.classList.remove('opened')
+        sidebar9.classList.remove('opened')
+        sidebar10.classList.remove('opened')
+        sidebar11.classList.remove('opened')
+        sidebar12.classList.remove('opened')
         link2.classList.remove('active')
         link3.classList.remove('active')
+        link5.classList.remove('active')
+        link6.classList.remove('active')
+        link7.classList.remove('active')
+        link8.classList.remove('active')
+        link9.classList.remove('active')
+        link10.classList.remove('active')
+        link11.classList.remove('active')
+        link12.classList.remove('active')
         map.classList.remove('big')
         link.classList.add('active')
         sidebar.classList.add('opened')
@@ -1669,31 +2862,73 @@ export default {
         sidebar.classList.toggle('opened')
         map.classList.toggle('openSide')
         link.classList.toggle('active')
+        legend.classList.remove('open')
       }
     },
+
     openSidebarTwo() {
       var legend = document.querySelector('.legend-wrap')
       var sidebar = document.querySelector('.sidebar-one')
       var sidebar2 = document.querySelector('.sidebar-two')
       var sidebar3 = document.querySelector('.sidebar-three')
+      var sidebar5 = document.querySelector('.sidebar-five')
+      var sidebar6 = document.querySelector('.sidebar-six')
+      var sidebar7 = document.querySelector('.sidebar-seven')
+      var sidebar8 = document.querySelector('.sidebar-eight')
+      var sidebar9 = document.querySelector('.sidebar-nine')
+      var sidebar10 = document.querySelector('.sidebar-ten')
+      var sidebar11 = document.querySelector('.sidebar-eleven')
+      var sidebar12 = document.querySelector('.sidebar-twelve')
       var link = document.querySelector('.link-one')
       var link2 = document.querySelector('.link-two')
       var link3 = document.querySelector('.link-three')
       var link4 = document.querySelector('.link-four')
+      var link5 = document.querySelector('.link-five')
+      var link6 = document.querySelector('.link-six')
+      var link7 = document.querySelector('.link-seven')
+      var link8 = document.querySelector('.link-eight')
+      var link9 = document.querySelector('.link-nine')
+      var link10 = document.querySelector('.link-ten')
+      var link11 = document.querySelector('.link-eleven')
+      var link12 = document.querySelector('.link-twelve')
       var map = document.querySelector('.map-wrap')
 
       if (
         map.classList.contains('openSide') &&
         (sidebar.classList.contains('opened') ||
           sidebar3.classList.contains('opened') ||
+          sidebar5.classList.contains('opened') ||
+          sidebar6.classList.contains('opened') ||
+          sidebar7.classList.contains('opened') ||
+          sidebar8.classList.contains('opened') ||
+          sidebar9.classList.contains('opened') ||
+          sidebar10.classList.contains('opened') ||
+          sidebar11.classList.contains('opened') ||
+          sidebar12.classList.contains('opened') ||
           legend.classList.contains('open'))
       ) {
         sidebar.classList.remove('opened')
         sidebar3.classList.remove('opened')
-        link.classList.remove('active')
+        sidebar5.classList.remove('opened')
+        sidebar6.classList.remove('opened')
+        sidebar7.classList.remove('opened')
+        sidebar8.classList.remove('opened')
+        sidebar9.classList.remove('opened')
+        sidebar10.classList.remove('opened')
+        sidebar11.classList.remove('opened')
+        sidebar12.classList.remove('opened')
         link3.classList.remove('active')
-        map.classList.add('big')
+        link5.classList.remove('active')
+        link6.classList.remove('active')
+        link7.classList.remove('active')
+        link8.classList.remove('active')
+        link9.classList.remove('active')
+        link10.classList.remove('active')
+        link11.classList.remove('active')
+        link12.classList.remove('active')
+        map.classList.remove('big')
         link2.classList.add('active')
+        map.classList.add('big')
         sidebar2.classList.add('opened')
         if (window.innerWidth < 767) {
           legend.classList.remove('open')
@@ -1702,33 +2937,73 @@ export default {
       } else {
         sidebar2.classList.toggle('opened')
         map.classList.toggle('openSide')
-        map.classList.toggle('big')
         link2.classList.toggle('active')
       }
     },
+
     openSidebarThree() {
       var legend = document.querySelector('.legend-wrap')
       var sidebar = document.querySelector('.sidebar-one')
       var sidebar2 = document.querySelector('.sidebar-two')
       var sidebar3 = document.querySelector('.sidebar-three')
+      var sidebar5 = document.querySelector('.sidebar-five')
+      var sidebar6 = document.querySelector('.sidebar-six')
+      var sidebar7 = document.querySelector('.sidebar-seven')
+      var sidebar8 = document.querySelector('.sidebar-eight')
+      var sidebar9 = document.querySelector('.sidebar-nine')
+      var sidebar10 = document.querySelector('.sidebar-ten')
+      var sidebar11 = document.querySelector('.sidebar-eleven')
+      var sidebar12 = document.querySelector('.sidebar-twelve')
       var link = document.querySelector('.link-one')
       var link2 = document.querySelector('.link-two')
       var link3 = document.querySelector('.link-three')
       var link4 = document.querySelector('.link-four')
+      var link5 = document.querySelector('.link-five')
+      var link6 = document.querySelector('.link-six')
+      var link7 = document.querySelector('.link-seven')
+      var link8 = document.querySelector('.link-eight')
+      var link9 = document.querySelector('.link-nine')
+      var link10 = document.querySelector('.link-ten')
+      var link11 = document.querySelector('.link-eleven')
+      var link12 = document.querySelector('.link-twelve')
       var map = document.querySelector('.map-wrap')
 
       if (
         map.classList.contains('openSide') &&
         (sidebar.classList.contains('opened') ||
           sidebar2.classList.contains('opened') ||
+          sidebar5.classList.contains('opened') ||
+          sidebar6.classList.contains('opened') ||
+          sidebar7.classList.contains('opened') ||
+          sidebar8.classList.contains('opened') ||
+          sidebar9.classList.contains('opened') ||
+          sidebar10.classList.contains('opened') ||
+          sidebar11.classList.contains('opened') ||
+          sidebar12.classList.contains('opened') ||
           legend.classList.contains('open'))
       ) {
         sidebar.classList.remove('opened')
         sidebar2.classList.remove('opened')
-        link.classList.remove('active')
+        sidebar5.classList.remove('opened')
+        sidebar6.classList.remove('opened')
+        sidebar7.classList.remove('opened')
+        sidebar8.classList.remove('opened')
+        sidebar9.classList.remove('opened')
+        sidebar10.classList.remove('opened')
+        sidebar11.classList.remove('opened')
+        sidebar12.classList.remove('opened')
         link2.classList.remove('active')
-        link3.classList.add('active')
+        link5.classList.remove('active')
+        link6.classList.remove('active')
+        link7.classList.remove('active')
+        link8.classList.remove('active')
+        link9.classList.remove('active')
+        link10.classList.remove('active')
+        link11.classList.remove('active')
+        link12.classList.remove('active')
         map.classList.remove('big')
+        link3.classList.add('active')
+        map.classList.add('big')
         sidebar3.classList.add('opened')
         if (window.innerWidth < 767) {
           legend.classList.remove('open')
@@ -1737,32 +3012,675 @@ export default {
       } else {
         sidebar3.classList.toggle('opened')
         map.classList.toggle('openSide')
+        map.classList.toggle('big')
         link3.classList.toggle('active')
       }
     },
-    openLegend() {
+
+    openSidebarFive() {
       var legend = document.querySelector('.legend-wrap')
       var sidebar = document.querySelector('.sidebar-one')
       var sidebar2 = document.querySelector('.sidebar-two')
       var sidebar3 = document.querySelector('.sidebar-three')
+      var sidebar5 = document.querySelector('.sidebar-five')
+      var sidebar6 = document.querySelector('.sidebar-six')
+      var sidebar7 = document.querySelector('.sidebar-seven')
+      var sidebar8 = document.querySelector('.sidebar-eight')
+      var sidebar9 = document.querySelector('.sidebar-nine')
+      var sidebar10 = document.querySelector('.sidebar-ten')
+      var sidebar11 = document.querySelector('.sidebar-eleven')
+      var sidebar12 = document.querySelector('.sidebar-twelve')
       var link = document.querySelector('.link-one')
       var link2 = document.querySelector('.link-two')
       var link3 = document.querySelector('.link-three')
       var link4 = document.querySelector('.link-four')
+      var link5 = document.querySelector('.link-five')
+      var link6 = document.querySelector('.link-six')
+      var link7 = document.querySelector('.link-seven')
+      var link8 = document.querySelector('.link-eight')
+      var link9 = document.querySelector('.link-nine')
+      var link10 = document.querySelector('.link-ten')
+      var link11 = document.querySelector('.link-eleven')
+      var link12 = document.querySelector('.link-twelve')
       var map = document.querySelector('.map-wrap')
 
       if (
         map.classList.contains('openSide') &&
         (sidebar.classList.contains('opened') ||
           sidebar2.classList.contains('opened') ||
-          sidebar3.classList.contains('opened'))
+          sidebar3.classList.contains('opened') ||
+          sidebar6.classList.contains('opened') ||
+          sidebar7.classList.contains('opened') ||
+          sidebar8.classList.contains('opened') ||
+          sidebar9.classList.contains('opened') ||
+          sidebar10.classList.contains('opened') ||
+          sidebar11.classList.contains('opened') ||
+          sidebar12.classList.contains('opened') ||
+          legend.classList.contains('open'))
       ) {
         sidebar.classList.remove('opened')
         sidebar2.classList.remove('opened')
         sidebar3.classList.remove('opened')
+        sidebar6.classList.remove('opened')
+        sidebar7.classList.remove('opened')
+        sidebar8.classList.remove('opened')
+        sidebar9.classList.remove('opened')
+        sidebar10.classList.remove('opened')
+        sidebar11.classList.remove('opened')
+        sidebar12.classList.remove('opened')
+        link2.classList.remove('active')
+        link3.classList.remove('active')
+        link6.classList.remove('active')
+        link7.classList.remove('active')
+        link8.classList.remove('active')
+        link9.classList.remove('active')
+        link10.classList.remove('active')
+        link11.classList.remove('active')
+        link12.classList.remove('active')
+        map.classList.remove('big')
+        link5.classList.add('active')
+        map.classList.add('big')
+        sidebar5.classList.add('opened')
+        if (window.innerWidth < 767) {
+          legend.classList.remove('open')
+          link4.classList.remove('active')
+        }
+      } else {
+        sidebar5.classList.toggle('opened')
+        map.classList.toggle('openSide')
+        link5.classList.toggle('active')
+      }
+    },
+
+    openSidebarSix() {
+      var legend = document.querySelector('.legend-wrap')
+      var sidebar = document.querySelector('.sidebar-one')
+      var sidebar2 = document.querySelector('.sidebar-two')
+      var sidebar3 = document.querySelector('.sidebar-three')
+      var sidebar5 = document.querySelector('.sidebar-five')
+      var sidebar6 = document.querySelector('.sidebar-six')
+      var sidebar7 = document.querySelector('.sidebar-seven')
+      var sidebar8 = document.querySelector('.sidebar-eight')
+      var sidebar9 = document.querySelector('.sidebar-nine')
+      var sidebar10 = document.querySelector('.sidebar-ten')
+      var sidebar11 = document.querySelector('.sidebar-eleven')
+      var sidebar12 = document.querySelector('.sidebar-twelve')
+      var link = document.querySelector('.link-one')
+      var link2 = document.querySelector('.link-two')
+      var link3 = document.querySelector('.link-three')
+      var link4 = document.querySelector('.link-four')
+      var link5 = document.querySelector('.link-five')
+      var link6 = document.querySelector('.link-six')
+      var link7 = document.querySelector('.link-seven')
+      var link8 = document.querySelector('.link-eight')
+      var link9 = document.querySelector('.link-nine')
+      var link10 = document.querySelector('.link-ten')
+      var link11 = document.querySelector('.link-eleven')
+      var link12 = document.querySelector('.link-twelve')
+      var map = document.querySelector('.map-wrap')
+
+      if (
+        map.classList.contains('openSide') &&
+        (sidebar.classList.contains('opened') ||
+          sidebar2.classList.contains('opened') ||
+          sidebar3.classList.contains('opened') ||
+          sidebar5.classList.contains('opened') ||
+          sidebar7.classList.contains('opened') ||
+          sidebar8.classList.contains('opened') ||
+          sidebar9.classList.contains('opened') ||
+          sidebar10.classList.contains('opened') ||
+          sidebar11.classList.contains('opened') ||
+          sidebar12.classList.contains('opened') ||
+          legend.classList.contains('open'))
+      ) {
+        sidebar.classList.remove('opened')
+        sidebar2.classList.remove('opened')
+        sidebar3.classList.remove('opened')
+        sidebar5.classList.remove('opened')
+        sidebar7.classList.remove('opened')
+        sidebar8.classList.remove('opened')
+        sidebar9.classList.remove('opened')
+        sidebar10.classList.remove('opened')
+        sidebar11.classList.remove('opened')
+        sidebar12.classList.remove('opened')
+        link2.classList.remove('active')
+        link3.classList.remove('active')
+        link5.classList.remove('active')
+        link7.classList.remove('active')
+        link8.classList.remove('active')
+        link9.classList.remove('active')
+        link10.classList.remove('active')
+        link11.classList.remove('active')
+        link12.classList.remove('active')
+        map.classList.remove('big')
+        link6.classList.add('active')
+        map.classList.add('big')
+        sidebar6.classList.add('opened')
+        if (window.innerWidth < 767) {
+          legend.classList.remove('open')
+          link4.classList.remove('active')
+        }
+      } else {
+        sidebar6.classList.toggle('opened')
+        map.classList.toggle('openSide')
+        link6.classList.toggle('active')
+      }
+    },
+
+    openSidebarSeven() {
+      var legend = document.querySelector('.legend-wrap')
+      var sidebar = document.querySelector('.sidebar-one')
+      var sidebar2 = document.querySelector('.sidebar-two')
+      var sidebar3 = document.querySelector('.sidebar-three')
+      var sidebar5 = document.querySelector('.sidebar-five')
+      var sidebar6 = document.querySelector('.sidebar-six')
+      var sidebar7 = document.querySelector('.sidebar-seven')
+      var sidebar8 = document.querySelector('.sidebar-eight')
+      var sidebar9 = document.querySelector('.sidebar-nine')
+      var sidebar10 = document.querySelector('.sidebar-ten')
+      var sidebar11 = document.querySelector('.sidebar-eleven')
+      var sidebar12 = document.querySelector('.sidebar-twelve')
+      var link = document.querySelector('.link-one')
+      var link2 = document.querySelector('.link-two')
+      var link3 = document.querySelector('.link-three')
+      var link4 = document.querySelector('.link-four')
+      var link5 = document.querySelector('.link-five')
+      var link6 = document.querySelector('.link-six')
+      var link7 = document.querySelector('.link-seven')
+      var link8 = document.querySelector('.link-eight')
+      var link9 = document.querySelector('.link-nine')
+      var link10 = document.querySelector('.link-ten')
+      var link11 = document.querySelector('.link-eleven')
+      var link12 = document.querySelector('.link-twelve')
+      var map = document.querySelector('.map-wrap')
+
+      if (
+        map.classList.contains('openSide') &&
+        (sidebar.classList.contains('opened') ||
+          sidebar2.classList.contains('opened') ||
+          sidebar3.classList.contains('opened') ||
+          sidebar5.classList.contains('opened') ||
+          sidebar6.classList.contains('opened') ||
+          sidebar8.classList.contains('opened') ||
+          sidebar9.classList.contains('opened') ||
+          sidebar10.classList.contains('opened') ||
+          sidebar11.classList.contains('opened') ||
+          sidebar12.classList.contains('opened') ||
+          legend.classList.contains('open'))
+      ) {
+        sidebar.classList.remove('opened')
+        sidebar2.classList.remove('opened')
+        sidebar3.classList.remove('opened')
+        sidebar5.classList.remove('opened')
+        sidebar6.classList.remove('opened')
+        sidebar8.classList.remove('opened')
+        sidebar9.classList.remove('opened')
+        sidebar10.classList.remove('opened')
+        sidebar11.classList.remove('opened')
+        sidebar12.classList.remove('opened')
+        link2.classList.remove('active')
+        link3.classList.remove('active')
+        link5.classList.remove('active')
+        link6.classList.remove('active')
+        link8.classList.remove('active')
+        link9.classList.remove('active')
+        link10.classList.remove('active')
+        link11.classList.remove('active')
+        link12.classList.remove('active')
+        map.classList.remove('big')
+        link7.classList.add('active')
+        map.classList.add('big')
+        sidebar7.classList.add('opened')
+        if (window.innerWidth < 767) {
+          legend.classList.remove('open')
+          link4.classList.remove('active')
+        }
+      } else {
+        sidebar7.classList.toggle('opened')
+        map.classList.toggle('openSide')
+        link7.classList.toggle('active')
+      }
+    },
+
+    openSidebarEight() {
+      var legend = document.querySelector('.legend-wrap')
+      var sidebar = document.querySelector('.sidebar-one')
+      var sidebar2 = document.querySelector('.sidebar-two')
+      var sidebar3 = document.querySelector('.sidebar-three')
+      var sidebar5 = document.querySelector('.sidebar-five')
+      var sidebar6 = document.querySelector('.sidebar-six')
+      var sidebar7 = document.querySelector('.sidebar-seven')
+      var sidebar8 = document.querySelector('.sidebar-eight')
+      var sidebar9 = document.querySelector('.sidebar-nine')
+      var sidebar10 = document.querySelector('.sidebar-ten')
+      var sidebar11 = document.querySelector('.sidebar-eleven')
+      var sidebar12 = document.querySelector('.sidebar-twelve')
+      var link = document.querySelector('.link-one')
+      var link2 = document.querySelector('.link-two')
+      var link3 = document.querySelector('.link-three')
+      var link4 = document.querySelector('.link-four')
+      var link5 = document.querySelector('.link-five')
+      var link6 = document.querySelector('.link-six')
+      var link7 = document.querySelector('.link-seven')
+      var link8 = document.querySelector('.link-eight')
+      var link9 = document.querySelector('.link-nine')
+      var link10 = document.querySelector('.link-ten')
+      var link11 = document.querySelector('.link-eleven')
+      var link12 = document.querySelector('.link-twelve')
+      var map = document.querySelector('.map-wrap')
+
+      if (
+        map.classList.contains('openSide') &&
+        (sidebar.classList.contains('opened') ||
+          sidebar2.classList.contains('opened') ||
+          sidebar3.classList.contains('opened') ||
+          sidebar5.classList.contains('opened') ||
+          sidebar6.classList.contains('opened') ||
+          sidebar7.classList.contains('opened') ||
+          sidebar9.classList.contains('opened') ||
+          sidebar10.classList.contains('opened') ||
+          sidebar11.classList.contains('opened') ||
+          sidebar12.classList.contains('opened') ||
+          legend.classList.contains('open'))
+      ) {
+        sidebar.classList.remove('opened')
+        sidebar2.classList.remove('opened')
+        sidebar3.classList.remove('opened')
+        sidebar5.classList.remove('opened')
+        sidebar6.classList.remove('opened')
+        sidebar7.classList.remove('opened')
+        sidebar9.classList.remove('opened')
+        sidebar10.classList.remove('opened')
+        sidebar11.classList.remove('opened')
+        sidebar12.classList.remove('opened')
+        link2.classList.remove('active')
+        link3.classList.remove('active')
+        link5.classList.remove('active')
+        link6.classList.remove('active')
+        link7.classList.remove('active')
+        link9.classList.remove('active')
+        link10.classList.remove('active')
+        link11.classList.remove('active')
+        link12.classList.remove('active')
+        map.classList.remove('big')
+        link8.classList.add('active')
+        map.classList.add('big')
+        sidebar8.classList.add('opened')
+        if (window.innerWidth < 767) {
+          legend.classList.remove('open')
+          link4.classList.remove('active')
+        }
+      } else {
+        sidebar8.classList.toggle('opened')
+        map.classList.toggle('openSide')
+        link8.classList.toggle('active')
+      }
+    },
+
+    openSidebarNine() {
+      var legend = document.querySelector('.legend-wrap')
+      var sidebar = document.querySelector('.sidebar-one')
+      var sidebar2 = document.querySelector('.sidebar-two')
+      var sidebar3 = document.querySelector('.sidebar-three')
+      var sidebar5 = document.querySelector('.sidebar-five')
+      var sidebar6 = document.querySelector('.sidebar-six')
+      var sidebar7 = document.querySelector('.sidebar-seven')
+      var sidebar8 = document.querySelector('.sidebar-eight')
+      var sidebar9 = document.querySelector('.sidebar-nine')
+      var sidebar10 = document.querySelector('.sidebar-ten')
+      var sidebar11 = document.querySelector('.sidebar-eleven')
+      var sidebar12 = document.querySelector('.sidebar-twelve')
+      var link = document.querySelector('.link-one')
+      var link2 = document.querySelector('.link-two')
+      var link3 = document.querySelector('.link-three')
+      var link4 = document.querySelector('.link-four')
+      var link5 = document.querySelector('.link-five')
+      var link6 = document.querySelector('.link-six')
+      var link7 = document.querySelector('.link-seven')
+      var link8 = document.querySelector('.link-eight')
+      var link9 = document.querySelector('.link-nine')
+      var link10 = document.querySelector('.link-ten')
+      var link11 = document.querySelector('.link-eleven')
+      var link12 = document.querySelector('.link-twelve')
+      var map = document.querySelector('.map-wrap')
+
+      if (
+        map.classList.contains('openSide') &&
+        (sidebar.classList.contains('opened') ||
+          sidebar2.classList.contains('opened') ||
+          sidebar3.classList.contains('opened') ||
+          sidebar5.classList.contains('opened') ||
+          sidebar6.classList.contains('opened') ||
+          sidebar7.classList.contains('opened') ||
+          sidebar8.classList.contains('opened') ||
+          sidebar10.classList.contains('opened') ||
+          sidebar11.classList.contains('opened') ||
+          sidebar12.classList.contains('opened') ||
+          legend.classList.contains('open'))
+      ) {
+        sidebar.classList.remove('opened')
+        sidebar2.classList.remove('opened')
+        sidebar3.classList.remove('opened')
+        sidebar5.classList.remove('opened')
+        sidebar6.classList.remove('opened')
+        sidebar7.classList.remove('opened')
+        sidebar8.classList.remove('opened')
+        sidebar10.classList.remove('opened')
+        sidebar11.classList.remove('opened')
+        sidebar12.classList.remove('opened')
+        link2.classList.remove('active')
+        link3.classList.remove('active')
+        link5.classList.remove('active')
+        link6.classList.remove('active')
+        link7.classList.remove('active')
+        link8.classList.remove('active')
+        link10.classList.remove('active')
+        link11.classList.remove('active')
+        link12.classList.remove('active')
+        map.classList.remove('big')
+        link9.classList.add('active')
+        map.classList.add('big')
+        sidebar9.classList.add('opened')
+        if (window.innerWidth < 767) {
+          legend.classList.remove('open')
+          link4.classList.remove('active')
+        }
+      } else {
+        sidebar9.classList.toggle('opened')
+        map.classList.toggle('openSide')
+        link9.classList.toggle('active')
+      }
+    },
+
+    openSidebarTen() {
+      var legend = document.querySelector('.legend-wrap')
+      var sidebar = document.querySelector('.sidebar-one')
+      var sidebar2 = document.querySelector('.sidebar-two')
+      var sidebar3 = document.querySelector('.sidebar-three')
+      var sidebar5 = document.querySelector('.sidebar-five')
+      var sidebar6 = document.querySelector('.sidebar-six')
+      var sidebar7 = document.querySelector('.sidebar-seven')
+      var sidebar8 = document.querySelector('.sidebar-eight')
+      var sidebar9 = document.querySelector('.sidebar-nine')
+      var sidebar10 = document.querySelector('.sidebar-ten')
+      var sidebar11 = document.querySelector('.sidebar-eleven')
+      var sidebar12 = document.querySelector('.sidebar-twelve')
+      var link = document.querySelector('.link-one')
+      var link2 = document.querySelector('.link-two')
+      var link3 = document.querySelector('.link-three')
+      var link4 = document.querySelector('.link-four')
+      var link5 = document.querySelector('.link-five')
+      var link6 = document.querySelector('.link-six')
+      var link7 = document.querySelector('.link-seven')
+      var link8 = document.querySelector('.link-eight')
+      var link9 = document.querySelector('.link-nine')
+      var link10 = document.querySelector('.link-ten')
+      var link11 = document.querySelector('.link-eleven')
+      var link12 = document.querySelector('.link-twelve')
+      var map = document.querySelector('.map-wrap')
+
+      if (
+        map.classList.contains('openSide') &&
+        (sidebar.classList.contains('opened') ||
+          sidebar2.classList.contains('opened') ||
+          sidebar3.classList.contains('opened') ||
+          sidebar5.classList.contains('opened') ||
+          sidebar6.classList.contains('opened') ||
+          sidebar7.classList.contains('opened') ||
+          sidebar8.classList.contains('opened') ||
+          sidebar9.classList.contains('opened') ||
+          sidebar11.classList.contains('opened') ||
+          sidebar12.classList.contains('opened') ||
+          legend.classList.contains('open'))
+      ) {
+        sidebar.classList.remove('opened')
+        sidebar2.classList.remove('opened')
+        sidebar3.classList.remove('opened')
+        sidebar5.classList.remove('opened')
+        sidebar6.classList.remove('opened')
+        sidebar7.classList.remove('opened')
+        sidebar8.classList.remove('opened')
+        sidebar9.classList.remove('opened')
+        sidebar11.classList.remove('opened')
+        sidebar12.classList.remove('opened')
+        link2.classList.remove('active')
+        link3.classList.remove('active')
+        link5.classList.remove('active')
+        link6.classList.remove('active')
+        link7.classList.remove('active')
+        link8.classList.remove('active')
+        link9.classList.remove('active')
+        link11.classList.remove('active')
+        link12.classList.remove('active')
+        map.classList.remove('big')
+        link10.classList.add('active')
+        map.classList.add('big')
+        sidebar10.classList.add('opened')
+        if (window.innerWidth < 767) {
+          legend.classList.remove('open')
+          link4.classList.remove('active')
+        }
+      } else {
+        sidebar10.classList.toggle('opened')
+        map.classList.toggle('openSide')
+        link10.classList.toggle('active')
+      }
+    },
+
+    openSidebarEleven() {
+      var legend = document.querySelector('.legend-wrap')
+      var sidebar = document.querySelector('.sidebar-one')
+      var sidebar2 = document.querySelector('.sidebar-two')
+      var sidebar3 = document.querySelector('.sidebar-three')
+      var sidebar5 = document.querySelector('.sidebar-five')
+      var sidebar6 = document.querySelector('.sidebar-six')
+      var sidebar7 = document.querySelector('.sidebar-seven')
+      var sidebar8 = document.querySelector('.sidebar-eight')
+      var sidebar9 = document.querySelector('.sidebar-nine')
+      var sidebar10 = document.querySelector('.sidebar-ten')
+      var sidebar11 = document.querySelector('.sidebar-eleven')
+      var sidebar12 = document.querySelector('.sidebar-twelve')
+      var link = document.querySelector('.link-one')
+      var link2 = document.querySelector('.link-two')
+      var link3 = document.querySelector('.link-three')
+      var link4 = document.querySelector('.link-four')
+      var link5 = document.querySelector('.link-five')
+      var link6 = document.querySelector('.link-six')
+      var link7 = document.querySelector('.link-seven')
+      var link8 = document.querySelector('.link-eight')
+      var link9 = document.querySelector('.link-nine')
+      var link10 = document.querySelector('.link-ten')
+      var link11 = document.querySelector('.link-eleven')
+      var link12 = document.querySelector('.link-twelve')
+      var map = document.querySelector('.map-wrap')
+
+      if (
+        map.classList.contains('openSide') &&
+        (sidebar.classList.contains('opened') ||
+          sidebar2.classList.contains('opened') ||
+          sidebar3.classList.contains('opened') ||
+          sidebar5.classList.contains('opened') ||
+          sidebar6.classList.contains('opened') ||
+          sidebar7.classList.contains('opened') ||
+          sidebar8.classList.contains('opened') ||
+          sidebar9.classList.contains('opened') ||
+          sidebar10.classList.contains('opened') ||
+          sidebar12.classList.contains('opened') ||
+          legend.classList.contains('open'))
+      ) {
+        sidebar.classList.remove('opened')
+        sidebar2.classList.remove('opened')
+        sidebar3.classList.remove('opened')
+        sidebar5.classList.remove('opened')
+        sidebar6.classList.remove('opened')
+        sidebar7.classList.remove('opened')
+        sidebar8.classList.remove('opened')
+        sidebar9.classList.remove('opened')
+        sidebar10.classList.remove('opened')
+        sidebar12.classList.remove('opened')
+        link2.classList.remove('active')
+        link3.classList.remove('active')
+        link5.classList.remove('active')
+        link6.classList.remove('active')
+        link7.classList.remove('active')
+        link8.classList.remove('active')
+        link9.classList.remove('active')
+        link10.classList.remove('active')
+        link12.classList.remove('active')
+        map.classList.remove('big')
+        link11.classList.add('active')
+        map.classList.add('big')
+        sidebar11.classList.add('opened')
+        if (window.innerWidth < 767) {
+          legend.classList.remove('open')
+          link4.classList.remove('active')
+        }
+      } else {
+        sidebar11.classList.toggle('opened')
+        map.classList.toggle('openSide')
+        link11.classList.toggle('active')
+      }
+    },
+
+    openSidebarTwelve() {
+      var legend = document.querySelector('.legend-wrap')
+      var sidebar = document.querySelector('.sidebar-one')
+      var sidebar2 = document.querySelector('.sidebar-two')
+      var sidebar3 = document.querySelector('.sidebar-three')
+      var sidebar5 = document.querySelector('.sidebar-five')
+      var sidebar6 = document.querySelector('.sidebar-six')
+      var sidebar7 = document.querySelector('.sidebar-seven')
+      var sidebar8 = document.querySelector('.sidebar-eight')
+      var sidebar9 = document.querySelector('.sidebar-nine')
+      var sidebar10 = document.querySelector('.sidebar-ten')
+      var sidebar11 = document.querySelector('.sidebar-eleven')
+      var sidebar12 = document.querySelector('.sidebar-twelve')
+      var link = document.querySelector('.link-one')
+      var link2 = document.querySelector('.link-two')
+      var link3 = document.querySelector('.link-three')
+      var link4 = document.querySelector('.link-four')
+      var link5 = document.querySelector('.link-five')
+      var link6 = document.querySelector('.link-six')
+      var link7 = document.querySelector('.link-seven')
+      var link8 = document.querySelector('.link-eight')
+      var link9 = document.querySelector('.link-nine')
+      var link10 = document.querySelector('.link-ten')
+      var link11 = document.querySelector('.link-eleven')
+      var link12 = document.querySelector('.link-twelve')
+      var map = document.querySelector('.map-wrap')
+
+      if (
+        map.classList.contains('openSide') &&
+        (sidebar.classList.contains('opened') ||
+          sidebar2.classList.contains('opened') ||
+          sidebar3.classList.contains('opened') ||
+          sidebar5.classList.contains('opened') ||
+          sidebar6.classList.contains('opened') ||
+          sidebar7.classList.contains('opened') ||
+          sidebar8.classList.contains('opened') ||
+          sidebar9.classList.contains('opened') ||
+          sidebar10.classList.contains('opened') ||
+          sidebar11.classList.contains('opened') ||
+          legend.classList.contains('open'))
+      ) {
+        sidebar.classList.remove('opened')
+        sidebar2.classList.remove('opened')
+        sidebar3.classList.remove('opened')
+        sidebar5.classList.remove('opened')
+        sidebar6.classList.remove('opened')
+        sidebar7.classList.remove('opened')
+        sidebar8.classList.remove('opened')
+        sidebar9.classList.remove('opened')
+        sidebar10.classList.remove('opened')
+        sidebar11.classList.remove('opened')
+        link2.classList.remove('active')
+        link3.classList.remove('active')
+        link5.classList.remove('active')
+        link6.classList.remove('active')
+        link7.classList.remove('active')
+        link8.classList.remove('active')
+        link9.classList.remove('active')
+        link10.classList.remove('active')
+        link11.classList.remove('active')
+        map.classList.remove('big')
+        link12.classList.add('active')
+        map.classList.add('big')
+        sidebar12.classList.add('opened')
+        if (window.innerWidth < 767) {
+          legend.classList.remove('open')
+          link4.classList.remove('active')
+        }
+      } else {
+        sidebar12.classList.toggle('opened')
+        map.classList.toggle('openSide')
+        link12.classList.toggle('active')
+      }
+    },
+
+    openLegend() {
+      var legend = document.querySelector('.legend-wrap')
+      var sidebar = document.querySelector('.sidebar-one')
+      var sidebar2 = document.querySelector('.sidebar-two')
+      var sidebar3 = document.querySelector('.sidebar-three')
+      var sidebar5 = document.querySelector('.sidebar-five')
+      var sidebar6 = document.querySelector('.sidebar-six')
+      var sidebar7 = document.querySelector('.sidebar-seven')
+      var sidebar8 = document.querySelector('.sidebar-eight')
+      var sidebar9 = document.querySelector('.sidebar-nine')
+      var sidebar10 = document.querySelector('.sidebar-ten')
+      var sidebar11 = document.querySelector('.sidebar-eleven')
+      var sidebar12 = document.querySelector('.sidebar-twelve')
+      var link = document.querySelector('.link-one')
+      var link2 = document.querySelector('.link-two')
+      var link3 = document.querySelector('.link-three')
+      var link4 = document.querySelector('.link-four')
+      var link5 = document.querySelector('.link-five')
+      var link6 = document.querySelector('.link-six')
+      var link7 = document.querySelector('.link-seven')
+      var link8 = document.querySelector('.link-eight')
+      var link9 = document.querySelector('.link-nine')
+      var link10 = document.querySelector('.link-ten')
+      var link11 = document.querySelector('.link-eleven')
+      var link12 = document.querySelector('.link-twelve')
+      var map = document.querySelector('.map-wrap')
+
+      if (
+        map.classList.contains('openSide') &&
+        (sidebar.classList.contains('opened') ||
+          sidebar2.classList.contains('opened') ||
+          sidebar3.classList.contains('opened') ||
+          sidebar5.classList.contains('opened') ||
+          sidebar6.classList.contains('opened') ||
+          sidebar7.classList.contains('opened') ||
+          sidebar8.classList.contains('opened') ||
+          sidebar9.classList.contains('opened') ||
+          sidebar10.classList.contains('opened') ||
+          sidebar11.classList.contains('opened') ||
+          sidebar12.classList.contains('opened') ||
+          legend.classList.contains('open'))
+      ) {
+        sidebar.classList.remove('opened')
+        sidebar2.classList.remove('opened')
+        sidebar3.classList.remove('opened')
+        sidebar5.classList.remove('opened')
+        sidebar6.classList.remove('opened')
+        sidebar7.classList.remove('opened')
+        sidebar8.classList.remove('opened')
+        sidebar9.classList.remove('opened')
+        sidebar10.classList.remove('opened')
+        sidebar11.classList.remove('opened')
+        sidebar12.classList.remove('opened')
         link.classList.remove('active')
         link2.classList.remove('active')
         link3.classList.remove('active')
+        link5.classList.remove('active')
+        link6.classList.remove('active')
+        link7.classList.remove('active')
+        link8.classList.remove('active')
+        link9.classList.remove('active')
+        link10.classList.remove('active')
+        link11.classList.remove('active')
+        link12.classList.remove('active')
         map.classList.remove('big')
         legend.classList.toggle('open')
         link4.classList.toggle('active')
@@ -1775,9 +3693,25 @@ export default {
   },
 }
 </script>
+
 <style lang="css">
+      .marqueeBottomMobile {
+        bottom: 45px;
+      }
+      .marqueeBottom {
+        bottom: 0px;
+      }
 .leaflet-fade-anim .leaflet-tile,
 .leaflet-zoom-anim .leaflet-zoom-animated {
   will-change: auto !important;
+}
+
+.btn-group-sm > .btn,
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 11px;
+  line-height: 1.5;
+  border-radius: 0.2rem;
+  color: rgba(0, 0, 0, 0.6);
 }
 </style>
