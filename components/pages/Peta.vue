@@ -12,12 +12,17 @@
       <div>
         <b-sidebar
           id="sidebar-backdrop"
-          title=""
+          title="Sipongi+"
           :backdrop-variant="variant"
-          backdrop
-          shadow
-          width="250px"
+          width="190px"
         >
+             <template #footer="{ hide }">
+       <div class="d-flex text-light align-items-center px-3 py-2" style="background-color: #009c3a">
+        <strong class="mr-auto">
+        {{counter}} visitors
+        </strong>
+       </div>
+      </template>
           <div class="px-3 py-2">
             <nav class="mb-3">
               <b-nav vertical>
@@ -842,7 +847,7 @@
 
       <b-link href="https://wa.me/+6281310035000" target="_blank" class="call">
         <img src="/phone-red.svg" alt="" class="mr-1 inner" />
-        Sipongi+
+        Sipongi
       </b-link>
       <b-link class="logo-responsive" v-b-toggle.sidebar-backdrop>
         <img src="/logo.svg" alt="" />
@@ -1382,7 +1387,7 @@
           </li>
         </ol>
       </div> </b-modal
-    >\
+    >
   </div>
 </template>
 
@@ -1417,7 +1422,7 @@ export default {
       profile: true,
       daerahOp: false,
       sarana: false,
-
+      counter : 0,
       runningText: null,
       openedLegend: true,
       titikDate: '',
@@ -2147,6 +2152,29 @@ export default {
       })
   },
   methods: {
+    async visitor(){
+      const url = !process.server ? `/v1/visitor` : `/api/visitor`
+
+      await this.$axios
+        .$get(url)
+        .then((res) => {
+          this.counter = res.visitor
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+        .finally(async () => {
+          this.loading = false
+        })
+    },
     hideBerita() {
       this.beritaMarqueeText = !this.beritaMarqueeText
     },
@@ -3694,7 +3722,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="scss">
       .marqueeBottomMobile {
         bottom: 45px;
       }
@@ -3713,5 +3741,14 @@ export default {
   line-height: 1.5;
   border-radius: 0.2rem;
   color: rgba(0, 0, 0, 0.6);
+}
+.nav-link {
+  text-align: center;
+  color: rgba(0, 0, 0, 0.6);
+  transition: .1s;
+  &:hover {
+    background-color: #009c3a;
+    color: white;
+  }
 }
 </style>
