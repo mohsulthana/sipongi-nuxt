@@ -30,7 +30,7 @@
                 </div>
               </b-col>
               <b-col lg="8" order-lg="1">
-                <h5 class="title"></h5>
+                <h5 class="title">Tabel Emisi</h5>
                 <b-table
                   show-empty
                   small
@@ -100,26 +100,6 @@ export default {
             label: 'Luas',
             sortable: true,
             sortDirection: 'desc',
-          },
-        ],
-        data: [],
-        labels: ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'],
-        datasets: [
-          {
-            label: 'Minggu Ini',
-            backgroundColor: '#FE6500',
-            borderColor: '#FE6500',
-            fill: false,
-            lineTension: 0,
-            data: [],
-          },
-          {
-            label: 'Minggu Sebelumnya',
-            backgroundColor: '#C5CDD5',
-            borderColor: '#C5CDD5',
-            fill: false,
-            lineTension: 0,
-            data: [],
           },
         ],
       },
