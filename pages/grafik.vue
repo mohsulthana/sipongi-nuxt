@@ -85,6 +85,7 @@
                 <b-table
                   show-empty
                   small
+                  striped
                   responsive="sm"
                   class="text-center"
                   :items="kebMingguan.items"
@@ -408,17 +409,13 @@ export default {
         .catch((err) => {})
     },
     async loadGrafikMingguan() {
-      const url = !process.server ? `/v1/grafikMingguan` : `/api/grafikMingguan`
+      // const url = !process.server ? `/api/grafikMingguan` : `/api/grafikMingguan`
+      const url = 'http://139.99.52.109:8286/api/grafikMingguan'
 
       await this.$axios
-        .$get(url, {
-          params: {
-            confidence: ['high'],
-          },
-        })
+        .$get(url)
         .then((res) => {
           this.kebMingguan.items = res.map((data) => {
-            console.log(data)
             if (data.weekNow > data.weekBefore) {
               return {
                 weekNow: data.weekNow,
