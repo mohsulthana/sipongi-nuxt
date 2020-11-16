@@ -90,7 +90,7 @@
           <b-col>
             <p class="copyright">
               Copyright © 2020. Kementerian Lingkungan Hidup dan Kehutanan
-              Republik Indonesia. | <nuxt-link to="/disclaimer">Disclaimer</nuxt-link>
+              Republik Indonesia.  | <nuxt-link to="/disclaimer">Disclaimer</nuxt-link>
             </p>
           </b-col>
         </b-row>

@@ -66,6 +66,9 @@ export default {
    */
   plugins: [
     {
+      src: '~plugins/vue-analytics.js', mode: 'client'
+    },
+    {
       src: '~/plugins/vue2-leaflet-markercluster.js',
       ssr: false,
     },

@@ -14,7 +14,7 @@
           <h6>Titik<br />Panas</h6>
         </div>
       </b-link>
-      
+
       <b-link class="main link-two" @click="openSidebarTwo">
         <div class="wrap">
           <div class="image d-md-none d-block">
@@ -23,7 +23,7 @@
           <h6>Berita</h6>
         </div>
       </b-link>
-      
+
       <b-link class="main link-three" @click="openSidebarThree">
         <div class="wrap">
           <div class="image d-md-none d-block">
@@ -32,7 +32,7 @@
           <h6>Galeri</h6>
         </div>
       </b-link>
-      
+
       <b-link class="main link-four d-md-none" @click="openLegend">
         <div class="wrap">
           <div class="image">
@@ -68,17 +68,17 @@
       <b-link href="" class="main d-md-block d-none">
         <h6>Buat Peta Rawan</h6>
       </b-link>
-			
+
       <b-link href="" class="main d-md-block d-none">
         <h6>Prediksi</h6>
       </b-link>
-      
+
       <b-dropdown id="dropdown-dropright" dropright text="Prediksi" variant="outline-danger" size="sm" class="btn-primary-outline">
 		    <b-dropdown-item href="#">Prediksi Hotspot</b-dropdown-item>
 		    <b-dropdown-item href="#">Prediksi Iklim</b-dropdown-item>
 		    <b-dropdown-item href="#">Prediksi El Nino</b-dropdown-item>
 		  </b-dropdown>
-      
+
       <b-link href="/tentang" class="main d-md-block d-none">
         <h6>Tentang Kami</h6>
       </b-link>
@@ -95,9 +95,9 @@
           	<i class="fas fa-times"></i>
           </b-link>
           <h6>Lokasi Titik Panas</h6>
-          
+
           <div class="content-list">
-          	
+
 		          <b-form-select
 		            v-model="cariProvinsi"
 		            class="mb-3 form-control"
@@ -105,7 +105,7 @@
 		            text-field="nama_provinsi"
 		            :options="provs"
 		          ></b-form-select>
-		          
+
 		          <b-form-select
 		            v-model="cariKota"
 		            class="form-control"
@@ -117,7 +117,7 @@
 		            :options="kotakabs"
 		          ></b-form-select>
         	</div>
-          
+
           <client-only>
             <date-picker
               id="published_at"
@@ -127,7 +127,7 @@
               placeholder="Pilih tanggal"
             ></date-picker>
           </client-only>
-          
+
           <b-link
             :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
             @click="changeSumber('LPN-MODIS')"
@@ -148,7 +148,7 @@
             @click="changeSumber('LPN-LANDSAT8')"
             >LANDSAT8
           </b-link>
-          
+
         </div>
 
         <div class="content-list titik">
@@ -184,7 +184,7 @@
           <h6>Berita Sipongi+</h6>
           <p></p>
         </div>
-          
+
 				<div class="content-list">
           <b-row>
             <b-col cols="6" v-for="blog in beritas" :key="blog.slug">
@@ -269,7 +269,7 @@
            </b-tabs>
         </div>
       </div>
-      
+
    </div>
     <div class="map-wrap" style="height: 100vh">
       <b-link href="https://wa.me/+6281310035000" target="_blank" class="call">
@@ -395,7 +395,7 @@
 			            >LANDSAT8
 			          </b-link>
             </div>
-          	
+
             <div class="select-wrap">
               <label class="mr-sm-2">Periode</label>
               <b-form-select
@@ -437,8 +437,8 @@
                 Tinggi
               </b-form-checkbox>
             </div>
-            
-            
+
+
             <div class="select-wrap">
               <label class="float-left">Pergerakan Angin</label>
               <b-form-checkbox
@@ -481,7 +481,7 @@
               >
               </b-form-checkbox>
             </div>
-            
+
             <div class="select-wrap">
               <label class="mr-sm-2">Basemap</label>
               	<b-form-select v-model="currentTiles">
@@ -511,7 +511,7 @@
           :url="tilesUrl"
           >
           </l-tile-layer>
-         
+
           <l-image-overlay
             url="/gelap.png"
             :bounds="[
@@ -796,7 +796,7 @@ export default {
   name: 'Peta',
   data () {
     return {
-       	
+
       currentTiles: 0,
       tiles: [
         {
@@ -811,7 +811,7 @@ export default {
           name: 'Open Topo Map',
           url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png'
         },
-        
+
         {
           name: 'World Imagery Map',
           url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
@@ -1042,7 +1042,7 @@ export default {
   	tilesUrl () {
       return this.tiles[this.currentTiles].url
     },
-  
+
     noaaGreenIcon() {
       let icon = () => {}
       if (process.browser) icon = this.$L.icon
@@ -1793,7 +1793,7 @@ export default {
           this.loading = false
         })
     },
-    
+
     async loadLain() {
       this.loading = true
       const url = !process.server ? `/v1/listGaleri` : `/api/listGaleri`
@@ -1827,7 +1827,7 @@ export default {
           this.loading = false
         })
     },
-    
+
     async loadBerita() {
       this.loading = true
       const url = !process.server ? `/v1/listBerita` : `/api/listBerita`
@@ -1862,7 +1862,7 @@ export default {
           this.loading = false
         })
     },
-    
+
     async loadMoreDataGal() {
       this.optionsGal.page++
       await this.loadPemadaman()
@@ -2016,8 +2016,8 @@ export default {
         map.classList.toggle('openSide')
       }
     },
-  },  
-  
+  },
+
 }
 </script>
 
