@@ -16,13 +16,14 @@
           :backdrop-variant="variant"
           width="190px"
         >
-             <template #footer="{ hide }">
-       <div class="d-flex text-light align-items-center px-3 py-2" style="background-color: #009c3a">
-        <strong class="mr-auto">
-        {{counter}} visitors
-        </strong>
-       </div>
-      </template>
+          <template #footer="{}">
+            <div
+              class="d-flex text-light align-items-center px-3 py-2"
+              style="background-color: #009c3a"
+            >
+              <strong class="mr-auto"> {{ counter }} visitors </strong>
+            </div>
+          </template>
           <div class="px-3 py-2">
             <nav class="mb-3">
               <b-nav vertical>
@@ -163,32 +164,32 @@
                   size="sm"
                 >
                   <b-dropdown-item
+                    v-b-modal.modal-direktorat
                     class="link-seven"
-                    @click="openSidebarSeven"
                     style="text-align: left"
                     >Direktorat PKHL</b-dropdown-item
                   >
                   <b-dropdown-item
                     class="link-eight"
-                    @click="openSidebarEight"
+                    v-b-modal.modal-manggala-agni
                     style="text-align: left"
                     >Manggala Agni</b-dropdown-item
                   >
                   <b-dropdown-item
                     class="link-nine"
-                    @click="openSidebarNine"
+                    v-b-modal.modal-struktur-organisasi
                     style="text-align: left"
                     >Struktur Organisasi</b-dropdown-item
                   >
                   <b-dropdown-item
                     class="link-ten"
-                    @click="openSidebarTen"
+                    v-b-modal.modal-kontak-kami
                     style="text-align: left"
                     >Kontak Kami</b-dropdown-item
                   >
                   <b-dropdown-item
                     class="link-eleven"
-                    @click="openSidebarEleven"
+                    v-b-modal.modal-link-terkait
                     style="text-align: left"
                     >Link Terkait</b-dropdown-item
                   >
@@ -856,7 +857,10 @@
       <marquee behavior="" direction="">
         {{ runningText }}
       </marquee>
-      <div :class="['legend-wrap', 'content-list', { open: openedLegend }]" class="mb-5">
+      <div
+        :class="['legend-wrap', 'content-list', { open: openedLegend }]"
+        class="mb-5"
+      >
         <b-link class="legend-head" @click="toggleOpen">
           <h6 class="d-md-none d-block">Summary</h6>
           <h6 class="d-md-block d-none">Summary</h6>
@@ -1087,17 +1091,25 @@
         </div>
       </div>
       <transition name="fade">
-        <marquee v-show="beritaMarqueeText" behavior="" direction="" :class="{marqueeBottomMobile: !openedLegend, marqueeBottom: openedLegend}">
-            <span v-for="(value, index) in pemadamans" :key="index">
-              <img :src="value.detail.image_url" width="60" height="40" />
-              <b-link
-                :to="`/galeri/${value.slug}`"
-                class="logo"
-                style="color: #fff"
-              >
-                {{ value.title }}
-              </b-link>
-            </span>
+        <marquee
+          v-show="beritaMarqueeText"
+          behavior=""
+          direction=""
+          :class="{
+            marqueeBottomMobile: !openedLegend,
+            marqueeBottom: openedLegend,
+          }"
+        >
+          <span v-for="(value, index) in pemadamans" :key="index">
+            <img :src="value.detail.image_url" width="60" height="40" />
+            <b-link
+              :to="`/galeri/${value.slug}`"
+              class="logo"
+              style="color: #fff"
+            >
+              {{ value.title }}
+            </b-link>
+          </span>
         </marquee>
       </transition>
       <client-only>
@@ -1235,7 +1247,250 @@
         ></b-spinner>
       </div>
     </div>
+
+    <modal title="Disclaimer"></modal>
+
     <b-modal
+      id="modal-direktorat"
+      body-class="modal-direktorat"
+      size="lg"
+      hide-footer
+    >
+      <template #modal-title>
+        <h4 class="font-weight-bold">Tentang Sipongi+</h4>
+        <small class="text-muted">
+          SiPongi bertujuan untuk mengantisipasi dan melakukan upaya pencegahan
+          kebakaran hutan dengan lebih cepat sehingga bencana tersebut dapat
+          dikurangi.
+        </small>
+      </template>
+      <div class="d-block">
+        <div class="content-list">
+          <b-row>
+            <b-col md="4" order-md="2">
+              <img
+                :src="direktoratPKHL.logo_url"
+                alt=""
+                class="img-fluid img-logo"
+              />
+            </b-col>
+            <b-col md="8" order-md="1" v-html="direktoratPKHL.text"> </b-col>
+          </b-row>
+        </div>
+      </div>
+    </b-modal>
+
+    <b-modal
+      id="modal-manggala-agni"
+      body-class="modal-direktorat"
+      size="lg"
+      hide-footer
+    >
+      <template #modal-title>
+        <h4 class="font-weight-bold">Tentang Sipongi+</h4>
+        <small class="text-muted">
+          SiPongi bertujuan untuk mengantisipasi dan melakukan upaya pencegahan
+          kebakaran hutan dengan lebih cepat sehingga bencana tersebut dapat
+          dikurangi.
+        </small>
+      </template>
+      <div class="d-block">
+        <div class="content-list">
+          <b-row>
+            <b-col md="8">
+              <div class="nav-agni">
+                <b-link @click="showProfile" :class="{ active: profile }"
+                  >Profil</b-link
+                >
+                <b-link @click="showDaerahOp" :class="{ active: daerahOp }"
+                  >Daerah Operasional</b-link
+                >
+                <b-link @click="showSarana" :class="{ active: sarana }"
+                  >Sarana & Prasarana</b-link
+                >
+              </div>
+            </b-col>
+            <b-col lg="12">
+              <!-- Profil -->
+              <b-row v-if="profile">
+                <b-col lg="4" order-lg="2">
+                  <div
+                    :class="[
+                      { toBot: scrolledToBottom },
+                      { scrolling: isScroll },
+                      'nav-content',
+                    ]"
+                  >
+                    <h3>Profil</h3>
+                    <b-link
+                      v-for="prof in profil"
+                      :key="prof.id"
+                      v-scroll-to="'#data' + prof.urutan"
+                      to="#"
+                      >{{ prof.title }}</b-link
+                    >
+                  </div>
+                </b-col>
+                <b-col lg="8" order-lg="1">
+                  <h5 class="title">Profil</h5>
+                  <div v-for="prof in profil" :key="prof.id">
+                    <h6 class="subtitle" :id="'data' + prof.urutan">
+                      {{ prof.title }}
+                    </h6>
+                    <img
+                      v-if="prof.image !== null"
+                      :src="prof.image_url"
+                      alt=""
+                      class="img-fluid mb-3"
+                    />
+                    <div v-html="prof.text"></div>
+                  </div>
+                </b-col>
+              </b-row>
+              <!-- Daerah Operasi -->
+              <b-row v-if="daerahOp">
+                <b-col md="8">
+                  <h6 class="title">Daerah Operasional</h6>
+                  <div class="daerah-item" v-for="(d, i) in daerah" :key="i">
+                    <!-- <h5>Sumatra Utara-01</h5> -->
+                    <h5>{{ d.daerah }}</h5>
+                    <b-row v-for="(k, j) in d.kota" :key="j">
+                      <b-col md="6">
+                        <p class="heading">{{ k.daerah }}</p>
+                        <span class="alamat">{{ k.alamat }}</span>
+                      </b-col>
+                      <b-col md="3" cols="6">
+                        <span class="jumlah">Jumlah Regu</span>
+                        <span class="count">{{ k.jumlah_regu }}</span>
+                      </b-col>
+                      <b-col md="3" cols="6">
+                        <span class="jumlah">Jumlah Anggota </span>
+                        <span class="count">{{ k.jumlah_anggota }}</span>
+                      </b-col>
+                    </b-row>
+                  </div>
+                </b-col>
+              </b-row>
+              <!-- Sarana & Prasarana -->
+              <b-row v-if="sarana">
+                <b-col md="12" v-html="sarpras.text"> Sarana </b-col>
+              </b-row>
+            </b-col>
+          </b-row>
+        </div>
+      </div>
+    </b-modal>
+
+    <b-modal
+      id="modal-struktur-organisasi"
+      body-class="modal-direktorat"
+      size="lg"
+      hide-footer
+    >
+      <template #modal-title>
+        <h4 class="font-weight-bold">Struktur Organisasi</h4>
+        <small class="text-muted">
+          SiPongi bertujuan untuk mengantisipasi dan melakukan upaya pencegahan
+          kebakaran hutan dengan lebih cepat sehingga bencana tersebut dapat
+          dikurangi.
+        </small>
+      </template>
+      <div class="d-block">
+        <div class="content-list">
+          <b-row>
+            <b-col md="8">
+              <img
+                :src="strukturOrganisasi.image_url"
+                alt=""
+                class="img-fluid"
+              />
+            </b-col>
+          </b-row>
+        </div>
+      </div>
+    </b-modal>
+
+    <b-modal
+      id="modal-kontak-kami"
+      body-class="modal-kontak-kami"
+      size="lg"
+      hide-footer
+    >
+      <template #modal-title>
+        <h4 class="font-weight-bold">Kontak Kami</h4>
+      </template>
+      <div class="d-block">
+        <div class="content-list text-center">
+          <b-row>
+            <b-col md="12">
+              <div class="logo-footer">
+                <img src="/kementerian-logo.svg" />
+                <h6>Kementerian Lingkungan Hidup dan Kehutanan</h6>
+              </div>
+              <p font-size="14px" font-weight="100">
+                Gedung Pusat Kehutanan Manggala Wanabakti Blok VII Lt. 13
+                <br />Jl. Jend. Gatot Subroto Jakarta 10270
+              </p>
+              <p>
+                <i class="far fa-envelope"></i>
+                posko.karhutla@menlhk.go.id<br />
+                <i class="fas fa-phone"></i> 021-5704618
+              </p>
+            </b-col>
+          </b-row>
+        </div>
+      </div>
+    </b-modal>
+
+        <b-modal
+      id="modal-link-terkait"
+      body-class="modal-link-terkait"
+      size="lg"
+      hide-footer
+    >
+      <template #modal-title>
+        <h4 class="font-weight-bold">Link Tekait</h4>
+      </template>
+      <div class="d-block">
+        <div class="content-list text-center">
+          <b-row>
+            <b-col md="12">
+              <h6 class="sec-title">Link Terkait</h6>
+              <ul>
+                <li>
+                  <b-link href="http://www.menlhk.go.id/" class="w-logo"
+                    ><img src="/kementerian-logo.svg" alt="" /> KLHK</b-link
+                  >
+                </li>
+                <li>
+                  <b-link href="http://ditjenppi.menlhk.go.id/" class="w-logo"
+                    ><img src="/kementerian-logo.svg" alt="" />
+                    DitjenPPI</b-link
+                  >
+                </li>
+                <li>
+                  <b-link href="http://bmkg.go.id/" class="w-logo"
+                    ><img src="/bmkg.svg" alt="" /> BMKG</b-link
+                  >
+                </li>
+                <li>
+                  <b-link href="http://lapan.go.id/" class="w-logo"
+                    ><img src="/lapan.svg" alt="" /> LAPAN</b-link
+                  >
+                </li>
+                <li>
+                  <b-link href="http://bnpb.go.id/" class="w-logo"
+                    ><img src="/bnpb.svg" alt="" /> BNPB</b-link
+                  >
+                </li>
+              </ul>
+            </b-col>
+          </b-row>
+        </div>
+      </div>
+    </b-modal>
+
+    <!-- <b-modal
       id="modal-disclaimer"
       body-class="modal-disclaimer"
       size="lg"
@@ -1386,12 +1641,14 @@
             atau lisan atau pemahaman terhadap materi pelajaran tersebut.
           </li>
         </ol>
-      </div> </b-modal
-    >
+      </div>
+    </b-modal> -->
   </div>
 </template>
 
 <script>
+import modal from '../Modal'
+
 export default {
   name: 'Peta',
   data() {
@@ -1422,7 +1679,7 @@ export default {
       profile: true,
       daerahOp: false,
       sarana: false,
-      counter : 0,
+      counter: 0,
       runningText: null,
       openedLegend: true,
       titikDate: '',
@@ -1679,6 +1936,9 @@ export default {
         }
       },
     },
+  },
+  components: {
+    modal,
   },
   computed: {
     tilesUrl() {
@@ -2152,7 +2412,7 @@ export default {
       })
   },
   methods: {
-    async visitor(){
+    async visitor() {
       const url = !process.server ? `/v1/visitor` : `/api/visitor`
 
       await this.$axios
@@ -3723,12 +3983,12 @@ export default {
 </script>
 
 <style lang="scss">
-      .marqueeBottomMobile {
-        bottom: 45px;
-      }
-      .marqueeBottom {
-        bottom: 0px;
-      }
+.marqueeBottomMobile {
+  bottom: 45px;
+}
+.marqueeBottom {
+  bottom: 0px;
+}
 .leaflet-fade-anim .leaflet-tile,
 .leaflet-zoom-anim .leaflet-zoom-animated {
   will-change: auto !important;
@@ -3745,7 +4005,7 @@ export default {
 .nav-link {
   text-align: center;
   color: rgba(0, 0, 0, 0.6);
-  transition: .1s;
+  transition: 0.1s;
   &:hover {
     background-color: #009c3a;
     color: white;
