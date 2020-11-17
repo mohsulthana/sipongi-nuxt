@@ -7,201 +7,85 @@
       <b-link class="logotext" v-b-toggle.sidebar-backdrop>
         <img src="/logo-text.svg" alt="" />
       </b-link>
-      <b-button variant="primary-outline" block @click="hide"> </b-button>
+        <b-button variant="primary-outline" block @click="hide"> </b-button>
+     <div>
 
-      <div>
-        <b-sidebar
-          id="sidebar-backdrop"
-          title="Sipongi+"
-          :backdrop-variant="variant"
-          width="190px"
-        >
-          <template #footer="{}">
-            <div
-              class="d-flex text-light align-items-center px-3 py-2"
-              style="background-color: #009c3a"
-            >
-              <strong class="mr-auto"> {{ counter }} visitors </strong>
-            </div>
-          </template>
-          <div class="px-3 py-2">
-            <nav class="mb-3">
-              <b-nav vertical>
-                <b-nav-item
-                  class="link-one"
-                  @click="openSidebarOne"
-                  v-b-toggle="'collapse-3'"
-                  >Titik Panas</b-nav-item
-                >
-
-                <b-nav-item-dropdown
-                  id="my-nav-dropdown"
-                  text="Karhutla"
-                  toggle-class="nav-link-custom"
-                  left
-                  size="sm"
-                >
-                  <b-dropdown-item
-                    to="/luas-karhutla"
-                    class="d-md-block d-none"
-                    style="text-align: left"
-                    >Luas Karhutla</b-dropdown-item
-                  >
-                  <b-dropdown-item
-                    href="#"
-                    class="d-md-block d-none"
-                    style="text-align: left"
-                    to="/emisi"
-                    >Emisi CO2</b-dropdown-item
-                  >
-                  <b-dropdown-item
-                    href="#"
-                    class="d-md-block d-none"
-                    style="text-align: left"
-                    >Pemadaman</b-dropdown-item
-                  >
-                </b-nav-item-dropdown>
-
-                <b-nav-item-dropdown
-                  id="my-nav-dropdown"
-                  text="Dalkarhutla"
-                  toggle-class="nav-link-custom"
-                  left
-                  size="sm"
-                >
-                  <b-dropdown-item
-                    href="http://sipongi.menlhk.go.id/laporan_dalkarhutla_mitra/app2020/"
-                    target="_blank"
-                    class="d-md-block d-none"
-                    style="text-align: left"
-                    >Pelaporan Dalkarhutla</b-dropdown-item
-                  >
-                  <b-dropdown-item
-                    href="#"
-                    class="d-md-block d-none"
-                    style="text-align: left"
-                    >FDRS</b-dropdown-item
-                  >
-                </b-nav-item-dropdown>
-
-                <b-nav-item-dropdown
-                  id="my-nav-dropdown"
-                  text="Prediksi Karhutla"
-                  toggle-class="nav-link-custom"
-                  left
-                  size="sm"
-                >
-                  <b-dropdown-item
-                    href="#"
-                    class="d-md-block d-none"
-                    style="text-align: left"
-                    >Peta Rawan
-                  </b-dropdown-item>
-                  <b-dropdown-item
-                    href="#"
-                    class="d-md-block d-none"
-                    style="text-align: left"
-                    >Prediksi Titik Panas</b-dropdown-item
-                  >
-                  <b-dropdown-item
-                    href="#"
-                    class="d-md-block d-none"
-                    style="text-align: left"
-                    >Prediksi Iklim</b-dropdown-item
-                  >
-                  <b-dropdown-item
-                    href="#"
-                    class="d-md-block d-none"
-                    style="text-align: left"
-                    >Prediksi Elnino
-                  </b-dropdown-item>
-                </b-nav-item-dropdown>
-
-                <b-nav-item-dropdown
-                  id="my-nav-dropdown"
-                  text="Publikasi"
-                  toggle-class="nav-link-custom"
-                  left
-                  size="sm"
-                >
-                  <b-dropdown-item
-                    class="link-two"
-                    @click="openSidebarTwo"
-                    style="text-align: left"
-                    >Berita</b-dropdown-item
-                  >
-                  <b-dropdown-item
-                    class="link-three"
-                    @click="openSidebarThree"
-                    style="text-align: left"
-                    >Galeri</b-dropdown-item
-                  >
-                  <b-dropdown-item
-                    class="link-five"
-                    @click="openSidebarFive"
-                    style="text-align: left"
-                    >Peraturan Perundangan</b-dropdown-item
-                  >
-                  <b-dropdown-item
-                    class="link-twelve"
-                    @click="openSidebarTwelve"
-                    style="text-align: left"
-                    >Laporan Harian Posko</b-dropdown-item
-                  >
-                  <b-dropdown-item
-                    class="link-six"
-                    @click="openSidebarSix"
-                    style="text-align: left"
-                    >Dokumen Lainnya</b-dropdown-item
-                  >
-                </b-nav-item-dropdown>
-
-                <b-nav-item-dropdown
-                  id="my-nav-dropdown"
-                  text="Tentang Sipongi"
-                  toggle-class="nav-link-custom"
-                  left
-                  size="sm"
-                >
-                  <b-dropdown-item
-                    v-b-modal.modal-direktorat
-                    class="link-seven"
-                    style="text-align: left"
-                    >Direktorat PKHL</b-dropdown-item
-                  >
-                  <b-dropdown-item
-                    class="link-eight"
-                    v-b-modal.modal-manggala-agni
-                    style="text-align: left"
-                    >Manggala Agni</b-dropdown-item
-                  >
-                  <b-dropdown-item
-                    class="link-nine"
-                    v-b-modal.modal-struktur-organisasi
-                    style="text-align: left"
-                    >Struktur Organisasi</b-dropdown-item
-                  >
-                  <b-dropdown-item
-                    class="link-ten"
-                    v-b-modal.modal-kontak-kami
-                    style="text-align: left"
-                    >Kontak Kami</b-dropdown-item
-                  >
-                  <b-dropdown-item
-                    class="link-eleven"
-                    v-b-modal.modal-link-terkait
-                    style="text-align: left"
-                    >Link Terkait</b-dropdown-item
-                  >
-                  <b-dropdown-item
-                    v-b-modal.modal-disclaimer
-                    class="d-md-block d-none"
-                    style="text-align: left"
-                    >Disclaimer</b-dropdown-item
-                  >
-                </b-nav-item-dropdown>
-              </b-nav>
-            </nav>
+    <b-sidebar id="sidebar-backdrop"
+      title=""
+      :backdrop-variant="variant"
+      backdrop
+      shadow width="250px" >
+      	
+      <div class="px-3 py-2" >
+      	<nav class="mb-3">
+            <b-nav vertical>
+          	<img src="/logo.svg" alt="" /><img src="/logo-text.svg" alt=""/>
+            <b-nav-item v-b-modal.modal-titikpanas class="d-md-block d-none" style="text-align: left">Titik Panas</b-nav-item>
+			
+     	<b-nav-item-dropdown
+						      id="my-nav-dropdown"
+						      text="Karhutla"
+						      toggle-class="nav-link-custom"
+						      left size="sm">
+		    <b-dropdown-item v-b-modal.modal-luaskebakaran class="d-md-block d-none" style="text-align: left">Luas Karhutla</b-dropdown-item>
+		    <b-dropdown-item v-b-modal.modal-emisico2 class="d-md-block d-none" style="text-align: left">Emisi CO2</b-dropdown-item>
+		    <b-dropdown-item href="#" class="d-md-block d-none" style="text-align: left">Pemadaman</b-dropdown-item>
+		  </b-nav-item-dropdown>
+		 
+		  <b-nav-item-dropdown
+						      id="my-nav-dropdown"
+						      text="Dalkarhutla"
+						      toggle-class="nav-link-custom"
+						      left size="sm">
+		    <b-dropdown-item href="http://sipongi.menlhk.go.id/laporan_dalkarhutla_mitra/app2020/"
+        target="_blank" class="d-md-block d-none" style="text-align: left">Pelaporan Dalkarhutla</b-dropdown-item>
+		     <b-dropdown-item v-b-modal.modal-fdrs class="d-md-block d-none" style="text-align: left">FDRS</b-dropdown-item>
+		  </b-nav-item-dropdown>
+		
+		  <b-nav-item-dropdown
+						      id="my-nav-dropdown"
+						      text="Prediksi Karhutla"
+						      toggle-class="nav-link-custom"
+						      left size="sm">
+		    <b-dropdown-item href="#" class="d-md-block d-none" style="text-align: left">Peta Rawan </b-dropdown-item>
+		    <b-dropdown-item href="#" class="d-md-block d-none" style="text-align: left">Prediksi Titik Panas</b-dropdown-item>
+		    <b-dropdown-item href="#" class="d-md-block d-none" style="text-align: left">Prediksi Iklim</b-dropdown-item>
+		    <b-dropdown-item href="#" class="d-md-block d-none" style="text-align: left">Prediksi Elnino </b-dropdown-item>
+		  </b-nav-item-dropdown>
+		  
+		  <b-nav-item-dropdown
+						      id="my-nav-dropdown"
+						      text="Publikasi"
+						      toggle-class="nav-link-custom"
+						      left size="sm">
+		    <b-dropdown-item v-b-modal.modal-berita class="d-md-block d-none" style="text-align: left">Berita</b-dropdown-item>
+		    <b-dropdown-item v-b-modal.modal-galeri class="d-md-block d-none" style="text-align: left">Galeri</b-dropdown-item>
+		    <b-dropdown-item v-b-modal.modal-perundangan class="d-md-block d-none" style="text-align: left">Peraturan Perundangan</b-dropdown-item>
+		    <b-dropdown-item v-b-modal.modal-laporanposko class="d-md-block d-none" style="text-align: left">Laporan Harian Posko</b-dropdown-item>
+		    <b-dropdown-item v-b-modal.modal-dokumenlain class="d-md-block d-none" style="text-align: left">Dokumen Lainnya</b-dropdown-item>
+		  </b-nav-item-dropdown>
+		  
+		  <b-nav-item-dropdown
+						      id="my-nav-dropdown"
+						      text="Tentang Sipongi"
+						      toggle-class="nav-link-custom"
+						      left size="sm">
+		    <b-dropdown-item class="link-seven" @click="openSidebarSeven" style="text-align: left">Direktorat PKHL</b-dropdown-item>
+		    <b-dropdown-item class="link-eight" @click="openSidebarEight" style="text-align: left">Manggala Agni</b-dropdown-item>
+		    <b-dropdown-item class="link-nine" @click="openSidebarNine" style="text-align: left">Struktur Organisasi</b-dropdown-item>
+		    <b-dropdown-item class="link-ten" @click="openSidebarTen" style="text-align: left">Kontak Kami</b-dropdown-item>
+		    <b-dropdown-item class="link-eleven" @click="openSidebarEleven" style="text-align: left">Link Terkait</b-dropdown-item>
+		    <b-dropdown-item v-b-modal.modal-disclaimer class="d-md-block d-none" style="text-align: left">Disclaimer</b-dropdown-item>
+		  </b-nav-item-dropdown>
+		  
+		  </nav>
+      </div>
+      </b-sidebar>
+      
+      <b-link class="main link-two d-md-none" v-b-modal.modal-berita>
+        <div class="wrap">
+          <div class="image d-md-none d-block">
+            <img src="/paper.svg" alt="" />
           </div>
         </b-sidebar>
 
@@ -324,7 +208,22 @@
           </div>
 
           <div class="content-list titik">
-            <template v-for="datas in DataHotSpot.kabkota">
+            <b-form-select
+              v-model="confidence_level"
+              class="mb-3 form-control"
+              value-field="id"
+              text-field="Pilih Confidence Level"
+              :options="['high', 'medium', 'low']"
+            ></b-form-select>
+            <template v-for="(data, index) in dataHotSpotSatelit">
+              <b-link class="list-item" :key="index">
+                <h6>{{ `${data.kabkota} - ${data.provinsi}` }}</h6>
+                <p>{{ data.sumber }}</p>
+                <span class="count">{{ data.counter }}</span>
+              </b-link>
+            </template>
+            <!-- <template v-for="datas in DataHotSpot.kabkota">
+                {{datas}}
               <template v-for="(kotakab, index) in datas">
                 <b-link
                   class="list-item"
@@ -332,7 +231,6 @@
                   v-if="checkSumber(kotakab.data.sumber)"
                   @click="changeCenter(kotakab.data)"
                 >
-                  <!-- {{ kotakab.data }} -->
                   <h6>
                     {{ kotakab.data.kabkota }} -
                     {{ kotakab.data.nama_provinsi }}
@@ -341,7 +239,7 @@
                   <span class="count">{{ kotakab.count }}</span>
                 </b-link>
               </template>
-            </template>
+            </template> -->
           </div>
 
           <b-link @click="generateReport(DataHotSpot)" class="pdf">
@@ -842,10 +740,19 @@
     </div>
 
     <div class="map-wrap" style="height: 100vh">
-      <div id="logo_maps">
-        <img src="/sipongi_maps.png" class="img img-responsives" />
-      </div>
-
+    
+    <div id="logo_maps">
+    		<!--<img src="/sipongi_maps.png" class="img img-responsives">-->
+    		<ul>
+    				<li><a href="http://www.menlhk.go.id" target="_blank"><img src="/logo_klhk.png" class="img img-responsives center-block"> KLHK </a></li>
+    				<li><a href="http://www.ditjenppi.menlhk.go.id" target="_blank"><img src="/logo_klhk.png" class="img img-responsives center-block"> DitjenPPI </a></li>
+    				<li><a href="http://www.bmkg.go.id" target="_blank"><img src="/logo_bmkg.png" class="img img-responsives center-block"> BMKG </a></li>
+    				<li><a href="http://www.lapan.go.id" target="_blank"><img src="/logo_lapan.png" class="img img-responsives center-block"> LAPAN </a></li>
+    				<li><a href="http://www.bnpb.go.id" target="_blank"><img src="/logo_bnpb.png" class="img img-responsives center-block"> BNPB </a></li>
+    		</ul>
+    </div>
+    
+    
       <b-link href="https://wa.me/+6281310035000" target="_blank" class="call">
         <img src="/phone-red.svg" alt="" class="mr-1 inner" />
         Sipongi
@@ -1409,7 +1316,8 @@
         </div>
       </div>
     </b-modal>
-
+    
+    <!-- Modal Perundangan -->
     <b-modal
       id="modal-kontak-kami"
       body-class="modal-kontak-kami"
@@ -1441,8 +1349,111 @@
         </div>
       </div>
     </b-modal>
-
-        <b-modal
+    
+    <!-- Modal Laporan Harian Posko -->
+    <b-modal
+      id="modal-laporanposko"
+      body-class="modal-laporanposko"
+      size="md"
+      hide-footer
+      title="Laporan Harian Posko"
+    >
+    	<div class="content-list">
+        	<b-row>
+                  <b-col md="12">
+                    <div
+                      v-for="(laporan,i) in laporanHarian"
+                      :key="i"
+                      class="document-item"
+                    >
+                      <img
+                        :src="`/paper.svg`"
+                        alt="icon"
+                      />
+                      <h5>{{ laporan.bulan_nama }}&nbsp;{{ laporan.tahun }}</h5>
+                      <b-link
+                        :href="laporan.link"
+                        target="_blank"
+                        class="btn btn-secondary"
+                      >
+                        Open
+                        <i class="fas fa-angle-right"></i>
+                      </b-link>
+                    </div>
+                    <div v-if="loadMoreLaporan" class="text-center mt-4">
+                      <b-button @click="loadMoreDataLaporan()" variant="primary"
+                        >Lihat lebih banyak</b-button
+                      >
+                    </div>
+                  </b-col>
+        	</b-row>
+      </div>
+    </b-modal>
+    
+    <!-- Modal Dokumen Lainnya -->
+    <b-modal
+      id="modal-dokumenlain"
+      body-class="modal-dokumenlain"
+      size="md"
+      hide-footer
+      title="Dokumen Lainnya"
+    >
+    	<div class="content-list">
+        	<b-row>
+                  <b-col md="12">
+                    <div
+                      v-for="dok in dokumen"
+                      :key="dok.slug"
+                      class="document-itempeta"
+                    >
+                      <img
+                        :src="`/${
+                          dok.tipe === 'file'
+                            ? 'paper.svg'
+                            : dok.tipe === 'video'
+                            ? 'video.svg'
+                            : 'paper.svg'
+                        }`"
+                        alt="icon"
+                      />
+                      <h5>{{ dok.title }}</h5>
+                      <b-link
+                        :href="`${
+                          dok.tipe === 'file'
+                            ? `/v1/dokumen-lain/file/${dok.slug}`
+                            : dok.file_url
+                        }`"
+                        target="_blank"
+                        :class="`btn ${
+                          dok.tipe === 'file'
+                            ? 'btn-secondary'
+                            : dok.tipe === 'video'
+                            ? 'btn-third'
+                            : 'btn-secondary'
+                        }`"
+                      >
+                        {{
+                          dok.tipe === 'file'
+                            ? 'Download'
+                            : dok.tipe === 'video'
+                            ? 'Watch'
+                            : 'Open'
+                        }}
+                        <i class="fas fa-angle-right"></i>
+                      </b-link>
+                    </div>
+                    <div v-if="loadMorePerundangan" md="12" class="text-center">
+                      <b-button class="loadMore" @click="loadMoreDataPerundangan()" variant="primary"
+                        >Lihat lebih banyak</b-button
+                      >
+                    </div>
+                  </b-col>
+                </b-row>
+        </div>
+    </b-modal>
+    
+    <!-- Modal Titik Panas -->
+    <b-modal
       id="modal-link-terkait"
       body-class="modal-link-terkait"
       size="lg"
@@ -1653,6 +1664,7 @@ export default {
   name: 'Peta',
   data() {
     return {
+      dataHotSpotSatelit: [],
       beritaMarqueeText: true,
       currentTiles: 0,
       tiles: [
@@ -1944,7 +1956,6 @@ export default {
     tilesUrl() {
       return this.tiles[this.currentTiles].url
     },
-
     noaaGreenIcon() {
       let icon = () => {}
       if (process.browser) icon = this.$L.icon
@@ -2361,7 +2372,7 @@ export default {
     },
   },
   async created() {
-    await this.loadHotSpot()
+    await this.loadHotspotSatelit()
     await this.loadHotSpot()
     if (this.firstLoad) {
       await this.cmbProvs()
@@ -2395,7 +2406,6 @@ export default {
         params,
       })
       .then((res) => {
-        console.log(res)
         this.beritas = this.beritas.concat(res.data)
         this.loadMore = !!res.links.next
       })
@@ -2410,6 +2420,11 @@ export default {
           }
         }
       })
+  },
+  filters: {
+    petaFilter: function (value) {
+      console.log(this.DataHotSpot, value)
+    },
   },
   methods: {
     async visitor() {
@@ -2611,6 +2626,28 @@ export default {
           })
         },
       }
+    },
+    async loadHotspotSatelit() {
+      // new version of hotspot
+      const url = !process.server
+        ? `/v1/hotspot/satelit`
+        : `/api/hotspot/satelit`
+
+      await this.$axios
+        .$get(url, {
+          params: {
+            kabkota: '',
+            sumber: '',
+            satelit: '',
+            confidence_level: 'high',
+          },
+        })
+        .then((res) => {
+          this.dataHotSpotSatelit = res.data
+        })
+        .catch((err) => {
+          console.error(err)
+        })
     },
     async loadHotSpot() {
       const url = !process.server ? `/v1/indoHotspot` : `/api/indoHotspot`
