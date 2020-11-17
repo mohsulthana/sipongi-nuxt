@@ -20,15 +20,22 @@
       <b-container>
         <b-row>
           <b-col md="8">
-            <h6 class="charts-title">Data Peringatan kebakaran mingguan</h6>
-            <line-chart
-              v-if="!$fetchState.pending"
-              :data="kebMingguan"
-              :options="kebMingguanOpt"
-              class="charts"
-            />
-
-            <h6 class="charts-title">Data peringatan kebakaran kumulatif</h6>
+            <b-row>
+              <b-tabs content-class="mt-3" fill>
+                <b-tab title="Grafik" active>
+                  <b-row>
+                    <h6 class="charts-title">
+                      Data Peringatan kebakaran mingguan
+                    </h6>
+                    <line-chart
+                      v-if="!$fetchState.pending"
+                      :data="kebMingguan"
+                      :options="kebMingguanOpt"
+                      class="charts"
+                    />
+                  </b-row>
+                  <b-row>
+                                <h6 class="charts-title">Data peringatan kebakaran kumulatif</h6>
             <div class="compare-select">
               <label class="mr-sm-2" for="inline-form-custom-select-pref"
                 >Bandingkan dengan</label
@@ -48,6 +55,53 @@
               :options="kebKumulatifOpt"
               class="charts"
             />
+                  </b-row>
+                </b-tab>
+                <b-tab title="Tabel">
+                  <h6 class="charts-title">
+                    Tabel Peringatan kebakaran mingguan
+                  </h6>
+                  <b-row class="align-items-center">
+                    <b-col md="12">
+                      <b-table
+                        show-empty
+                        small
+                        striped
+                        responsive="sm"
+                        class="text-center"
+                        :items="kebMingguan.items"
+                        :fields="kebMingguan.tableFields"
+                        :per-page="perPage"
+                      >
+                        <template #cell(trend)="data">
+                          <i
+                            class="fas fa-angle-up text-success"
+                            v-if="data.item.trend == 'naik'"
+                          ></i>
+                          <i
+                            class="fas fa-angle-down text-danger"
+                            v-else-if="data.item.trend == 'turun'"
+                          ></i>
+                          <div v-else>-</div>
+                        </template>
+                      </b-table>
+                      <b-row>
+                        <b-col sm="7" md="6" class="mb-3 text-center">
+                          <b-pagination
+                            v-model="currentPage"
+                            :total-rows="totalRows"
+                            :per-page="perPage"
+                            align="fill"
+                            size="sm"
+                            class="my-0"
+                          ></b-pagination>
+                        </b-col>
+                      </b-row>
+                    </b-col>
+                  </b-row>
+                </b-tab>
+              </b-tabs>
+            </b-row>
 
             <h6 class="charts-title">Luas kebakaran hutan dan lahan</h6>
             <b-row class="align-items-center">
@@ -76,39 +130,6 @@
                     Ha
                   </p>
                 </div>
-              </b-col>
-            </b-row>
-
-            <h6 class="charts-title">Tabel Peringatan kebakaran mingguan</h6>
-            <b-row class="align-items-center">
-              <b-col md="12">
-                <b-table
-                  show-empty
-                  small
-                  responsive="sm"
-                  class="text-center"
-                  :items="kebMingguan.items"
-                  :fields="kebMingguan.tableFields"
-                  :per-page="perPage"
-                >
-                  <template #cell(trend)="data">
-                    <i class="fas fa-angle-up text-success" v-if="data.item.trend == 'naik'"></i>
-                    <i class="fas fa-angle-down text-danger" v-else-if="data.item.trend == 'turun'"></i>
-                    <div v-else> - </div>
-                  </template>
-                </b-table>
-                <b-row>
-                  <b-col sm="7" md="6" class="mb-3 text-center">
-                    <b-pagination
-                      v-model="currentPage"
-                      :total-rows="totalRows"
-                      :per-page="perPage"
-                      align="fill"
-                      size="sm"
-                      class="my-0"
-                    ></b-pagination>
-                  </b-col>
-                </b-row>
               </b-col>
             </b-row>
 
@@ -408,17 +429,13 @@ export default {
         .catch((err) => {})
     },
     async loadGrafikMingguan() {
-      const url = !process.server ? `/v1/grafikMingguan` : `/api/grafikMingguan`
+      // const url = !process.server ? `/api/grafikMingguan` : `/api/grafikMingguan`
+      const url = 'http://139.99.52.109:8286/api/grafikMingguan'
 
       await this.$axios
-        .$get(url, {
-          params: {
-            confidence: ['high'],
-          },
-        })
+        .$get(url)
         .then((res) => {
           this.kebMingguan.items = res.map((data) => {
-            console.log(data)
             if (data.weekNow > data.weekBefore) {
               return {
                 weekNow: data.weekNow,
