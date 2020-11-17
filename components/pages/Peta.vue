@@ -48,7 +48,6 @@
                     >Luas Karhutla</b-dropdown-item
                   >
                   <b-dropdown-item
-                    href="#"
                     class="d-md-block d-none"
                     style="text-align: left"
                     to="/emisi"
@@ -75,6 +74,12 @@
                     class="d-md-block d-none"
                     style="text-align: left"
                     >Pelaporan Dalkarhutla</b-dropdown-item
+                  ><b-dropdown-item
+                    to="/data-grafik-dalkarhutla"
+                    target="_blank"
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Data & Grafik</b-dropdown-item
                   >
                   <b-dropdown-item
                     href="#"
@@ -2395,7 +2400,6 @@ export default {
         params,
       })
       .then((res) => {
-        console.log(res)
         this.beritas = this.beritas.concat(res.data)
         this.loadMore = !!res.links.next
       })
@@ -2410,6 +2414,11 @@ export default {
           }
         }
       })
+  },
+  filters: {
+    petaFilter: function (value) {
+      console.log(this.DataHotSpot, value)
+    }
   },
   methods: {
     async visitor() {
@@ -2625,6 +2634,7 @@ export default {
         })
         .then(({ data }) => {
           this.DataHotSpot = data
+          console.log(this.DataHotSpot)
           this.dataHotSpot2.features = data.features
         })
         .catch((err) => {})
