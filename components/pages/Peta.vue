@@ -31,6 +31,7 @@
                   class="link-one"
                   @click="openSidebarOne"
                   v-b-toggle="'collapse-3'"
+                  v-b-toggle.sidebar-backdrop
                   >Titik Panas</b-nav-item
                 >
 
@@ -48,7 +49,6 @@
                     >Luas Karhutla</b-dropdown-item
                   >
                   <b-dropdown-item
-                    href="#"
                     class="d-md-block d-none"
                     style="text-align: left"
                     to="/emisi"
@@ -75,6 +75,12 @@
                     class="d-md-block d-none"
                     style="text-align: left"
                     >Pelaporan Dalkarhutla</b-dropdown-item
+                  ><b-dropdown-item
+                    to="/data-grafik-dalkarhutla"
+                    target="_blank"
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Data & Grafik</b-dropdown-item
                   >
                   <b-dropdown-item
                     href="#"
@@ -324,7 +330,22 @@
           </div>
 
           <div class="content-list titik">
-            <template v-for="datas in DataHotSpot.kabkota">
+            <b-form-select
+              v-model="confidence_level"
+              class="mb-3 form-control"
+              value-field="id"
+              text-field="Pilih Confidence Level"
+              :options="['high', 'medium', 'low']"
+            ></b-form-select>
+            <template v-for="(data, index) in dataHotSpotSatelit">
+              <b-link class="list-item" :key="index">
+                <h6>{{ `${data.kabkota} - ${data.provinsi}` }}</h6>
+                <p>{{ data.sumber }}</p>
+                <span class="count">{{ data.counter }}</span>
+              </b-link>
+            </template>
+            <!-- <template v-for="datas in DataHotSpot.kabkota">
+                {{datas}}
               <template v-for="(kotakab, index) in datas">
                 <b-link
                   class="list-item"
@@ -332,7 +353,6 @@
                   v-if="checkSumber(kotakab.data.sumber)"
                   @click="changeCenter(kotakab.data)"
                 >
-                  <!-- {{ kotakab.data }} -->
                   <h6>
                     {{ kotakab.data.kabkota }} -
                     {{ kotakab.data.nama_provinsi }}
@@ -341,7 +361,7 @@
                   <span class="count">{{ kotakab.count }}</span>
                 </b-link>
               </template>
-            </template>
+            </template> -->
           </div>
 
           <b-link @click="generateReport(DataHotSpot)" class="pdf">
@@ -1442,7 +1462,7 @@
       </div>
     </b-modal>
 
-        <b-modal
+    <b-modal
       id="modal-link-terkait"
       body-class="modal-link-terkait"
       size="lg"
@@ -1653,6 +1673,7 @@ export default {
   name: 'Peta',
   data() {
     return {
+      dataHotSpotSatelit: [],
       beritaMarqueeText: true,
       currentTiles: 0,
       tiles: [
@@ -1944,7 +1965,6 @@ export default {
     tilesUrl() {
       return this.tiles[this.currentTiles].url
     },
-
     noaaGreenIcon() {
       let icon = () => {}
       if (process.browser) icon = this.$L.icon
@@ -2361,7 +2381,7 @@ export default {
     },
   },
   async created() {
-    await this.loadHotSpot()
+    await this.loadHotspotSatelit()
     await this.loadHotSpot()
     if (this.firstLoad) {
       await this.cmbProvs()
@@ -2395,7 +2415,6 @@ export default {
         params,
       })
       .then((res) => {
-        console.log(res)
         this.beritas = this.beritas.concat(res.data)
         this.loadMore = !!res.links.next
       })
@@ -2410,6 +2429,11 @@ export default {
           }
         }
       })
+  },
+  filters: {
+    petaFilter: function (value) {
+      console.log(this.DataHotSpot, value)
+    },
   },
   methods: {
     async visitor() {
@@ -2611,6 +2635,28 @@ export default {
           })
         },
       }
+    },
+    async loadHotspotSatelit() {
+      // new version of hotspot
+      const url = !process.server
+        ? `/v1/hotspot/satelit`
+        : `/api/hotspot/satelit`
+
+      await this.$axios
+        .$get(url, {
+          params: {
+            kabkota: '',
+            sumber: '',
+            satelit: '',
+            confidence_level: 'high',
+          },
+        })
+        .then((res) => {
+          this.dataHotSpotSatelit = res.data
+        })
+        .catch((err) => {
+          console.error(err)
+        })
     },
     async loadHotSpot() {
       const url = !process.server ? `/v1/indoHotspot` : `/api/indoHotspot`
