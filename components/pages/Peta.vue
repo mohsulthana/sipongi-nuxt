@@ -61,8 +61,8 @@
 		    <b-dropdown-item v-b-modal.modal-berita class="d-md-block d-none" style="text-align: left">Berita</b-dropdown-item>
 		    <b-dropdown-item v-b-modal.modal-galeri class="d-md-block d-none" style="text-align: left">Galeri</b-dropdown-item>
 		    <b-dropdown-item v-b-modal.modal-perundangan class="d-md-block d-none" style="text-align: left">Peraturan Perundangan</b-dropdown-item>
-		    <b-dropdown-item class="link-twelve" @click="openSidebarTwelve" style="text-align: left">Laporan Harian Posko</b-dropdown-item>
-		    <b-dropdown-item class="link-six" @click="openSidebarSix" style="text-align: left">Dokumen Lainnya</b-dropdown-item>
+		    <b-dropdown-item v-b-modal.modal-laporanposko class="d-md-block d-none" style="text-align: left">Laporan Harian Posko</b-dropdown-item>
+		    <b-dropdown-item v-b-modal.modal-dokumenlain class="d-md-block d-none" style="text-align: left">Dokumen Lainnya</b-dropdown-item>
 		  </b-nav-item-dropdown>
 		  
 		  <b-nav-item-dropdown
@@ -763,7 +763,16 @@
    
     <div class="map-wrap" style="height: 100vh">
     
-    <div id="logo_maps"><img src="/sipongi_maps.png" class="img img-responsives"></div>
+    <div id="logo_maps">
+    		<!--<img src="/sipongi_maps.png" class="img img-responsives">-->
+    		<ul>
+    				<li><a href="http://www.menlhk.go.id" target="_blank"><img src="/logo_klhk.png" class="img img-responsives center-block"> KLHK </a></li>
+    				<li><a href="http://www.ditjenppi.menlhk.go.id" target="_blank"><img src="/logo_klhk.png" class="img img-responsives center-block"> DitjenPPI </a></li>
+    				<li><a href="http://www.bmkg.go.id" target="_blank"><img src="/logo_bmkg.png" class="img img-responsives center-block"> BMKG </a></li>
+    				<li><a href="http://www.lapan.go.id" target="_blank"><img src="/logo_lapan.png" class="img img-responsives center-block"> LAPAN </a></li>
+    				<li><a href="http://www.bnpb.go.id" target="_blank"><img src="/logo_bnpb.png" class="img img-responsives center-block"> BNPB </a></li>
+    		</ul>
+    </div>
     
     
       <b-link href="https://wa.me/+6281310035000" target="_blank" class="call">
@@ -1378,7 +1387,7 @@
         </div>
     </b-modal>
     
-    <!-- Modal Galeri -->
+    <!-- Modal Perundangan -->
     <b-modal
       id="modal-perundangan"
       body-class="modal-perundangan"
@@ -1437,6 +1446,108 @@
                           </b-card-body>
                         </b-collapse>
                       </b-card>
+                    </div>
+                  </b-col>
+                </b-row>
+        </div>
+    </b-modal>
+    
+    <!-- Modal Laporan Harian Posko -->
+    <b-modal
+      id="modal-laporanposko"
+      body-class="modal-laporanposko"
+      size="md"
+      hide-footer
+      title="Laporan Harian Posko"
+    >
+    	<div class="content-list">
+        	<b-row>
+                  <b-col md="12">
+                    <div
+                      v-for="(laporan,i) in laporanHarian"
+                      :key="i"
+                      class="document-item"
+                    >
+                      <img
+                        :src="`/paper.svg`"
+                        alt="icon"
+                      />
+                      <h5>{{ laporan.bulan_nama }}&nbsp;{{ laporan.tahun }}</h5>
+                      <b-link
+                        :href="laporan.link"
+                        target="_blank"
+                        class="btn btn-secondary"
+                      >
+                        Open
+                        <i class="fas fa-angle-right"></i>
+                      </b-link>
+                    </div>
+                    <div v-if="loadMoreLaporan" class="text-center mt-4">
+                      <b-button @click="loadMoreDataLaporan()" variant="primary"
+                        >Lihat lebih banyak</b-button
+                      >
+                    </div>
+                  </b-col>
+        	</b-row>
+      </div>
+    </b-modal>
+    
+    <!-- Modal Dokumen Lainnya -->
+    <b-modal
+      id="modal-dokumenlain"
+      body-class="modal-dokumenlain"
+      size="md"
+      hide-footer
+      title="Dokumen Lainnya"
+    >
+    	<div class="content-list">
+        	<b-row>
+                  <b-col md="12">
+                    <div
+                      v-for="dok in dokumen"
+                      :key="dok.slug"
+                      class="document-itempeta"
+                    >
+                      <img
+                        :src="`/${
+                          dok.tipe === 'file'
+                            ? 'paper.svg'
+                            : dok.tipe === 'video'
+                            ? 'video.svg'
+                            : 'paper.svg'
+                        }`"
+                        alt="icon"
+                      />
+                      <h5>{{ dok.title }}</h5>
+                      <b-link
+                        :href="`${
+                          dok.tipe === 'file'
+                            ? `/v1/dokumen-lain/file/${dok.slug}`
+                            : dok.file_url
+                        }`"
+                        target="_blank"
+                        :class="`btn ${
+                          dok.tipe === 'file'
+                            ? 'btn-secondary'
+                            : dok.tipe === 'video'
+                            ? 'btn-third'
+                            : 'btn-secondary'
+                        }`"
+                      >
+                        {{
+                          dok.tipe === 'file'
+                            ? 'Download'
+                            : dok.tipe === 'video'
+                            ? 'Watch'
+                            : 'Open'
+                        }}
+                        <i class="fas fa-angle-right"></i>
+                      </b-link>
+                    </div>
+                    <div v-if="loadMorePerundangan" md="12" class="text-center">
+                      <b-button class="loadMore" @click="loadMoreDataPerundangan()" variant="primary"
+                        >Lihat lebih banyak</b-button
+                      >
                     </div>
                   </b-col>
                 </b-row>
