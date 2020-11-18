@@ -1,8 +1,7 @@
 .sidebar-map{
     position: fixed;
     z-index: 99999;
-   	width: 76px;
-    /*width: 100px;*/
+    width: 76px;
     height: 100vh;
     @media screen and (max-width: 767px){
         bottom: 0;
