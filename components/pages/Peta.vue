@@ -863,7 +863,7 @@
 
     <div class="map-wrap" style="height: 100vh">
       <div id="logo_maps">
-        <img src="/sipongi_maps.png" class="img img-responsives" height="100"/>
+        <img src="/sipongi_maps.png" class="img img-responsives" height="100" />
       </div>
 
       <b-link href="https://wa.me/+6281310035000" target="_blank" class="call">
