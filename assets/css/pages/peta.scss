@@ -1,8 +1,7 @@
 .sidebar-map{
     position: fixed;
     z-index: 99999;
-   	width: 76px;
-    /*width: 100px;*/
+    width: 76px;
     height: 100vh;
     @media screen and (max-width: 767px){
         bottom: 0;
@@ -23,7 +22,6 @@
             display: none;
         }
     }
-    
     .logotext{
         display: block;
         /*background-color: rgba($color: #D36301, $alpha: 0.06);*/
@@ -34,7 +32,6 @@
             display: none;
         }
     }
-    
     .main{
         padding: 10px 5px;
         text-align: center;
@@ -110,7 +107,6 @@
         & + .main{
             margin-left: 0px;
         }
-        
         ul{
             padding: 0;
             li{
@@ -148,9 +144,8 @@
         bottom: 0;
         left: 0;
         display: flex;
-        /*width: 76px;*/
-        width: 100px;
-    		height: 25px;
+        width: 76px;
+    	height: 54px;
         align-items: center;
         justify-content: center;
         background-color: #FDF5EF;
@@ -395,7 +390,6 @@
                 left: auto;
             }
         }
-        
         &.hidden{
             display: none;
             @media screen and (max-width: 767px){
@@ -449,11 +443,11 @@
             display: none !important;
         }
     }
-    
+
     .leaflet-zoom-box {
 		    display: none;
 		}
-    
+
     .logo-responsive{
         position: absolute;
         top: 0;
@@ -478,9 +472,6 @@
     marquee{
         position: absolute;
         z-index: 1023;
-        top: 0;
-        right: 0;
-        left: 0;
         padding: 7px 15px;
         color: $wt;
         font-size: 16px;
@@ -1198,8 +1189,76 @@
                 margin-left: 0px;
             }
         }
-        
+
     }
+}
+
+.modal-titikpanas{
+		max-height: calc(100vh - 166px);
+}
+
+.modal-berita{
+    p{
+        font-size: 14px;
+        color: $t;
+    }
+    ol{
+        li{
+            font-size: 14px;
+            color: $t;
+            ol{
+                padding-left: 25px;
+            }
+        }
+        &.lower-alpha{
+            li{
+                list-style: lower-alpha;
+            }
+        }
+    }
+    .image{
+        width: 100%;
+        height: 135px;
+        background-size: cover;
+        background-position: center center;
+        margin-bottom: 12px;
+        border-radius: 4px;
+        @media screen and (max-width: 767px){
+           height: 180px;
+        }
+   }
+}
+
+.modal-galeri{
+    p{
+        font-size: 14px;
+        color: $t;
+    }
+    ol{
+        li{
+            font-size: 14px;
+            color: $t;
+            ol{
+                padding-left: 25px;
+            }
+        }
+        &.lower-alpha{
+            li{
+                list-style: lower-alpha;
+            }
+        }
+    }
+    .image{
+        width: 100%;
+        height: 135px;
+        background-size: cover;
+        background-position: center center;
+        margin-bottom: 12px;
+        border-radius: 4px;
+        @media screen and (max-width: 767px){
+           height: 180px;
+        }
+   }
 }
 
 .modal-titikpanas{
@@ -1422,7 +1481,6 @@
             }
         }
     }
-    
 .daerah-item{
             padding: 25px 25px 10px 25px;
             border: 1px solid #E3E3E3;
@@ -1471,7 +1529,6 @@
                 }
             }
         }
-        
 .accordion-publikasipeta{
     .card{
         border: none;
