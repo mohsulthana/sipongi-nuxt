@@ -332,509 +332,6 @@
         </div>
       </div>
 
-      <div class="sidebar-slide sidebar-five big">
-        <div class="content-head">
-          <b-link class="close" @click="openSidebarFive"
-            ><i class="fas fa-times"></i
-          ></b-link>
-          <h6>Peraturan Perundangan</h6>
-          <p></p>
-        </div>
-        <div class="content-list">
-          <b-row>
-            <b-col md="12" class="text-center">
-              <div role="tablist" class="accordion-publikasipeta">
-                <b-card
-                  style="background-color: #f7f7f7"
-                  v-for="(kat, index) in kategories"
-                  no-body
-                  class="mb-1"
-                  :key="kat.slug"
-                >
-                  <b-card-header header-tag="header" role="tab">
-                    <b-button block v-b-toggle="`${kat.slug}`" variant="info">
-                      <h5>
-                        {{ kat.name }}
-                      </h5>
-                      <img src="/arrow-orange.svg" alt="" />
-                    </b-button>
-                  </b-card-header>
-                  <b-collapse
-                    :id="kat.slug"
-                    :visible="index === 0"
-                    accordion="my-accordion"
-                    role="tabpanel"
-                  >
-                    <b-card-body>
-                      <div
-                        v-for="perpu in kat.perpu.data"
-                        :key="perpu.slug"
-                        class="uud-item"
-                      >
-                        <b-link
-                          :href="`${
-                            perpu.tipe === 'file'
-                              ? `/v1/peraturan-perundangan/file/${perpu.slug}`
-                              : perpu.file_url
-                          }`"
-                          target="_blank"
-                        >
-                          {{ perpu.title }}
-                        </b-link>
-                        <span>
-                          {{ perpu.nomor }}
-                        </span>
-                      </div>
-                    </b-card-body>
-                  </b-collapse>
-                </b-card>
-              </div>
-            </b-col>
-          </b-row>
-        </div>
-      </div>
-
-      <div class="sidebar-slide sidebar-six big">
-        <div class="content-head">
-          <b-link class="close" @click="openSidebarSix"
-            ><i class="fas fa-times"></i
-          ></b-link>
-          <h6>Dokumen Lainnya</h6>
-          <p></p>
-        </div>
-        <div class="content-list">
-          <b-row>
-            <b-col md="12">
-              <div
-                v-for="dok in dokumen"
-                :key="dok.slug"
-                class="document-itempeta"
-              >
-                <img
-                  :src="`/${
-                    dok.tipe === 'file'
-                      ? 'paper.svg'
-                      : dok.tipe === 'video'
-                      ? 'video.svg'
-                      : 'paper.svg'
-                  }`"
-                  alt="icon"
-                />
-                <h5>{{ dok.title }}</h5>
-                <b-link
-                  :href="`${
-                    dok.tipe === 'file'
-                      ? `/v1/dokumen-lain/file/${dok.slug}`
-                      : dok.file_url
-                  }`"
-                  target="_blank"
-                  :class="`btn ${
-                    dok.tipe === 'file'
-                      ? 'btn-secondary'
-                      : dok.tipe === 'video'
-                      ? 'btn-third'
-                      : 'btn-secondary'
-                  }`"
-                >
-                  {{
-                    dok.tipe === 'file'
-                      ? 'Download'
-                      : dok.tipe === 'video'
-                      ? 'Watch'
-                      : 'Open'
-                  }}
-                  <i class="fas fa-angle-right"></i>
-                </b-link>
-              </div>
-              <div v-if="loadMorePerundangan" md="12" class="text-center">
-                <b-button
-                  class="loadMore"
-                  @click="loadMoreDataPerundangan()"
-                  variant="primary"
-                  >Lihat lebih banyak</b-button
-                >
-              </div>
-            </b-col>
-          </b-row>
-        </div>
-      </div>
-
-      <div class="sidebar-slide sidebar-seven big">
-        <div class="content-head">
-          <b-link class="close" @click="openSidebarSeven"
-            ><i class="fas fa-times"></i
-          ></b-link>
-          <b-button variant="primary-outline" block @click="hide"> </b-button>
-          <h6>Tentang Sipongi+</h6>
-          <p>
-            SiPongi bertujuan untuk mengantisipasi dan melakukan upaya
-            pencegahan kebakaran hutan dengan lebih cepat sehingga bencana
-            tersebut dapat dikurangi.
-          </p>
-        </div>
-        <div class="content-list">
-          <b-row>
-            <b-col md="4" order-md="2">
-              <img
-                :src="direktoratPKHL.logo_url"
-                alt=""
-                class="img-fluid img-logo"
-              />
-            </b-col>
-            <b-col md="8" order-md="1" v-html="direktoratPKHL.text"> </b-col>
-          </b-row>
-        </div>
-      </div>
-
-      <div class="sidebar-slide sidebar-eight big">
-        <div class="content-head">
-          <b-link class="close" @click="openSidebarEight"
-            ><i class="fas fa-times"></i
-          ></b-link>
-          <h6>Tentang Sipongi+</h6>
-          <p>
-            SiPongi bertujuan untuk mengantisipasi dan melakukan upaya
-            pencegahan kebakaran hutan dengan lebih cepat sehingga bencana
-            tersebut dapat dikurangi.
-          </p>
-        </div>
-        <div class="content-list">
-          <b-row>
-            <b-col md="8">
-              <div class="nav-agni">
-                <b-link @click="showProfile" :class="{ active: profile }"
-                  >Profil</b-link
-                >
-                <b-link @click="showDaerahOp" :class="{ active: daerahOp }"
-                  >Daerah Operasional</b-link
-                >
-                <b-link @click="showSarana" :class="{ active: sarana }"
-                  >Sarana & Prasarana</b-link
-                >
-              </div>
-            </b-col>
-            <b-col lg="12">
-              <!-- Profil -->
-              <b-row v-if="profile">
-                <b-col lg="4" order-lg="2">
-                  <div
-                    :class="[
-                      { toBot: scrolledToBottom },
-                      { scrolling: isScroll },
-                      'nav-content',
-                    ]"
-                  >
-                    <h3>Profil</h3>
-                    <b-link
-                      v-for="prof in profil"
-                      :key="prof.id"
-                      v-scroll-to="'#data' + prof.urutan"
-                      to="#"
-                      >{{ prof.title }}</b-link
-                    >
-                  </div>
-                </b-col>
-                <b-col lg="8" order-lg="1">
-                  <h5 class="title">Profil</h5>
-                  <div v-for="prof in profil" :key="prof.id">
-                    <h6 class="subtitle" :id="'data' + prof.urutan">
-                      {{ prof.title }}
-                    </h6>
-                    <img
-                      v-if="prof.image !== null"
-                      :src="prof.image_url"
-                      alt=""
-                      class="img-fluid mb-3"
-                    />
-                    <div v-html="prof.text"></div>
-                  </div>
-                </b-col>
-              </b-row>
-              <!-- Daerah Operasi -->
-              <b-row v-if="daerahOp">
-                <b-col md="8">
-                  <h6 class="title">Daerah Operasional</h6>
-                  <div class="daerah-item" v-for="(d, i) in daerah" :key="i">
-                    <!-- <h5>Sumatra Utara-01</h5> -->
-                    <h5>{{ d.daerah }}</h5>
-                    <b-row v-for="(k, j) in d.kota" :key="j">
-                      <b-col md="6">
-                        <p class="heading">{{ k.daerah }}</p>
-                        <span class="alamat">{{ k.alamat }}</span>
-                      </b-col>
-                      <b-col md="3" cols="6">
-                        <span class="jumlah">Jumlah Regu</span>
-                        <span class="count">{{ k.jumlah_regu }}</span>
-                      </b-col>
-                      <b-col md="3" cols="6">
-                        <span class="jumlah">Jumlah Anggota </span>
-                        <span class="count">{{ k.jumlah_anggota }}</span>
-                      </b-col>
-                    </b-row>
-                  </div>
-                </b-col>
-              </b-row>
-              <!-- Sarana & Prasarana -->
-              <b-row v-if="sarana">
-                <b-col md="12" v-html="sarpras.text"> Sarana </b-col>
-              </b-row>
-            </b-col>
-          </b-row>
-        </div>
-      </div>
-
-      <div class="sidebar-slide sidebar-nine big">
-        <div class="content-head">
-          <b-link class="close" @click="openSidebarNine"
-            ><i class="fas fa-times"></i
-          ></b-link>
-          <h6>Tentang Sipongi+</h6>
-          <p>
-            SiPongi bertujuan untuk mengantisipasi dan melakukan upaya
-            pencegahan kebakaran hutan dengan lebih cepat sehingga bencana
-            tersebut dapat dikurangi.
-          </p>
-        </div>
-        <div class="content-list">
-          <b-row>
-            <b-col md="8">
-              <img
-                :src="strukturOrganisasi.image_url"
-                alt=""
-                class="img-fluid"
-              />
-            </b-col>
-          </b-row>
-        </div>
-      </div>
-
-      <div class="sidebar-slide sidebar-ten big">
-        <div class="content-head">
-          <b-link class="close" @click="openSidebarTen"
-            ><i class="fas fa-times"></i
-          ></b-link>
-          <h6>Kontak Kami</h6>
-        </div>
-        <div class="content-list">
-          <b-row>
-            <b-col md="12">
-              <div class="logo-footer">
-                <img src="/kementerian-logo.svg" />
-                <h6>Kementerian Lingkungan Hidup dan Kehutanan</h6>
-              </div>
-              <p font-size="14px" font-weight="100">
-                Gedung Pusat Kehutanan Manggala Wanabakti Blok VII Lt. 13
-                <br />Jl. Jend. Gatot Subroto Jakarta 10270
-              </p>
-              <p>
-                <i class="far fa-envelope"></i>
-                posko.karhutla@menlhk.go.id<br />
-                <i class="fas fa-phone"></i> 021-5704618
-              </p>
-            </b-col>
-          </b-row>
-        </div>
-      </div>
-
-      <div class="sidebar-slide sidebar-eleven big">
-        <div class="content-head">
-          <b-link class="close" @click="openSidebarEleven"
-            ><i class="fas fa-times"></i
-          ></b-link>
-          <h6>Link Terkait</h6>
-        </div>
-        <div class="content-list">
-          <b-row>
-            <b-col md="12">
-              <h6 class="sec-title">Link Terkait</h6>
-              <ul>
-                <li>
-                  <b-link href="http://www.menlhk.go.id/" class="w-logo"
-                    ><img src="/kementerian-logo.svg" alt="" /> KLHK</b-link
-                  >
-                </li>
-                <li>
-                  <b-link href="http://ditjenppi.menlhk.go.id/" class="w-logo"
-                    ><img src="/kementerian-logo.svg" alt="" />
-                    DitjenPPI</b-link
-                  >
-                </li>
-                <li>
-                  <b-link href="http://bmkg.go.id/" class="w-logo"
-                    ><img src="/bmkg.svg" alt="" /> BMKG</b-link
-                  >
-                </li>
-                <li>
-                  <b-link href="http://lapan.go.id/" class="w-logo"
-                    ><img src="/lapan.svg" alt="" /> LAPAN</b-link
-                  >
-                </li>
-                <li>
-                  <b-link href="http://bnpb.go.id/" class="w-logo"
-                    ><img src="/bnpb.svg" alt="" /> BNPB</b-link
-                  >
-                </li>
-              </ul>
-            </b-col>
-          </b-row>
-        </div>
-      </div>
-
-      <div class="sidebar-slide sidebar-twelve big">
-        <div class="content-head">
-          <b-link class="close" @click="openSidebarTwelve"
-            ><i class="fas fa-times"></i
-          ></b-link>
-          <h6>Laporan Harian Posko</h6>
-          <p></p>
-        </div>
-        <div class="content-list">
-          <b-row>
-            <b-col md="12">
-              <div
-                v-for="(laporan, i) in laporanHarian"
-                :key="i"
-                class="document-item"
-              >
-                <img :src="`/paper.svg`" alt="icon" />
-                <h5>{{ laporan.bulan_nama }}&nbsp;{{ laporan.tahun }}</h5>
-                <b-link
-                  :href="laporan.link"
-                  target="_blank"
-                  class="btn btn-secondary"
-                >
-                  Open
-                  <i class="fas fa-angle-right"></i>
-                </b-link>
-              </div>
-              <div v-if="loadMoreLaporan" class="text-center mt-4">
-                <b-button @click="loadMoreDataLaporan()" variant="primary"
-                  >Lihat lebih banyak</b-button
-                >
-              </div>
-            </b-col>
-          </b-row>
-        </div>
-      </div>
-      
-      <div class="sidebar-slide sidebar-twelve big">
-        <div class="content-head">
-          <b-link class="close" @click="openSidebarTwelve"
-            ><i class="fas fa-times"></i
-          ></b-link>
-          <h6>Laporan Harian Posko</h6>
-          <p></p>
-        </div>
-        <div class="content-list">
-        	<b-row>
-                  <b-col md="12">
-                    <div
-                      v-for="(laporan,i) in laporanHarian"
-                      :key="i"
-                      class="document-item"
-                    >
-                      <img
-                        :src="`/paper.svg`"
-                        alt="icon"
-                      />
-                      <h5>{{ laporan.bulan_nama }}&nbsp;{{ laporan.tahun }}</h5>
-                      <b-link
-                        :href="laporan.link"
-                        target="_blank"
-                        class="btn btn-secondary"
-                      >
-                        Open
-                        <i class="fas fa-angle-right"></i>
-                      </b-link>
-                    </div>
-                    <div v-if="loadMoreLaporan" class="text-center mt-4">
-                      <b-button @click="loadMoreDataLaporan()" variant="primary"
-                        >Lihat lebih banyak</b-button
-                      >
-                    </div>
-                  </b-col>
-                </b-row>
-        </div>
-     </div>
-     
-     <div class="sidebar-slide sidebar-thirteen big">
-        <div class="content-head">
-          <b-link class="close" @click="openSidebarThirteen"
-            ><i class="fas fa-times"></i
-          ></b-link>
-          <h6>Laporan Harian Posko</h6>
-          <p></p>
-        </div>
-        <div class="content-list">
-        	<b-container>
-		        <!-- Filter Opsi By Wilayah -->
-		        <div class="mb-4">
-		          <div class="row">
-		
-		            <div class="col-12 col-md-4">
-		              <!-- Option Wilayah -->
-		              <div class="form-group">
-		                <div class="row">
-		                 <!-- <label class="col-sm-2 control-label">Wilayah</label> -->
-		                  <div class="col-sm-10">
-		                    <b-form-select v-model="defaultWilayah" 
-		                        :options="opsiWilayah">
-		                    </b-form-select>
-		                  </div>
-		                </div>
-		              </div>
-		            </div>
-		
-		            <div class="col-12 col-md-4">
-		              <!-- Option Index -->
-		              <div class="form-group">
-		                <div class="row">
-		                <!--  <label class="col-sm-2 control-label">Hari</label> -->
-		                  <div class="col-sm-10">
-		                    <b-form-select v-model="defaultHari" 
-		                        :options="opsiHari">
-		                    </b-form-select>
-		                  </div>
-		                </div>
-		              </div>
-		            </div>
-		            
-		            <div class="col-12 col-md-4">
-		            	<div class="form-group">
-		                <div class="row">
-		                  <label class="col-sm-2 control-label"></label>
-		                  <div class="col-sm-10">
-		                    <button variant="primary" @click="filter">Filter</button>
-		                  </div>
-		                </div>
-		              </div>
-		            </div>
-		          </div>
-		        </div>
-		    
-		        <b-row>
-		          <b-col md="12">
-		            <b-row>
-		              <b-col md="12">
-		                  <div>
-		                    <img :src="dataFdrs.image" :alt="dataFdrs.wilayah" class="img-fluid">
-		                  </div>
-		                  <div>
-		                    <a href="#" @click="download(dataFdrs.image,dataFdrs.wilayah)">
-		                        Download
-		                    </a>
-		                  </div>
-		                  <p class="pt-1" style="font-size:12px;">*Sumber data : Badan Meteorologi Dan Meteorologi Klimatologi dan Geofisika</p>
-		              </b-col>
-		            </b-row>
-		          </b-col>
-		        </b-row>
-		      </b-container>
-        </div>
-     </div>
-      
-      
-
    </div>
    
    
@@ -851,10 +348,6 @@
     		</ul>
     </div>
 
-    <div class="map-wrap" style="height: 100vh">
-      <div id="logo_maps">
-        <img src="/sipongi_maps.png" class="img img-responsives" height="100" />
-      </div>
 
       <b-link href="https://wa.me/+6281310035000" target="_blank" class="call">
         <img src="/phone-red.svg" alt="" class="mr-1 inner" />
@@ -1099,7 +592,58 @@
             </div>
           </b-collapse>
         </div>
+		
+		
+	<v-sheet
+    class="mx-auto"
+    elevation="8"
+    max-width="800"
+  >
+    <v-slide-group
+      v-model="model"
+      class="pa-4"
+      center-active
+      show-arrows
+    >
+      <v-slide-item
+        v-for="n in 15"
+        :key="n"
+        v-slot="{ active, toggle }"
+      >
+        <v-card
+          :color="active ? 'primary' : 'grey lighten-1'"
+          class="ma-4"
+          height="200"
+          width="100"
+          @click="toggle"
+        >
+          <v-row
+            class="fill-height"
+            align="center"
+            justify="center"
+          >
+            <v-scale-transition>
+              <v-icon
+                v-if="active"
+                color="white"
+                size="48"
+                v-text="'mdi-close-circle-outline'"
+              ></v-icon>
+            </v-scale-transition>
+          </v-row>
+        </v-card>
+      </v-slide-item>
+    </v-slide-group>
+  </v-sheet>
+		
+		
+		
       </div>
+	  
+	  
+	  
+	  
+	  
       <transition name="fade">
         <marquee
           v-show="beritaMarqueeText"
@@ -3351,162 +2895,7 @@ export default {
       legend.classList.toggle('open')
     },
 
-        openSidebarSix() {
-      var legend = document.querySelector('.legend-wrap')
-      var sidebar = document.querySelector('.sidebar-one')
-      var sidebar2 = document.querySelector('.sidebar-two')
-      var sidebar3 = document.querySelector('.sidebar-three')
-      var sidebar5 = document.querySelector('.sidebar-five')
-      var sidebar6 = document.querySelector('.sidebar-six')
-      var sidebar7 = document.querySelector('.sidebar-seven')
-      var sidebar8 = document.querySelector('.sidebar-eight')
-      var sidebar9 = document.querySelector('.sidebar-nine')
-      var sidebar10 = document.querySelector('.sidebar-ten')
-      var sidebar11 = document.querySelector('.sidebar-eleven')
-      var sidebar12 = document.querySelector('.sidebar-twelve')
-      var link = document.querySelector('.link-one')
-      var link2 = document.querySelector('.link-two')
-      var link3 = document.querySelector('.link-three')
-      var link4 = document.querySelector('.link-four')
-      var link5 = document.querySelector('.link-five')
-      var link6 = document.querySelector('.link-six')
-      var link7 = document.querySelector('.link-seven')
-      var link8 = document.querySelector('.link-eight')
-      var link9 = document.querySelector('.link-nine')
-      var link10 = document.querySelector('.link-ten')
-      var link11 = document.querySelector('.link-eleven')
-      var link12 = document.querySelector('.link-twelve')
-      var map = document.querySelector('.map-wrap')
-
-      if (
-        map.classList.contains('openSide') &&
-        (sidebar.classList.contains('opened') ||
-        	sidebar2.classList.contains('opened') ||
-          sidebar5.classList.contains('opened') ||
-          sidebar6.classList.contains('opened') ||
-          sidebar3.classList.contains('opened') ||
-          sidebar7.classList.contains('opened') ||
-          sidebar8.classList.contains('opened') ||
-          sidebar9.classList.contains('opened') ||
-          sidebar10.classList.contains('opened') ||
-          sidebar11.classList.contains('opened') ||
-          sidebar12.classList.contains('opened') ||
-          legend.classList.contains('open'))
-      ) {
-      	sidebar.classList.remove('opened')
-        sidebar2.classList.remove('opened')
-        sidebar5.classList.remove('opened')
-        sidebar6.classList.remove('opened')
-        sidebar3.classList.remove('opened')
-        sidebar7.classList.remove('opened')
-        sidebar8.classList.remove('opened')
-        sidebar9.classList.remove('opened')
-        sidebar10.classList.remove('opened')
-        sidebar11.classList.remove('opened')
-        sidebar12.classList.remove('opened')
-        link2.classList.remove('active')
-        link5.classList.remove('active')
-        link6.classList.remove('active')
-        link3.classList.remove('active')
-        link7.classList.remove('active')
-        link8.classList.remove('active')
-        link9.classList.remove('active')
-        link10.classList.remove('active')
-        link11.classList.remove('active')
-        link12.classList.remove('active')
-        map.classList.remove('big')
-        link3.classList.add('active')
-        map.classList.add('big')
-        sidebar3.classList.add('opened')
-        link6.classList.add('active')
-        map.classList.add('big')
-        sidebar6.classList.add('opened')
-        if (window.innerWidth < 767) {
-          legend.classList.remove('open')
-          link4.classList.remove('active')
-        }
-      } else {
-        sidebar6.classList.toggle('opened')
-        map.classList.toggle('openSide')
-        link6.classList.toggle('active')
-      }
-    },
-
-    openSidebarSeven() {
-      var legend = document.querySelector('.legend-wrap')
-      var sidebar = document.querySelector('.sidebar-one')
-      var sidebar2 = document.querySelector('.sidebar-two')
-      var sidebar3 = document.querySelector('.sidebar-three')
-      var sidebar5 = document.querySelector('.sidebar-five')
-      var sidebar6 = document.querySelector('.sidebar-six')
-      var sidebar7 = document.querySelector('.sidebar-seven')
-      var sidebar8 = document.querySelector('.sidebar-eight')
-      var sidebar9 = document.querySelector('.sidebar-nine')
-      var sidebar10 = document.querySelector('.sidebar-ten')
-      var sidebar11 = document.querySelector('.sidebar-eleven')
-      var sidebar12 = document.querySelector('.sidebar-twelve')
-      var link = document.querySelector('.link-one')
-      var link2 = document.querySelector('.link-two')
-      var link3 = document.querySelector('.link-three')
-      var link4 = document.querySelector('.link-four')
-      var link5 = document.querySelector('.link-five')
-      var link6 = document.querySelector('.link-six')
-      var link7 = document.querySelector('.link-seven')
-      var link8 = document.querySelector('.link-eight')
-      var link9 = document.querySelector('.link-nine')
-      var link10 = document.querySelector('.link-ten')
-      var link11 = document.querySelector('.link-eleven')
-      var link12 = document.querySelector('.link-twelve')
-      var map = document.querySelector('.map-wrap')
-
-      if (
-        map.classList.contains('openSide') &&
-        (sidebar.classList.contains('opened') ||
-          sidebar2.classList.contains('opened') ||
-          sidebar3.classList.contains('opened') ||
-          sidebar5.classList.contains('opened') ||
-          sidebar6.classList.contains('opened') ||
-          sidebar8.classList.contains('opened') ||
-          sidebar9.classList.contains('opened') ||
-          sidebar10.classList.contains('opened') ||
-          sidebar11.classList.contains('opened') ||
-          sidebar12.classList.contains('opened') ||
-          legend.classList.contains('open'))
-      ) {
-        sidebar.classList.remove('opened')
-        sidebar2.classList.remove('opened')
-        sidebar3.classList.remove('opened')
-        sidebar5.classList.remove('opened')
-        sidebar6.classList.remove('opened')
-        sidebar8.classList.remove('opened')
-        sidebar9.classList.remove('opened')
-        sidebar10.classList.remove('opened')
-        sidebar11.classList.remove('opened')
-        sidebar12.classList.remove('opened')
-        link2.classList.remove('active')
-        link3.classList.remove('active')
-        link5.classList.remove('active')
-        link6.classList.remove('active')
-        link8.classList.remove('active')
-        link9.classList.remove('active')
-        link10.classList.remove('active')
-        link11.classList.remove('active')
-        link12.classList.remove('active')
-        map.classList.remove('big')
-        link7.classList.add('active')
-        map.classList.add('big')
-        sidebar7.classList.add('opened')
-        if (window.innerWidth < 767) {
-          legend.classList.remove('open')
-          link4.classList.remove('active')
-        }
-      } else {
-        sidebar7.classList.toggle('opened')
-        map.classList.toggle('openSide')
-        link7.classList.toggle('active')
-      }
-    },
-
+     
     openSidebarEight() {
       var legend = document.querySelector('.legend-wrap')
       var sidebar = document.querySelector('.sidebar-one')
