@@ -89,6 +89,9 @@ export default {
       src: '~/plugins/vue-slick-carousel.js',
       ssr: true,
     },
+    {
+      src: '~plugins/ga.js', mode: 'client',
+    },
   ],
   /*
    ** Auto import components
