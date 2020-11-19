@@ -1680,7 +1680,7 @@
         </b-link>-->
   
   </div>
- 
+ </div>
 </template>
 
 <script>
@@ -4268,7 +4268,6 @@ export default {
         link5.classList.toggle('active')
       }
     },
-  }
 }
 </script>
 
