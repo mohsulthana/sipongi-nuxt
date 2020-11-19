@@ -66,6 +66,9 @@ export default {
    */
   plugins: [
     {
+      src: '~plugins/vue-analytics.js', mode: 'client'
+    },
+    {
       src: '~/plugins/vue2-leaflet-markercluster.js',
       ssr: false,
     },
@@ -81,9 +84,9 @@ export default {
       src: '~/plugins/vue-markdown.js',
       ssr: false,
     },
-    { 
-      src: '~/plugins/vue2-datetimepicker', 
-      ssr: false, 
+    {
+      src: '~/plugins/vue2-datetimepicker',
+      ssr: false,
     },
     {
       src: '~/plugins/vue-slick-carousel.js',
