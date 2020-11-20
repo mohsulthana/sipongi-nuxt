@@ -1,10 +1,10 @@
-<template> 
+<template>
   <div>
     <div class="sidebar-map">
       <b-link to="/" class="logo">
         <img src="/logo.svg" alt="" />
       </b-link>
-      <b-link class="logotext" v-b-toggle.sidebar-backdrop>  
+      <b-link class="logotext" v-b-toggle.sidebar-backdrop>
       	<img src="/logo-text.svg" alt=""/>
       </b-link>
         <b-button variant="primary-outline" block @click="hide"> </b-button>
@@ -15,13 +15,13 @@
       :backdrop-variant="variant"
       backdrop
       shadow width="250px" >
-      	
+
       <div class="px-3 py-2" >
       	<nav class="mb-3">
             <b-nav vertical>
           	<img src="/logo.svg" alt="" /><img src="/logo-text.svg" alt=""/>
             <b-nav-item v-b-modal.modal-titikpanas class="d-md-block d-none" style="text-align: left">Titik Panas</b-nav-item>
-			
+
      	<b-nav-item-dropdown
 						      id="my-nav-dropdown"
 						      text="Karhutla"
@@ -31,7 +31,7 @@
 		    <b-dropdown-item v-b-modal.modal-emisico2 class="d-md-block d-none" style="text-align: left">Emisi CO2</b-dropdown-item>
 		    <b-dropdown-item href="#" class="d-md-block d-none" style="text-align: left">Pemadaman</b-dropdown-item>
 		  </b-nav-item-dropdown>
-		 
+
 		  <b-nav-item-dropdown
 						      id="my-nav-dropdown"
 						      text="Dalkarhutla"
@@ -41,7 +41,7 @@
         target="_blank" class="d-md-block d-none" style="text-align: left">Pelaporan Dalkarhutla</b-dropdown-item>
 		     <b-dropdown-item v-b-modal.modal-fdrs class="d-md-block d-none" style="text-align: left">FDRS</b-dropdown-item>
 		  </b-nav-item-dropdown>
-		
+
 		  <b-nav-item-dropdown
 						      id="my-nav-dropdown"
 						      text="Prediksi Karhutla"
@@ -52,7 +52,7 @@
 		    <b-dropdown-item href="#" class="d-md-block d-none" style="text-align: left">Prediksi Iklim</b-dropdown-item>
 		    <b-dropdown-item href="#" class="d-md-block d-none" style="text-align: left">Prediksi Elnino </b-dropdown-item>
 		  </b-nav-item-dropdown>
-		  
+
 		  <b-nav-item-dropdown
 						      id="my-nav-dropdown"
 						      text="Publikasi"
@@ -64,7 +64,7 @@
 		    <b-dropdown-item v-b-modal.modal-laporanposko class="d-md-block d-none" style="text-align: left">Laporan Harian Posko</b-dropdown-item>
 		    <b-dropdown-item v-b-modal.modal-dokumenlain class="d-md-block d-none" style="text-align: left">Dokumen Lainnya</b-dropdown-item>
 		  </b-nav-item-dropdown>
-		  
+
 		  <b-nav-item-dropdown
 						      id="my-nav-dropdown"
 						      text="Tentang Sipongi"
@@ -81,7 +81,7 @@
 		  </nav>
       </div>
       </b-sidebar>
-      
+
       <b-link class="main link-two d-md-none" v-b-modal.modal-berita>
         <div class="wrap">
           <div class="image d-md-none d-block">
@@ -90,7 +90,7 @@
           <h6>Berita</h6>
         </div>
       </b-link>
-      
+
       <b-link class="main link-three d-md-none" v-b-modal.modal-galeri>
         <div class="wrap">
           <div class="image d-md-none d-block">
@@ -99,7 +99,7 @@
           <h6>Galeri</h6>
         </div>
       </b-link>
-     
+
       <b-link class="main link-four d-md-none" @click="openLegend">
         <div class="wrap">
           <div class="image">
@@ -108,7 +108,7 @@
           <h6>Legend</h6>
         </div>
       </b-link>
-      
+
       <b-link class="main link-one d-md-none" @click="openSidebarOne">
         <div class="wrap">
           <div class="image">
@@ -117,11 +117,11 @@
           <h6>Titik Panas</h6>
         </div>
       </b-link>
-      
+
   </div>
-		  
-		  
-		  
+
+
+
 		  <!--
       <b-link to="/grafik" class="main d-md-block d-none">
         <h6>Data & Grafik</h6>
@@ -129,11 +129,11 @@
       <b-link href="/publikasi" class="main d-md-block d-none">
         <h6>Publikasi</h6>
       </b-link>
-      
+
       <b-link href="/tentang" class="main d-md-block d-none">
         <h6>Tentang Kami</h6>
       </b-link>
-      
+
       <b-link v-b-modal.modal-disclaimer class="main d-md-block d-none">
         <h6>Disclaimer</h6>
       </b-link>
@@ -141,16 +141,16 @@
       <b-link to="/" class="hide">
         <img src="/mini_arrow_left-gray.svg" alt="" />
       </b-link>
-			
+
       <div class="sidebar-slide sidebar-one" >
         <div class="content-head">
           <b-link class="close" @click="openSidebarOne">
           	<i class="fas fa-times"></i>
           </b-link>
           <h6>Lokasi Titik Panas</h6>
-          
+
           <div class="content-list">
-          	
+
 		          <b-form-select
 		            v-model="cariProvinsi"
 		            class="mb-3 form-control"
@@ -158,7 +158,7 @@
 		            text-field="nama_provinsi"
 		            :options="provs"
 		          ></b-form-select>
-		          
+
 		          <b-form-select
 		            v-model="cariKota"
 		            class="form-control"
@@ -170,7 +170,7 @@
 		            :options="kotakabs"
 		          ></b-form-select>
         	</div>
-         
+
           <client-only>
             <date-picker
               id="published_at"
@@ -180,7 +180,7 @@
               placeholder="Pilih tanggal"
             ></date-picker>
           </client-only>
-          
+
           <b-link
             :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
             @click="changeSumber('LPN-MODIS')"
@@ -201,7 +201,7 @@
             @click="changeSumber('LPN-LANDSAT8')"
             >LANDSAT8
           </b-link>
-          
+
         </div>
 
         <div class="content-list titik">
@@ -333,10 +333,10 @@
       </div>
 
    </div>
-   
-   
+
+
     <div class="map-wrap" style="height: 100vh">
-    
+
     <div id="logo_maps">
     		<!--<img src="/sipongi_maps.png" class="img img-responsives">-->
     		<ul>
@@ -592,8 +592,8 @@
             </div>
           </b-collapse>
         </div>
-		
-		
+
+
 	<v-sheet
     class="mx-auto"
     elevation="8"
@@ -635,15 +635,15 @@
       </v-slide-item>
     </v-slide-group>
   </v-sheet>
-		
-		
-		
+
+
+
       </div>
-	  
-	  
-	  
-	  
-	  
+
+
+
+
+
       <transition name="fade">
         <marquee
           v-show="beritaMarqueeText"
@@ -801,7 +801,7 @@
         ></b-spinner>
       </div>
     </div>
-    
+
     <!-- Modal Emisi CO2 -->
     <b-modal
       id="modal-emisico2"
@@ -840,7 +840,7 @@
         </div>
       </b-container>
     </b-modal>
-    
+
     <!-- Modal Luas Kebakaran -->
     <b-modal
       id="modal-luaskebakaran"
@@ -880,7 +880,7 @@
 
       </b-container>
     </b-modal>
-    
+
     <!-- Modal FDRS -->
     <b-modal
       id="modal-fdrs"
@@ -893,35 +893,35 @@
         	<b-container>
 		        <div class="mb-4">
 		          <div class="row">
-		
+
 		            <div class="col-12 col-md-4">
 		              <!-- Option Wilayah -->
 		              <div class="form-group">
 		                <div class="row">
 		                 <!-- <label class="col-sm-2 control-label">Wilayah</label> -->
 		                  <div class="col-sm-10">
-		                    <b-form-select v-model="defaultWilayah" 
+		                    <b-form-select v-model="defaultWilayah"
 		                        :options="opsiWilayah">
 		                    </b-form-select>
 		                  </div>
 		                </div>
 		              </div>
 		            </div>
-		
+
 		            <div class="col-12 col-md-4">
 		              <!-- Option Index -->
 		              <div class="form-group">
 		                <div class="row">
 		                <!--  <label class="col-sm-2 control-label">Hari</label> -->
 		                  <div class="col-sm-10">
-		                    <b-form-select v-model="defaultHari" 
+		                    <b-form-select v-model="defaultHari"
 		                        :options="opsiHari">
 		                    </b-form-select>
 		                  </div>
 		                </div>
 		              </div>
 		            </div>
-		            
+
 		            <div class="col-12 col-md-4">
 		            	<div class="form-group">
 		                <div class="row">
@@ -934,7 +934,7 @@
 		            </div>
 		          </div>
 		        </div>
-		    
+
 		        <b-row>
 		          <b-col md="12">
 		            <b-row>
@@ -955,7 +955,7 @@
 		      </b-container>
         </div>
     </b-modal>
-    
+
     <!-- Modal Berita -->
     <b-modal
       id="modal-berita"
@@ -987,7 +987,7 @@
 		      </b-container>
       </div>
     </b-modal>
-    
+
     <!-- Modal Galeri -->
     <b-modal
       id="modal-galeri"
@@ -1047,7 +1047,7 @@
            </b-tabs>
         </div>
     </b-modal>
-    
+
     <!-- Modal Perundangan -->
     <b-modal
       id="modal-perundangan"
@@ -1093,7 +1093,7 @@
                               <b-link
                                 :href="`${
                                   perpu.tipe === 'file'
-                                    ? `/v1/peraturan-perundangan/file/${perpu.slug}`
+                                    ? `/api/peraturan-perundangan/file/${perpu.slug}`
                                     : perpu.file_url
                                 }`"
                                 target="_blank"
@@ -1112,7 +1112,7 @@
                 </b-row>
         </div>
     </b-modal>
-    
+
     <!-- Modal Laporan Harian Posko -->
     <b-modal
       id="modal-laporanposko"
@@ -1152,7 +1152,7 @@
         	</b-row>
       </div>
     </b-modal>
-    
+
     <!-- Modal Dokumen Lainnya -->
     <b-modal
       id="modal-dokumenlain"
@@ -1183,7 +1183,7 @@
                       <b-link
                         :href="`${
                           dok.tipe === 'file'
-                            ? `/v1/dokumen-lain/file/${dok.slug}`
+                            ? `/api/dokumen-lain/file/${dok.slug}`
                             : dok.file_url
                         }`"
                         target="_blank"
@@ -1214,17 +1214,16 @@
                 </b-row>
         </div>
     </b-modal>
-  
 
-        
+
+
 
         <!--<b-link to="" class="pdf">
           <img src="/pdf.svg" alt="" />
           <span>Download PDF</span>
         </b-link>-->
-  
+
   </div>
- </div>
 </template>
 
 <script>
@@ -1434,20 +1433,20 @@ export default {
       loadMore: false,
       loadMorePerundangan: false,
       loadMoreLaporan: false,
-      
+
       dataLuas: {},
       nomor: 1,
       tahuns: [],
       datas: [],
       totals: [],
-      
-      
+
+
       dataEmisi: {},
       nomor: 1,
       tahuns: [],
       datas: [],
       totals: [],
-      
+
       dataFdrs: {},
       //Default Opsi Wilayah
       defaultWilayah: 'indonesia',
@@ -1463,8 +1462,8 @@ export default {
       },
       loading: false,
     }
-    
-    
+
+
   },
   watch: {
     periodeData: {
@@ -1553,7 +1552,7 @@ export default {
   	tilesUrl () {
       return this.tiles[this.currentTiles].url
     },
-  
+
     noaaGreenIcon() {
       let icon = () => {}
       if (process.browser) icon = this.$L.icon
@@ -1993,7 +1992,7 @@ export default {
     window.removeEventListener('resize', this.openLeg)
   },
   async fetch() {
-    const url = !process.server ? `/v1/listBerita` : `/api/listBerita`
+    const url = !process.server ? `/api/listBerita` : `/api/listBerita`
 
     const params = {
       direction: this.options.direction,
@@ -2029,7 +2028,7 @@ export default {
   },
   methods: {
     async visitor() {
-      const url = !process.server ? `/v1/visitor` : `/api/visitor`
+      const url = !process.server ? `/api/visitor` : `/api/visitor`
 
       await this.$axios
         .$get(url)
@@ -2094,7 +2093,7 @@ export default {
 
     async getRunningText() {
       const url = !process.server
-        ? `/v1/data/running-text`
+        ? `/api/data/running-text`
         : `/api/data/running-text`
 
       await this.$axios
@@ -2162,10 +2161,10 @@ export default {
       this.daerahOp = false
       this.sarana = true
     },
-    
-    
+
+
     async getRunningText() {
-      const url = !process.server ? `/v1/data/running-text` : `/api/data/running-text`
+      const url = !process.server ? `/api/data/running-text` : `/api/data/running-text`
 
       await this.$axios
         .$get(url)
@@ -2186,10 +2185,10 @@ export default {
             }
         })
     },
-    
+
     async loadDataLuas() {
       this.loading = true
-      const url = !process.server ? `/v1/data/luas-kebakaran` : `/api/data/luas-kebakaran`
+      const url = !process.server ? `/api/data/luas-kebakaran` : `/api/data/luas-kebakaran`
 
       await this.$axios
         .$get(url)
@@ -2213,10 +2212,11 @@ export default {
           this.loading = false
         })
     },
-    
+
     async loadDataEmisi() {
       this.loading = true
-      const url = !process.server ? `/v1/data/emisi-co2` : `/api/data/emisi-co2`
+      // const url = !process.server ? `/api/data/emisi-co2` : `/api/data/emisi-co2`
+      const url = `http://139.99.52.109:8285/api/data/emisi-co2`
 
       await this.$axios
         .$get(url)
@@ -2355,7 +2355,7 @@ export default {
     async loadHotspotSatelit() {
       // new version of hotspot
       const url = !process.server
-        ? `/v1/hotspot/satelit`
+        ? `/api/hotspot/satelit`
         : `/api/hotspot/satelit`
 
       await this.$axios
@@ -2375,7 +2375,7 @@ export default {
         })
     },
     async loadHotSpot() {
-      const url = !process.server ? `/v1/indoHotspot` : `/api/indoHotspot`
+      const url = !process.server ? `/api/indoHotspot` : `/api/indoHotspot`
       this.loading = true
 
       await this.$axios
@@ -2397,7 +2397,7 @@ export default {
     async loadClusterKabKota(kotakab_id) {
       if (this.clusterKabKota.oldId !== kotakab_id) {
         const url = !process.server
-          ? `/v1/getCluster/${kotakab_id}/kotakab`
+          ? `/api/getCluster/${kotakab_id}/kotakab`
           : `/api/getCluster/${kotakab_id}/kotakab`
         this.clusterKabKota.visible = false
         this.clusterKabKota.oldId = kotakab_id
@@ -2425,7 +2425,7 @@ export default {
     async loadClusterDesa(item) {
       if (this.clusterDesa.oldId !== item.desa_id) {
         const url = !process.server
-          ? `/v1/getCluster/${item.desa_id}/desa`
+          ? `/api/getCluster/${item.desa_id}/desa`
           : `/api/getCluster/${item.desa_id}/desa`
         this.clusterDesa.visible = false
         this.clusterDesa.oldId = item.desa_id
@@ -2444,7 +2444,7 @@ export default {
       }
     },
     async loadDaops(item) {
-      const url = !process.server ? `/v1/daops/all` : `/api/daops/all`
+      const url = !process.server ? `/api/daops/all` : `/api/daops/all`
       this.dataDaops.visible = false
       this.loading = true
       await this.$axios
@@ -2460,7 +2460,7 @@ export default {
         })
     },
     async loadWind() {
-      const url = !process.server ? `/v1/gfs` : `/api/gfs`
+      const url = !process.server ? `/api/gfs` : `/api/gfs`
 
       await this.$axios
         .$get(url)
@@ -2471,7 +2471,7 @@ export default {
         .finally(() => {})
     },
     async loadAqms() {
-      const url = !process.server ? `/v1/aqms` : `/api/aqms`
+      const url = !process.server ? `/api/aqms` : `/api/aqms`
 
       await this.$axios
         .$get(url)
@@ -2483,7 +2483,7 @@ export default {
     },
     async cmbProvs() {
       const url = !process.server
-        ? `/v1/getProvinsi/all`
+        ? `/api/getProvinsi/all`
         : `/api/getProvinsi/all`
       this.loading = true
 
@@ -2506,7 +2506,7 @@ export default {
     },
     async cmbKotaKab() {
       const url = !process.server
-        ? `/v1/getKotaKab/${this.cariProvinsi}`
+        ? `/api/getKotaKab/${this.cariProvinsi}`
         : `/api/getKotaKab/${this.cariProvinsi}`
 
       await this.$axios
@@ -2526,7 +2526,7 @@ export default {
     },
     async loadPemadaman() {
       this.loading = true
-      const url = !process.server ? `/v1/listGaleri` : `/api/listGaleri`
+      const url = !process.server ? `/api/listGaleri` : `/api/listGaleri`
 
       const params = {
         tipe: this.optionsGal.tipe,
@@ -2557,10 +2557,10 @@ export default {
           this.loading = false
         })
     },
-    
+
     async loadLain() {
       this.loading = true
-      const url = !process.server ? `/v1/listGaleri` : `/api/listGaleri`
+      const url = !process.server ? `/api/listGaleri` : `/api/listGaleri`
 
       const params = {
         tipe: this.optionsLain.tipe,
@@ -2591,10 +2591,10 @@ export default {
           this.loading = false
         })
     },
-    
+
     async loadBerita() {
       this.loading = true
-      const url = !process.server ? `/v1/listBerita` : `/api/listBerita`
+      const url = !process.server ? `/api/listBerita` : `/api/listBerita`
 
       const params = {
       direction: this.options.direction,
@@ -2626,9 +2626,9 @@ export default {
           this.loading = false
         })
     },
-    
+
     async loadPerundangan() {
-    const url = !process.server ? `/v1/listDokumen` : `/api/listDokumen`
+    const url = !process.server ? `/api/listDokumen` : `/api/listDokumen`
 
     const params = {
       direction: this.options.direction,
@@ -2656,8 +2656,8 @@ export default {
           }
         }
       })
-      
-    const urlPerpu = !process.server ? `/v1/listPerpu` : `/api/listPerpu`
+
+    const urlPerpu = !process.server ? `/api/listPerpu` : `/api/listPerpu`
 
     await this.$axios
       .$get(urlPerpu)
@@ -2675,9 +2675,9 @@ export default {
           }
         }
       })
-  
+
   // Laporan Harian
-    const urlLaporan = !process.server ? `/v1/data/laporan-harian` : `/api/data/laporan-harian`
+    const urlLaporan = !process.server ? `/api/data/laporan-harian` : `/api/data/laporan-harian`
 
     const paramsLaporan = {
       direction: this.options.direction,
@@ -2705,16 +2705,16 @@ export default {
           }
         }
       })
-      
-      
+
+
       // Direktorat PKHL
-    const urlPKHL = !process.server ? `/v1/data/direktorat-pkhl` : `/api/data/direktorat-pkhl`
+    const urlPKHL = !process.server ? `/api/data/direktorat-pkhl` : `/api/data/direktorat-pkhl`
     await this.$axios
       .$get(urlPKHL)
       .then((res) => {
         this.direktoratPKHL = res
       })
-      .catch((err) => { 
+      .catch((err) => {
         if (err.response) {
           const { status, data } = err.response
           if (status === 500) {
@@ -2727,13 +2727,13 @@ export default {
       })
 
     // Struktur Organisasi
-    const urlOrg = !process.server ? `/v1/data/struktur-organisasi` : `/api/data/struktur-organisasi`
+    const urlOrg = !process.server ? `/api/data/struktur-organisasi` : `/api/data/struktur-organisasi`
     await this.$axios
       .$get(urlOrg)
       .then((res) => {
         this.strukturOrganisasi = res
       })
-      .catch((err) => { 
+      .catch((err) => {
         if (err.response) {
           const { status, data } = err.response
           if (status === 500) {
@@ -2746,13 +2746,13 @@ export default {
       })
 
     // Manggala Agni Profil
-    const urlProfil = !process.server ? `/v1/data/profil` : `/api/data/profil`
+    const urlProfil = !process.server ? `/api/data/profil` : `/api/data/profil`
     await this.$axios
       .$get(urlProfil)
       .then((res) => {
         this.profil = res.data
       })
-      .catch((err) => { 
+      .catch((err) => {
         if (err.response) {
           const { status, data } = err.response
           if (status === 500) {
@@ -2765,13 +2765,13 @@ export default {
       })
 
     // Manggala Agni Sarpas
-    const urlSarpras = !process.server ? `/v1/data/sarpras` : `/api/data/sarpras`
+    const urlSarpras = !process.server ? `/api/data/sarpras` : `/api/data/sarpras`
     await this.$axios
       .$get(urlSarpras)
       .then((res) => {
         this.sarpras = res
       })
-      .catch((err) => { 
+      .catch((err) => {
         if (err.response) {
           const { status, data } = err.response
           if (status === 500) {
@@ -2784,14 +2784,14 @@ export default {
       })
 
     // Manggala Agni Daerah Operasional
-    const urlDaerah = !process.server ? `/v1/data/daerah` : `/api/data/daerah`
+    const urlDaerah = !process.server ? `/api/data/daerah` : `/api/data/daerah`
     // const urlDaerah = 'http://127.0.0.1:8081/api/data/daerah'
     await this.$axios
       .$get(urlDaerah)
       .then((res) => {
         this.daerah = res
       })
-      .catch((err) => { 
+      .catch((err) => {
         if (err.response) {
           const { status, data } = err.response
           if (status === 500) {
@@ -2801,13 +2801,13 @@ export default {
             this.$nuxt.error({ statusCode: 404, message: data.message })
           }
         }
-      }) 
+      })
   },
-  
+
   async loadFdrs() {
       this.loading = true
-      const url = !process.server ? `/v1/fdrs/getData` : `/api/fdrs/getData`
-      //const url = `http://127.0.0.1:8081/api/fdrs/getData`
+      // const url = !process.server ? `/api/fdrs/getData` : `/api/fdrs/getData`
+      const url = `http://139.99.52.109:8285/api/fdrs/data`
 
       const params = {
         index : this.option.index,
@@ -2839,13 +2839,13 @@ export default {
           this.loading = false
         })
   	},
-  	
+
   	async filter(){
       this.selectedWilayah = this.defaultWilayah
       this.selectedHari = this.defaultHari
       await this.loadFdrs()
     },
-    
+
     download(link,wilayah){
       const filename = wilayah+'.png'
 
@@ -2864,8 +2864,8 @@ export default {
           fileLink.click();
       });
     },
-  
-  
+
+
     async loadMoreDataGal() {
       this.optionsGal.page++
       await this.loadPemadaman()
@@ -2878,24 +2878,24 @@ export default {
       this.options.page++
       await this.loadBerita()
     },
-    
+
     async loadMoreDataPerundangan() {
       this.options.page++
       await this.loadPerundangan()
     },
-    
+
     async loadMoreDataLaporan() {
       this.optionsLaporan.page++
       await this.$fetch()
     },
-     
+
     toggleOpen() {
       var legend = document.querySelector('.legend-wrap')
 
       legend.classList.toggle('open')
     },
 
-     
+
     openSidebarEight() {
       var legend = document.querySelector('.legend-wrap')
       var sidebar = document.querySelector('.sidebar-one')
@@ -3343,7 +3343,7 @@ export default {
         map.classList.toggle('openSide')
       }
     },
-    
+
     openSidebarOne() {
       var legend = document.querySelector('.legend-wrap')
       var sidebar = document.querySelector('.sidebar-one')
@@ -3652,7 +3652,7 @@ export default {
         link2.classList.toggle('active')
       }
     },
-    
+
      openSidebarThree() {
         link5.classList.toggle('active')
       }
