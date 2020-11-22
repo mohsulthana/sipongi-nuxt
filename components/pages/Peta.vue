@@ -1,6 +1,8 @@
 <template> 
-  <div>
-    <div class="sidebar-map">
+  
+    <div>
+      <div class="sidebar-map">
+    
       <b-link to="/" class="logo">
         <img src="/logo.svg" alt="" />
       </b-link>
@@ -8,9 +10,9 @@
       	<img src="/logo-text.svg" alt=""/>
       </b-link>
         <b-button variant="primary-outline" block @click="hide"> </b-button>
-     <div>
+    
 
-    <b-sidebar id="sidebar-backdrop"
+      <b-sidebar id="sidebar-backdrop"
       title=""
       :backdrop-variant="variant"
       backdrop
@@ -70,273 +72,65 @@
 						      text="Tentang Sipongi"
 						      toggle-class="nav-link-custom"
 						      left size="sm">
-		    <b-dropdown-item class="link-seven" @click="openSidebarSeven" style="text-align: left">Direktorat PKHL</b-dropdown-item>
-		    <b-dropdown-item class="link-eight" @click="openSidebarEight" style="text-align: left">Manggala Agni</b-dropdown-item>
-		    <b-dropdown-item class="link-nine" @click="openSidebarNine" style="text-align: left">Struktur Organisasi</b-dropdown-item>
-		    <b-dropdown-item class="link-ten" @click="openSidebarTen" style="text-align: left">Kontak Kami</b-dropdown-item>
-		    <b-dropdown-item class="link-eleven" @click="openSidebarEleven" style="text-align: left">Link Terkait</b-dropdown-item>
+		    <b-dropdown-item class="link-seven"  style="text-align: left">Direktorat PKHL</b-dropdown-item>
+		    <b-dropdown-item class="link-eight"  style="text-align: left">Manggala Agni</b-dropdown-item>
+		    <b-dropdown-item class="link-nine"  style="text-align: left">Struktur Organisasi</b-dropdown-item>
+		    <b-dropdown-item class="link-ten"  style="text-align: left">Kontak Kami</b-dropdown-item>
+		    <b-dropdown-item class="link-eleven"  style="text-align: left">Link Terkait</b-dropdown-item>
 		    <b-dropdown-item v-b-modal.modal-disclaimer class="d-md-block d-none" style="text-align: left">Disclaimer</b-dropdown-item>
 		  </b-nav-item-dropdown>
             </b-nav>
 		  </nav>
       </div>
       </b-sidebar>
+
       
-      <b-link class="main link-two d-md-none" v-b-modal.modal-berita>
-        <div class="wrap">
-          <div class="image d-md-none d-block">
-            <img src="/paper.svg" alt="" />
+      
+        <b-link class="main link-two d-md-none" v-b-modal.modal-berita>
+          <div class="wrap">
+            <div class="image d-md-none d-block">
+              <img src="/paper.svg" alt="" />
+            </div>
+            <h6>Berita</h6>
           </div>
-          <h6>Berita</h6>
-        </div>
-      </b-link>
-      
-      <b-link class="main link-three d-md-none" v-b-modal.modal-galeri>
-        <div class="wrap">
-          <div class="image d-md-none d-block">
-            <img src="/fire-extinguisher.svg" alt="" />
+        </b-link>
+        
+        <b-link class="main link-three d-md-none" v-b-modal.modal-galeri>
+          <div class="wrap">
+            <div class="image d-md-none d-block">
+              <img src="/fire-extinguisher.svg" alt="" />
+            </div>
+            <h6>Galeri</h6>
           </div>
-          <h6>Galeri</h6>
-        </div>
-      </b-link>
-     
-      <b-link class="main link-four d-md-none" @click="openLegend">
-        <div class="wrap">
-          <div class="image">
-            <img src="/cowboy-hat.svg" alt="" />
+        </b-link>
+      
+        <b-link class="main link-four d-md-none" @click="openLegend">
+          <div class="wrap">
+            <div class="image">
+              <img src="/cowboy-hat.svg" alt="" />
+            </div>
+            <h6>Legend</h6>
           </div>
-          <h6>Legend</h6>
-        </div>
-      </b-link>
-      
-      <b-link class="main link-one d-md-none" @click="openSidebarOne">
-        <div class="wrap">
-          <div class="image">
-            <img src="/fire-extinguisher.svg" alt="" />
+        </b-link>
+        
+        <b-link class="main link-one d-md-none">
+          <div class="wrap">
+            <div class="image">
+              <img src="/fire-extinguisher.svg" alt="" />
+            </div>
+            <h6>Titik Panas</h6>
           </div>
-          <h6>Titik Panas</h6>
-        </div>
-      </b-link>
-      
-  </div>
-		  
-		  
-		  
-		  <!--
-      <b-link to="/grafik" class="main d-md-block d-none">
-        <h6>Data & Grafik</h6>
-      </b-link>
-      <b-link href="/publikasi" class="main d-md-block d-none">
-        <h6>Publikasi</h6>
-      </b-link>
-      
-      <b-link href="/tentang" class="main d-md-block d-none">
-        <h6>Tentang Kami</h6>
-      </b-link>
-      
-      <b-link v-b-modal.modal-disclaimer class="main d-md-block d-none">
-        <h6>Disclaimer</h6>
-      </b-link>
-      -->
-      <b-link to="/" class="hide">
-        <img src="/mini_arrow_left-gray.svg" alt="" />
-      </b-link>
-			
-      <div class="sidebar-slide sidebar-one" >
-        <div class="content-head">
-          <b-link class="close" @click="openSidebarOne">
-          	<i class="fas fa-times"></i>
-          </b-link>
-          <h6>Lokasi Titik Panas</h6>
-          
-          <div class="content-list">
-          	
-		          <b-form-select
-		            v-model="cariProvinsi"
-		            class="mb-3 form-control"
-		            value-field="id"
-		            text-field="nama_provinsi"
-		            :options="provs"
-		          ></b-form-select>
-		          
-		          <b-form-select
-		            v-model="cariKota"
-		            class="form-control"
-		            value-field="id"
-		            text-field="nama"
-		            :disabled="
-		              provs.length <= 0 || !cariProvinsi || kotakabs.length <= 1
-		            "
-		            :options="kotakabs"
-		          ></b-form-select>
-        	</div>
-         
-          <client-only>
-            <date-picker
-              id="published_at"
-              v-model="titikDate"
-              type="date"
-              format="dddd, DD MMMM YYYY"
-              placeholder="Pilih tanggal"
-            ></date-picker>
-          </client-only>
-          
-          <b-link
-            :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
-            @click="changeSumber('LPN-MODIS')"
-            >Terra/Aqua
-          </b-link>
-          <b-link
-            :class="`status ${checkSumber('LPN-NPP') ? 'active' : ''}`"
-            @click="changeSumber('LPN-NPP')"
-            >SNPP
-          </b-link>
-          <b-link
-            :class="`status ${checkSumber('LPN-NOAA20') ? 'active' : ''}`"
-            @click="changeSumber('LPN-NOAA20')"
-            >NOAA20
-          </b-link>
-          <b-link
-            :class="`status ${checkSumber('LPN-LANDSAT8') ? 'active' : ''}`"
-            @click="changeSumber('LPN-LANDSAT8')"
-            >LANDSAT8
-          </b-link>
-          
-        </div>
-
-        <div class="content-list titik">
-          <!--<template v-for="(datas, index) in DataHotSpot.kabkota">
-            <template v-for="(kotakab, index2) in datas">
-              <b-link
-                class="list-item"
-                v-if="checkSumber(kotakab.data.sumber)"
-                @click="changeCenter(kotakab.data)"
-              >
-                <h6>
-                  {{ kotakab.data.kabkota }} - {{ kotakab.data.nama_provinsi }}
-                </h6>
-                <p>{{ kotakab.data.ori_sumber }}</p>
-                <span class="count">{{ kotakab.count }}</span>
-              </b-link>
-            </template>
-          </template>-->
-        </div>
-
-          <b-link @click="generateReport(DataHotSpot)" class="pdf">
-            <img src="/pdf.svg" alt="" />
-            <span>Download XLS</span>
-          </b-link>
-
-          <!-- <b-link to="" class="pdf">
-          <img src="/pdf.svg" alt="" />
-          <span>Download XLS</span>
-        </b-link> -->
-        </div>
-
-			<div class="sidebar-slide sidebar-two big">
-        <div class="content-head">
-          <b-link class="close" @click="openSidebarTwo"
-            ><i class="fas fa-times"></i>
-          </b-link>
-          <h6>Berita Sipongi+</h6>
-          <p></p>
-        </div>
-
-        <div class="content-list">
-          <b-row>
-            <b-col cols="6" v-for="blog in beritas" :key="blog.slug">
-              <b-link :to="`/blog/${blog.slug}`" class="blog-item">
-                <div
-                  class="image"
-                  :style="{ backgroundImage: `url(${blog.image_url})` }"
-                ></div>
-                <h5>{{ blog.title }}</h5>
-                <span>{{ blog.created_at }}</span>
-              </b-link>
-            </b-col>
-            <b-col v-if="loadMore" md="12" class="text-center">
-              <b-button
-                variant="primary"
-                class="loadMore"
-                @click="loadMoreData()"
-              >
-                Lihat Lebih Banyak
-              </b-button>
-            </b-col>
-          </b-row>
-        </div>
-      </div>
-
-      <div class="sidebar-slide sidebar-three big">
-        <div class="content-head">
-          <b-link class="close" @click="openSidebarFive"
-            ><i class="fas fa-times"></i
-          ></b-link>
-          <h6>Galeri</h6>
-          <p>Informasi seputar kegiatan pemadaman</p>
-        </div>
-
-        <div class="content-list">
-          <b-tabs>
-            <b-tab title="Kegiatan Pemadaman" active>
-              <b-row>
-                <b-col cols="6" v-for="blog in pemadamans" :key="blog.slug">
-                  <b-link :to="'/galeri/' + blog.slug" class="blog-item">
-                    <div
-                      class="image"
-                      :style="{
-                        backgroundImage: `url(${blog.detail.image_url})`,
-                      }"
-                    ></div>
-                    <h5>{{ blog.title }}</h5>
-                    <span>{{
-                      $moment(blog.created_at).format('DD MMMM YYYY')
-                    }}</span>
-                  </b-link>
-                </b-col>
-                <b-col v-if="loadMoreGal" md="12" class="text-center">
-                  <b-button
-                    variant="primary"
-                    class="loadMore"
-                    @click="loadMoreDataGal()"
-                    >Lihat Lebih Banyak</b-button
-                  >
-                </b-col>
-              </b-row>
-            </b-tab>
-            <b-tab title="Kegiatan Lainnya">
-              <b-row>
-                <b-col cols="6" v-for="blog in lains" :key="blog.slug">
-                  <b-link :to="'/galeri/' + blog.slug" class="blog-item">
-                    <div
-                      class="image"
-                      :style="{
-                        backgroundImage: `url(${blog.detail.image_url})`,
-                      }"
-                    ></div>
-                    <h5>{{ blog.title }}</h5>
-                    <span>{{ blog.created_at }}</span>
-                  </b-link>
-                </b-col>
-                <b-col v-if="loadMoreLain" md="12" class="text-center">
-                  <b-button
-                    variant="primary"
-                    class="loadMore"
-                    @click="loadMoreDataLain()"
-                    >Lihat Lebih Banyak</b-button
-                  >
-                </b-col>
-              </b-row>
-            </b-tab>
-          </b-tabs>
-        </div>
-      </div>
-
-   </div>
-   
-   
-    <div class="map-wrap" style="height: 100vh">
+        </b-link>
     
+    
+		</div>  
+	
+      
+
+   
+  
+   
+    <div class="map-wrap" style="height: 100vh">    
     <div id="logo_maps">
     		<!--<img src="/sipongi_maps.png" class="img img-responsives">-->
     		<ul>
@@ -348,7 +142,13 @@
     		</ul>
     </div>
 
-
+    
+		
+	  <b-link id="counter" class="counter">
+        <h6 class="sec-title" style="margin-bottom: 0px; font-weight: bolder">Visitor {{counter}}</h6><!--<h6 class="sec-title" style="text-align: center;">{{counter}}</h6>-->
+      </b-link>
+		
+		
       <b-link href="https://wa.me/+6281310035000" target="_blank" class="call">
         <img src="/phone-red.svg" alt="" class="mr-1 inner" />
         Sipongi
@@ -591,59 +391,31 @@
               </div>
             </div>
           </b-collapse>
-        </div>
-		
-		
-	<v-sheet
-    class="mx-auto"
-    elevation="8"
-    max-width="800"
-  >
-    <v-slide-group
-      v-model="model"
-      class="pa-4"
-      center-active
-      show-arrows
-    >
-      <v-slide-item
-        v-for="n in 15"
-        :key="n"
-        v-slot="{ active, toggle }"
-      >
-        <v-card
-          :color="active ? 'primary' : 'grey lighten-1'"
-          class="ma-4"
-          height="200"
-          width="100"
-          @click="toggle"
-        >
-          <v-row
-            class="fill-height"
-            align="center"
-            justify="center"
-          >
-            <v-scale-transition>
-              <v-icon
-                v-if="active"
-                color="white"
-                size="48"
-                v-text="'mdi-close-circle-outline'"
-              ></v-icon>
-            </v-scale-transition>
-          </v-row>
-        </v-card>
-      </v-slide-item>
-    </v-slide-group>
-  </v-sheet>
-		
-		
-		
+        </div>	
       </div>
-	  
-	  
-	  
-	  
-	  
+
+      <div class="geser">
+      <div class="carousel-wrapper">
+        <VueSlickCarousel v-bind="slickOptions" v-if="Object.keys(beritas).length > 0">
+          <div v-for="blog in beritas" :key="blog.slug" class="img-wrapper">
+            <b-link :to="`/blog/${blog.slug}`" class="blog-item"> <img :src="blog.image_url"> 
+            <div class="text-block">
+              <h5>{{ blog.title }}</h5>
+            </div>
+            </b-link>
+          </div>
+        </VueSlickCarousel>
+      </div>
+      </div>
+      <!--
+       <flickity v-if="Object.keys(beritas).length > 0" ref="flickity" :options="flickityOptions">
+        <div class="carousel-cell" v-for="blog in beritas" :key="blog.slug" :style="{ backgroundImage: `url(${blog.image_url})` }">
+            <b-link :to="`/blog/${blog.slug}`" class="blog-item">{{ blog.title }}</b-link>
+        </div>
+      </flickity>
+      -->
+
+      <!--
       <transition name="fade">
         <marquee
           v-show="beritaMarqueeText"
@@ -655,21 +427,27 @@
           }"
         >
           <span v-for="(value, index) in pemadamans" :key="index">
-            <img :src="value.detail.image_url" width="60" height="40" />
-            <b-link
+            <img :src="value.detail.image_url" width="250" height="100" />
+            <b-link class="logo"
               :to="`/galeri/${value.slug}`"
-              class="logo"
               style="color: #fff"
             >
-              {{ value.title }}
+             <h5 class="textcentered"> {{ value.title }} </h5>
             </b-link>
           </span>
         </marquee>
       </transition>
+      -->
+    
+    
+   
+    
+    
+
       <client-only>
         <l-map
           ref="mapSipongi"
-          :minZoom="5"
+          :minZoom="5.4"
           :maxZoom="17"
           :zoom="zoom"
           :center="centerMap"
@@ -1224,7 +1002,6 @@
         </b-link>-->
   
   </div>
- </div>
 </template>
 
 <script>
@@ -1234,6 +1011,20 @@ export default {
   name: 'Peta',
   data () {
     return {
+      open: false,
+
+      slickOptions: {
+        slidesToShow: 8,
+        arrows: false,
+        autoplay: true
+      },
+
+      flickityOptions: {
+        prevNextButtons: false,
+        pageDots: false,
+        wrapAround: true
+      },
+
       dataHotSpotSatelit: [],
       beritaMarqueeText: true,
       currentTiles: 0,
@@ -1269,7 +1060,7 @@ export default {
       centerMap: [-2.548926, 118.0148634],
       periodeData: 24,
       trustData: ['high'],
-      zoom: 5,
+      zoom: 5.4,
       windDir: false,
       unitKerja: false,
       btsAdmf: false,
@@ -2051,6 +1842,15 @@ export default {
           this.loading = false
         })
     },
+
+    next() {
+      this.$refs.flickity.next();
+    },
+    
+    previous() {
+      this.$refs.flickity.previous();
+    },
+
     hideBerita() {
       this.beritaMarqueeText = !this.beritaMarqueeText
     },
@@ -2895,373 +2695,16 @@ export default {
       legend.classList.toggle('open')
     },
 
-     
-    openSidebarEight() {
+    openLegend() {
       var legend = document.querySelector('.legend-wrap')
-      var sidebar = document.querySelector('.sidebar-one')
-      var sidebar2 = document.querySelector('.sidebar-two')
-      var sidebar3 = document.querySelector('.sidebar-three')
-      var sidebar5 = document.querySelector('.sidebar-five')
-      var sidebar6 = document.querySelector('.sidebar-six')
-      var sidebar7 = document.querySelector('.sidebar-seven')
-      var sidebar8 = document.querySelector('.sidebar-eight')
-      var sidebar9 = document.querySelector('.sidebar-nine')
-      var sidebar10 = document.querySelector('.sidebar-ten')
-      var sidebar11 = document.querySelector('.sidebar-eleven')
-      var sidebar12 = document.querySelector('.sidebar-twelve')
-      var link = document.querySelector('.link-one')
-      var link2 = document.querySelector('.link-two')
-      var link3 = document.querySelector('.link-three')
       var link4 = document.querySelector('.link-four')
-      var link5 = document.querySelector('.link-five')
-      var link6 = document.querySelector('.link-six')
-      var link7 = document.querySelector('.link-seven')
-      var link8 = document.querySelector('.link-eight')
-      var link9 = document.querySelector('.link-nine')
-      var link10 = document.querySelector('.link-ten')
-      var link11 = document.querySelector('.link-eleven')
-      var link12 = document.querySelector('.link-twelve')
       var map = document.querySelector('.map-wrap')
 
       if (
         map.classList.contains('openSide') &&
-        (sidebar.classList.contains('opened') ||
-          sidebar2.classList.contains('opened') ||
-          sidebar3.classList.contains('opened') ||
-          sidebar5.classList.contains('opened') ||
-          sidebar6.classList.contains('opened') ||
-          sidebar7.classList.contains('opened') ||
-          sidebar9.classList.contains('opened') ||
-          sidebar10.classList.contains('opened') ||
-          sidebar11.classList.contains('opened') ||
-          sidebar12.classList.contains('opened') ||
+        (
           legend.classList.contains('open'))
       ) {
-        sidebar.classList.remove('opened')
-        sidebar2.classList.remove('opened')
-        sidebar3.classList.remove('opened')
-        sidebar5.classList.remove('opened')
-        sidebar6.classList.remove('opened')
-        sidebar7.classList.remove('opened')
-        sidebar9.classList.remove('opened')
-        sidebar10.classList.remove('opened')
-        sidebar11.classList.remove('opened')
-        sidebar12.classList.remove('opened')
-        link2.classList.remove('active')
-        link3.classList.remove('active')
-        link5.classList.remove('active')
-        link6.classList.remove('active')
-        link7.classList.remove('active')
-        link9.classList.remove('active')
-        link10.classList.remove('active')
-        link11.classList.remove('active')
-        link12.classList.remove('active')
-        map.classList.remove('big')
-        link8.classList.add('active')
-        map.classList.add('big')
-        sidebar8.classList.add('opened')
-        if (window.innerWidth < 767) {
-          legend.classList.remove('open')
-          link4.classList.remove('active')
-        }
-      } else {
-        sidebar8.classList.toggle('opened')
-        map.classList.toggle('openSide')
-        link8.classList.toggle('active')
-      }
-    },
-
-    openSidebarNine() {
-      var legend = document.querySelector('.legend-wrap')
-      var sidebar = document.querySelector('.sidebar-one')
-      var sidebar2 = document.querySelector('.sidebar-two')
-      var sidebar3 = document.querySelector('.sidebar-three')
-      var sidebar5 = document.querySelector('.sidebar-five')
-      var sidebar6 = document.querySelector('.sidebar-six')
-      var sidebar7 = document.querySelector('.sidebar-seven')
-      var sidebar8 = document.querySelector('.sidebar-eight')
-      var sidebar9 = document.querySelector('.sidebar-nine')
-      var sidebar10 = document.querySelector('.sidebar-ten')
-      var sidebar11 = document.querySelector('.sidebar-eleven')
-      var sidebar12 = document.querySelector('.sidebar-twelve')
-      var link = document.querySelector('.link-one')
-      var link2 = document.querySelector('.link-two')
-      var link3 = document.querySelector('.link-three')
-      var link4 = document.querySelector('.link-four')
-      var link5 = document.querySelector('.link-five')
-      var link6 = document.querySelector('.link-six')
-      var link7 = document.querySelector('.link-seven')
-      var link8 = document.querySelector('.link-eight')
-      var link9 = document.querySelector('.link-nine')
-      var link10 = document.querySelector('.link-ten')
-      var link11 = document.querySelector('.link-eleven')
-      var link12 = document.querySelector('.link-twelve')
-      var map = document.querySelector('.map-wrap')
-
-      if (
-        map.classList.contains('openSide') &&
-        (sidebar.classList.contains('opened') ||
-          sidebar2.classList.contains('opened') ||
-          sidebar3.classList.contains('opened') ||
-          sidebar5.classList.contains('opened') ||
-          sidebar6.classList.contains('opened') ||
-          sidebar7.classList.contains('opened') ||
-          sidebar8.classList.contains('opened') ||
-          sidebar10.classList.contains('opened') ||
-          sidebar11.classList.contains('opened') ||
-          sidebar12.classList.contains('opened') ||
-          legend.classList.contains('open'))
-      ) {
-        sidebar.classList.remove('opened')
-        sidebar2.classList.remove('opened')
-        sidebar3.classList.remove('opened')
-        sidebar5.classList.remove('opened')
-        sidebar6.classList.remove('opened')
-        sidebar7.classList.remove('opened')
-        sidebar8.classList.remove('opened')
-        sidebar10.classList.remove('opened')
-        sidebar11.classList.remove('opened')
-        sidebar12.classList.remove('opened')
-        link2.classList.remove('active')
-        link3.classList.remove('active')
-        link5.classList.remove('active')
-        link6.classList.remove('active')
-        link7.classList.remove('active')
-        link8.classList.remove('active')
-        link10.classList.remove('active')
-        link11.classList.remove('active')
-        link12.classList.remove('active')
-        map.classList.remove('big')
-        link9.classList.add('active')
-        map.classList.add('big')
-        sidebar9.classList.add('opened')
-        if (window.innerWidth < 767) {
-          legend.classList.remove('open')
-          link4.classList.remove('active')
-        }
-      } else {
-        sidebar9.classList.toggle('opened')
-        map.classList.toggle('openSide')
-        link9.classList.toggle('active')
-      }
-    },
-
-    openSidebarTen() {
-      var legend = document.querySelector('.legend-wrap')
-      var sidebar = document.querySelector('.sidebar-one')
-      var sidebar2 = document.querySelector('.sidebar-two')
-      var sidebar3 = document.querySelector('.sidebar-three')
-      var sidebar5 = document.querySelector('.sidebar-five')
-      var sidebar6 = document.querySelector('.sidebar-six')
-      var sidebar7 = document.querySelector('.sidebar-seven')
-      var sidebar8 = document.querySelector('.sidebar-eight')
-      var sidebar9 = document.querySelector('.sidebar-nine')
-      var sidebar10 = document.querySelector('.sidebar-ten')
-      var sidebar11 = document.querySelector('.sidebar-eleven')
-      var sidebar12 = document.querySelector('.sidebar-twelve')
-      var link = document.querySelector('.link-one')
-      var link2 = document.querySelector('.link-two')
-      var link3 = document.querySelector('.link-three')
-      var link4 = document.querySelector('.link-four')
-      var link5 = document.querySelector('.link-five')
-      var link6 = document.querySelector('.link-six')
-      var link7 = document.querySelector('.link-seven')
-      var link8 = document.querySelector('.link-eight')
-      var link9 = document.querySelector('.link-nine')
-      var link10 = document.querySelector('.link-ten')
-      var link11 = document.querySelector('.link-eleven')
-      var link12 = document.querySelector('.link-twelve')
-      var map = document.querySelector('.map-wrap')
-
-      if (
-        map.classList.contains('openSide') &&
-        (sidebar.classList.contains('opened') ||
-          sidebar2.classList.contains('opened') ||
-          sidebar3.classList.contains('opened') ||
-          sidebar5.classList.contains('opened') ||
-          sidebar6.classList.contains('opened') ||
-          sidebar7.classList.contains('opened') ||
-          sidebar8.classList.contains('opened') ||
-          sidebar9.classList.contains('opened') ||
-          sidebar11.classList.contains('opened') ||
-          sidebar12.classList.contains('opened') ||
-          legend.classList.contains('open'))
-      ) {
-        sidebar.classList.remove('opened')
-        sidebar2.classList.remove('opened')
-        sidebar3.classList.remove('opened')
-        sidebar5.classList.remove('opened')
-        sidebar6.classList.remove('opened')
-        sidebar7.classList.remove('opened')
-        sidebar8.classList.remove('opened')
-        sidebar9.classList.remove('opened')
-        sidebar11.classList.remove('opened')
-        sidebar12.classList.remove('opened')
-        link2.classList.remove('active')
-        link3.classList.remove('active')
-        link5.classList.remove('active')
-        link6.classList.remove('active')
-        link7.classList.remove('active')
-        link8.classList.remove('active')
-        link9.classList.remove('active')
-        link11.classList.remove('active')
-        link12.classList.remove('active')
-        map.classList.remove('big')
-        link10.classList.add('active')
-        map.classList.add('big')
-        sidebar10.classList.add('opened')
-        if (window.innerWidth < 767) {
-          legend.classList.remove('open')
-          link4.classList.remove('active')
-        }
-      } else {
-        sidebar10.classList.toggle('opened')
-        map.classList.toggle('openSide')
-        link10.classList.toggle('active')
-      }
-    },
-
-    openSidebarEleven() {
-      var legend = document.querySelector('.legend-wrap')
-      var sidebar = document.querySelector('.sidebar-one')
-      var sidebar2 = document.querySelector('.sidebar-two')
-      var sidebar3 = document.querySelector('.sidebar-three')
-      var sidebar5 = document.querySelector('.sidebar-five')
-      var sidebar6 = document.querySelector('.sidebar-six')
-      var sidebar7 = document.querySelector('.sidebar-seven')
-      var sidebar8 = document.querySelector('.sidebar-eight')
-      var sidebar9 = document.querySelector('.sidebar-nine')
-      var sidebar10 = document.querySelector('.sidebar-ten')
-      var sidebar11 = document.querySelector('.sidebar-eleven')
-      var sidebar12 = document.querySelector('.sidebar-twelve')
-      var link = document.querySelector('.link-one')
-      var link2 = document.querySelector('.link-two')
-      var link3 = document.querySelector('.link-three')
-      var link4 = document.querySelector('.link-four')
-      var link5 = document.querySelector('.link-five')
-      var link6 = document.querySelector('.link-six')
-      var link7 = document.querySelector('.link-seven')
-      var link8 = document.querySelector('.link-eight')
-      var link9 = document.querySelector('.link-nine')
-      var link10 = document.querySelector('.link-ten')
-      var link11 = document.querySelector('.link-eleven')
-      var link12 = document.querySelector('.link-twelve')
-      var map = document.querySelector('.map-wrap')
-
-      if (
-        map.classList.contains('openSide') &&
-        (sidebar.classList.contains('opened') ||
-          sidebar2.classList.contains('opened') ||
-          sidebar3.classList.contains('opened') ||
-          sidebar5.classList.contains('opened') ||
-          sidebar6.classList.contains('opened') ||
-          sidebar7.classList.contains('opened') ||
-          sidebar8.classList.contains('opened') ||
-          sidebar9.classList.contains('opened') ||
-          sidebar10.classList.contains('opened') ||
-          sidebar12.classList.contains('opened') ||
-          legend.classList.contains('open'))
-      ) {
-        sidebar.classList.remove('opened')
-        sidebar2.classList.remove('opened')
-        sidebar3.classList.remove('opened')
-        sidebar5.classList.remove('opened')
-        sidebar6.classList.remove('opened')
-        sidebar7.classList.remove('opened')
-        sidebar8.classList.remove('opened')
-        sidebar9.classList.remove('opened')
-        sidebar10.classList.remove('opened')
-        sidebar12.classList.remove('opened')
-        link2.classList.remove('active')
-        link3.classList.remove('active')
-        link5.classList.remove('active')
-        link6.classList.remove('active')
-        link7.classList.remove('active')
-        link8.classList.remove('active')
-        link9.classList.remove('active')
-        link10.classList.remove('active')
-        link12.classList.remove('active')
-        map.classList.remove('big')
-        link11.classList.add('active')
-        map.classList.add('big')
-        sidebar11.classList.add('opened')
-        if (window.innerWidth < 767) {
-          legend.classList.remove('open')
-          link4.classList.remove('active')
-        }
-      } else {
-        sidebar11.classList.toggle('opened')
-        map.classList.toggle('openSide')
-        link11.classList.toggle('active')
-      }
-    },
-
-    openSidebarTwelve() {
-      var legend = document.querySelector('.legend-wrap')
-      var sidebar = document.querySelector('.sidebar-one')
-      var sidebar2 = document.querySelector('.sidebar-two')
-      var sidebar3 = document.querySelector('.sidebar-three')
-      var sidebar5 = document.querySelector('.sidebar-five')
-      var sidebar6 = document.querySelector('.sidebar-six')
-      var sidebar7 = document.querySelector('.sidebar-seven')
-      var sidebar8 = document.querySelector('.sidebar-eight')
-      var sidebar9 = document.querySelector('.sidebar-nine')
-      var sidebar10 = document.querySelector('.sidebar-ten')
-      var sidebar11 = document.querySelector('.sidebar-eleven')
-      var sidebar12 = document.querySelector('.sidebar-twelve')
-      var link = document.querySelector('.link-one')
-      var link2 = document.querySelector('.link-two')
-      var link3 = document.querySelector('.link-three')
-      var link4 = document.querySelector('.link-four')
-      var link5 = document.querySelector('.link-five')
-      var link6 = document.querySelector('.link-six')
-      var link7 = document.querySelector('.link-seven')
-      var link8 = document.querySelector('.link-eight')
-      var link9 = document.querySelector('.link-nine')
-      var link10 = document.querySelector('.link-ten')
-      var link11 = document.querySelector('.link-eleven')
-      var link12 = document.querySelector('.link-twelve')
-      var map = document.querySelector('.map-wrap')
-
-      var map = document.querySelector('.map-wrap')
-
-      if (
-        map.classList.contains('openSide') &&
-        (sidebar.classList.contains('opened') ||
-          sidebar2.classList.contains('opened') ||
-          sidebar3.classList.contains('opened') ||
-          sidebar5.classList.contains('opened') ||
-          sidebar6.classList.contains('opened') ||
-          sidebar7.classList.contains('opened') ||
-          sidebar8.classList.contains('opened') ||
-          sidebar9.classList.contains('opened') ||
-          sidebar10.classList.contains('opened') ||
-          sidebar11.classList.contains('opened') ||
-          sidebar12.classList.contains('opened') ||
-          legend.classList.contains('open'))
-      ) {
-        sidebar.classList.remove('opened')
-        sidebar2.classList.remove('opened')
-        sidebar3.classList.remove('opened')
-        sidebar5.classList.remove('opened')
-        sidebar6.classList.remove('opened')
-        sidebar7.classList.remove('opened')
-        sidebar8.classList.remove('opened')
-        sidebar9.classList.remove('opened')
-        sidebar10.classList.remove('opened')
-        sidebar11.classList.remove('opened')
-        sidebar12.classList.remove('opened')
-        link.classList.remove('active')
-        link2.classList.remove('active')
-        link3.classList.remove('active')
-        link5.classList.remove('active')
-        link6.classList.remove('active')
-        link7.classList.remove('active')
-        link8.classList.remove('active')
-        link9.classList.remove('active')
-        link10.classList.remove('active')
-        link11.classList.remove('active')
-        link12.classList.remove('active')
         map.classList.remove('big')
         legend.classList.toggle('open')
         link4.classList.toggle('active')
@@ -3270,321 +2713,16 @@ export default {
         link4.classList.toggle('active')
         map.classList.toggle('openSide')
       }
-    },
-    
-    openSidebarOne() {
-      var legend = document.querySelector('.legend-wrap')
-      var sidebar = document.querySelector('.sidebar-one')
-      var sidebar2 = document.querySelector('.sidebar-two')
-      var sidebar3 = document.querySelector('.sidebar-three')
-      var sidebar5 = document.querySelector('.sidebar-five')
-      var sidebar6 = document.querySelector('.sidebar-six')
-      var sidebar7 = document.querySelector('.sidebar-seven')
-      var sidebar8 = document.querySelector('.sidebar-eight')
-      var sidebar9 = document.querySelector('.sidebar-nine')
-      var sidebar10 = document.querySelector('.sidebar-ten')
-      var sidebar11 = document.querySelector('.sidebar-eleven')
-      var sidebar12 = document.querySelector('.sidebar-twelve')
-      var link = document.querySelector('.link-one')
-      var link2 = document.querySelector('.link-two')
-      var link3 = document.querySelector('.link-three')
-      var link4 = document.querySelector('.link-four')
-      var link5 = document.querySelector('.link-five')
-      var link6 = document.querySelector('.link-six')
-      var link7 = document.querySelector('.link-seven')
-      var link8 = document.querySelector('.link-eight')
-      var link9 = document.querySelector('.link-nine')
-      var link10 = document.querySelector('.link-ten')
-      var link11 = document.querySelector('.link-eleven')
-      var link12 = document.querySelector('.link-twelve')
-      var map = document.querySelector('.map-wrap')
-
-      if (
-        map.classList.contains('openSide') &&
-        (sidebar2.classList.contains('opened') ||
-        	sidebar3.classList.contains('opened') ||
-          sidebar5.classList.contains('opened') ||
-          sidebar6.classList.contains('opened') ||
-          sidebar7.classList.contains('opened') ||
-          sidebar8.classList.contains('opened') ||
-          sidebar9.classList.contains('opened') ||
-          sidebar10.classList.contains('opened') ||
-          sidebar11.classList.contains('opened') ||
-          sidebar12.classList.contains('opened') ||
-          legend.classList.contains('open'))
-      ) {
-      	sidebar2.classList.remove('opened')
-        sidebar3.classList.remove('opened')
-        sidebar5.classList.remove('opened')
-        sidebar6.classList.remove('opened')
-        sidebar7.classList.remove('opened')
-        sidebar8.classList.remove('opened')
-        sidebar9.classList.remove('opened')
-        sidebar10.classList.remove('opened')
-        sidebar11.classList.remove('opened')
-        sidebar12.classList.remove('opened')
-        link2.classList.remove('active')
-        link3.classList.remove('active')
-        link5.classList.remove('active')
-        link6.classList.remove('active')
-        link7.classList.remove('active')
-        link8.classList.remove('active')
-        link9.classList.remove('active')
-        link10.classList.remove('active')
-        link11.classList.remove('active')
-        link12.classList.remove('active')
-        map.classList.remove('big')
-        link.classList.add('active')
-        sidebar.classList.add('opened')
-        if (window.innerWidth < 767) {
-          legend.classList.remove('open')
-          link4.classList.remove('active')
-        }
-      } else {
-        sidebar.classList.toggle('opened')
-        map.classList.toggle('openSide')
-        link.classList.toggle('active')
-        legend.classList.remove('open')
-      }
-    },
-
-    openSidebarTwo() {
-      var legend = document.querySelector('.legend-wrap')
-      var sidebar = document.querySelector('.sidebar-one')
-      var sidebar2 = document.querySelector('.sidebar-two')
-      var sidebar3 = document.querySelector('.sidebar-three')
-      var sidebar5 = document.querySelector('.sidebar-five')
-      var sidebar6 = document.querySelector('.sidebar-six')
-      var sidebar7 = document.querySelector('.sidebar-seven')
-      var sidebar8 = document.querySelector('.sidebar-eight')
-      var sidebar9 = document.querySelector('.sidebar-nine')
-      var sidebar10 = document.querySelector('.sidebar-ten')
-      var sidebar11 = document.querySelector('.sidebar-eleven')
-      var sidebar12 = document.querySelector('.sidebar-twelve')
-      var link = document.querySelector('.link-one')
-      var link2 = document.querySelector('.link-two')
-      var link3 = document.querySelector('.link-three')
-      var link4 = document.querySelector('.link-four')
-      var link5 = document.querySelector('.link-five')
-      var link6 = document.querySelector('.link-six')
-      var link7 = document.querySelector('.link-seven')
-      var link8 = document.querySelector('.link-eight')
-      var link9 = document.querySelector('.link-nine')
-      var link10 = document.querySelector('.link-ten')
-      var link11 = document.querySelector('.link-eleven')
-      var link12 = document.querySelector('.link-twelve')
-      var map = document.querySelector('.map-wrap')
-
-      if (
-        map.classList.contains('openSide') &&
-        (sidebar.classList.contains('opened') ||
-          sidebar3.classList.contains('opened') ||
-          sidebar5.classList.contains('opened') ||
-          sidebar6.classList.contains('opened') ||
-          sidebar7.classList.contains('opened') ||
-          sidebar8.classList.contains('opened') ||
-          sidebar9.classList.contains('opened') ||
-          sidebar10.classList.contains('opened') ||
-          sidebar11.classList.contains('opened') ||
-          sidebar12.classList.contains('opened') ||
-          legend.classList.contains('open'))
-      ) {
-        sidebar.classList.remove('opened')
-        sidebar3.classList.remove('opened')
-        sidebar5.classList.remove('opened')
-        sidebar6.classList.remove('opened')
-        sidebar7.classList.remove('opened')
-        sidebar8.classList.remove('opened')
-        sidebar9.classList.remove('opened')
-        sidebar10.classList.remove('opened')
-        sidebar11.classList.remove('opened')
-        sidebar12.classList.remove('opened')
-        link3.classList.remove('active')
-        link5.classList.remove('active')
-        link6.classList.remove('active')
-        link7.classList.remove('active')
-        link8.classList.remove('active')
-        link9.classList.remove('active')
-        link10.classList.remove('active')
-        link11.classList.remove('active')
-        link12.classList.remove('active')
-        map.classList.remove('big')
-        link2.classList.add('active')
-        map.classList.add('big')
-        sidebar2.classList.add('opened')
-        if (window.innerWidth < 767) {
-          legend.classList.remove('open')
-          link4.classList.remove('active')
-        }
-      } else {
-        sidebar2.classList.toggle('opened')
-        map.classList.toggle('openSide')
-        link2.classList.toggle('active')
-      }
-    },
-
-    openSidebarThree() {
-      var legend = document.querySelector('.legend-wrap')
-      var sidebar = document.querySelector('.sidebar-one')
-      var sidebar2 = document.querySelector('.sidebar-two')
-      var sidebar3 = document.querySelector('.sidebar-three')
-      var sidebar5 = document.querySelector('.sidebar-five')
-      var sidebar6 = document.querySelector('.sidebar-six')
-      var sidebar7 = document.querySelector('.sidebar-seven')
-      var sidebar8 = document.querySelector('.sidebar-eight')
-      var sidebar9 = document.querySelector('.sidebar-nine')
-      var sidebar10 = document.querySelector('.sidebar-ten')
-      var sidebar11 = document.querySelector('.sidebar-eleven')
-      var sidebar12 = document.querySelector('.sidebar-twelve')
-      var link = document.querySelector('.link-one')
-      var link2 = document.querySelector('.link-two')
-      var link3 = document.querySelector('.link-three')
-      var link4 = document.querySelector('.link-four')
-      var link5 = document.querySelector('.link-five')
-      var link6 = document.querySelector('.link-six')
-      var link7 = document.querySelector('.link-seven')
-      var link8 = document.querySelector('.link-eight')
-      var link9 = document.querySelector('.link-nine')
-      var link10 = document.querySelector('.link-ten')
-      var link11 = document.querySelector('.link-eleven')
-      var link12 = document.querySelector('.link-twelve')
-      var map = document.querySelector('.map-wrap')
-
-      if (
-        map.classList.contains('openSide') &&
-        (sidebar.classList.contains('opened') ||
-          sidebar2.classList.contains('opened') ||
-          sidebar5.classList.contains('opened') ||
-          sidebar6.classList.contains('opened') ||
-          sidebar7.classList.contains('opened') ||
-          sidebar8.classList.contains('opened') ||
-          sidebar9.classList.contains('opened') ||
-          sidebar10.classList.contains('opened') ||
-          sidebar11.classList.contains('opened') ||
-          sidebar12.classList.contains('opened') ||
-          legend.classList.contains('open'))
-      ) {
-        sidebar.classList.remove('opened')
-        sidebar2.classList.remove('opened')
-        sidebar5.classList.remove('opened')
-        sidebar6.classList.remove('opened')
-        sidebar7.classList.remove('opened')
-        sidebar8.classList.remove('opened')
-        sidebar9.classList.remove('opened')
-        sidebar10.classList.remove('opened')
-        sidebar11.classList.remove('opened')
-        sidebar12.classList.remove('opened')
-        link2.classList.remove('active')
-        link5.classList.remove('active')
-        link6.classList.remove('active')
-        link7.classList.remove('active')
-        link8.classList.remove('active')
-        link9.classList.remove('active')
-        link10.classList.remove('active')
-        link11.classList.remove('active')
-        link12.classList.remove('active')
-        map.classList.remove('big')
-        link3.classList.add('active')
-        map.classList.add('big')
-        sidebar3.classList.add('opened')
-        if (window.innerWidth < 767) {
-          legend.classList.remove('open')
-          link4.classList.remove('active')
-        }
-      } else {
-        sidebar3.classList.toggle('opened')
-        map.classList.toggle('openSide')
-        map.classList.toggle('big')
-        link3.classList.toggle('active')
-      }
-    },
-
-    openSidebarFive() {
-      var legend = document.querySelector('.legend-wrap')
-      var sidebar = document.querySelector('.sidebar-one')
-      var sidebar2 = document.querySelector('.sidebar-two')
-      var sidebar3 = document.querySelector('.sidebar-three')
-      var sidebar5 = document.querySelector('.sidebar-five')
-      var sidebar6 = document.querySelector('.sidebar-six')
-      var sidebar7 = document.querySelector('.sidebar-seven')
-      var sidebar8 = document.querySelector('.sidebar-eight')
-      var sidebar9 = document.querySelector('.sidebar-nine')
-      var sidebar10 = document.querySelector('.sidebar-ten')
-      var sidebar11 = document.querySelector('.sidebar-eleven')
-      var sidebar12 = document.querySelector('.sidebar-twelve')
-      var link = document.querySelector('.link-one')
-      var link2 = document.querySelector('.link-two')
-      var link3 = document.querySelector('.link-three')
-      var link4 = document.querySelector('.link-four')
-      var link5 = document.querySelector('.link-five')
-      var link6 = document.querySelector('.link-six')
-      var link7 = document.querySelector('.link-seven')
-      var link8 = document.querySelector('.link-eight')
-      var link9 = document.querySelector('.link-nine')
-      var link10 = document.querySelector('.link-ten')
-      var link11 = document.querySelector('.link-eleven')
-      var link12 = document.querySelector('.link-twelve')
-      var map = document.querySelector('.map-wrap')
-
-      if (
-        map.classList.contains('openSide') &&
-        (sidebar.classList.contains('opened') ||
-        	sidebar3.classList.contains('opened') ||
-          sidebar5.classList.contains('opened') ||
-          sidebar2.classList.contains('opened') ||
-          sidebar6.classList.contains('opened') ||
-          sidebar7.classList.contains('opened') ||
-          sidebar8.classList.contains('opened') ||
-          sidebar9.classList.contains('opened') ||
-          sidebar10.classList.contains('opened') ||
-          sidebar11.classList.contains('opened') ||
-          sidebar12.classList.contains('opened') ||
-          legend.classList.contains('open'))
-      ) {
-      	sidebar.classList.remove('opened')
-        sidebar3.classList.remove('opened')
-        sidebar5.classList.remove('opened')
-        sidebar4.classList.remove('opened')
-        sidebar2.classList.remove('opened')
-        sidebar6.classList.remove('opened')
-        sidebar7.classList.remove('opened')
-        sidebar8.classList.remove('opened')
-        sidebar9.classList.remove('opened')
-        sidebar10.classList.remove('opened')
-        sidebar11.classList.remove('opened')
-        sidebar12.classList.remove('opened')
-        link3.classList.remove('active')
-        link5.classList.remove('active')
-        link2.classList.remove('active')
-        link6.classList.remove('active')
-        link7.classList.remove('active')
-        link8.classList.remove('active')
-        link9.classList.remove('active')
-        link10.classList.remove('active')
-        link11.classList.remove('active')
-        link12.classList.remove('active')
-        map.classList.remove('big')
-        link2.classList.add('active')
-        map.classList.add('big')
-        sidebar2.classList.add('opened')
-        link5.classList.add('active')
-        map.classList.add('big')
-        sidebar5.classList.add('opened')
-        if (window.innerWidth < 767) {
-          legend.classList.remove('open')
-          link4.classList.remove('active')
-        }
-      } else {
-        sidebar5.classList.toggle('opened')
-        map.classList.toggle('openSide')
-        link2.classList.toggle('active')
-      }
-    },
-    
-     openSidebarThree() {
-        link5.classList.toggle('active')
-      }
-    },
+    }
+	},
+	
+	mounted() {
+    this.$nextTick(function () {
+      this.visitor()
+    });
+  },
+	
+	
 }
 </script>
 
