@@ -509,34 +509,31 @@
               </div>
             </div>
           </b-collapse>
-        </div>
-
-        <!-- <v-sheet class="mx-auto" elevation="8" max-width="800">
-          <v-slide-group v-model="model" class="pa-4" center-active show-arrows>
-            <v-slide-item v-for="n in 15" :key="n" v-slot="{ active, toggle }">
-              <v-card
-                :color="active ? 'primary' : 'grey lighten-1'"
-                class="ma-4"
-                height="200"
-                width="100"
-                @click="toggle"
-              >
-                <v-row class="fill-height" align="center" justify="center">
-                  <v-scale-transition>
-                    <v-icon
-                      v-if="active"
-                      color="white"
-                      size="48"
-                      v-text="'mdi-close-circle-outline'"
-                    ></v-icon>
-                  </v-scale-transition>
-                </v-row>
-              </v-card>
-            </v-slide-item>
-          </v-slide-group>
-        </v-sheet> -->
+        </div>	
       </div>
 
+      <div class="geser">
+      <div class="carousel-wrapper">
+        <VueSlickCarousel v-bind="slickOptions" v-if="Object.keys(beritas).length > 0">
+          <div v-for="blog in beritas" :key="blog.slug" class="img-wrapper">
+            <b-link :to="`/blog/${blog.slug}`" class="blog-item"> <img :src="blog.image_url"> 
+            <div class="text-block">
+              <h5>{{ blog.title }}</h5>
+            </div>
+            </b-link>
+          </div>
+        </VueSlickCarousel>
+      </div>
+      </div>
+      <!--
+       <flickity v-if="Object.keys(beritas).length > 0" ref="flickity" :options="flickityOptions">
+        <div class="carousel-cell" v-for="blog in beritas" :key="blog.slug" :style="{ backgroundImage: `url(${blog.image_url})` }">
+            <b-link :to="`/blog/${blog.slug}`" class="blog-item">{{ blog.title }}</b-link>
+        </div>
+      </flickity>
+      -->
+
+      <!--
       <transition name="fade">
         <marquee
           v-show="beritaMarqueeText"
@@ -548,21 +545,27 @@
           }"
         >
           <span v-for="(value, index) in pemadamans" :key="index">
-            <img :src="value.detail.image_url" width="60" height="40" />
-            <b-link
+            <img :src="value.detail.image_url" width="250" height="100" />
+            <b-link class="logo"
               :to="`/galeri/${value.slug}`"
-              class="logo"
               style="color: #fff"
             >
-              {{ value.title }}
+             <h5 class="textcentered"> {{ value.title }} </h5>
             </b-link>
           </span>
         </marquee>
       </transition>
+      -->
+    
+    
+   
+    
+    
+
       <client-only>
         <l-map
           ref="mapSipongi"
-          :minZoom="5"
+          :minZoom="5.4"
           :maxZoom="17"
           :zoom="zoom"
           :center="centerMap"
@@ -1317,6 +1320,20 @@ export default {
     const yesterday = new Date(today - 1)
 
     return {
+      open: false,
+
+      slickOptions: {
+        slidesToShow: 8,
+        arrows: false,
+        autoplay: true
+      },
+
+      flickityOptions: {
+        prevNextButtons: false,
+        pageDots: false,
+        wrapAround: true
+      },
+
       yesterday: new Date(today - 1),
       today: now,
       dataHotSpotSatelit: [],
@@ -1354,7 +1371,7 @@ export default {
       centerMap: [-2.548926, 118.0148634],
       periodeData: 24,
       trustData: ['high'],
-      zoom: 5,
+      zoom: 5.4,
       windDir: false,
       unitKerja: false,
       btsAdmf: false,
@@ -2130,6 +2147,15 @@ export default {
           }
         })
     },
+
+    next() {
+      this.$refs.flickity.next();
+    },
+    
+    previous() {
+      this.$refs.flickity.previous();
+    },
+
     hideBerita() {
       this.beritaMarqueeText = !this.beritaMarqueeText
     },
