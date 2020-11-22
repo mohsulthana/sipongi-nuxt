@@ -25,6 +25,7 @@
                 />
                 <b-nav-item
                   v-b-modal.modal-titikpanas
+                  v-b-toggle.sidebar-backdrop
                   class="d-md-block d-none mt-4"
                   style="text-align: left"
                   >Titik Panas</b-nav-item
@@ -39,12 +40,14 @@
                 >
                   <b-dropdown-item
                     v-b-modal.modal-luaskebakaran
+                    v-b-toggle.sidebar-backdrop
                     class="d-md-block d-none"
                     style="text-align: left"
                     >Luas Karhutla</b-dropdown-item
                   >
                   <b-dropdown-item
                     v-b-modal.modal-emisico2
+                    v-b-toggle.sidebar-backdrop
                     class="d-md-block d-none"
                     style="text-align: left"
                     >Emisi CO2</b-dropdown-item
@@ -73,6 +76,7 @@
                   >
                   <b-dropdown-item
                     v-b-modal.modal-fdrs
+                    v-b-toggle.sidebar-backdrop
                     class="d-md-block d-none"
                     style="text-align: left"
                     >FDRS</b-dropdown-item
@@ -228,233 +232,11 @@
             <h6>Galeri</h6>
           </div>
         </b-link>
-
-        <b-link class="main link-four d-md-none" @click="openLegend">
-          <div class="wrap">
-            <div class="image">
-              <img src="/cowboy-hat.svg" alt="" />
-            </div>
-            <h6>Legend</h6>
-          </div>
-        </b-link>
-
-        <b-link class="main link-one d-md-none" @click="openSidebarOne">
-          <div class="wrap">
-            <div class="image">
-              <img src="/fire-extinguisher.svg" alt="" />
-            </div>
-            <h6>Titik Panas</h6>
-          </div>
-        </b-link>
       </div>
 
-      <!--
-      <b-link to="/grafik" class="main d-md-block d-none">
-        <h6>Data & Grafik</h6>
-      </b-link>
-      <b-link href="/publikasi" class="main d-md-block d-none">
-        <h6>Publikasi</h6>
-      </b-link>
-
-      <b-link href="/tentang" class="main d-md-block d-none">
-        <h6>Tentang Kami</h6>
-      </b-link>
-
-      <b-link v-b-modal.modal-disclaimer class="main d-md-block d-none">
-        <h6>Disclaimer</h6>
-      </b-link>
-      -->
       <b-link to="/" class="hide">
         <img src="/mini_arrow_left-gray.svg" alt="" />
       </b-link>
-
-      <div class="sidebar-slide sidebar-one">
-        <div class="content-head">
-          <b-link class="close" @click="openSidebarOne">
-            <i class="fas fa-times"></i>
-          </b-link>
-          <h6>Lokasi Titik Panas</h6>
-
-          <div class="content-list">
-            <b-form-select
-              v-model="cariProvinsi"
-              class="mb-3 form-control"
-              value-field="id"
-              text-field="nama_provinsi"
-              :options="provs"
-            ></b-form-select>
-
-            <b-form-select
-              v-model="cariKota"
-              class="form-control"
-              value-field="id"
-              text-field="nama"
-              :disabled="
-                provs.length <= 0 || !cariProvinsi || kotakabs.length <= 1
-              "
-              :options="kotakabs"
-            ></b-form-select>
-          </div>
-
-          <client-only>
-            <date-picker
-              id="published_at"
-              v-model="titikDate"
-              type="date"
-              format="dddd, DD MMMM YYYY"
-              placeholder="Pilih tanggal"
-            ></date-picker>
-          </client-only>
-
-          <b-link
-            :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
-            @click="changeSumber('LPN-MODIS')"
-            >Terra/Aqua
-          </b-link>
-          <b-link
-            :class="`status ${checkSumber('LPN-NPP') ? 'active' : ''}`"
-            @click="changeSumber('LPN-NPP')"
-            >SNPP
-          </b-link>
-          <b-link
-            :class="`status ${checkSumber('LPN-NOAA20') ? 'active' : ''}`"
-            @click="changeSumber('LPN-NOAA20')"
-            >NOAA20
-          </b-link>
-          <b-link
-            :class="`status ${checkSumber('LPN-LANDSAT8') ? 'active' : ''}`"
-            @click="changeSumber('LPN-LANDSAT8')"
-            >LANDSAT8
-          </b-link>
-        </div>
-
-        <div class="content-list titik">
-          <!--<template v-for="(datas, index) in DataHotSpot.kabkota">
-            <template v-for="(kotakab, index2) in datas">
-              <b-link
-                class="list-item"
-                v-if="checkSumber(kotakab.data.sumber)"
-                @click="changeCenter(kotakab.data)"
-              >
-                <h6>
-                  {{ kotakab.data.kabkota }} - {{ kotakab.data.nama_provinsi }}
-                </h6>
-                <p>{{ kotakab.data.ori_sumber }}</p>
-                <span class="count">{{ kotakab.count }}</span>
-              </b-link>
-            </template>
-          </template>-->
-        </div>
-
-        <b-link @click="generateReport(DataHotSpot)" class="pdf">
-          <img src="/pdf.svg" alt="" />
-          <span>Download XLS</span>
-        </b-link>
-
-        <!-- <b-link to="" class="pdf">
-          <img src="/pdf.svg" alt="" />
-          <span>Download XLS</span>
-        </b-link> -->
-      </div>
-
-      <div class="sidebar-slide sidebar-two big">
-        <div class="content-head">
-          <b-link class="close" @click="openSidebarTwo"
-            ><i class="fas fa-times"></i>
-          </b-link>
-          <h6>Berita Sipongi+</h6>
-          <p></p>
-        </div>
-
-        <div class="content-list">
-          <b-row>
-            <b-col cols="6" v-for="blog in beritas" :key="blog.slug">
-              <b-link :to="`/blog/${blog.slug}`" class="blog-item">
-                <div
-                  class="image"
-                  :style="{ backgroundImage: `url(${blog.image_url})` }"
-                ></div>
-                <h5>{{ blog.title }}</h5>
-                <span>{{ blog.created_at }}</span>
-              </b-link>
-            </b-col>
-            <b-col v-if="loadMore" md="12" class="text-center">
-              <b-button
-                variant="primary"
-                class="loadMore"
-                @click="loadMoreData()"
-              >
-                Lihat Lebih Banyak
-              </b-button>
-            </b-col>
-          </b-row>
-        </div>
-      </div>
-
-      <div class="sidebar-slide sidebar-three big">
-        <div class="content-head">
-          <b-link class="close" @click="openSidebarFive"
-            ><i class="fas fa-times"></i
-          ></b-link>
-          <h6>Galeri</h6>
-          <p>Informasi seputar kegiatan pemadaman</p>
-        </div>
-
-        <div class="content-list">
-          <b-tabs>
-            <b-tab title="Kegiatan Pemadaman" active>
-              <b-row>
-                <b-col cols="6" v-for="blog in pemadamans" :key="blog.slug">
-                  <b-link :to="'/galeri/' + blog.slug" class="blog-item">
-                    <div
-                      class="image"
-                      :style="{
-                        backgroundImage: `url(${blog.detail.image_url})`,
-                      }"
-                    ></div>
-                    <h5>{{ blog.title }}</h5>
-                    <span>{{
-                      $moment(blog.created_at).format('DD MMMM YYYY')
-                    }}</span>
-                  </b-link>
-                </b-col>
-                <b-col v-if="loadMoreGal" md="12" class="text-center">
-                  <b-button
-                    variant="primary"
-                    class="loadMore"
-                    @click="loadMoreDataGal()"
-                    >Lihat Lebih Banyak</b-button
-                  >
-                </b-col>
-              </b-row>
-            </b-tab>
-            <b-tab title="Kegiatan Lainnya">
-              <b-row>
-                <b-col cols="6" v-for="blog in lains" :key="blog.slug">
-                  <b-link :to="'/galeri/' + blog.slug" class="blog-item">
-                    <div
-                      class="image"
-                      :style="{
-                        backgroundImage: `url(${blog.detail.image_url})`,
-                      }"
-                    ></div>
-                    <h5>{{ blog.title }}</h5>
-                    <span>{{ blog.created_at }}</span>
-                  </b-link>
-                </b-col>
-                <b-col v-if="loadMoreLain" md="12" class="text-center">
-                  <b-button
-                    variant="primary"
-                    class="loadMore"
-                    @click="loadMoreDataLain()"
-                    >Lihat Lebih Banyak</b-button
-                  >
-                </b-col>
-              </b-row>
-            </b-tab>
-          </b-tabs>
-        </div>
-      </div>
     </div>
 
     <div class="map-wrap" style="height: 100vh">
@@ -627,30 +409,6 @@
           >
           <b-collapse id="collapse-2">
             <div class="filter-wrap">
-              <!--<div class="select-wrap">
-              	<label class="mr-sm-2">Satelit</label>
-              	<b-link style="display: inline-block; vertical-align: middle; font-size: 9px; padding: 4px 8px; background-color: #fff; border: 1px solid #eaeaea; margin-right: 2px; border-radius: 12px;"
-			            :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
-			            @click="changeSumber('LPN-MODIS')"
-			            >Terra/Aqua
-			          </b-link>
-			          <b-link style="display: inline-block; vertical-align: middle; font-size: 9px; padding: 4px 8px; background-color: #fff; border: 1px solid #eaeaea; margin-right: 2px; border-radius: 12px;"
-			            :class="`status ${checkSumber('LPN-NPP') ? 'active' : ''}`"
-			            @click="changeSumber('LPN-NPP')"
-			            >SNPP
-			          </b-link>
-			          <b-link style="display: inline-block; vertical-align: middle; font-size: 9px; padding: 4px 8px; background-color: #fff; border: 1px solid #eaeaea; margin-right: 2px; border-radius: 12px;"
-			            :class="`status ${checkSumber('LPN-NOAA20') ? 'active' : ''}`"
-			            @click="changeSumber('LPN-NOAA20')"
-			            >NOAA20
-			          </b-link>
-			          <b-link style="display: inline-block; vertical-align: middle; font-size: 9px; padding: 4px 8px; background-color: #fff; border: 1px solid #eaeaea; margin-right: 2px; border-radius: 12px;"
-			            :class="`status ${checkSumber('LPN-LANDSAT8') ? 'active' : ''}`"
-			            @click="changeSumber('LPN-LANDSAT8')"
-			            >LANDSAT8
-			          </b-link>
-            </div>-->
-
               <div class="select-wrap">
                 <label class="mr-sm-2">Periode</label>
                 <b-form-select
@@ -753,7 +511,7 @@
           </b-collapse>
         </div>
 
-        <v-sheet class="mx-auto" elevation="8" max-width="800">
+        <!-- <v-sheet class="mx-auto" elevation="8" max-width="800">
           <v-slide-group v-model="model" class="pa-4" center-active show-arrows>
             <v-slide-item v-for="n in 15" :key="n" v-slot="{ active, toggle }">
               <v-card
@@ -776,7 +534,7 @@
               </v-card>
             </v-slide-item>
           </v-slide-group>
-        </v-sheet>
+        </v-sheet> -->
       </div>
 
       <transition name="fade">
@@ -929,7 +687,7 @@
     </div>
     <div class="splash-screen" v-if="loading">
       <div class="wrap">
-        <h4>Mohon Tunggu Sebentar</h4>
+        <h4>Mohon Tunggu Sebentar, Kami Sedang Mengambil Data</h4>
         <b-spinner
           style="width: 3rem; height: 3rem"
           label="Large Spinner"
@@ -941,7 +699,7 @@
     <b-modal
       id="modal-titikpanas"
       body-class="modal-titikpanas"
-      size="md"
+      size="xl"
       hide-footer
       title="Titik Panas"
     >
@@ -962,44 +720,65 @@
           :disabled="provs.length <= 0 || !cariProvinsi || kotakabs.length <= 1"
           :options="kotakabs"
         ></b-form-select>
+
+        <div class="mt-4">
+          <label for="fromDate">Filter data from: </label>
+          <b-form-datepicker
+            @input="loadHotSpot()"
+            :max="yesterday"
+            width="135px"
+            id="fromDate"
+            class="form-control"
+            v-model="fromDate"
+          ></b-form-datepicker>
+          <label for="toDate">to: </label>
+          <b-form-datepicker
+            @input="loadHotSpot()"
+            :max="today"
+            width="135px"
+            id="toDate"
+            class="form-control"
+            v-model="toDate"
+          ></b-form-datepicker>
+        </div>
       </div>
 
-      <client-only>
-        <date-picker
-          id="published_at"
-          v-model="titikDate"
-          type="date"
-          format="dddd, DD MMMM YYYY"
-          placeholder="Pilih tanggal"
-        ></date-picker>
-      </client-only>
-
-      <b-link
-        :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
-        @click="changeSumber('LPN-MODIS')"
-        >Terra/Aqua
-      </b-link>
-      <b-link
-        :class="`status ${checkSumber('LPN-NPP') ? 'active' : ''}`"
-        @click="changeSumber('LPN-NPP')"
-        >SNPP
-      </b-link>
-      <b-link
-        :class="`status ${checkSumber('LPN-NOAA20') ? 'active' : ''}`"
-        @click="changeSumber('LPN-NOAA20')"
-        >NOAA20
-      </b-link>
-      <b-link
-        :class="`status ${checkSumber('LPN-LANDSAT8') ? 'active' : ''}`"
-        @click="changeSumber('LPN-LANDSAT8')"
-        >LANDSAT8
-      </b-link>
+      <b-row class="d-flex justify-content-between px-3 my-4">
+        <div class="float-right">
+          <b-link to="" class="pdf">
+            <img src="/pdf.svg" alt="" />
+            <span>Download XLS</span>
+          </b-link>
+        </div>
+        <div class="float-left">
+          <b-link
+            :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
+            @click="changeSumber('LPN-MODIS')"
+            >Terra/Aqua
+          </b-link>
+          <b-link
+            :class="`status ${checkSumber('LPN-NPP') ? 'active' : ''}`"
+            @click="changeSumber('LPN-NPP')"
+            >SNPP
+          </b-link>
+          <b-link
+            :class="`status ${checkSumber('LPN-NOAA20') ? 'active' : ''}`"
+            @click="changeSumber('LPN-NOAA20')"
+            >NOAA20
+          </b-link>
+          <b-link
+            :class="`status ${checkSumber('LPN-LANDSAT8') ? 'active' : ''}`"
+            @click="changeSumber('LPN-LANDSAT8')"
+            >LANDSAT8
+          </b-link>
+        </div>
+      </b-row>
 
       <div class="content-list titik">
         <template v-for="datas in DataHotSpot.kabkota">
           <template v-for="(kotakab, index2) in datas">
             <b-link
-              :key="index2"
+              :key="`${kotakab.data.latcen} ${kotakab.data.loncen} + ${index2}`"
               class="list-item"
               v-if="checkSumber(kotakab.data.sumber)"
               @click="changeCenter(kotakab.data)"
@@ -1013,11 +792,6 @@
           </template>
         </template>
       </div>
-
-      <b-link to="" class="pdf">
-        <img src="/pdf.svg" alt="" />
-        <span>Download PDF</span>
-      </b-link>
     </b-modal>
 
     <!-- Modal Emisi CO2 -->
@@ -1538,7 +1312,13 @@ import modal from '../Modal'
 export default {
   name: 'Peta',
   data() {
+    const now = new Date()
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+    const yesterday = new Date(today - 1)
+
     return {
+      yesterday: new Date(today - 1),
+      today: now,
       dataHotSpotSatelit: [],
       beritaMarqueeText: true,
       currentTiles: 0,
@@ -1769,16 +1549,16 @@ export default {
     }
   },
   watch: {
-    periodeData: {
-      async handler() {
-        await this.loadHotSpot()
-      },
-    },
-    trustData: {
-      async handler() {
-        await this.loadHotSpot()
-      },
-    },
+    // periodeData: {
+    //   async handler() {
+    //     await this.loadHotSpot()
+    //   },
+    // },
+    // trustData: {
+    //   async handler() {
+    //     await this.loadHotSpot()
+    //   },
+    // },
     chkSumber: {
       async handler() {
         let self = this
@@ -2271,11 +2051,19 @@ export default {
     },
   },
   async created() {
-    await this.loadHotspotSatelit()
-    await this.loadHotSpot()
     if (this.firstLoad) {
       await this.cmbProvs()
     }
+    this.openLeg()
+
+    window.addEventListener('resize', this.openLeg)
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.openLeg)
+  },
+  async fetch() {
+    this.loading = true
+    await this.loadHotSpot()
     await this.getRunningText()
     await this.loadPemadaman()
     await this.loadLain()
@@ -2286,14 +2074,6 @@ export default {
     await this.loadWind()
     await this.loadDataLuas()
     await this.loadDataEmisi()
-    this.openLeg()
-
-    window.addEventListener('resize', this.openLeg)
-  },
-  beforeDestroy() {
-    window.removeEventListener('resize', this.openLeg)
-  },
-  async fetch() {
     const url = !process.server ? `/api/listBerita` : `/api/listBerita`
 
     const params = {
@@ -2322,6 +2102,7 @@ export default {
           }
         }
       })
+    this.loading = false
   },
   filters: {
     petaFilter: function (value) {
@@ -2347,9 +2128,6 @@ export default {
               this.$nuxt.error({ statusCode: 404, message: data.message })
             }
           }
-        })
-        .finally(async () => {
-          this.loading = false
         })
     },
     hideBerita() {
@@ -2490,7 +2268,6 @@ export default {
     },
 
     async loadDataLuas() {
-      this.loading = true
       const url = !process.server
         ? `/api/data/luas-kebakaran`
         : `/api/data/luas-kebakaran`
@@ -2513,13 +2290,9 @@ export default {
             }
           }
         })
-        .finally(async () => {
-          this.loading = false
-        })
     },
 
     async loadDataEmisi() {
-      this.loading = true
       // const url = !process.server ? `/api/data/emisi-co2` : `/api/data/emisi-co2`
       const url = `http://139.99.52.109:8285/api/data/emisi-co2`
 
@@ -2540,9 +2313,6 @@ export default {
               this.$nuxt.error({ statusCode: 404, message: data.message })
             }
           }
-        })
-        .finally(async () => {
-          this.loading = false
         })
     },
 
@@ -2657,46 +2427,24 @@ export default {
         },
       }
     },
-    async loadHotspotSatelit() {
-      // new version of hotspot
-      const url = !process.server
-        ? `/api/hotspot/satelit`
-        : `/api/hotspot/satelit`
-
-      await this.$axios
-        .$get(url, {
-          params: {
-            kabkota: '',
-            sumber: '',
-            satelit: '',
-            confidence_level: 'high',
-          },
-        })
-        .then((res) => {
-          this.dataHotSpotSatelit = res.data
-        })
-        .catch((err) => {
-          console.error(err)
-        })
-    },
     async loadHotSpot() {
-      const url = !process.server ? `/api/indoHotspot` : `/api/indoHotspot`
-      this.loading = true
+      // const url = !process.server ? `/v1/indoHotspot` : `/v1/indoHotspot`
+      const url = 'http://139.99.52.109:8288/v1/indoHotspot'
 
       await this.$axios
         .$get(url, {
           params: {
-            late: this.periodeData,
-            confidence: this.trustData,
+            confidence: ['high'],
+            from: this.fromDate,
+            to: this.toDate,
           },
         })
         .then(({ data }) => {
           this.DataHotSpot = data
           this.dataHotSpot2.features = data.features
         })
-        .catch((err) => {})
-        .finally(() => {
-          this.loading = false
+        .catch((err) => {
+          console.error(err)
         })
     },
     async loadClusterKabKota(kotakab_id) {
@@ -2706,7 +2454,6 @@ export default {
           : `/api/getCluster/${kotakab_id}/kotakab`
         this.clusterKabKota.visible = false
         this.clusterKabKota.oldId = kotakab_id
-        this.loading = true
 
         await this.$axios
           .$get(url)
@@ -2722,9 +2469,6 @@ export default {
             }, 500)
           })
           .catch((err) => {})
-          .finally(() => {
-            this.loading = false
-          })
       }
     },
     async loadClusterDesa(item) {
@@ -2734,7 +2478,6 @@ export default {
           : `/api/getCluster/${item.desa_id}/desa`
         this.clusterDesa.visible = false
         this.clusterDesa.oldId = item.desa_id
-        this.loading = true
 
         await this.$axios
           .$get(url)
@@ -2744,14 +2487,12 @@ export default {
           .catch((err) => {})
           .finally(() => {
             this.clusterDesa.visible = true
-            this.loading = false
           })
       }
     },
     async loadDaops(item) {
       const url = !process.server ? `/api/daops/all` : `/api/daops/all`
       this.dataDaops.visible = false
-      this.loading = true
       await this.$axios
         .$get(url)
         .then(({ data }) => {
@@ -2761,7 +2502,6 @@ export default {
         .catch((err) => {})
         .finally(() => {
           this.dataDaops.visible = true
-          this.loading = false
         })
     },
     async loadWind() {
@@ -2790,7 +2530,6 @@ export default {
       const url = !process.server
         ? `/api/getProvinsi/all`
         : `/api/getProvinsi/all`
-      this.loading = true
 
       await this.$axios
         .$get(url)
@@ -2805,7 +2544,6 @@ export default {
         })
         .catch((err) => {})
         .finally(() => {
-          this.loading = false
           this.firstLoad = false
         })
     },
@@ -2830,7 +2568,6 @@ export default {
         .finally(() => {})
     },
     async loadPemadaman() {
-      this.loading = true
       const url = !process.server ? `/api/listGaleri` : `/api/listGaleri`
 
       const params = {
@@ -2858,13 +2595,10 @@ export default {
             }
           }
         })
-        .finally(async () => {
-          this.loading = false
-        })
+        .finally(async () => {})
     },
 
     async loadLain() {
-      this.loading = true
       const url = !process.server ? `/api/listGaleri` : `/api/listGaleri`
 
       const params = {
@@ -2892,13 +2626,10 @@ export default {
             }
           }
         })
-        .finally(async () => {
-          this.loading = false
-        })
+        .finally(async () => {})
     },
 
     async loadBerita() {
-      this.loading = true
       const url = !process.server ? `/api/listBerita` : `/api/listBerita`
 
       const params = {
@@ -2927,9 +2658,7 @@ export default {
             }
           }
         })
-        .finally(async () => {
-          this.loading = false
-        })
+        .finally(async () => {})
     },
 
     async loadPerundangan() {
@@ -3121,7 +2850,6 @@ export default {
     },
 
     async loadFdrs() {
-      this.loading = true
       // const url = !process.server ? `/api/fdrs/getData` : `/api/fdrs/getData`
       const url = `http://139.99.52.109:8285/api/fdrs/data`
 
@@ -3151,9 +2879,7 @@ export default {
             }
           }
         })
-        .finally(async () => {
-          this.loading = false
-        })
+        .finally(async () => {})
     },
 
     async filter() {
@@ -3203,773 +2929,6 @@ export default {
       this.optionsLaporan.page++
       await this.$fetch()
     },
-
-    toggleOpen() {
-      var legend = document.querySelector('.legend-wrap')
-
-      legend.classList.toggle('open')
-    },
-
-    openSidebarEight() {
-      var legend = document.querySelector('.legend-wrap')
-      var sidebar = document.querySelector('.sidebar-one')
-      var sidebar2 = document.querySelector('.sidebar-two')
-      var sidebar3 = document.querySelector('.sidebar-three')
-      var sidebar5 = document.querySelector('.sidebar-five')
-      var sidebar6 = document.querySelector('.sidebar-six')
-      var sidebar7 = document.querySelector('.sidebar-seven')
-      var sidebar8 = document.querySelector('.sidebar-eight')
-      var sidebar9 = document.querySelector('.sidebar-nine')
-      var sidebar10 = document.querySelector('.sidebar-ten')
-      var sidebar11 = document.querySelector('.sidebar-eleven')
-      var sidebar12 = document.querySelector('.sidebar-twelve')
-      var link = document.querySelector('.link-one')
-      var link2 = document.querySelector('.link-two')
-      var link3 = document.querySelector('.link-three')
-      var link4 = document.querySelector('.link-four')
-      var link5 = document.querySelector('.link-five')
-      var link6 = document.querySelector('.link-six')
-      var link7 = document.querySelector('.link-seven')
-      var link8 = document.querySelector('.link-eight')
-      var link9 = document.querySelector('.link-nine')
-      var link10 = document.querySelector('.link-ten')
-      var link11 = document.querySelector('.link-eleven')
-      var link12 = document.querySelector('.link-twelve')
-      var map = document.querySelector('.map-wrap')
-
-      if (
-        map.classList.contains('openSide') &&
-        (sidebar.classList.contains('opened') ||
-          sidebar2.classList.contains('opened') ||
-          sidebar3.classList.contains('opened') ||
-          sidebar5.classList.contains('opened') ||
-          sidebar6.classList.contains('opened') ||
-          sidebar7.classList.contains('opened') ||
-          sidebar9.classList.contains('opened') ||
-          sidebar10.classList.contains('opened') ||
-          sidebar11.classList.contains('opened') ||
-          sidebar12.classList.contains('opened') ||
-          legend.classList.contains('open'))
-      ) {
-        sidebar.classList.remove('opened')
-        sidebar2.classList.remove('opened')
-        sidebar3.classList.remove('opened')
-        sidebar5.classList.remove('opened')
-        sidebar6.classList.remove('opened')
-        sidebar7.classList.remove('opened')
-        sidebar9.classList.remove('opened')
-        sidebar10.classList.remove('opened')
-        sidebar11.classList.remove('opened')
-        sidebar12.classList.remove('opened')
-        link2.classList.remove('active')
-        link3.classList.remove('active')
-        link5.classList.remove('active')
-        link6.classList.remove('active')
-        link7.classList.remove('active')
-        link9.classList.remove('active')
-        link10.classList.remove('active')
-        link11.classList.remove('active')
-        link12.classList.remove('active')
-        map.classList.remove('big')
-        link8.classList.add('active')
-        map.classList.add('big')
-        sidebar8.classList.add('opened')
-        if (window.innerWidth < 767) {
-          legend.classList.remove('open')
-          link4.classList.remove('active')
-        }
-      } else {
-        sidebar8.classList.toggle('opened')
-        map.classList.toggle('openSide')
-        link8.classList.toggle('active')
-      }
-    },
-
-    openSidebarNine() {
-      var legend = document.querySelector('.legend-wrap')
-      var sidebar = document.querySelector('.sidebar-one')
-      var sidebar2 = document.querySelector('.sidebar-two')
-      var sidebar3 = document.querySelector('.sidebar-three')
-      var sidebar5 = document.querySelector('.sidebar-five')
-      var sidebar6 = document.querySelector('.sidebar-six')
-      var sidebar7 = document.querySelector('.sidebar-seven')
-      var sidebar8 = document.querySelector('.sidebar-eight')
-      var sidebar9 = document.querySelector('.sidebar-nine')
-      var sidebar10 = document.querySelector('.sidebar-ten')
-      var sidebar11 = document.querySelector('.sidebar-eleven')
-      var sidebar12 = document.querySelector('.sidebar-twelve')
-      var link = document.querySelector('.link-one')
-      var link2 = document.querySelector('.link-two')
-      var link3 = document.querySelector('.link-three')
-      var link4 = document.querySelector('.link-four')
-      var link5 = document.querySelector('.link-five')
-      var link6 = document.querySelector('.link-six')
-      var link7 = document.querySelector('.link-seven')
-      var link8 = document.querySelector('.link-eight')
-      var link9 = document.querySelector('.link-nine')
-      var link10 = document.querySelector('.link-ten')
-      var link11 = document.querySelector('.link-eleven')
-      var link12 = document.querySelector('.link-twelve')
-      var map = document.querySelector('.map-wrap')
-
-      if (
-        map.classList.contains('openSide') &&
-        (sidebar.classList.contains('opened') ||
-          sidebar2.classList.contains('opened') ||
-          sidebar3.classList.contains('opened') ||
-          sidebar5.classList.contains('opened') ||
-          sidebar6.classList.contains('opened') ||
-          sidebar7.classList.contains('opened') ||
-          sidebar8.classList.contains('opened') ||
-          sidebar10.classList.contains('opened') ||
-          sidebar11.classList.contains('opened') ||
-          sidebar12.classList.contains('opened') ||
-          legend.classList.contains('open'))
-      ) {
-        sidebar.classList.remove('opened')
-        sidebar2.classList.remove('opened')
-        sidebar3.classList.remove('opened')
-        sidebar5.classList.remove('opened')
-        sidebar6.classList.remove('opened')
-        sidebar7.classList.remove('opened')
-        sidebar8.classList.remove('opened')
-        sidebar10.classList.remove('opened')
-        sidebar11.classList.remove('opened')
-        sidebar12.classList.remove('opened')
-        link2.classList.remove('active')
-        link3.classList.remove('active')
-        link5.classList.remove('active')
-        link6.classList.remove('active')
-        link7.classList.remove('active')
-        link8.classList.remove('active')
-        link10.classList.remove('active')
-        link11.classList.remove('active')
-        link12.classList.remove('active')
-        map.classList.remove('big')
-        link9.classList.add('active')
-        map.classList.add('big')
-        sidebar9.classList.add('opened')
-        if (window.innerWidth < 767) {
-          legend.classList.remove('open')
-          link4.classList.remove('active')
-        }
-      } else {
-        sidebar9.classList.toggle('opened')
-        map.classList.toggle('openSide')
-        link9.classList.toggle('active')
-      }
-    },
-
-    openSidebarTen() {
-      var legend = document.querySelector('.legend-wrap')
-      var sidebar = document.querySelector('.sidebar-one')
-      var sidebar2 = document.querySelector('.sidebar-two')
-      var sidebar3 = document.querySelector('.sidebar-three')
-      var sidebar5 = document.querySelector('.sidebar-five')
-      var sidebar6 = document.querySelector('.sidebar-six')
-      var sidebar7 = document.querySelector('.sidebar-seven')
-      var sidebar8 = document.querySelector('.sidebar-eight')
-      var sidebar9 = document.querySelector('.sidebar-nine')
-      var sidebar10 = document.querySelector('.sidebar-ten')
-      var sidebar11 = document.querySelector('.sidebar-eleven')
-      var sidebar12 = document.querySelector('.sidebar-twelve')
-      var link = document.querySelector('.link-one')
-      var link2 = document.querySelector('.link-two')
-      var link3 = document.querySelector('.link-three')
-      var link4 = document.querySelector('.link-four')
-      var link5 = document.querySelector('.link-five')
-      var link6 = document.querySelector('.link-six')
-      var link7 = document.querySelector('.link-seven')
-      var link8 = document.querySelector('.link-eight')
-      var link9 = document.querySelector('.link-nine')
-      var link10 = document.querySelector('.link-ten')
-      var link11 = document.querySelector('.link-eleven')
-      var link12 = document.querySelector('.link-twelve')
-      var map = document.querySelector('.map-wrap')
-
-      if (
-        map.classList.contains('openSide') &&
-        (sidebar.classList.contains('opened') ||
-          sidebar2.classList.contains('opened') ||
-          sidebar3.classList.contains('opened') ||
-          sidebar5.classList.contains('opened') ||
-          sidebar6.classList.contains('opened') ||
-          sidebar7.classList.contains('opened') ||
-          sidebar8.classList.contains('opened') ||
-          sidebar9.classList.contains('opened') ||
-          sidebar11.classList.contains('opened') ||
-          sidebar12.classList.contains('opened') ||
-          legend.classList.contains('open'))
-      ) {
-        sidebar.classList.remove('opened')
-        sidebar2.classList.remove('opened')
-        sidebar3.classList.remove('opened')
-        sidebar5.classList.remove('opened')
-        sidebar6.classList.remove('opened')
-        sidebar7.classList.remove('opened')
-        sidebar8.classList.remove('opened')
-        sidebar9.classList.remove('opened')
-        sidebar11.classList.remove('opened')
-        sidebar12.classList.remove('opened')
-        link2.classList.remove('active')
-        link3.classList.remove('active')
-        link5.classList.remove('active')
-        link6.classList.remove('active')
-        link7.classList.remove('active')
-        link8.classList.remove('active')
-        link9.classList.remove('active')
-        link11.classList.remove('active')
-        link12.classList.remove('active')
-        map.classList.remove('big')
-        link10.classList.add('active')
-        map.classList.add('big')
-        sidebar10.classList.add('opened')
-        if (window.innerWidth < 767) {
-          legend.classList.remove('open')
-          link4.classList.remove('active')
-        }
-      } else {
-        sidebar10.classList.toggle('opened')
-        map.classList.toggle('openSide')
-        link10.classList.toggle('active')
-      }
-    },
-
-    openSidebarEleven() {
-      var legend = document.querySelector('.legend-wrap')
-      var sidebar = document.querySelector('.sidebar-one')
-      var sidebar2 = document.querySelector('.sidebar-two')
-      var sidebar3 = document.querySelector('.sidebar-three')
-      var sidebar5 = document.querySelector('.sidebar-five')
-      var sidebar6 = document.querySelector('.sidebar-six')
-      var sidebar7 = document.querySelector('.sidebar-seven')
-      var sidebar8 = document.querySelector('.sidebar-eight')
-      var sidebar9 = document.querySelector('.sidebar-nine')
-      var sidebar10 = document.querySelector('.sidebar-ten')
-      var sidebar11 = document.querySelector('.sidebar-eleven')
-      var sidebar12 = document.querySelector('.sidebar-twelve')
-      var link = document.querySelector('.link-one')
-      var link2 = document.querySelector('.link-two')
-      var link3 = document.querySelector('.link-three')
-      var link4 = document.querySelector('.link-four')
-      var link5 = document.querySelector('.link-five')
-      var link6 = document.querySelector('.link-six')
-      var link7 = document.querySelector('.link-seven')
-      var link8 = document.querySelector('.link-eight')
-      var link9 = document.querySelector('.link-nine')
-      var link10 = document.querySelector('.link-ten')
-      var link11 = document.querySelector('.link-eleven')
-      var link12 = document.querySelector('.link-twelve')
-      var map = document.querySelector('.map-wrap')
-
-      if (
-        map.classList.contains('openSide') &&
-        (sidebar.classList.contains('opened') ||
-          sidebar2.classList.contains('opened') ||
-          sidebar3.classList.contains('opened') ||
-          sidebar5.classList.contains('opened') ||
-          sidebar6.classList.contains('opened') ||
-          sidebar7.classList.contains('opened') ||
-          sidebar8.classList.contains('opened') ||
-          sidebar9.classList.contains('opened') ||
-          sidebar10.classList.contains('opened') ||
-          sidebar12.classList.contains('opened') ||
-          legend.classList.contains('open'))
-      ) {
-        sidebar.classList.remove('opened')
-        sidebar2.classList.remove('opened')
-        sidebar3.classList.remove('opened')
-        sidebar5.classList.remove('opened')
-        sidebar6.classList.remove('opened')
-        sidebar7.classList.remove('opened')
-        sidebar8.classList.remove('opened')
-        sidebar9.classList.remove('opened')
-        sidebar10.classList.remove('opened')
-        sidebar12.classList.remove('opened')
-        link2.classList.remove('active')
-        link3.classList.remove('active')
-        link5.classList.remove('active')
-        link6.classList.remove('active')
-        link7.classList.remove('active')
-        link8.classList.remove('active')
-        link9.classList.remove('active')
-        link10.classList.remove('active')
-        link12.classList.remove('active')
-        map.classList.remove('big')
-        link11.classList.add('active')
-        map.classList.add('big')
-        sidebar11.classList.add('opened')
-        if (window.innerWidth < 767) {
-          legend.classList.remove('open')
-          link4.classList.remove('active')
-        }
-      } else {
-        sidebar11.classList.toggle('opened')
-        map.classList.toggle('openSide')
-        link11.classList.toggle('active')
-      }
-    },
-
-    openSidebarTwelve() {
-      var legend = document.querySelector('.legend-wrap')
-      var sidebar = document.querySelector('.sidebar-one')
-      var sidebar2 = document.querySelector('.sidebar-two')
-      var sidebar3 = document.querySelector('.sidebar-three')
-      var sidebar5 = document.querySelector('.sidebar-five')
-      var sidebar6 = document.querySelector('.sidebar-six')
-      var sidebar7 = document.querySelector('.sidebar-seven')
-      var sidebar8 = document.querySelector('.sidebar-eight')
-      var sidebar9 = document.querySelector('.sidebar-nine')
-      var sidebar10 = document.querySelector('.sidebar-ten')
-      var sidebar11 = document.querySelector('.sidebar-eleven')
-      var sidebar12 = document.querySelector('.sidebar-twelve')
-      var link = document.querySelector('.link-one')
-      var link2 = document.querySelector('.link-two')
-      var link3 = document.querySelector('.link-three')
-      var link4 = document.querySelector('.link-four')
-      var link5 = document.querySelector('.link-five')
-      var link6 = document.querySelector('.link-six')
-      var link7 = document.querySelector('.link-seven')
-      var link8 = document.querySelector('.link-eight')
-      var link9 = document.querySelector('.link-nine')
-      var link10 = document.querySelector('.link-ten')
-      var link11 = document.querySelector('.link-eleven')
-      var link12 = document.querySelector('.link-twelve')
-      var map = document.querySelector('.map-wrap')
-
-      if (
-        map.classList.contains('openSide') &&
-        (sidebar.classList.contains('opened') ||
-          sidebar2.classList.contains('opened') ||
-          sidebar3.classList.contains('opened') ||
-          sidebar5.classList.contains('opened') ||
-          sidebar6.classList.contains('opened') ||
-          sidebar7.classList.contains('opened') ||
-          sidebar8.classList.contains('opened') ||
-          sidebar9.classList.contains('opened') ||
-          sidebar10.classList.contains('opened') ||
-          sidebar11.classList.contains('opened') ||
-          legend.classList.contains('open'))
-      ) {
-        sidebar.classList.remove('opened')
-        sidebar2.classList.remove('opened')
-        sidebar3.classList.remove('opened')
-        sidebar5.classList.remove('opened')
-        sidebar6.classList.remove('opened')
-        sidebar7.classList.remove('opened')
-        sidebar8.classList.remove('opened')
-        sidebar9.classList.remove('opened')
-        sidebar10.classList.remove('opened')
-        sidebar11.classList.remove('opened')
-        link2.classList.remove('active')
-        link3.classList.remove('active')
-        link5.classList.remove('active')
-        link6.classList.remove('active')
-        link7.classList.remove('active')
-        link8.classList.remove('active')
-        link9.classList.remove('active')
-        link10.classList.remove('active')
-        link11.classList.remove('active')
-        map.classList.remove('big')
-        link12.classList.add('active')
-        map.classList.add('big')
-        sidebar12.classList.add('opened')
-        if (window.innerWidth < 767) {
-          legend.classList.remove('open')
-          link4.classList.remove('active')
-        }
-      } else {
-        sidebar12.classList.toggle('opened')
-        map.classList.toggle('openSide')
-        link12.classList.toggle('active')
-      }
-    },
-    openLegend() {
-      var legend = document.querySelector('.legend-wrap')
-      var sidebar = document.querySelector('.sidebar-one')
-      var sidebar2 = document.querySelector('.sidebar-two')
-      var sidebar3 = document.querySelector('.sidebar-three')
-      var sidebar5 = document.querySelector('.sidebar-five')
-      var sidebar6 = document.querySelector('.sidebar-six')
-      var sidebar7 = document.querySelector('.sidebar-seven')
-      var sidebar8 = document.querySelector('.sidebar-eight')
-      var sidebar9 = document.querySelector('.sidebar-nine')
-      var sidebar10 = document.querySelector('.sidebar-ten')
-      var sidebar11 = document.querySelector('.sidebar-eleven')
-      var sidebar12 = document.querySelector('.sidebar-twelve')
-      var link = document.querySelector('.link-one')
-      var link2 = document.querySelector('.link-two')
-      var link3 = document.querySelector('.link-three')
-      var link4 = document.querySelector('.link-four')
-      var link5 = document.querySelector('.link-five')
-      var link6 = document.querySelector('.link-six')
-      var link7 = document.querySelector('.link-seven')
-      var link8 = document.querySelector('.link-eight')
-      var link9 = document.querySelector('.link-nine')
-      var link10 = document.querySelector('.link-ten')
-      var link11 = document.querySelector('.link-eleven')
-      var link12 = document.querySelector('.link-twelve')
-      var map = document.querySelector('.map-wrap')
-
-      if (
-        map.classList.contains('openSide') &&
-        (sidebar.classList.contains('opened') ||
-          sidebar2.classList.contains('opened') ||
-          sidebar3.classList.contains('opened') ||
-          sidebar5.classList.contains('opened') ||
-          sidebar6.classList.contains('opened') ||
-          sidebar7.classList.contains('opened') ||
-          sidebar8.classList.contains('opened') ||
-          sidebar9.classList.contains('opened') ||
-          sidebar10.classList.contains('opened') ||
-          sidebar11.classList.contains('opened') ||
-          sidebar12.classList.contains('opened') ||
-          legend.classList.contains('open'))
-      ) {
-        sidebar.classList.remove('opened')
-        sidebar2.classList.remove('opened')
-        sidebar3.classList.remove('opened')
-        sidebar5.classList.remove('opened')
-        sidebar6.classList.remove('opened')
-        sidebar7.classList.remove('opened')
-        sidebar8.classList.remove('opened')
-        sidebar9.classList.remove('opened')
-        sidebar10.classList.remove('opened')
-        sidebar11.classList.remove('opened')
-        sidebar12.classList.remove('opened')
-        link.classList.remove('active')
-        link2.classList.remove('active')
-        link3.classList.remove('active')
-        link5.classList.remove('active')
-        link6.classList.remove('active')
-        link7.classList.remove('active')
-        link8.classList.remove('active')
-        link9.classList.remove('active')
-        link10.classList.remove('active')
-        link11.classList.remove('active')
-        link12.classList.remove('active')
-        map.classList.remove('big')
-        legend.classList.toggle('open')
-        link4.classList.toggle('active')
-      } else {
-        legend.classList.toggle('open')
-        link4.classList.toggle('active')
-        map.classList.toggle('openSide')
-      }
-    },
-
-    openSidebarOne() {
-      var legend = document.querySelector('.legend-wrap')
-      var sidebar = document.querySelector('.sidebar-one')
-      var sidebar2 = document.querySelector('.sidebar-two')
-      var sidebar3 = document.querySelector('.sidebar-three')
-      var sidebar5 = document.querySelector('.sidebar-five')
-      var sidebar6 = document.querySelector('.sidebar-six')
-      var sidebar7 = document.querySelector('.sidebar-seven')
-      var sidebar8 = document.querySelector('.sidebar-eight')
-      var sidebar9 = document.querySelector('.sidebar-nine')
-      var sidebar10 = document.querySelector('.sidebar-ten')
-      var sidebar11 = document.querySelector('.sidebar-eleven')
-      var sidebar12 = document.querySelector('.sidebar-twelve')
-      var link = document.querySelector('.link-one')
-      var link2 = document.querySelector('.link-two')
-      var link3 = document.querySelector('.link-three')
-      var link4 = document.querySelector('.link-four')
-      var link5 = document.querySelector('.link-five')
-      var link6 = document.querySelector('.link-six')
-      var link7 = document.querySelector('.link-seven')
-      var link8 = document.querySelector('.link-eight')
-      var link9 = document.querySelector('.link-nine')
-      var link10 = document.querySelector('.link-ten')
-      var link11 = document.querySelector('.link-eleven')
-      var link12 = document.querySelector('.link-twelve')
-      var map = document.querySelector('.map-wrap')
-
-      if (
-        map.classList.contains('openSide') &&
-        (sidebar2.classList.contains('opened') ||
-          sidebar3.classList.contains('opened') ||
-          sidebar5.classList.contains('opened') ||
-          sidebar6.classList.contains('opened') ||
-          sidebar7.classList.contains('opened') ||
-          sidebar8.classList.contains('opened') ||
-          sidebar9.classList.contains('opened') ||
-          sidebar10.classList.contains('opened') ||
-          sidebar11.classList.contains('opened') ||
-          sidebar12.classList.contains('opened') ||
-          legend.classList.contains('open'))
-      ) {
-        sidebar2.classList.remove('opened')
-        sidebar3.classList.remove('opened')
-        sidebar5.classList.remove('opened')
-        sidebar6.classList.remove('opened')
-        sidebar7.classList.remove('opened')
-        sidebar8.classList.remove('opened')
-        sidebar9.classList.remove('opened')
-        sidebar10.classList.remove('opened')
-        sidebar11.classList.remove('opened')
-        sidebar12.classList.remove('opened')
-        link2.classList.remove('active')
-        link3.classList.remove('active')
-        link5.classList.remove('active')
-        link6.classList.remove('active')
-        link7.classList.remove('active')
-        link8.classList.remove('active')
-        link9.classList.remove('active')
-        link10.classList.remove('active')
-        link11.classList.remove('active')
-        link12.classList.remove('active')
-        map.classList.remove('big')
-        link.classList.add('active')
-        sidebar.classList.add('opened')
-        if (window.innerWidth < 767) {
-          legend.classList.remove('open')
-          link4.classList.remove('active')
-        }
-      } else {
-        sidebar.classList.toggle('opened')
-        map.classList.toggle('openSide')
-        link.classList.toggle('active')
-        legend.classList.remove('open')
-      }
-    },
-
-    openSidebarTwo() {
-      var legend = document.querySelector('.legend-wrap')
-      var sidebar = document.querySelector('.sidebar-one')
-      var sidebar2 = document.querySelector('.sidebar-two')
-      var sidebar3 = document.querySelector('.sidebar-three')
-      var sidebar5 = document.querySelector('.sidebar-five')
-      var sidebar6 = document.querySelector('.sidebar-six')
-      var sidebar7 = document.querySelector('.sidebar-seven')
-      var sidebar8 = document.querySelector('.sidebar-eight')
-      var sidebar9 = document.querySelector('.sidebar-nine')
-      var sidebar10 = document.querySelector('.sidebar-ten')
-      var sidebar11 = document.querySelector('.sidebar-eleven')
-      var sidebar12 = document.querySelector('.sidebar-twelve')
-      var link = document.querySelector('.link-one')
-      var link2 = document.querySelector('.link-two')
-      var link3 = document.querySelector('.link-three')
-      var link4 = document.querySelector('.link-four')
-      var link5 = document.querySelector('.link-five')
-      var link6 = document.querySelector('.link-six')
-      var link7 = document.querySelector('.link-seven')
-      var link8 = document.querySelector('.link-eight')
-      var link9 = document.querySelector('.link-nine')
-      var link10 = document.querySelector('.link-ten')
-      var link11 = document.querySelector('.link-eleven')
-      var link12 = document.querySelector('.link-twelve')
-      var map = document.querySelector('.map-wrap')
-
-      if (
-        map.classList.contains('openSide') &&
-        (sidebar.classList.contains('opened') ||
-          sidebar3.classList.contains('opened') ||
-          sidebar5.classList.contains('opened') ||
-          sidebar6.classList.contains('opened') ||
-          sidebar7.classList.contains('opened') ||
-          sidebar8.classList.contains('opened') ||
-          sidebar9.classList.contains('opened') ||
-          sidebar10.classList.contains('opened') ||
-          sidebar11.classList.contains('opened') ||
-          sidebar12.classList.contains('opened') ||
-          legend.classList.contains('open'))
-      ) {
-        sidebar.classList.remove('opened')
-        sidebar3.classList.remove('opened')
-        sidebar5.classList.remove('opened')
-        sidebar6.classList.remove('opened')
-        sidebar7.classList.remove('opened')
-        sidebar8.classList.remove('opened')
-        sidebar9.classList.remove('opened')
-        sidebar10.classList.remove('opened')
-        sidebar11.classList.remove('opened')
-        sidebar12.classList.remove('opened')
-        link3.classList.remove('active')
-        link5.classList.remove('active')
-        link6.classList.remove('active')
-        link7.classList.remove('active')
-        link8.classList.remove('active')
-        link9.classList.remove('active')
-        link10.classList.remove('active')
-        link11.classList.remove('active')
-        link12.classList.remove('active')
-        map.classList.remove('big')
-        link2.classList.add('active')
-        map.classList.add('big')
-        sidebar2.classList.add('opened')
-        if (window.innerWidth < 767) {
-          legend.classList.remove('open')
-          link4.classList.remove('active')
-        }
-      } else {
-        sidebar2.classList.toggle('opened')
-        map.classList.toggle('openSide')
-        link2.classList.toggle('active')
-      }
-    },
-
-    openSidebarThree() {
-      var legend = document.querySelector('.legend-wrap')
-      var sidebar = document.querySelector('.sidebar-one')
-      var sidebar2 = document.querySelector('.sidebar-two')
-      var sidebar3 = document.querySelector('.sidebar-three')
-      var sidebar5 = document.querySelector('.sidebar-five')
-      var sidebar6 = document.querySelector('.sidebar-six')
-      var sidebar7 = document.querySelector('.sidebar-seven')
-      var sidebar8 = document.querySelector('.sidebar-eight')
-      var sidebar9 = document.querySelector('.sidebar-nine')
-      var sidebar10 = document.querySelector('.sidebar-ten')
-      var sidebar11 = document.querySelector('.sidebar-eleven')
-      var sidebar12 = document.querySelector('.sidebar-twelve')
-      var link = document.querySelector('.link-one')
-      var link2 = document.querySelector('.link-two')
-      var link3 = document.querySelector('.link-three')
-      var link4 = document.querySelector('.link-four')
-      var link5 = document.querySelector('.link-five')
-      var link6 = document.querySelector('.link-six')
-      var link7 = document.querySelector('.link-seven')
-      var link8 = document.querySelector('.link-eight')
-      var link9 = document.querySelector('.link-nine')
-      var link10 = document.querySelector('.link-ten')
-      var link11 = document.querySelector('.link-eleven')
-      var link12 = document.querySelector('.link-twelve')
-      var map = document.querySelector('.map-wrap')
-
-      if (
-        map.classList.contains('openSide') &&
-        (sidebar.classList.contains('opened') ||
-          sidebar2.classList.contains('opened') ||
-          sidebar5.classList.contains('opened') ||
-          sidebar6.classList.contains('opened') ||
-          sidebar7.classList.contains('opened') ||
-          sidebar8.classList.contains('opened') ||
-          sidebar9.classList.contains('opened') ||
-          sidebar10.classList.contains('opened') ||
-          sidebar11.classList.contains('opened') ||
-          sidebar12.classList.contains('opened') ||
-          legend.classList.contains('open'))
-      ) {
-        sidebar.classList.remove('opened')
-        sidebar2.classList.remove('opened')
-        sidebar5.classList.remove('opened')
-        sidebar6.classList.remove('opened')
-        sidebar7.classList.remove('opened')
-        sidebar8.classList.remove('opened')
-        sidebar9.classList.remove('opened')
-        sidebar10.classList.remove('opened')
-        sidebar11.classList.remove('opened')
-        sidebar12.classList.remove('opened')
-        link2.classList.remove('active')
-        link5.classList.remove('active')
-        link6.classList.remove('active')
-        link7.classList.remove('active')
-        link8.classList.remove('active')
-        link9.classList.remove('active')
-        link10.classList.remove('active')
-        link11.classList.remove('active')
-        link12.classList.remove('active')
-        map.classList.remove('big')
-        link3.classList.add('active')
-        map.classList.add('big')
-        sidebar3.classList.add('opened')
-        if (window.innerWidth < 767) {
-          legend.classList.remove('open')
-          link4.classList.remove('active')
-        }
-      } else {
-        sidebar3.classList.toggle('opened')
-        map.classList.toggle('openSide')
-        map.classList.toggle('big')
-        link3.classList.toggle('active')
-      }
-    },
-
-    openSidebarFive() {
-      var legend = document.querySelector('.legend-wrap')
-      var sidebar = document.querySelector('.sidebar-one')
-      var sidebar2 = document.querySelector('.sidebar-two')
-      var sidebar3 = document.querySelector('.sidebar-three')
-      var sidebar5 = document.querySelector('.sidebar-five')
-      var sidebar6 = document.querySelector('.sidebar-six')
-      var sidebar7 = document.querySelector('.sidebar-seven')
-      var sidebar8 = document.querySelector('.sidebar-eight')
-      var sidebar9 = document.querySelector('.sidebar-nine')
-      var sidebar10 = document.querySelector('.sidebar-ten')
-      var sidebar11 = document.querySelector('.sidebar-eleven')
-      var sidebar12 = document.querySelector('.sidebar-twelve')
-      var link = document.querySelector('.link-one')
-      var link2 = document.querySelector('.link-two')
-      var link3 = document.querySelector('.link-three')
-      var link4 = document.querySelector('.link-four')
-      var link5 = document.querySelector('.link-five')
-      var link6 = document.querySelector('.link-six')
-      var link7 = document.querySelector('.link-seven')
-      var link8 = document.querySelector('.link-eight')
-      var link9 = document.querySelector('.link-nine')
-      var link10 = document.querySelector('.link-ten')
-      var link11 = document.querySelector('.link-eleven')
-      var link12 = document.querySelector('.link-twelve')
-      var map = document.querySelector('.map-wrap')
-
-      if (
-        map.classList.contains('openSide') &&
-        (sidebar.classList.contains('opened') ||
-          sidebar3.classList.contains('opened') ||
-          sidebar5.classList.contains('opened') ||
-          sidebar2.classList.contains('opened') ||
-          sidebar6.classList.contains('opened') ||
-          sidebar7.classList.contains('opened') ||
-          sidebar8.classList.contains('opened') ||
-          sidebar9.classList.contains('opened') ||
-          sidebar10.classList.contains('opened') ||
-          sidebar11.classList.contains('opened') ||
-          sidebar12.classList.contains('opened') ||
-          legend.classList.contains('open'))
-      ) {
-        sidebar.classList.remove('opened')
-        sidebar3.classList.remove('opened')
-        sidebar5.classList.remove('opened')
-        sidebar4.classList.remove('opened')
-        sidebar2.classList.remove('opened')
-        sidebar6.classList.remove('opened')
-        sidebar7.classList.remove('opened')
-        sidebar8.classList.remove('opened')
-        sidebar9.classList.remove('opened')
-        sidebar10.classList.remove('opened')
-        sidebar11.classList.remove('opened')
-        sidebar12.classList.remove('opened')
-        link3.classList.remove('active')
-        link5.classList.remove('active')
-        link2.classList.remove('active')
-        link6.classList.remove('active')
-        link7.classList.remove('active')
-        link8.classList.remove('active')
-        link9.classList.remove('active')
-        link10.classList.remove('active')
-        link11.classList.remove('active')
-        link12.classList.remove('active')
-        map.classList.remove('big')
-        link2.classList.add('active')
-        map.classList.add('big')
-        sidebar2.classList.add('opened')
-        link5.classList.add('active')
-        map.classList.add('big')
-        sidebar5.classList.add('opened')
-        if (window.innerWidth < 767) {
-          legend.classList.remove('open')
-          link4.classList.remove('active')
-        }
-      } else {
-        sidebar5.classList.toggle('opened')
-        map.classList.toggle('openSide')
-        link2.classList.toggle('active')
-      }
-    },
-
-    openSidebarThree() {
-      link5.classList.toggle('active')
-    },
   },
 }
 </script>
@@ -4002,5 +2961,9 @@ export default {
     background-color: #009c3a;
     color: white;
   }
+}
+.modal-body {
+  max-height: calc(100% - 120px);
+  overflow-y: scroll;
 }
 </style>
