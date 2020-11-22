@@ -1,91 +1,220 @@
-<template> 
-  
-    <div>
-      <div class="sidebar-map">
-    
+<template>
+  <div>
+    <div class="sidebar-map">
       <b-link to="/" class="logo">
         <img src="/logo.svg" alt="" />
       </b-link>
-      <b-link class="logotext" v-b-toggle.sidebar-backdrop>  
-      	<img src="/logo-text.svg" alt=""/>
+      <b-link class="logotext" v-b-toggle.sidebar-backdrop>
+        <img src="/logo-text.svg" alt="" />
       </b-link>
-        <b-button variant="primary-outline" block @click="hide"> </b-button>
-    
+      <b-button variant="primary-outline" block @click="hide"> </b-button>
+      <div>
+        <b-sidebar
+          id="sidebar-backdrop"
+          title=""
+          :backdrop-variant="variant"
+          shadow
+          width="250px"
+        >
+          <div class="px-3 py-2">
+            <nav class="mb-3">
+              <b-nav vertical>
+                <img src="/logo.svg" alt="" /><img
+                  src="/logo-text.svg"
+                  alt=""
+                />
+                <b-nav-item
+                  v-b-modal.modal-titikpanas
+                  v-b-toggle.sidebar-backdrop
+                  class="d-md-block d-none mt-4"
+                  style="text-align: left"
+                  >Titik Panas</b-nav-item
+                >
 
-      <b-sidebar id="sidebar-backdrop"
-      title=""
-      :backdrop-variant="variant"
-      backdrop
-      shadow width="250px" >
-      	
-      <div class="px-3 py-2" >
-      	<nav class="mb-3">
-            <b-nav vertical>
-          	<img src="/logo.svg" alt="" /><img src="/logo-text.svg" alt=""/>
-            <b-nav-item v-b-modal.modal-titikpanas class="d-md-block d-none" style="text-align: left">Titik Panas</b-nav-item>
-			
-     	<b-nav-item-dropdown
-						      id="my-nav-dropdown"
-						      text="Karhutla"
-						      toggle-class="nav-link-custom"
-						      left size="sm">
-		    <b-dropdown-item v-b-modal.modal-luaskebakaran class="d-md-block d-none" style="text-align: left">Luas Karhutla</b-dropdown-item>
-		    <b-dropdown-item v-b-modal.modal-emisico2 class="d-md-block d-none" style="text-align: left">Emisi CO2</b-dropdown-item>
-		    <b-dropdown-item href="#" class="d-md-block d-none" style="text-align: left">Pemadaman</b-dropdown-item>
-		  </b-nav-item-dropdown>
-		 
-		  <b-nav-item-dropdown
-						      id="my-nav-dropdown"
-						      text="Dalkarhutla"
-						      toggle-class="nav-link-custom"
-						      left size="sm">
-		    <b-dropdown-item href="http://sipongi.menlhk.go.id/laporan_dalkarhutla_mitra/app2020/"
-        target="_blank" class="d-md-block d-none" style="text-align: left">Pelaporan Dalkarhutla</b-dropdown-item>
-		     <b-dropdown-item v-b-modal.modal-fdrs class="d-md-block d-none" style="text-align: left">FDRS</b-dropdown-item>
-		  </b-nav-item-dropdown>
-		
-		  <b-nav-item-dropdown
-						      id="my-nav-dropdown"
-						      text="Prediksi Karhutla"
-						      toggle-class="nav-link-custom"
-						      left size="sm">
-		    <b-dropdown-item href="#" class="d-md-block d-none" style="text-align: left">Peta Rawan </b-dropdown-item>
-		    <b-dropdown-item href="#" class="d-md-block d-none" style="text-align: left">Prediksi Titik Panas</b-dropdown-item>
-		    <b-dropdown-item href="#" class="d-md-block d-none" style="text-align: left">Prediksi Iklim</b-dropdown-item>
-		    <b-dropdown-item href="#" class="d-md-block d-none" style="text-align: left">Prediksi Elnino </b-dropdown-item>
-		  </b-nav-item-dropdown>
-		  
-		  <b-nav-item-dropdown
-						      id="my-nav-dropdown"
-						      text="Publikasi"
-						      toggle-class="nav-link-custom"
-						      left size="sm">
-		    <b-dropdown-item v-b-modal.modal-berita class="d-md-block d-none" style="text-align: left">Berita</b-dropdown-item>
-		    <b-dropdown-item v-b-modal.modal-galeri class="d-md-block d-none" style="text-align: left">Galeri</b-dropdown-item>
-		    <b-dropdown-item v-b-modal.modal-perundangan class="d-md-block d-none" style="text-align: left">Peraturan Perundangan</b-dropdown-item>
-		    <b-dropdown-item v-b-modal.modal-laporanposko class="d-md-block d-none" style="text-align: left">Laporan Harian Posko</b-dropdown-item>
-		    <b-dropdown-item v-b-modal.modal-dokumenlain class="d-md-block d-none" style="text-align: left">Dokumen Lainnya</b-dropdown-item>
-		  </b-nav-item-dropdown>
-		  
-		  <b-nav-item-dropdown
-						      id="my-nav-dropdown"
-						      text="Tentang Sipongi"
-						      toggle-class="nav-link-custom"
-						      left size="sm">
-		    <b-dropdown-item class="link-seven"  style="text-align: left">Direktorat PKHL</b-dropdown-item>
-		    <b-dropdown-item class="link-eight"  style="text-align: left">Manggala Agni</b-dropdown-item>
-		    <b-dropdown-item class="link-nine"  style="text-align: left">Struktur Organisasi</b-dropdown-item>
-		    <b-dropdown-item class="link-ten"  style="text-align: left">Kontak Kami</b-dropdown-item>
-		    <b-dropdown-item class="link-eleven"  style="text-align: left">Link Terkait</b-dropdown-item>
-		    <b-dropdown-item v-b-modal.modal-disclaimer class="d-md-block d-none" style="text-align: left">Disclaimer</b-dropdown-item>
-		  </b-nav-item-dropdown>
-            </b-nav>
-		  </nav>
-      </div>
-      </b-sidebar>
+                <b-nav-item-dropdown
+                  id="my-nav-dropdown"
+                  text="Karhutla"
+                  toggle-class="nav-link-custom"
+                  left
+                  size="sm"
+                >
+                  <b-dropdown-item
+                    v-b-modal.modal-luaskebakaran
+                    v-b-toggle.sidebar-backdrop
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Luas Karhutla</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    v-b-modal.modal-emisico2
+                    v-b-toggle.sidebar-backdrop
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Emisi CO2</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    href="#"
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Pemadaman</b-dropdown-item
+                  >
+                </b-nav-item-dropdown>
 
-      
-      
+                <b-nav-item-dropdown
+                  id="my-nav-dropdown"
+                  text="Dalkarhutla"
+                  toggle-class="nav-link-custom"
+                  left
+                  size="sm"
+                >
+                  <b-dropdown-item
+                    href="http://sipongi.menlhk.go.id/laporan_dalkarhutla_mitra/app2020/"
+                    target="_blank"
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Pelaporan Dalkarhutla</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    v-b-modal.modal-fdrs
+                    v-b-toggle.sidebar-backdrop
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >FDRS</b-dropdown-item
+                  >
+                </b-nav-item-dropdown>
+
+                <b-nav-item-dropdown
+                  id="my-nav-dropdown"
+                  text="Prediksi Karhutla"
+                  toggle-class="nav-link-custom"
+                  left
+                  size="sm"
+                >
+                  <b-dropdown-item
+                    href="#"
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Peta Rawan
+                  </b-dropdown-item>
+                  <b-dropdown-item
+                    href="#"
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Prediksi Titik Panas</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    href="#"
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Prediksi Iklim</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    href="#"
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Prediksi Elnino
+                  </b-dropdown-item>
+                </b-nav-item-dropdown>
+
+                <b-nav-item-dropdown
+                  id="my-nav-dropdown"
+                  text="Publikasi"
+                  toggle-class="nav-link-custom"
+                  left
+                  size="sm"
+                >
+                  <b-dropdown-item
+                    v-b-toggle.sidebar-backdrop
+                    v-b-modal.modal-berita
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Berita</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    v-b-toggle.sidebar-backdrop
+                    v-b-modal.modal-galeri
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Galeri</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    v-b-toggle.sidebar-backdrop
+                    v-b-modal.modal-perundangan
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Peraturan Perundangan</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    v-b-toggle.sidebar-backdrop
+                    v-b-modal.modal-laporanposko
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Laporan Harian Posko</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    v-b-toggle.sidebar-backdrop
+                    v-b-modal.modal-dokumenlain
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Dokumen Lainnya</b-dropdown-item
+                  >
+                </b-nav-item-dropdown>
+
+                <b-nav-item-dropdown
+                  id="my-nav-dropdown"
+                  text="Tentang Sipongi"
+                  toggle-class="nav-link-custom"
+                  left
+                  size="sm"
+                >
+                  <b-dropdown-item
+                    v-b-toggle.sidebar-backdrop
+                    v-b-modal.modal-direktorat
+                    class="link-seven"
+                    style="text-align: left"
+                    >Direktorat PKHL</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    class="link-eight"
+                    v-b-toggle.sidebar-backdrop
+                    v-b-modal.modal-manggala-agni
+                    style="text-align: left"
+                    >Manggala Agni</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    class="link-nine"
+                    v-b-toggle.sidebar-backdrop
+                    v-b-modal.modal-struktur-organisasi
+                    style="text-align: left"
+                    >Struktur Organisasi</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    class="link-ten"
+                    v-b-toggle.sidebar-backdrop
+                    v-b-modal.modal-kontak-kami
+                    style="text-align: left"
+                    >Kontak Kami</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    class="link-eleven"
+                    v-b-toggle.sidebar-backdrop
+                    v-b-modal.modal-link-terkait
+                    style="text-align: left"
+                    >Link Terkait</b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    v-b-toggle.sidebar-backdrop
+                    v-b-modal.modal-disclaimer
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Disclaimer</b-dropdown-item
+                  >
+                </b-nav-item-dropdown>
+              </b-nav>
+            </nav>
+          </div>
+        </b-sidebar>
+
         <b-link class="main link-two d-md-none" v-b-modal.modal-berita>
           <div class="wrap">
             <div class="image d-md-none d-block">
@@ -94,7 +223,7 @@
             <h6>Berita</h6>
           </div>
         </b-link>
-        
+
         <b-link class="main link-three d-md-none" v-b-modal.modal-galeri>
           <div class="wrap">
             <div class="image d-md-none d-block">
@@ -103,52 +232,65 @@
             <h6>Galeri</h6>
           </div>
         </b-link>
-      
-        <b-link class="main link-four d-md-none" @click="openLegend">
-          <div class="wrap">
-            <div class="image">
-              <img src="/cowboy-hat.svg" alt="" />
-            </div>
-            <h6>Legend</h6>
-          </div>
-        </b-link>
-        
-        <b-link class="main link-one d-md-none">
-          <div class="wrap">
-            <div class="image">
-              <img src="/fire-extinguisher.svg" alt="" />
-            </div>
-            <h6>Titik Panas</h6>
-          </div>
-        </b-link>
-    
-    
-		</div>  
-	
-      
+      </div>
 
-   
-  
-   
-    <div class="map-wrap" style="height: 100vh">    
-    <div id="logo_maps">
-    		<!--<img src="/sipongi_maps.png" class="img img-responsives">-->
-    		<ul>
-    				<li><a href="http://www.menlhk.go.id" target="_blank"><img src="/logo_klhk.png" class="img img-responsives center-block"> KLHK </a></li>
-    				<li><a href="http://www.ditjenppi.menlhk.go.id" target="_blank"><img src="/logo_klhk.png" class="img img-responsives center-block"> DitjenPPI </a></li>
-    				<li><a href="http://www.bmkg.go.id" target="_blank"><img src="/logo_bmkg.png" class="img img-responsives center-block"> BMKG </a></li>
-    				<li><a href="http://www.lapan.go.id" target="_blank"><img src="/logo_lapan.png" class="img img-responsives center-block"> LAPAN </a></li>
-    				<li><a href="http://www.bnpb.go.id" target="_blank"><img src="/logo_bnpb.png" class="img img-responsives center-block"> BNPB </a></li>
-    		</ul>
+      <b-link to="/" class="hide">
+        <img src="/mini_arrow_left-gray.svg" alt="" />
+      </b-link>
     </div>
 
-    
-		
-	  <b-link id="counter" class="counter">
-        <h6 class="sec-title" style="margin-bottom: 0px; font-weight: bolder">Visitor {{counter}}</h6><!--<h6 class="sec-title" style="text-align: center;">{{counter}}</h6>-->
-      </b-link>
-		
-		
+    <div class="map-wrap" style="height: 100vh">
+      <div id="logo_maps">
+        <!--<img src="/sipongi_maps.png" class="img img-responsives">-->
+        <ul>
+          <li>
+            <a href="http://www.menlhk.go.id" target="_blank"
+              ><img
+                src="/logo_klhk.png"
+                class="img img-responsives center-block"
+              />
+              KLHK
+            </a>
+          </li>
+          <li>
+            <a href="http://www.ditjenppi.menlhk.go.id" target="_blank"
+              ><img
+                src="/logo_klhk.png"
+                class="img img-responsives center-block"
+              />
+              DitjenPPI
+            </a>
+          </li>
+          <li>
+            <a href="http://www.bmkg.go.id" target="_blank"
+              ><img
+                src="/logo_bmkg.png"
+                class="img img-responsives center-block"
+              />
+              BMKG
+            </a>
+          </li>
+          <li>
+            <a href="http://www.lapan.go.id" target="_blank"
+              ><img
+                src="/logo_lapan.png"
+                class="img img-responsives center-block"
+              />
+              LAPAN
+            </a>
+          </li>
+          <li>
+            <a href="http://www.bnpb.go.id" target="_blank"
+              ><img
+                src="/logo_bnpb.png"
+                class="img img-responsives center-block"
+              />
+              BNPB
+            </a>
+          </li>
+        </ul>
+      </div>
+
       <b-link href="https://wa.me/+6281310035000" target="_blank" class="call">
         <img src="/phone-red.svg" alt="" class="mr-1 inner" />
         Sipongi
@@ -267,30 +409,6 @@
           >
           <b-collapse id="collapse-2">
             <div class="filter-wrap">
-              <!--<div class="select-wrap">
-              	<label class="mr-sm-2">Satelit</label>
-              	<b-link style="display: inline-block; vertical-align: middle; font-size: 9px; padding: 4px 8px; background-color: #fff; border: 1px solid #eaeaea; margin-right: 2px; border-radius: 12px;"
-			            :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
-			            @click="changeSumber('LPN-MODIS')"
-			            >Terra/Aqua
-			          </b-link>
-			          <b-link style="display: inline-block; vertical-align: middle; font-size: 9px; padding: 4px 8px; background-color: #fff; border: 1px solid #eaeaea; margin-right: 2px; border-radius: 12px;"
-			            :class="`status ${checkSumber('LPN-NPP') ? 'active' : ''}`"
-			            @click="changeSumber('LPN-NPP')"
-			            >SNPP
-			          </b-link>
-			          <b-link style="display: inline-block; vertical-align: middle; font-size: 9px; padding: 4px 8px; background-color: #fff; border: 1px solid #eaeaea; margin-right: 2px; border-radius: 12px;"
-			            :class="`status ${checkSumber('LPN-NOAA20') ? 'active' : ''}`"
-			            @click="changeSumber('LPN-NOAA20')"
-			            >NOAA20
-			          </b-link>
-			          <b-link style="display: inline-block; vertical-align: middle; font-size: 9px; padding: 4px 8px; background-color: #fff; border: 1px solid #eaeaea; margin-right: 2px; border-radius: 12px;"
-			            :class="`status ${checkSumber('LPN-LANDSAT8') ? 'active' : ''}`"
-			            @click="changeSumber('LPN-LANDSAT8')"
-			            >LANDSAT8
-			          </b-link>
-            </div>-->
-
               <div class="select-wrap">
                 <label class="mr-sm-2">Periode</label>
                 <b-form-select
@@ -572,14 +690,113 @@
     </div>
     <div class="splash-screen" v-if="loading">
       <div class="wrap">
-        <h4>Mohon Tunggu Sebentar</h4>
+        <h4>Mohon Tunggu Sebentar, Kami Sedang Mengambil Data</h4>
         <b-spinner
           style="width: 3rem; height: 3rem"
           label="Large Spinner"
         ></b-spinner>
       </div>
     </div>
-    
+
+    <!-- Modal Titik Panas -->
+    <b-modal
+      id="modal-titikpanas"
+      body-class="modal-titikpanas"
+      size="xl"
+      hide-footer
+      title="Titik Panas"
+    >
+      <div class="content-list">
+        <b-form-select
+          v-model="cariProvinsi"
+          class="mb-3 form-control"
+          value-field="id"
+          text-field="nama_provinsi"
+          :options="provs"
+        ></b-form-select>
+
+        <b-form-select
+          v-model="cariKota"
+          class="form-control"
+          value-field="id"
+          text-field="nama"
+          :disabled="provs.length <= 0 || !cariProvinsi || kotakabs.length <= 1"
+          :options="kotakabs"
+        ></b-form-select>
+
+        <div class="mt-4">
+          <label for="fromDate">Filter data from: </label>
+          <b-form-datepicker
+            @input="loadHotSpot()"
+            :max="yesterday"
+            width="135px"
+            id="fromDate"
+            class="form-control"
+            v-model="fromDate"
+          ></b-form-datepicker>
+          <label for="toDate">to: </label>
+          <b-form-datepicker
+            @input="loadHotSpot()"
+            :max="today"
+            width="135px"
+            id="toDate"
+            class="form-control"
+            v-model="toDate"
+          ></b-form-datepicker>
+        </div>
+      </div>
+
+      <b-row class="d-flex justify-content-between px-3 my-4">
+        <div class="float-right">
+          <b-link to="" class="pdf">
+            <img src="/pdf.svg" alt="" />
+            <span>Download XLS</span>
+          </b-link>
+        </div>
+        <div class="float-left">
+          <b-link
+            :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
+            @click="changeSumber('LPN-MODIS')"
+            >Terra/Aqua
+          </b-link>
+          <b-link
+            :class="`status ${checkSumber('LPN-NPP') ? 'active' : ''}`"
+            @click="changeSumber('LPN-NPP')"
+            >SNPP
+          </b-link>
+          <b-link
+            :class="`status ${checkSumber('LPN-NOAA20') ? 'active' : ''}`"
+            @click="changeSumber('LPN-NOAA20')"
+            >NOAA20
+          </b-link>
+          <b-link
+            :class="`status ${checkSumber('LPN-LANDSAT8') ? 'active' : ''}`"
+            @click="changeSumber('LPN-LANDSAT8')"
+            >LANDSAT8
+          </b-link>
+        </div>
+      </b-row>
+
+      <div class="content-list titik">
+        <template v-for="datas in DataHotSpot.kabkota">
+          <template v-for="(kotakab, index2) in datas">
+            <b-link
+              :key="`${kotakab.data.latcen} ${kotakab.data.loncen} + ${index2}`"
+              class="list-item"
+              v-if="checkSumber(kotakab.data.sumber)"
+              @click="changeCenter(kotakab.data)"
+            >
+              <h6>
+                {{ kotakab.data.kabkota }} - {{ kotakab.data.nama_provinsi }}
+              </h6>
+              <p>{{ kotakab.data.ori_sumber }}</p>
+              <span class="count">{{ kotakab.count }}</span>
+            </b-link>
+          </template>
+        </template>
+      </div>
+    </b-modal>
+
     <!-- Modal Emisi CO2 -->
     <b-modal
       id="modal-emisico2"
@@ -588,37 +805,45 @@
       hide-footer
       title="Emisi CO2 dari Kebakaran Hutan dan Lahan (Ton CO2e)"
     >
-    	<b-container>
+      <b-container>
         <div class="mb-4">
           <div class="row">
-              <div class="col-12">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                        <!-- <th scope="col">#</th> -->
-                        <th scope="col">Provinsi</th>
-                        <th scope="col" v-for="(tahun) in tahuns" :key="tahun">{{tahun}}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="(data,i) in datas" :key="i">
-                            <td>{{i}}</td>
-                            <td v-for="(total,j) in data" :key="j">{{(total.luas != '' || total.luas != null) ? total.luas  : 0}}</td>
-                        </tr>
-                    </tbody>
-                    <tfoot style="font-weight: bold;">
-                        <tr>
-                            <td>Total</td>
-                            <td v-for="(total,i) in totals" :key="i">{{total.total}}</td>
-                        </tr>
-                    </tfoot>
-                </table>
-              </div>
+            <div class="col-12">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <!-- <th scope="col">#</th> -->
+                    <th scope="col">Provinsi</th>
+                    <th scope="col" v-for="tahun in tahuns" :key="tahun">
+                      {{ tahun }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(data, i) in datas" :key="i">
+                    <td>{{ i }}</td>
+                    <td v-for="(total, j) in data" :key="j">
+                      {{
+                        total.luas != '' || total.luas != null ? total.luas : 0
+                      }}
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot style="font-weight: bold">
+                  <tr>
+                    <td>Total</td>
+                    <td v-for="(total, i) in totals" :key="i">
+                      {{ total.total }}
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
           </div>
         </div>
       </b-container>
     </b-modal>
-    
+
     <!-- Modal Luas Kebakaran -->
     <b-modal
       id="modal-luaskebakaran"
@@ -627,38 +852,45 @@
       hide-footer
       title="Rekapitulasi Luas Kebakaran Hutan dan Lahan (Ha) Per Provinsi Di Indonesia Tahun 2015-2020 (Data s/d 30 September 2020)"
     >
-    	 <b-container>
+      <b-container>
         <div class="mb-4">
           <div class="row">
-              <div class="col-12">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                        <!-- <th scope="col">#</th> -->
-                        <th scope="col">Provinsi</th>
-                        <th scope="col" v-for="(tahun) in tahuns" :key="tahun">{{tahun}}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="(data,i) in datas" :key="i">
-                            <td>{{i}}</td>
-                            <td v-for="(total,j) in data" :key="j">{{(total.luas != '' || total.luas != null) ? total.luas  : 0}}</td>
-                        </tr>
-                    </tbody>
-                    <tfoot style="font-weight: bold;">
-                        <tr>
-                            <td>Total</td>
-                            <td v-for="(total,i) in totals" :key="i">{{total.total}}</td>
-                        </tr>
-                    </tfoot>
-                </table>
-              </div>
+            <div class="col-12">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <!-- <th scope="col">#</th> -->
+                    <th scope="col">Provinsi</th>
+                    <th scope="col" v-for="tahun in tahuns" :key="tahun">
+                      {{ tahun }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(data, i) in datas" :key="i">
+                    <td>{{ i }}</td>
+                    <td v-for="(total, j) in data" :key="j">
+                      {{
+                        total.luas != '' || total.luas != null ? total.luas : 0
+                      }}
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot style="font-weight: bold">
+                  <tr>
+                    <td>Total</td>
+                    <td v-for="(total, i) in totals" :key="i">
+                      {{ total.total }}
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
           </div>
         </div>
-
       </b-container>
     </b-modal>
-    
+
     <!-- Modal FDRS -->
     <b-modal
       id="modal-fdrs"
@@ -667,73 +899,83 @@
       hide-footer
       title="FDRS"
     >
-    	<div class="content-list">
-        	<b-container>
-		        <div class="mb-4">
-		          <div class="row">
-		
-		            <div class="col-12 col-md-4">
-		              <!-- Option Wilayah -->
-		              <div class="form-group">
-		                <div class="row">
-		                 <!-- <label class="col-sm-2 control-label">Wilayah</label> -->
-		                  <div class="col-sm-10">
-		                    <b-form-select v-model="defaultWilayah" 
-		                        :options="opsiWilayah">
-		                    </b-form-select>
-		                  </div>
-		                </div>
-		              </div>
-		            </div>
-		
-		            <div class="col-12 col-md-4">
-		              <!-- Option Index -->
-		              <div class="form-group">
-		                <div class="row">
-		                <!--  <label class="col-sm-2 control-label">Hari</label> -->
-		                  <div class="col-sm-10">
-		                    <b-form-select v-model="defaultHari" 
-		                        :options="opsiHari">
-		                    </b-form-select>
-		                  </div>
-		                </div>
-		              </div>
-		            </div>
-		            
-		            <div class="col-12 col-md-4">
-		            	<div class="form-group">
-		                <div class="row">
-		                  <label class="col-sm-2 control-label"></label>
-		                  <div class="col-sm-10">
-		                    <button variant="primary" @click="filter">Filter</button>
-		                  </div>
-		                </div>
-		              </div>
-		            </div>
-		          </div>
-		        </div>
-		    
-		        <b-row>
-		          <b-col md="12">
-		            <b-row>
-		              <b-col md="12">
-		                  <div>
-		                    <img :src="dataFdrs.image" :alt="dataFdrs.wilayah" class="img-fluid">
-		                  </div>
-		                  <div>
-		                    <a href="#" @click="download(dataFdrs.image,dataFdrs.wilayah)">
-		                        Download
-		                    </a>
-		                  </div>
-		                  <p class="pt-1" style="font-size:12px;">*Sumber data : Badan Meteorologi Dan Meteorologi Klimatologi dan Geofisika</p>
-		              </b-col>
-		            </b-row>
-		          </b-col>
-		        </b-row>
-		      </b-container>
-        </div>
+      <div class="content-list">
+        <b-container>
+          <div class="mb-4">
+            <div class="row">
+              <div class="col-12 col-md-4">
+                <!-- Option Wilayah -->
+                <div class="form-group">
+                  <div class="row">
+                    <!-- <label class="col-sm-2 control-label">Wilayah</label> -->
+                    <div class="col-sm-10">
+                      <b-form-select
+                        v-model="defaultWilayah"
+                        :options="opsiWilayah"
+                      >
+                      </b-form-select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-4">
+                <!-- Option Index -->
+                <div class="form-group">
+                  <div class="row">
+                    <!--  <label class="col-sm-2 control-label">Hari</label> -->
+                    <div class="col-sm-10">
+                      <b-form-select v-model="defaultHari" :options="opsiHari">
+                      </b-form-select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-4">
+                <div class="form-group">
+                  <div class="row">
+                    <label class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10">
+                      <button variant="primary" @click="filter">Filter</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <b-row>
+            <b-col md="12">
+              <b-row>
+                <b-col md="12">
+                  <div>
+                    <img
+                      :src="dataFdrs.image"
+                      :alt="dataFdrs.wilayah"
+                      class="img-fluid"
+                    />
+                  </div>
+                  <div>
+                    <a
+                      href="#"
+                      @click="download(dataFdrs.image, dataFdrs.wilayah)"
+                    >
+                      Download
+                    </a>
+                  </div>
+                  <p class="pt-1" style="font-size: 12px">
+                    *Sumber data : Badan Meteorologi Dan Meteorologi Klimatologi
+                    dan Geofisika
+                  </p>
+                </b-col>
+              </b-row>
+            </b-col>
+          </b-row>
+        </b-container>
+      </div>
     </b-modal>
-    
+
     <!-- Modal Berita -->
     <b-modal
       id="modal-berita"
@@ -743,29 +985,29 @@
       hide-footer
       title="Berita"
     >
-    	<div class="content-list">
-          <b-container>
-		        <b-row>
-		          <b-col md="6" v-for="blog in beritas" :key="blog.slug">
-		            <b-link :to="`/blog/${blog.slug}`" class="blog-item">
-		              <div
-		                class="image"
-		                :style="{ backgroundImage: `url(${blog.image_url})` }"
-		              ></div>
-		              <h5>{{ blog.title }}</h5>
-		              <span>{{ blog.created_at }}</span>
-		            </b-link>
-		          </b-col>
-		          <b-col v-if="loadMore" md="12" class="text-center">
-		            <button class="btn btn-ghost" @click="loadMoreData()">
-		              Tampilkan Lebih Banyak
-		            </button>
-		          </b-col>
-		        </b-row>
-		      </b-container>
+      <div class="content-list">
+        <b-container>
+          <b-row>
+            <b-col md="6" v-for="blog in beritas" :key="blog.slug">
+              <b-link :to="`/blog/${blog.slug}`" class="blog-item">
+                <div
+                  class="image"
+                  :style="{ backgroundImage: `url(${blog.image_url})` }"
+                ></div>
+                <h5>{{ blog.title }}</h5>
+                <span>{{ blog.created_at }}</span>
+              </b-link>
+            </b-col>
+            <b-col v-if="loadMore" md="12" class="text-center">
+              <button class="btn btn-ghost" @click="loadMoreData()">
+                Tampilkan Lebih Banyak
+              </button>
+            </b-col>
+          </b-row>
+        </b-container>
       </div>
     </b-modal>
-    
+
     <!-- Modal Galeri -->
     <b-modal
       id="modal-galeri"
@@ -774,58 +1016,62 @@
       hide-footer
       title="Galeri"
     >
-        <div class="content-list">
-        	<b-tabs>
-              <b-tab title="Kegiatan Pemadaman" active>
-				          <b-row>
-				            <b-col cols="6" v-for="blog in pemadamans" :key="blog.slug">
-				              <b-link :to="`/galeri/` + blog.slug" class="blog-item">
-				                <div
-				                  class="image"
-				                  :style="{ backgroundImage: `url(${blog.detail.image_url})` }"
-				                ></div>
-				                <h5>{{ blog.title }}</h5>
-				                <span>{{
-				                  $moment(blog.created_at).format('DD MMMM YYYY')
-				                }}</span>
-				              </b-link>
-				            </b-col>
-				            <b-col v-if="loadMoreGal" md="12" class="text-center">
-				              <b-button
-				                variant="primary"
-				                class="loadMore"
-				                @click="loadMoreDataGal()"
-				                >Lihat Lebih Banyak</b-button
-				              >
-				            </b-col>
-				          </b-row>
-				       </b-tab>
-				       <b-tab title="Kegiatan Lainnya">
-                <b-row>
-                  <b-col cols="6" v-for="blog in lains" :key="blog.slug">
-                    <b-link :to="`/galeri/` + blog.slug" class="blog-item">
-                      <div
-                        class="image"
-                        :style="{ backgroundImage: `url(${blog.detail.image_url})` }"
-				                ></div>
-                      <h5>{{ blog.title }}</h5>
-                     <span>{{ blog.created_at }}</span>
-                    </b-link>
-                  </b-col>
-                  <b-col v-if="loadMoreLain" md="12" class="text-center">
-                    <b-button
-				                variant="primary"
-				                class="loadMore"
-				                @click="loadMoreDataLain()"
-				                >Lihat Lebih Banyak</b-button
-				              >
-                  </b-col>
-                </b-row>
-              </b-tab>
-           </b-tabs>
-        </div>
+      <div class="content-list">
+        <b-tabs>
+          <b-tab title="Kegiatan Pemadaman" active>
+            <b-row>
+              <b-col cols="6" v-for="blog in pemadamans" :key="blog.slug">
+                <b-link :to="`/galeri/` + blog.slug" class="blog-item">
+                  <div
+                    class="image"
+                    :style="{
+                      backgroundImage: `url(${blog.detail.image_url})`,
+                    }"
+                  ></div>
+                  <h5>{{ blog.title }}</h5>
+                  <span>{{
+                    $moment(blog.created_at).format('DD MMMM YYYY')
+                  }}</span>
+                </b-link>
+              </b-col>
+              <b-col v-if="loadMoreGal" md="12" class="text-center">
+                <b-button
+                  variant="primary"
+                  class="loadMore"
+                  @click="loadMoreDataGal()"
+                  >Lihat Lebih Banyak</b-button
+                >
+              </b-col>
+            </b-row>
+          </b-tab>
+          <b-tab title="Kegiatan Lainnya">
+            <b-row>
+              <b-col cols="6" v-for="blog in lains" :key="blog.slug">
+                <b-link :to="`/galeri/` + blog.slug" class="blog-item">
+                  <div
+                    class="image"
+                    :style="{
+                      backgroundImage: `url(${blog.detail.image_url})`,
+                    }"
+                  ></div>
+                  <h5>{{ blog.title }}</h5>
+                  <span>{{ blog.created_at }}</span>
+                </b-link>
+              </b-col>
+              <b-col v-if="loadMoreLain" md="12" class="text-center">
+                <b-button
+                  variant="primary"
+                  class="loadMore"
+                  @click="loadMoreDataLain()"
+                  >Lihat Lebih Banyak</b-button
+                >
+              </b-col>
+            </b-row>
+          </b-tab>
+        </b-tabs>
+      </div>
     </b-modal>
-    
+
     <!-- Modal Perundangan -->
     <b-modal
       id="modal-perundangan"
@@ -834,63 +1080,60 @@
       hide-footer
       title="Peraturan Perundangan"
     >
-    	<div class="content-list">
-        	<b-row>
-          	<b-col md="12" class="text-center">
-            	<div role="tablist" class="accordion-publikasipeta">
-              	<b-card style="background-color:#f7f7f7"
-                	v-for="(kat, index) in kategories"
-                  no-body
-                  class="mb-1"
-                  :key="kat.slug"
-                  >
-                  	<b-card-header header-tag="header" role="tab">
-                    	<b-button
-                      	block
-                        v-b-toggle="`${kat.slug}`"
-                        variant="info"
-                      	>
-                      	<h5>
-                        	{{ kat.name }}
-                      	</h5>
-                        	<img src="/arrow-orange.svg" alt="" />
-                      </b-button>
-                     	</b-card-header>
-                      	<b-collapse
-                          :id="kat.slug"
-                          :visible="index === 0"
-                          accordion="my-accordion"
-                          role="tabpanel"
-                        >
-                        <b-card-body>
-                        	<div
-                          	v-for="perpu in kat.perpu.data"
-                            :key="perpu.slug"
-                            class="uud-item"
-                            >
-                              <b-link
-                                :href="`${
-                                  perpu.tipe === 'file'
-                                    ? `/v1/peraturan-perundangan/file/${perpu.slug}`
-                                    : perpu.file_url
-                                }`"
-                                target="_blank"
-                              >
-                                {{ perpu.title }}
-                              </b-link>
-                              <span>
-                                {{ perpu.nomor }}
-                              </span>
-                            </div>
-                          </b-card-body>
-                        </b-collapse>
-                      </b-card>
+      <div class="content-list">
+        <b-row>
+          <b-col md="12" class="text-center">
+            <div role="tablist" class="accordion-publikasipeta">
+              <b-card
+                style="background-color: #f7f7f7"
+                v-for="(kat, index) in kategories"
+                no-body
+                class="mb-1"
+                :key="kat.slug"
+              >
+                <b-card-header header-tag="header" role="tab">
+                  <b-button block v-b-toggle="`${kat.slug}`" variant="info">
+                    <h5>
+                      {{ kat.name }}
+                    </h5>
+                    <img src="/arrow-orange.svg" alt="" />
+                  </b-button>
+                </b-card-header>
+                <b-collapse
+                  :id="kat.slug"
+                  :visible="index === 0"
+                  accordion="my-accordion"
+                  role="tabpanel"
+                >
+                  <b-card-body>
+                    <div
+                      v-for="perpu in kat.perpu.data"
+                      :key="perpu.slug"
+                      class="uud-item"
+                    >
+                      <b-link
+                        :href="`${
+                          perpu.tipe === 'file'
+                            ? `/api/peraturan-perundangan/file/${perpu.slug}`
+                            : perpu.file_url
+                        }`"
+                        target="_blank"
+                      >
+                        {{ perpu.title }}
+                      </b-link>
+                      <span>
+                        {{ perpu.nomor }}
+                      </span>
                     </div>
-                  </b-col>
-                </b-row>
-        </div>
+                  </b-card-body>
+                </b-collapse>
+              </b-card>
+            </div>
+          </b-col>
+        </b-row>
+      </div>
     </b-modal>
-    
+
     <!-- Modal Laporan Harian Posko -->
     <b-modal
       id="modal-laporanposko"
@@ -899,38 +1142,35 @@
       hide-footer
       title="Laporan Harian Posko"
     >
-    	<div class="content-list">
-        	<b-row>
-                  <b-col md="12">
-                    <div
-                      v-for="(laporan,i) in laporanHarian"
-                      :key="i"
-                      class="document-item"
-                    >
-                      <img
-                        :src="`/paper.svg`"
-                        alt="icon"
-                      />
-                      <h5>{{ laporan.bulan_nama }}&nbsp;{{ laporan.tahun }}</h5>
-                      <b-link
-                        :href="laporan.link"
-                        target="_blank"
-                        class="btn btn-secondary"
-                      >
-                        Open
-                        <i class="fas fa-angle-right"></i>
-                      </b-link>
-                    </div>
-                    <div v-if="loadMoreLaporan" class="text-center mt-4">
-                      <b-button @click="loadMoreDataLaporan()" variant="primary"
-                        >Lihat lebih banyak</b-button
-                      >
-                    </div>
-                  </b-col>
-        	</b-row>
+      <div class="content-list">
+        <b-row>
+          <b-col md="12">
+            <div
+              v-for="(laporan, i) in laporanHarian"
+              :key="i"
+              class="document-item"
+            >
+              <img :src="`/paper.svg`" alt="icon" />
+              <h5>{{ laporan.bulan_nama }}&nbsp;{{ laporan.tahun }}</h5>
+              <b-link
+                :href="laporan.link"
+                target="_blank"
+                class="btn btn-secondary"
+              >
+                Open
+                <i class="fas fa-angle-right"></i>
+              </b-link>
+            </div>
+            <div v-if="loadMoreLaporan" class="text-center mt-4">
+              <b-button @click="loadMoreDataLaporan()" variant="primary"
+                >Lihat lebih banyak</b-button
+              >
+            </div>
+          </b-col>
+        </b-row>
       </div>
     </b-modal>
-    
+
     <!-- Modal Dokumen Lainnya -->
     <b-modal
       id="modal-dokumenlain"
@@ -939,68 +1179,133 @@
       hide-footer
       title="Dokumen Lainnya"
     >
-    	<div class="content-list">
-        	<b-row>
-                  <b-col md="12">
-                    <div
-                      v-for="dok in dokumen"
-                      :key="dok.slug"
-                      class="document-itempeta"
-                    >
-                      <img
-                        :src="`/${
-                          dok.tipe === 'file'
-                            ? 'paper.svg'
-                            : dok.tipe === 'video'
-                            ? 'video.svg'
-                            : 'paper.svg'
-                        }`"
-                        alt="icon"
-                      />
-                      <h5>{{ dok.title }}</h5>
-                      <b-link
-                        :href="`${
-                          dok.tipe === 'file'
-                            ? `/v1/dokumen-lain/file/${dok.slug}`
-                            : dok.file_url
-                        }`"
-                        target="_blank"
-                        :class="`btn ${
-                          dok.tipe === 'file'
-                            ? 'btn-secondary'
-                            : dok.tipe === 'video'
-                            ? 'btn-third'
-                            : 'btn-secondary'
-                        }`"
-                      >
-                        {{
-                          dok.tipe === 'file'
-                            ? 'Download'
-                            : dok.tipe === 'video'
-                            ? 'Watch'
-                            : 'Open'
-                        }}
-                        <i class="fas fa-angle-right"></i>
-                      </b-link>
-                    </div>
-                    <div v-if="loadMorePerundangan" md="12" class="text-center">
-                      <b-button class="loadMore" @click="loadMoreDataPerundangan()" variant="primary"
-                        >Lihat lebih banyak</b-button
-                      >
-                    </div>
-                  </b-col>
-                </b-row>
-        </div>
+      <div class="content-list">
+        <b-row>
+          <b-col md="12">
+            <div
+              v-for="dok in dokumen"
+              :key="dok.slug"
+              class="document-itempeta"
+            >
+              <img
+                :src="`/${
+                  dok.tipe === 'file'
+                    ? 'paper.svg'
+                    : dok.tipe === 'video'
+                    ? 'video.svg'
+                    : 'paper.svg'
+                }`"
+                alt="icon"
+              />
+              <h5>{{ dok.title }}</h5>
+              <b-link
+                :href="`${
+                  dok.tipe === 'file'
+                    ? `/api/dokumen-lain/file/${dok.slug}`
+                    : dok.file_url
+                }`"
+                target="_blank"
+                :class="`btn ${
+                  dok.tipe === 'file'
+                    ? 'btn-secondary'
+                    : dok.tipe === 'video'
+                    ? 'btn-third'
+                    : 'btn-secondary'
+                }`"
+              >
+                {{
+                  dok.tipe === 'file'
+                    ? 'Download'
+                    : dok.tipe === 'video'
+                    ? 'Watch'
+                    : 'Open'
+                }}
+                <i class="fas fa-angle-right"></i>
+              </b-link>
+            </div>
+            <div v-if="loadMorePerundangan" md="12" class="text-center">
+              <b-button
+                class="loadMore"
+                @click="loadMoreDataPerundangan()"
+                variant="primary"
+                >Lihat lebih banyak</b-button
+              >
+            </div>
+          </b-col>
+        </b-row>
+      </div>
     </b-modal>
-  
 
-        
+    <!-- Modal Direktorat -->
+    <b-modal
+      id="modal-direktorat"
+      body-class="modal-direktorat"
+      size="md"
+      hide-footer
+      title="Dokumen Lainnya"
+    >
+      <div class="content-list"></div>
+    </b-modal>
 
-        <!--<b-link to="" class="pdf">
+    <!-- Modal Manggala Agni -->
+    <b-modal
+      id="modal-manggala-agni"
+      body-class="modal-manggala-agni"
+      size="md"
+      hide-footer
+      title="Dokumen Lainnya"
+    >
+      <div class="content-list"></div>
+    </b-modal>
+
+    <!-- Modal Struktur Organisasi -->
+    <b-modal
+      id="modal-struktur-organisasi"
+      body-class="modal-struktur-organisasi"
+      size="md"
+      hide-footer
+      title="Dokumen Lainnya"
+    >
+      <div class="content-list"></div>
+    </b-modal>
+
+    <!-- Modal Kontak Kami -->
+    <b-modal
+      id="modal-kontak-kami"
+      body-class="modal-kontak-kami"
+      size="md"
+      hide-footer
+      title="Dokumen Lainnya"
+    >
+      <div class="content-list"></div>
+    </b-modal>
+
+    <!-- Modal Link Terkait -->
+    <b-modal
+      id="modal-link-terkait"
+      body-class="modal-link-terkait"
+      size="md"
+      hide-footer
+      title="Dokumen Lainnya"
+    >
+      <div class="content-list"></div>
+    </b-modal>
+
+    <!-- Modal Disclaimer -->
+    <b-modal
+      id="modal-disclaimer"
+      body-class="modal-disclaimer"
+      size="md"
+      hide-footer
+      title="Dokumen Lainnya"
+    >
+      <div class="content-list"></div>
+    </b-modal>
+
+    <!--<b-link to="" class="pdf">
           <img src="/pdf.svg" alt="" />
           <span>Download PDF</span>
         </b-link>-->
-  
   </div>
 </template>
 
@@ -1009,7 +1314,11 @@ import modal from '../Modal'
 
 export default {
   name: 'Peta',
-  data () {
+  data() {
+    const now = new Date()
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+    const yesterday = new Date(today - 1)
+
     return {
       open: false,
 
@@ -1025,6 +1334,8 @@ export default {
         wrapAround: true
       },
 
+      yesterday: new Date(today - 1),
+      today: now,
       dataHotSpotSatelit: [],
       beritaMarqueeText: true,
       currentTiles: 0,
@@ -1225,20 +1536,19 @@ export default {
       loadMore: false,
       loadMorePerundangan: false,
       loadMoreLaporan: false,
-      
+
       dataLuas: {},
       nomor: 1,
       tahuns: [],
       datas: [],
       totals: [],
-      
-      
+
       dataEmisi: {},
       nomor: 1,
       tahuns: [],
       datas: [],
       totals: [],
-      
+
       dataFdrs: {},
       //Default Opsi Wilayah
       defaultWilayah: 'indonesia',
@@ -1249,25 +1559,23 @@ export default {
       //Filter
       opsiWilayah: [],
       opsiHari: [],
-      option : {
-        index : 'dc',
+      option: {
+        index: 'dc',
       },
       loading: false,
     }
-    
-    
   },
   watch: {
-    periodeData: {
-      async handler() {
-        await this.loadHotSpot()
-      },
-    },
-    trustData: {
-      async handler() {
-        await this.loadHotSpot()
-      },
-    },
+    // periodeData: {
+    //   async handler() {
+    //     await this.loadHotSpot()
+    //   },
+    // },
+    // trustData: {
+    //   async handler() {
+    //     await this.loadHotSpot()
+    //   },
+    // },
     chkSumber: {
       async handler() {
         let self = this
@@ -1341,10 +1649,9 @@ export default {
     modal,
   },
   computed: {
-  	tilesUrl () {
+    tilesUrl() {
       return this.tiles[this.currentTiles].url
     },
-  
     noaaGreenIcon() {
       let icon = () => {}
       if (process.browser) icon = this.$L.icon
@@ -1761,12 +2068,20 @@ export default {
     },
   },
   async created() {
-    await this.loadHotspotSatelit()
-    await this.loadHotSpot()
     if (this.firstLoad) {
       await this.cmbProvs()
     }
-		await this.getRunningText()
+    this.openLeg()
+
+    window.addEventListener('resize', this.openLeg)
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.openLeg)
+  },
+  async fetch() {
+    this.loading = true
+    await this.loadHotSpot()
+    await this.getRunningText()
     await this.loadPemadaman()
     await this.loadLain()
     await this.loadBerita()
@@ -1776,15 +2091,7 @@ export default {
     await this.loadWind()
     await this.loadDataLuas()
     await this.loadDataEmisi()
-    this.openLeg()
-
-    window.addEventListener('resize', this.openLeg)
-  },
-  beforeDestroy() {
-    window.removeEventListener('resize', this.openLeg)
-  },
-  async fetch() {
-    const url = !process.server ? `/v1/listBerita` : `/api/listBerita`
+    const url = !process.server ? `/api/listBerita` : `/api/listBerita`
 
     const params = {
       direction: this.options.direction,
@@ -1812,6 +2119,7 @@ export default {
           }
         }
       })
+    this.loading = false
   },
   filters: {
     petaFilter: function (value) {
@@ -1820,7 +2128,7 @@ export default {
   },
   methods: {
     async visitor() {
-      const url = !process.server ? `/v1/visitor` : `/api/visitor`
+      const url = !process.server ? `/api/visitor` : `/api/visitor`
 
       await this.$axios
         .$get(url)
@@ -1837,9 +2145,6 @@ export default {
               this.$nuxt.error({ statusCode: 404, message: data.message })
             }
           }
-        })
-        .finally(async () => {
-          this.loading = false
         })
     },
 
@@ -1894,7 +2199,7 @@ export default {
 
     async getRunningText() {
       const url = !process.server
-        ? `/v1/data/running-text`
+        ? `/api/data/running-text`
         : `/api/data/running-text`
 
       await this.$axios
@@ -1947,25 +2252,26 @@ export default {
         this.scrolledToBottom = false
       }
     },
-    showProfile(){
+    showProfile() {
       this.profile = true
       this.daerahOp = false
       this.sarana = false
     },
-    showDaerahOp(){
+    showDaerahOp() {
       this.profile = false
       this.daerahOp = true
       this.sarana = false
     },
-    showSarana(){
+    showSarana() {
       this.profile = false
       this.daerahOp = false
       this.sarana = true
     },
-    
-    
+
     async getRunningText() {
-      const url = !process.server ? `/v1/data/running-text` : `/api/data/running-text`
+      const url = !process.server
+        ? `/api/data/running-text`
+        : `/api/data/running-text`
 
       await this.$axios
         .$get(url)
@@ -1974,22 +2280,23 @@ export default {
           // console.log(res)
         })
         .catch((err) => {
-            if (err.response) {
+          if (err.response) {
             const { status, data } = err.response
             if (status === 500) {
-                this.$nuxt.error({ statusCode: 500, message: data.message })
+              this.$nuxt.error({ statusCode: 500, message: data.message })
             }
 
             if (status === 404) {
-                this.$nuxt.error({ statusCode: 404, message: data.message })
+              this.$nuxt.error({ statusCode: 404, message: data.message })
             }
-            }
+          }
         })
     },
-    
+
     async loadDataLuas() {
-      this.loading = true
-      const url = !process.server ? `/v1/data/luas-kebakaran` : `/api/data/luas-kebakaran`
+      const url = !process.server
+        ? `/api/data/luas-kebakaran`
+        : `/api/data/luas-kebakaran`
 
       await this.$axios
         .$get(url)
@@ -2008,15 +2315,12 @@ export default {
               this.$nuxt.error({ statusCode: 404, message: data.message })
             }
           }
-        })
-        .finally(async () => {
-          this.loading = false
         })
     },
-    
+
     async loadDataEmisi() {
-      this.loading = true
-      const url = !process.server ? `/v1/data/emisi-co2` : `/api/data/emisi-co2`
+      // const url = !process.server ? `/api/data/emisi-co2` : `/api/data/emisi-co2`
+      const url = `http://139.99.52.109:8285/api/data/emisi-co2`
 
       await this.$axios
         .$get(url)
@@ -2035,9 +2339,6 @@ export default {
               this.$nuxt.error({ statusCode: 404, message: data.message })
             }
           }
-        })
-        .finally(async () => {
-          this.loading = false
         })
     },
 
@@ -2152,56 +2453,33 @@ export default {
         },
       }
     },
-    async loadHotspotSatelit() {
-      // new version of hotspot
-      const url = !process.server
-        ? `/v1/hotspot/satelit`
-        : `/api/hotspot/satelit`
-
-      await this.$axios
-        .$get(url, {
-          params: {
-            kabkota: '',
-            sumber: '',
-            satelit: '',
-            confidence_level: 'high',
-          },
-        })
-        .then((res) => {
-          this.dataHotSpotSatelit = res.data
-        })
-        .catch((err) => {
-          console.error(err)
-        })
-    },
     async loadHotSpot() {
-      const url = !process.server ? `/v1/indoHotspot` : `/api/indoHotspot`
-      this.loading = true
+      // const url = !process.server ? `/v1/indoHotspot` : `/v1/indoHotspot`
+      const url = 'http://139.99.52.109:8288/v1/indoHotspot'
 
       await this.$axios
         .$get(url, {
           params: {
-            late: this.periodeData,
-            confidence: this.trustData,
+            confidence: ['high'],
+            from: this.fromDate,
+            to: this.toDate,
           },
         })
         .then(({ data }) => {
           this.DataHotSpot = data
           this.dataHotSpot2.features = data.features
         })
-        .catch((err) => {})
-        .finally(() => {
-          this.loading = false
+        .catch((err) => {
+          console.error(err)
         })
     },
     async loadClusterKabKota(kotakab_id) {
       if (this.clusterKabKota.oldId !== kotakab_id) {
         const url = !process.server
-          ? `/v1/getCluster/${kotakab_id}/kotakab`
+          ? `/api/getCluster/${kotakab_id}/kotakab`
           : `/api/getCluster/${kotakab_id}/kotakab`
         this.clusterKabKota.visible = false
         this.clusterKabKota.oldId = kotakab_id
-        this.loading = true
 
         await this.$axios
           .$get(url)
@@ -2217,19 +2495,15 @@ export default {
             }, 500)
           })
           .catch((err) => {})
-          .finally(() => {
-            this.loading = false
-          })
       }
     },
     async loadClusterDesa(item) {
       if (this.clusterDesa.oldId !== item.desa_id) {
         const url = !process.server
-          ? `/v1/getCluster/${item.desa_id}/desa`
+          ? `/api/getCluster/${item.desa_id}/desa`
           : `/api/getCluster/${item.desa_id}/desa`
         this.clusterDesa.visible = false
         this.clusterDesa.oldId = item.desa_id
-        this.loading = true
 
         await this.$axios
           .$get(url)
@@ -2239,14 +2513,12 @@ export default {
           .catch((err) => {})
           .finally(() => {
             this.clusterDesa.visible = true
-            this.loading = false
           })
       }
     },
     async loadDaops(item) {
-      const url = !process.server ? `/v1/daops/all` : `/api/daops/all`
+      const url = !process.server ? `/api/daops/all` : `/api/daops/all`
       this.dataDaops.visible = false
-      this.loading = true
       await this.$axios
         .$get(url)
         .then(({ data }) => {
@@ -2256,11 +2528,10 @@ export default {
         .catch((err) => {})
         .finally(() => {
           this.dataDaops.visible = true
-          this.loading = false
         })
     },
     async loadWind() {
-      const url = !process.server ? `/v1/gfs` : `/api/gfs`
+      const url = !process.server ? `/api/gfs` : `/api/gfs`
 
       await this.$axios
         .$get(url)
@@ -2271,7 +2542,7 @@ export default {
         .finally(() => {})
     },
     async loadAqms() {
-      const url = !process.server ? `/v1/aqms` : `/api/aqms`
+      const url = !process.server ? `/api/aqms` : `/api/aqms`
 
       await this.$axios
         .$get(url)
@@ -2283,9 +2554,8 @@ export default {
     },
     async cmbProvs() {
       const url = !process.server
-        ? `/v1/getProvinsi/all`
+        ? `/api/getProvinsi/all`
         : `/api/getProvinsi/all`
-      this.loading = true
 
       await this.$axios
         .$get(url)
@@ -2300,13 +2570,12 @@ export default {
         })
         .catch((err) => {})
         .finally(() => {
-          this.loading = false
           this.firstLoad = false
         })
     },
     async cmbKotaKab() {
       const url = !process.server
-        ? `/v1/getKotaKab/${this.cariProvinsi}`
+        ? `/api/getKotaKab/${this.cariProvinsi}`
         : `/api/getKotaKab/${this.cariProvinsi}`
 
       await this.$axios
@@ -2325,8 +2594,7 @@ export default {
         .finally(() => {})
     },
     async loadPemadaman() {
-      this.loading = true
-      const url = !process.server ? `/v1/listGaleri` : `/api/listGaleri`
+      const url = !process.server ? `/api/listGaleri` : `/api/listGaleri`
 
       const params = {
         tipe: this.optionsGal.tipe,
@@ -2353,14 +2621,11 @@ export default {
             }
           }
         })
-        .finally(async () => {
-          this.loading = false
-        })
+        .finally(async () => {})
     },
-    
+
     async loadLain() {
-      this.loading = true
-      const url = !process.server ? `/v1/listGaleri` : `/api/listGaleri`
+      const url = !process.server ? `/api/listGaleri` : `/api/listGaleri`
 
       const params = {
         tipe: this.optionsLain.tipe,
@@ -2387,21 +2652,18 @@ export default {
             }
           }
         })
-        .finally(async () => {
-          this.loading = false
-        })
+        .finally(async () => {})
     },
-    
+
     async loadBerita() {
-      this.loading = true
-      const url = !process.server ? `/v1/listBerita` : `/api/listBerita`
+      const url = !process.server ? `/api/listBerita` : `/api/listBerita`
 
       const params = {
-      direction: this.options.direction,
-      sortBy: this.options.sortBy,
-      page: this.options.page,
-      per_page: this.options.per_page,
-    }
+        direction: this.options.direction,
+        sortBy: this.options.sortBy,
+        page: this.options.page,
+        per_page: this.options.per_page,
+      }
 
       await this.$axios
         .$get(url, {
@@ -2422,197 +2684,17 @@ export default {
             }
           }
         })
-        .finally(async () => {
-          this.loading = false
-        })
+        .finally(async () => {})
     },
-    
+
     async loadPerundangan() {
-    const url = !process.server ? `/v1/listDokumen` : `/api/listDokumen`
-
-    const params = {
-      direction: this.options.direction,
-      sortBy: this.options.sortBy,
-      page: this.options.page,
-      per_page: this.options.per_page,
-    }
-
-    await this.$axios
-      .$get(url, {
-        params,
-      })
-      .then((res) => {
-        this.dokumen = this.dokumen.concat(res.data)
-        this.loadMorePerundangan = !!res.links.next
-      })
-      .catch((err) => {
-        if (err.response) {
-          const { status, data } = err.response
-          if (status === 500) {
-            this.$nuxt.error({ statusCode: 500, message: data.message })
-          }
-          if (status === 404) {
-            this.$nuxt.error({ statusCode: 404, message: data.message })
-          }
-        }
-      })
-      
-    const urlPerpu = !process.server ? `/v1/listPerpu` : `/api/listPerpu`
-
-    await this.$axios
-      .$get(urlPerpu)
-      .then((res) => {
-        this.kategories = res.data
-      })
-      .catch((err) => {
-        if (err.response) {
-          const { status, data } = err.response
-          if (status === 500) {
-            this.$nuxt.error({ statusCode: 500, message: data.message })
-          }
-          if (status === 404) {
-            this.$nuxt.error({ statusCode: 404, message: data.message })
-          }
-        }
-      })
-  
-  // Laporan Harian
-    const urlLaporan = !process.server ? `/v1/data/laporan-harian` : `/api/data/laporan-harian`
-
-    const paramsLaporan = {
-      direction: this.options.direction,
-      sortBy: this.options.sortBy,
-      page: this.options.page,
-      per_page: this.options.per_page,
-    }
-
-    await this.$axios
-      .$get(urlLaporan, {
-        paramsLaporan,
-      })
-      .then((res) => {
-        this.laporanHarian = this.laporanHarian.concat(res.data)
-        this.loadMoreLaporan = !!res.links.next
-      })
-      .catch((err) => {
-        if (err.response) {
-          const { status, data } = err.response
-          if (status === 500) {
-            this.$nuxt.error({ statusCode: 500, message: data.message })
-          }
-          if (status === 404) {
-            this.$nuxt.error({ statusCode: 404, message: data.message })
-          }
-        }
-      })
-      
-      
-      // Direktorat PKHL
-    const urlPKHL = !process.server ? `/v1/data/direktorat-pkhl` : `/api/data/direktorat-pkhl`
-    await this.$axios
-      .$get(urlPKHL)
-      .then((res) => {
-        this.direktoratPKHL = res
-      })
-      .catch((err) => { 
-        if (err.response) {
-          const { status, data } = err.response
-          if (status === 500) {
-            this.$nuxt.error({ statusCode: 500, message: data.message })
-          }
-          if (status === 404) {
-            this.$nuxt.error({ statusCode: 404, message: data.message })
-          }
-        }
-      })
-
-    // Struktur Organisasi
-    const urlOrg = !process.server ? `/v1/data/struktur-organisasi` : `/api/data/struktur-organisasi`
-    await this.$axios
-      .$get(urlOrg)
-      .then((res) => {
-        this.strukturOrganisasi = res
-      })
-      .catch((err) => { 
-        if (err.response) {
-          const { status, data } = err.response
-          if (status === 500) {
-            this.$nuxt.error({ statusCode: 500, message: data.message })
-          }
-          if (status === 404) {
-            this.$nuxt.error({ statusCode: 404, message: data.message })
-          }
-        }
-      })
-
-    // Manggala Agni Profil
-    const urlProfil = !process.server ? `/v1/data/profil` : `/api/data/profil`
-    await this.$axios
-      .$get(urlProfil)
-      .then((res) => {
-        this.profil = res.data
-      })
-      .catch((err) => { 
-        if (err.response) {
-          const { status, data } = err.response
-          if (status === 500) {
-            this.$nuxt.error({ statusCode: 500, message: data.message })
-          }
-          if (status === 404) {
-            this.$nuxt.error({ statusCode: 404, message: data.message })
-          }
-        }
-      })
-
-    // Manggala Agni Sarpas
-    const urlSarpras = !process.server ? `/v1/data/sarpras` : `/api/data/sarpras`
-    await this.$axios
-      .$get(urlSarpras)
-      .then((res) => {
-        this.sarpras = res
-      })
-      .catch((err) => { 
-        if (err.response) {
-          const { status, data } = err.response
-          if (status === 500) {
-            this.$nuxt.error({ statusCode: 500, message: data.message })
-          }
-          if (status === 404) {
-            this.$nuxt.error({ statusCode: 404, message: data.message })
-          }
-        }
-      })
-
-    // Manggala Agni Daerah Operasional
-    const urlDaerah = !process.server ? `/v1/data/daerah` : `/api/data/daerah`
-    // const urlDaerah = 'http://127.0.0.1:8081/api/data/daerah'
-    await this.$axios
-      .$get(urlDaerah)
-      .then((res) => {
-        this.daerah = res
-      })
-      .catch((err) => { 
-        if (err.response) {
-          const { status, data } = err.response
-          if (status === 500) {
-            this.$nuxt.error({ statusCode: 500, message: data.message })
-          }
-          if (status === 404) {
-            this.$nuxt.error({ statusCode: 404, message: data.message })
-          }
-        }
-      }) 
-  },
-  
-  async loadFdrs() {
-      this.loading = true
-      const url = !process.server ? `/v1/fdrs/getData` : `/api/fdrs/getData`
-      //const url = `http://127.0.0.1:8081/api/fdrs/getData`
+      const url = !process.server ? `/api/listDokumen` : `/api/listDokumen`
 
       const params = {
-        index : this.option.index,
-        wilayah : this.selectedWilayah,
-        hari : this.selectedHari
+        direction: this.options.direction,
+        sortBy: this.options.sortBy,
+        page: this.options.page,
+        per_page: this.options.per_page,
       }
 
       await this.$axios
@@ -2620,9 +2702,8 @@ export default {
           params,
         })
         .then((res) => {
-          this.dataFdrs = res.data
-          this.opsiWilayah  = res.option.wilayah
-          this.opsiHari  = res.option.hari
+          this.dokumen = this.dokumen.concat(res.data)
+          this.loadMorePerundangan = !!res.links.next
         })
         .catch((err) => {
           if (err.response) {
@@ -2635,37 +2716,223 @@ export default {
             }
           }
         })
-        .finally(async () => {
-          this.loading = false
+
+      const urlPerpu = !process.server ? `/api/listPerpu` : `/api/listPerpu`
+
+      await this.$axios
+        .$get(urlPerpu)
+        .then((res) => {
+          this.kategories = res.data
         })
-  	},
-  	
-  	async filter(){
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+
+      // Laporan Harian
+      const urlLaporan = !process.server
+        ? `/api/data/laporan-harian`
+        : `/api/data/laporan-harian`
+
+      const paramsLaporan = {
+        direction: this.options.direction,
+        sortBy: this.options.sortBy,
+        page: this.options.page,
+        per_page: this.options.per_page,
+      }
+
+      await this.$axios
+        .$get(urlLaporan, {
+          paramsLaporan,
+        })
+        .then((res) => {
+          this.laporanHarian = this.laporanHarian.concat(res.data)
+          this.loadMoreLaporan = !!res.links.next
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+
+      // Direktorat PKHL
+      const urlPKHL = !process.server
+        ? `/api/data/direktorat-pkhl`
+        : `/api/data/direktorat-pkhl`
+      await this.$axios
+        .$get(urlPKHL)
+        .then((res) => {
+          this.direktoratPKHL = res
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+
+      // Struktur Organisasi
+      const urlOrg = !process.server
+        ? `/api/data/struktur-organisasi`
+        : `/api/data/struktur-organisasi`
+      await this.$axios
+        .$get(urlOrg)
+        .then((res) => {
+          this.strukturOrganisasi = res
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+
+      // Manggala Agni Profil
+      const urlProfil = !process.server
+        ? `/api/data/profil`
+        : `/api/data/profil`
+      await this.$axios
+        .$get(urlProfil)
+        .then((res) => {
+          this.profil = res.data
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+
+      // Manggala Agni Sarpas
+      const urlSarpras = !process.server
+        ? `/api/data/sarpras`
+        : `/api/data/sarpras`
+      await this.$axios
+        .$get(urlSarpras)
+        .then((res) => {
+          this.sarpras = res
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+
+      // Manggala Agni Daerah Operasional
+      const urlDaerah = !process.server
+        ? `/api/data/daerah`
+        : `/api/data/daerah`
+      // const urlDaerah = 'http://127.0.0.1:8081/api/data/daerah'
+      await this.$axios
+        .$get(urlDaerah)
+        .then((res) => {
+          this.daerah = res
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+    },
+
+    async loadFdrs() {
+      // const url = !process.server ? `/api/fdrs/getData` : `/api/fdrs/getData`
+      const url = `http://139.99.52.109:8285/api/fdrs/data`
+
+      const params = {
+        index: this.option.index,
+        wilayah: this.selectedWilayah,
+        hari: this.selectedHari,
+      }
+
+      await this.$axios
+        .$get(url, {
+          params,
+        })
+        .then((res) => {
+          this.dataFdrs = res.data
+          this.opsiWilayah = res.option.wilayah
+          this.opsiHari = res.option.hari
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+        .finally(async () => {})
+    },
+
+    async filter() {
       this.selectedWilayah = this.defaultWilayah
       this.selectedHari = this.defaultHari
       await this.loadFdrs()
     },
-    
-    download(link,wilayah){
-      const filename = wilayah+'.png'
+
+    download(link, wilayah) {
+      const filename = wilayah + '.png'
 
       this.$axios({
-          url: link,
-          method: 'GET',
-          responseType: 'blob',
+        url: link,
+        method: 'GET',
+        responseType: 'blob',
       }).then((response) => {
-          var fileURL = window.URL.createObjectURL(new Blob([response.data]));
-          var fileLink = document.createElement('a');
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]))
+        var fileLink = document.createElement('a')
 
-          fileLink.href = fileURL;
-          fileLink.setAttribute('download',filename );
-          document.body.appendChild(fileLink);
+        fileLink.href = fileURL
+        fileLink.setAttribute('download', filename)
+        document.body.appendChild(fileLink)
 
-          fileLink.click();
-      });
+        fileLink.click()
+      })
     },
-  
-  
+
     async loadMoreDataGal() {
       this.optionsGal.page++
       await this.loadPemadaman()
@@ -2678,51 +2945,17 @@ export default {
       this.options.page++
       await this.loadBerita()
     },
-    
+
     async loadMoreDataPerundangan() {
       this.options.page++
       await this.loadPerundangan()
     },
-    
+
     async loadMoreDataLaporan() {
       this.optionsLaporan.page++
       await this.$fetch()
     },
-     
-    toggleOpen() {
-      var legend = document.querySelector('.legend-wrap')
-
-      legend.classList.toggle('open')
-    },
-
-    openLegend() {
-      var legend = document.querySelector('.legend-wrap')
-      var link4 = document.querySelector('.link-four')
-      var map = document.querySelector('.map-wrap')
-
-      if (
-        map.classList.contains('openSide') &&
-        (
-          legend.classList.contains('open'))
-      ) {
-        map.classList.remove('big')
-        legend.classList.toggle('open')
-        link4.classList.toggle('active')
-      } else {
-        legend.classList.toggle('open')
-        link4.classList.toggle('active')
-        map.classList.toggle('openSide')
-      }
-    }
-	},
-	
-	mounted() {
-    this.$nextTick(function () {
-      this.visitor()
-    });
   },
-	
-	
 }
 </script>
 
@@ -2754,5 +2987,9 @@ export default {
     background-color: #009c3a;
     color: white;
   }
+}
+.modal-body {
+  max-height: calc(100% - 120px);
+  overflow-y: scroll;
 }
 </style>
