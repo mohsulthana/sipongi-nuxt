@@ -25,6 +25,7 @@
                 />
                 <b-nav-item
                   v-b-modal.modal-titikpanas
+                  v-b-toggle.sidebar-backdrop
                   class="d-md-block d-none mt-4"
                   style="text-align: left"
                   >Titik Panas</b-nav-item
@@ -39,12 +40,14 @@
                 >
                   <b-dropdown-item
                     v-b-modal.modal-luaskebakaran
+                    v-b-toggle.sidebar-backdrop
                     class="d-md-block d-none"
                     style="text-align: left"
                     >Luas Karhutla</b-dropdown-item
                   >
                   <b-dropdown-item
                     v-b-modal.modal-emisico2
+                    v-b-toggle.sidebar-backdrop
                     class="d-md-block d-none"
                     style="text-align: left"
                     >Emisi CO2</b-dropdown-item
@@ -73,6 +76,7 @@
                   >
                   <b-dropdown-item
                     v-b-modal.modal-fdrs
+                    v-b-toggle.sidebar-backdrop
                     class="d-md-block d-none"
                     style="text-align: left"
                     >FDRS</b-dropdown-item
@@ -301,6 +305,7 @@
               id="published_at"
               v-model="titikDate"
               type="date"
+              class="form-control"
               format="dddd, DD MMMM YYYY"
               placeholder="Pilih tanggal"
             ></date-picker>
@@ -753,7 +758,7 @@
           </b-collapse>
         </div>
 
-        <v-sheet class="mx-auto" elevation="8" max-width="800">
+        <!-- <v-sheet class="mx-auto" elevation="8" max-width="800">
           <v-slide-group v-model="model" class="pa-4" center-active show-arrows>
             <v-slide-item v-for="n in 15" :key="n" v-slot="{ active, toggle }">
               <v-card
@@ -776,7 +781,7 @@
               </v-card>
             </v-slide-item>
           </v-slide-group>
-        </v-sheet>
+        </v-sheet> -->
       </div>
 
       <transition name="fade">
@@ -929,7 +934,7 @@
     </div>
     <div class="splash-screen" v-if="loading">
       <div class="wrap">
-        <h4>Mohon Tunggu Sebentar</h4>
+        <h4>Mohon Tunggu Sebentar, Kami Sedang Mengambil Data</h4>
         <b-spinner
           style="width: 3rem; height: 3rem"
           label="Large Spinner"
@@ -941,7 +946,7 @@
     <b-modal
       id="modal-titikpanas"
       body-class="modal-titikpanas"
-      size="md"
+      size="xl"
       hide-footer
       title="Titik Panas"
     >
@@ -962,44 +967,51 @@
           :disabled="provs.length <= 0 || !cariProvinsi || kotakabs.length <= 1"
           :options="kotakabs"
         ></b-form-select>
-      </div>
 
-      <client-only>
-        <date-picker
+        <div class="mt-4">
+          <label for="fromDate">Filter data from: </label>
+          <b-form-datepicker @input="loadHotSpot()" :max="yesterday" width="135px" id="fromDate" class="form-control" v-model="fromDate"></b-form-datepicker>
+          <label for="toDate">to: </label>
+          <b-form-datepicker @input="loadHotSpot()" :max="today" width="135px" id="toDate" class="form-control" v-model="toDate"></b-form-datepicker>
+        </div>
+
+        <!-- <date-picker
           id="published_at"
           v-model="titikDate"
           type="date"
           format="dddd, DD MMMM YYYY"
           placeholder="Pilih tanggal"
-        ></date-picker>
-      </client-only>
+        ></date-picker> -->
+      </div>
 
-      <b-link
-        :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
-        @click="changeSumber('LPN-MODIS')"
-        >Terra/Aqua
-      </b-link>
-      <b-link
-        :class="`status ${checkSumber('LPN-NPP') ? 'active' : ''}`"
-        @click="changeSumber('LPN-NPP')"
-        >SNPP
-      </b-link>
-      <b-link
-        :class="`status ${checkSumber('LPN-NOAA20') ? 'active' : ''}`"
-        @click="changeSumber('LPN-NOAA20')"
-        >NOAA20
-      </b-link>
-      <b-link
-        :class="`status ${checkSumber('LPN-LANDSAT8') ? 'active' : ''}`"
-        @click="changeSumber('LPN-LANDSAT8')"
-        >LANDSAT8
-      </b-link>
+      <div class="text-center">
+        <b-link
+          :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
+          @click="changeSumber('LPN-MODIS')"
+          >Terra/Aqua
+        </b-link>
+        <b-link
+          :class="`status ${checkSumber('LPN-NPP') ? 'active' : ''}`"
+          @click="changeSumber('LPN-NPP')"
+          >SNPP
+        </b-link>
+        <b-link
+          :class="`status ${checkSumber('LPN-NOAA20') ? 'active' : ''}`"
+          @click="changeSumber('LPN-NOAA20')"
+          >NOAA20
+        </b-link>
+        <b-link
+          :class="`status ${checkSumber('LPN-LANDSAT8') ? 'active' : ''}`"
+          @click="changeSumber('LPN-LANDSAT8')"
+          >LANDSAT8
+        </b-link>
+      </div>
 
       <div class="content-list titik">
         <template v-for="datas in DataHotSpot.kabkota">
           <template v-for="(kotakab, index2) in datas">
             <b-link
-              :key="index2"
+              :key="`${kotakab.data.latcen} ${kotakab.data.loncen} + ${index2}`"
               class="list-item"
               v-if="checkSumber(kotakab.data.sumber)"
               @click="changeCenter(kotakab.data)"
@@ -1538,7 +1550,13 @@ import modal from '../Modal'
 export default {
   name: 'Peta',
   data() {
+    const now = new Date()
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+    const yesterday = new Date(today - 1);
+
     return {
+      yesterday: new Date(today - 1),
+      today: now,
       dataHotSpotSatelit: [],
       beritaMarqueeText: true,
       currentTiles: 0,
@@ -1769,16 +1787,16 @@ export default {
     }
   },
   watch: {
-    periodeData: {
-      async handler() {
-        await this.loadHotSpot()
-      },
-    },
-    trustData: {
-      async handler() {
-        await this.loadHotSpot()
-      },
-    },
+    // periodeData: {
+    //   async handler() {
+    //     await this.loadHotSpot()
+    //   },
+    // },
+    // trustData: {
+    //   async handler() {
+    //     await this.loadHotSpot()
+    //   },
+    // },
     chkSumber: {
       async handler() {
         let self = this
@@ -2271,11 +2289,19 @@ export default {
     },
   },
   async created() {
-    await this.loadHotspotSatelit()
-    await this.loadHotSpot()
     if (this.firstLoad) {
       await this.cmbProvs()
     }
+    this.openLeg()
+
+    window.addEventListener('resize', this.openLeg)
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.openLeg)
+  },
+  async fetch() {
+    this.loading = true
+    await this.loadHotSpot()
     await this.getRunningText()
     await this.loadPemadaman()
     await this.loadLain()
@@ -2286,14 +2312,6 @@ export default {
     await this.loadWind()
     await this.loadDataLuas()
     await this.loadDataEmisi()
-    this.openLeg()
-
-    window.addEventListener('resize', this.openLeg)
-  },
-  beforeDestroy() {
-    window.removeEventListener('resize', this.openLeg)
-  },
-  async fetch() {
     const url = !process.server ? `/api/listBerita` : `/api/listBerita`
 
     const params = {
@@ -2322,6 +2340,7 @@ export default {
           }
         }
       })
+      this.loading = false
   },
   filters: {
     petaFilter: function (value) {
@@ -2347,9 +2366,6 @@ export default {
               this.$nuxt.error({ statusCode: 404, message: data.message })
             }
           }
-        })
-        .finally(async () => {
-          this.loading = false
         })
     },
     hideBerita() {
@@ -2490,7 +2506,6 @@ export default {
     },
 
     async loadDataLuas() {
-      this.loading = true
       const url = !process.server
         ? `/api/data/luas-kebakaran`
         : `/api/data/luas-kebakaran`
@@ -2513,13 +2528,9 @@ export default {
             }
           }
         })
-        .finally(async () => {
-          this.loading = false
-        })
     },
 
     async loadDataEmisi() {
-      this.loading = true
       // const url = !process.server ? `/api/data/emisi-co2` : `/api/data/emisi-co2`
       const url = `http://139.99.52.109:8285/api/data/emisi-co2`
 
@@ -2540,9 +2551,6 @@ export default {
               this.$nuxt.error({ statusCode: 404, message: data.message })
             }
           }
-        })
-        .finally(async () => {
-          this.loading = false
         })
     },
 
@@ -2657,46 +2665,24 @@ export default {
         },
       }
     },
-    async loadHotspotSatelit() {
-      // new version of hotspot
-      const url = !process.server
-        ? `/api/hotspot/satelit`
-        : `/api/hotspot/satelit`
-
-      await this.$axios
-        .$get(url, {
-          params: {
-            kabkota: '',
-            sumber: '',
-            satelit: '',
-            confidence_level: 'high',
-          },
-        })
-        .then((res) => {
-          this.dataHotSpotSatelit = res.data
-        })
-        .catch((err) => {
-          console.error(err)
-        })
-    },
     async loadHotSpot() {
-      const url = !process.server ? `/api/indoHotspot` : `/api/indoHotspot`
-      this.loading = true
+      // const url = !process.server ? `/v1/indoHotspot` : `/v1/indoHotspot`
+      const url = 'http://139.99.52.109:8288/v1/indoHotspot'
 
       await this.$axios
         .$get(url, {
           params: {
-            late: this.periodeData,
-            confidence: this.trustData,
+            confidence: ['high'],
+            from: this.fromDate,
+            to: this.toDate
           },
         })
         .then(({ data }) => {
           this.DataHotSpot = data
           this.dataHotSpot2.features = data.features
         })
-        .catch((err) => {})
-        .finally(() => {
-          this.loading = false
+        .catch((err) => {
+          console.error(err)
         })
     },
     async loadClusterKabKota(kotakab_id) {
@@ -2706,7 +2692,6 @@ export default {
           : `/api/getCluster/${kotakab_id}/kotakab`
         this.clusterKabKota.visible = false
         this.clusterKabKota.oldId = kotakab_id
-        this.loading = true
 
         await this.$axios
           .$get(url)
@@ -2722,9 +2707,6 @@ export default {
             }, 500)
           })
           .catch((err) => {})
-          .finally(() => {
-            this.loading = false
-          })
       }
     },
     async loadClusterDesa(item) {
@@ -2734,7 +2716,6 @@ export default {
           : `/api/getCluster/${item.desa_id}/desa`
         this.clusterDesa.visible = false
         this.clusterDesa.oldId = item.desa_id
-        this.loading = true
 
         await this.$axios
           .$get(url)
@@ -2744,14 +2725,12 @@ export default {
           .catch((err) => {})
           .finally(() => {
             this.clusterDesa.visible = true
-            this.loading = false
           })
       }
     },
     async loadDaops(item) {
       const url = !process.server ? `/api/daops/all` : `/api/daops/all`
       this.dataDaops.visible = false
-      this.loading = true
       await this.$axios
         .$get(url)
         .then(({ data }) => {
@@ -2761,7 +2740,6 @@ export default {
         .catch((err) => {})
         .finally(() => {
           this.dataDaops.visible = true
-          this.loading = false
         })
     },
     async loadWind() {
@@ -2790,7 +2768,6 @@ export default {
       const url = !process.server
         ? `/api/getProvinsi/all`
         : `/api/getProvinsi/all`
-      this.loading = true
 
       await this.$axios
         .$get(url)
@@ -2805,7 +2782,6 @@ export default {
         })
         .catch((err) => {})
         .finally(() => {
-          this.loading = false
           this.firstLoad = false
         })
     },
@@ -2830,7 +2806,6 @@ export default {
         .finally(() => {})
     },
     async loadPemadaman() {
-      this.loading = true
       const url = !process.server ? `/api/listGaleri` : `/api/listGaleri`
 
       const params = {
@@ -2858,13 +2833,10 @@ export default {
             }
           }
         })
-        .finally(async () => {
-          this.loading = false
-        })
+        .finally(async () => {})
     },
 
     async loadLain() {
-      this.loading = true
       const url = !process.server ? `/api/listGaleri` : `/api/listGaleri`
 
       const params = {
@@ -2892,13 +2864,10 @@ export default {
             }
           }
         })
-        .finally(async () => {
-          this.loading = false
-        })
+        .finally(async () => {})
     },
 
     async loadBerita() {
-      this.loading = true
       const url = !process.server ? `/api/listBerita` : `/api/listBerita`
 
       const params = {
@@ -2927,9 +2896,7 @@ export default {
             }
           }
         })
-        .finally(async () => {
-          this.loading = false
-        })
+        .finally(async () => {})
     },
 
     async loadPerundangan() {
@@ -3121,7 +3088,6 @@ export default {
     },
 
     async loadFdrs() {
-      this.loading = true
       // const url = !process.server ? `/api/fdrs/getData` : `/api/fdrs/getData`
       const url = `http://139.99.52.109:8285/api/fdrs/data`
 
@@ -3151,9 +3117,7 @@ export default {
             }
           }
         })
-        .finally(async () => {
-          this.loading = false
-        })
+        .finally(async () => {})
     },
 
     async filter() {
@@ -4002,5 +3966,9 @@ export default {
     background-color: #009c3a;
     color: white;
   }
+}
+.modal-body {
+      max-height: calc(100% - 120px);
+    overflow-y: scroll;
 }
 </style>
