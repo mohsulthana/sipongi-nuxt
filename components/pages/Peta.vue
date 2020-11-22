@@ -409,7 +409,6 @@
           >
           <b-collapse id="collapse-2">
             <div class="filter-wrap">
-
               <div class="select-wrap">
                 <label class="mr-sm-2">Periode</label>
                 <b-form-select
@@ -724,42 +723,56 @@
 
         <div class="mt-4">
           <label for="fromDate">Filter data from: </label>
-          <b-form-datepicker @input="loadHotSpot()" :max="yesterday" width="135px" id="fromDate" class="form-control" v-model="fromDate"></b-form-datepicker>
+          <b-form-datepicker
+            @input="loadHotSpot()"
+            :max="yesterday"
+            width="135px"
+            id="fromDate"
+            class="form-control"
+            v-model="fromDate"
+          ></b-form-datepicker>
           <label for="toDate">to: </label>
-          <b-form-datepicker @input="loadHotSpot()" :max="today" width="135px" id="toDate" class="form-control" v-model="toDate"></b-form-datepicker>
+          <b-form-datepicker
+            @input="loadHotSpot()"
+            :max="today"
+            width="135px"
+            id="toDate"
+            class="form-control"
+            v-model="toDate"
+          ></b-form-datepicker>
         </div>
-
-        <!-- <date-picker
-          id="published_at"
-          v-model="titikDate"
-          type="date"
-          format="dddd, DD MMMM YYYY"
-          placeholder="Pilih tanggal"
-        ></date-picker> -->
       </div>
 
-      <div class="text-center">
-        <b-link
-          :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
-          @click="changeSumber('LPN-MODIS')"
-          >Terra/Aqua
-        </b-link>
-        <b-link
-          :class="`status ${checkSumber('LPN-NPP') ? 'active' : ''}`"
-          @click="changeSumber('LPN-NPP')"
-          >SNPP
-        </b-link>
-        <b-link
-          :class="`status ${checkSumber('LPN-NOAA20') ? 'active' : ''}`"
-          @click="changeSumber('LPN-NOAA20')"
-          >NOAA20
-        </b-link>
-        <b-link
-          :class="`status ${checkSumber('LPN-LANDSAT8') ? 'active' : ''}`"
-          @click="changeSumber('LPN-LANDSAT8')"
-          >LANDSAT8
-        </b-link>
-      </div>
+      <b-row class="d-flex justify-content-between px-3 my-4">
+        <div class="float-right">
+          <b-link to="" class="pdf">
+            <img src="/pdf.svg" alt="" />
+            <span>Download XLS</span>
+          </b-link>
+        </div>
+        <div class="float-left">
+          <b-link
+            :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
+            @click="changeSumber('LPN-MODIS')"
+            >Terra/Aqua
+          </b-link>
+          <b-link
+            :class="`status ${checkSumber('LPN-NPP') ? 'active' : ''}`"
+            @click="changeSumber('LPN-NPP')"
+            >SNPP
+          </b-link>
+          <b-link
+            :class="`status ${checkSumber('LPN-NOAA20') ? 'active' : ''}`"
+            @click="changeSumber('LPN-NOAA20')"
+            >NOAA20
+          </b-link>
+          <b-link
+            :class="`status ${checkSumber('LPN-LANDSAT8') ? 'active' : ''}`"
+            @click="changeSumber('LPN-LANDSAT8')"
+            >LANDSAT8
+          </b-link>
+        </div>
+      </b-row>
 
       <div class="content-list titik">
         <template v-for="datas in DataHotSpot.kabkota">
@@ -779,11 +792,6 @@
           </template>
         </template>
       </div>
-
-      <b-link to="" class="pdf">
-        <img src="/pdf.svg" alt="" />
-        <span>Download PDF</span>
-      </b-link>
     </b-modal>
 
     <!-- Modal Emisi CO2 -->
@@ -1306,7 +1314,7 @@ export default {
   data() {
     const now = new Date()
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-    const yesterday = new Date(today - 1);
+    const yesterday = new Date(today - 1)
 
     return {
       yesterday: new Date(today - 1),
@@ -2094,7 +2102,7 @@ export default {
           }
         }
       })
-      this.loading = false
+    this.loading = false
   },
   filters: {
     petaFilter: function (value) {
@@ -2428,7 +2436,7 @@ export default {
           params: {
             confidence: ['high'],
             from: this.fromDate,
-            to: this.toDate
+            to: this.toDate,
           },
         })
         .then(({ data }) => {
@@ -2955,7 +2963,7 @@ export default {
   }
 }
 .modal-body {
-      max-height: calc(100% - 120px);
-    overflow-y: scroll;
+  max-height: calc(100% - 120px);
+  overflow-y: scroll;
 }
 </style>
