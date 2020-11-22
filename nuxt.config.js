@@ -90,10 +90,18 @@ export default {
     },
     {
       src: '~/plugins/vue-slick-carousel.js',
-      ssr: true,
+      ssr: false,
     },
     {
       src: '~plugins/ga.js', mode: 'client',
+    },
+	{
+      src: '~/plugins/vue-flickity.js',
+      ssr: false,
+    },
+	{
+      src: '~/plugins/slide-menu.js',
+      ssr: false,
     },
   ],
   /*
