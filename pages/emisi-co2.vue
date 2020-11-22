@@ -113,7 +113,7 @@ export default {
   },
   head() {
     return {
-      title: 'FDRS',
+      title: 'Emisi CO2',
     }
   },
 }

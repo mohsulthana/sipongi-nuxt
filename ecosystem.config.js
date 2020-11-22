@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'NuxtSipongi',
+      name: 'NuxtSipongiPlus',
       script: './node_modules/nuxt/bin/nuxt.js',
       args: 'start'
     }

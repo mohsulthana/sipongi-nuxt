@@ -8,30 +8,25 @@
         <img src="/logo-text.svg" alt="" />
       </b-link>
       <b-button variant="primary-outline" block @click="hide"> </b-button>
-
       <div>
         <b-sidebar
           id="sidebar-backdrop"
-          title="Sipongi+"
+          title=""
           :backdrop-variant="variant"
-          width="190px"
+          shadow
+          width="250px"
         >
-          <template #footer="{}">
-            <div
-              class="d-flex text-light align-items-center px-3 py-2"
-              style="background-color: #009c3a"
-            >
-              <strong class="mr-auto"> {{ counter }} visitors </strong>
-            </div>
-          </template>
           <div class="px-3 py-2">
             <nav class="mb-3">
               <b-nav vertical>
+                <img src="/logo.svg" alt="" /><img
+                  src="/logo-text.svg"
+                  alt=""
+                />
                 <b-nav-item
-                  class="link-one"
-                  @click="openSidebarOne"
-                  v-b-toggle="'collapse-3'"
-                  v-b-toggle.sidebar-backdrop
+                  v-b-modal.modal-titikpanas
+                  class="d-md-block d-none mt-4"
+                  style="text-align: left"
                   >Titik Panas</b-nav-item
                 >
 
@@ -43,15 +38,15 @@
                   size="sm"
                 >
                   <b-dropdown-item
-                    to="/luas-karhutla"
+                    v-b-modal.modal-luaskebakaran
                     class="d-md-block d-none"
                     style="text-align: left"
                     >Luas Karhutla</b-dropdown-item
                   >
                   <b-dropdown-item
+                    v-b-modal.modal-emisico2
                     class="d-md-block d-none"
                     style="text-align: left"
-                    to="/emisi"
                     >Emisi CO2</b-dropdown-item
                   >
                   <b-dropdown-item
@@ -75,15 +70,9 @@
                     class="d-md-block d-none"
                     style="text-align: left"
                     >Pelaporan Dalkarhutla</b-dropdown-item
-                  ><b-dropdown-item
-                    to="/data-grafik-dalkarhutla"
-                    target="_blank"
-                    class="d-md-block d-none"
-                    style="text-align: left"
-                    >Data & Grafik</b-dropdown-item
                   >
                   <b-dropdown-item
-                    href="#"
+                    v-b-modal.modal-fdrs
                     class="d-md-block d-none"
                     style="text-align: left"
                     >FDRS</b-dropdown-item
@@ -131,32 +120,37 @@
                   size="sm"
                 >
                   <b-dropdown-item
-                    class="link-two"
-                    @click="openSidebarTwo"
+                    v-b-toggle.sidebar-backdrop
+                    v-b-modal.modal-berita
+                    class="d-md-block d-none"
                     style="text-align: left"
                     >Berita</b-dropdown-item
                   >
                   <b-dropdown-item
-                    class="link-three"
-                    @click="openSidebarThree"
+                    v-b-toggle.sidebar-backdrop
+                    v-b-modal.modal-galeri
+                    class="d-md-block d-none"
                     style="text-align: left"
                     >Galeri</b-dropdown-item
                   >
                   <b-dropdown-item
-                    class="link-five"
-                    @click="openSidebarFive"
+                    v-b-toggle.sidebar-backdrop
+                    v-b-modal.modal-perundangan
+                    class="d-md-block d-none"
                     style="text-align: left"
                     >Peraturan Perundangan</b-dropdown-item
                   >
                   <b-dropdown-item
-                    class="link-twelve"
-                    @click="openSidebarTwelve"
+                    v-b-toggle.sidebar-backdrop
+                    v-b-modal.modal-laporanposko
+                    class="d-md-block d-none"
                     style="text-align: left"
                     >Laporan Harian Posko</b-dropdown-item
                   >
                   <b-dropdown-item
-                    class="link-six"
-                    @click="openSidebarSix"
+                    v-b-toggle.sidebar-backdrop
+                    v-b-modal.modal-dokumenlain
+                    class="d-md-block d-none"
                     style="text-align: left"
                     >Dokumen Lainnya</b-dropdown-item
                   >
@@ -170,6 +164,7 @@
                   size="sm"
                 >
                   <b-dropdown-item
+                    v-b-toggle.sidebar-backdrop
                     v-b-modal.modal-direktorat
                     class="link-seven"
                     style="text-align: left"
@@ -177,29 +172,34 @@
                   >
                   <b-dropdown-item
                     class="link-eight"
+                    v-b-toggle.sidebar-backdrop
                     v-b-modal.modal-manggala-agni
                     style="text-align: left"
                     >Manggala Agni</b-dropdown-item
                   >
                   <b-dropdown-item
                     class="link-nine"
+                    v-b-toggle.sidebar-backdrop
                     v-b-modal.modal-struktur-organisasi
                     style="text-align: left"
                     >Struktur Organisasi</b-dropdown-item
                   >
                   <b-dropdown-item
                     class="link-ten"
+                    v-b-toggle.sidebar-backdrop
                     v-b-modal.modal-kontak-kami
                     style="text-align: left"
                     >Kontak Kami</b-dropdown-item
                   >
                   <b-dropdown-item
                     class="link-eleven"
+                    v-b-toggle.sidebar-backdrop
                     v-b-modal.modal-link-terkait
                     style="text-align: left"
                     >Link Terkait</b-dropdown-item
                   >
                   <b-dropdown-item
+                    v-b-toggle.sidebar-backdrop
                     v-b-modal.modal-disclaimer
                     class="d-md-block d-none"
                     style="text-align: left"
@@ -211,7 +211,7 @@
           </div>
         </b-sidebar>
 
-        <b-link class="main link-two d-md-none" @click="openSidebarTwo">
+        <b-link class="main link-two d-md-none" v-b-modal.modal-berita>
           <div class="wrap">
             <div class="image d-md-none d-block">
               <img src="/paper.svg" alt="" />
@@ -220,7 +220,7 @@
           </div>
         </b-link>
 
-        <b-link class="main link-three d-md-none" @click="openSidebarThree">
+        <b-link class="main link-three d-md-none" v-b-modal.modal-galeri>
           <div class="wrap">
             <div class="image d-md-none d-block">
               <img src="/fire-extinguisher.svg" alt="" />
@@ -264,117 +264,98 @@
         <h6>Disclaimer</h6>
       </b-link>
       -->
-      <b-link @click="hideBerita" class="hide">
+      <b-link to="/" class="hide">
         <img src="/mini_arrow_left-gray.svg" alt="" />
       </b-link>
 
-      <transition name="fade">
-        <div class="sidebar-slide sidebar-one">
-          <div class="content-head">
-            <b-link class="close" @click="openSidebarOne">
-              <i class="fas fa-times"></i>
-            </b-link>
-            <h6>Lokasi Titik Panas</h6>
+      <div class="sidebar-slide sidebar-one">
+        <div class="content-head">
+          <b-link class="close" @click="openSidebarOne">
+            <i class="fas fa-times"></i>
+          </b-link>
+          <h6>Lokasi Titik Panas</h6>
 
-            <div class="content-list">
-              <b-form-select
-                v-model="cariProvinsi"
-                class="mb-3 form-control"
-                value-field="id"
-                text-field="nama_provinsi"
-                :options="provs"
-              ></b-form-select>
-
-              <b-form-select
-                v-model="cariKota"
-                class="form-control"
-                value-field="id"
-                text-field="nama"
-                :disabled="
-                  provs.length <= 0 || !cariProvinsi || kotakabs.length <= 1
-                "
-                :options="kotakabs"
-              ></b-form-select>
-            </div>
-
-            <client-only>
-              <date-picker
-                id="published_at"
-                v-model="titikDate"
-                type="date"
-                format="dddd, DD MMMM YYYY"
-                placeholder="Pilih tanggal"
-              ></date-picker>
-            </client-only>
-
-            <b-link
-              :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
-              @click="changeSumber('LPN-MODIS')"
-              >Terra/Aqua
-            </b-link>
-            <b-link
-              :class="`status ${checkSumber('LPN-NPP') ? 'active' : ''}`"
-              @click="changeSumber('LPN-NPP')"
-              >SNPP
-            </b-link>
-            <b-link
-              :class="`status ${checkSumber('LPN-NOAA20') ? 'active' : ''}`"
-              @click="changeSumber('LPN-NOAA20')"
-              >NOAA20
-            </b-link>
-            <b-link
-              :class="`status ${checkSumber('LPN-LANDSAT8') ? 'active' : ''}`"
-              @click="changeSumber('LPN-LANDSAT8')"
-              >LANDSAT8
-            </b-link>
-          </div>
-
-          <div class="content-list titik">
+          <div class="content-list">
             <b-form-select
-              v-model="confidence_level"
+              v-model="cariProvinsi"
               class="mb-3 form-control"
               value-field="id"
-              text-field="Pilih Confidence Level"
-              :options="['high', 'medium', 'low']"
+              text-field="nama_provinsi"
+              :options="provs"
             ></b-form-select>
-            <template v-for="(data, index) in dataHotSpotSatelit">
-              <b-link class="list-item" :key="index">
-                <h6>{{ `${data.kabkota} - ${data.provinsi}` }}</h6>
-                <p>{{ data.sumber }}</p>
-                <span class="count">{{ data.counter }}</span>
-              </b-link>
-            </template>
-            <!-- <template v-for="datas in DataHotSpot.kabkota">
-                {{datas}}
-              <template v-for="(kotakab, index) in datas">
-                <b-link
-                  class="list-item"
-                  :key="index"
-                  v-if="checkSumber(kotakab.data.sumber)"
-                  @click="changeCenter(kotakab.data)"
-                >
-                  <h6>
-                    {{ kotakab.data.kabkota }} -
-                    {{ kotakab.data.nama_provinsi }}
-                  </h6>
-                  <p>{{ kotakab.data.ori_sumber }}</p>
-                  <span class="count">{{ kotakab.count }}</span>
-                </b-link>
-              </template>
-            </template> -->
+
+            <b-form-select
+              v-model="cariKota"
+              class="form-control"
+              value-field="id"
+              text-field="nama"
+              :disabled="
+                provs.length <= 0 || !cariProvinsi || kotakabs.length <= 1
+              "
+              :options="kotakabs"
+            ></b-form-select>
           </div>
 
-          <b-link @click="generateReport(DataHotSpot)" class="pdf">
-            <img src="/pdf.svg" alt="" />
-            <span>Download XLS</span>
-          </b-link>
+          <client-only>
+            <date-picker
+              id="published_at"
+              v-model="titikDate"
+              type="date"
+              format="dddd, DD MMMM YYYY"
+              placeholder="Pilih tanggal"
+            ></date-picker>
+          </client-only>
 
-          <!-- <b-link to="" class="pdf">
+          <b-link
+            :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
+            @click="changeSumber('LPN-MODIS')"
+            >Terra/Aqua
+          </b-link>
+          <b-link
+            :class="`status ${checkSumber('LPN-NPP') ? 'active' : ''}`"
+            @click="changeSumber('LPN-NPP')"
+            >SNPP
+          </b-link>
+          <b-link
+            :class="`status ${checkSumber('LPN-NOAA20') ? 'active' : ''}`"
+            @click="changeSumber('LPN-NOAA20')"
+            >NOAA20
+          </b-link>
+          <b-link
+            :class="`status ${checkSumber('LPN-LANDSAT8') ? 'active' : ''}`"
+            @click="changeSumber('LPN-LANDSAT8')"
+            >LANDSAT8
+          </b-link>
+        </div>
+
+        <div class="content-list titik">
+          <!--<template v-for="(datas, index) in DataHotSpot.kabkota">
+            <template v-for="(kotakab, index2) in datas">
+              <b-link
+                class="list-item"
+                v-if="checkSumber(kotakab.data.sumber)"
+                @click="changeCenter(kotakab.data)"
+              >
+                <h6>
+                  {{ kotakab.data.kabkota }} - {{ kotakab.data.nama_provinsi }}
+                </h6>
+                <p>{{ kotakab.data.ori_sumber }}</p>
+                <span class="count">{{ kotakab.count }}</span>
+              </b-link>
+            </template>
+          </template>-->
+        </div>
+
+        <b-link @click="generateReport(DataHotSpot)" class="pdf">
+          <img src="/pdf.svg" alt="" />
+          <span>Download XLS</span>
+        </b-link>
+
+        <!-- <b-link to="" class="pdf">
           <img src="/pdf.svg" alt="" />
           <span>Download XLS</span>
         </b-link> -->
-        </div>
-      </transition>
+      </div>
 
       <div class="sidebar-slide sidebar-two big">
         <div class="content-head">
@@ -412,7 +393,7 @@
 
       <div class="sidebar-slide sidebar-three big">
         <div class="content-head">
-          <b-link class="close" @click="openSidebarThree"
+          <b-link class="close" @click="openSidebarFive"
             ><i class="fas fa-times"></i
           ></b-link>
           <h6>Galeri</h6>
@@ -474,396 +455,58 @@
           </b-tabs>
         </div>
       </div>
-
-      <div class="sidebar-slide sidebar-five big">
-        <div class="content-head">
-          <b-link class="close" @click="openSidebarFive"
-            ><i class="fas fa-times"></i
-          ></b-link>
-          <h6>Peraturan Perundangan</h6>
-          <p></p>
-        </div>
-        <div class="content-list">
-          <b-row>
-            <b-col md="12" class="text-center">
-              <div role="tablist" class="accordion-publikasipeta">
-                <b-card
-                  style="background-color: #f7f7f7"
-                  v-for="(kat, index) in kategories"
-                  no-body
-                  class="mb-1"
-                  :key="kat.slug"
-                >
-                  <b-card-header header-tag="header" role="tab">
-                    <b-button block v-b-toggle="`${kat.slug}`" variant="info">
-                      <h5>
-                        {{ kat.name }}
-                      </h5>
-                      <img src="/arrow-orange.svg" alt="" />
-                    </b-button>
-                  </b-card-header>
-                  <b-collapse
-                    :id="kat.slug"
-                    :visible="index === 0"
-                    accordion="my-accordion"
-                    role="tabpanel"
-                  >
-                    <b-card-body>
-                      <div
-                        v-for="perpu in kat.perpu.data"
-                        :key="perpu.slug"
-                        class="uud-item"
-                      >
-                        <b-link
-                          :href="`${
-                            perpu.tipe === 'file'
-                              ? `/v1/peraturan-perundangan/file/${perpu.slug}`
-                              : perpu.file_url
-                          }`"
-                          target="_blank"
-                        >
-                          {{ perpu.title }}
-                        </b-link>
-                        <span>
-                          {{ perpu.nomor }}
-                        </span>
-                      </div>
-                    </b-card-body>
-                  </b-collapse>
-                </b-card>
-              </div>
-            </b-col>
-          </b-row>
-        </div>
-      </div>
-
-      <div class="sidebar-slide sidebar-six big">
-        <div class="content-head">
-          <b-link class="close" @click="openSidebarSix"
-            ><i class="fas fa-times"></i
-          ></b-link>
-          <h6>Dokumen Lainnya</h6>
-          <p></p>
-        </div>
-        <div class="content-list">
-          <b-row>
-            <b-col md="12">
-              <div
-                v-for="dok in dokumen"
-                :key="dok.slug"
-                class="document-itempeta"
-              >
-                <img
-                  :src="`/${
-                    dok.tipe === 'file'
-                      ? 'paper.svg'
-                      : dok.tipe === 'video'
-                      ? 'video.svg'
-                      : 'paper.svg'
-                  }`"
-                  alt="icon"
-                />
-                <h5>{{ dok.title }}</h5>
-                <b-link
-                  :href="`${
-                    dok.tipe === 'file'
-                      ? `/v1/dokumen-lain/file/${dok.slug}`
-                      : dok.file_url
-                  }`"
-                  target="_blank"
-                  :class="`btn ${
-                    dok.tipe === 'file'
-                      ? 'btn-secondary'
-                      : dok.tipe === 'video'
-                      ? 'btn-third'
-                      : 'btn-secondary'
-                  }`"
-                >
-                  {{
-                    dok.tipe === 'file'
-                      ? 'Download'
-                      : dok.tipe === 'video'
-                      ? 'Watch'
-                      : 'Open'
-                  }}
-                  <i class="fas fa-angle-right"></i>
-                </b-link>
-              </div>
-              <div v-if="loadMorePerundangan" md="12" class="text-center">
-                <b-button
-                  class="loadMore"
-                  @click="loadMoreDataPerundangan()"
-                  variant="primary"
-                  >Lihat lebih banyak</b-button
-                >
-              </div>
-            </b-col>
-          </b-row>
-        </div>
-      </div>
-
-      <div class="sidebar-slide sidebar-seven big">
-        <div class="content-head">
-          <b-link class="close" @click="openSidebarSeven"
-            ><i class="fas fa-times"></i
-          ></b-link>
-          <b-button variant="primary-outline" block @click="hide"> </b-button>
-          <h6>Tentang Sipongi+</h6>
-          <p>
-            SiPongi bertujuan untuk mengantisipasi dan melakukan upaya
-            pencegahan kebakaran hutan dengan lebih cepat sehingga bencana
-            tersebut dapat dikurangi.
-          </p>
-        </div>
-        <div class="content-list">
-          <b-row>
-            <b-col md="4" order-md="2">
-              <img
-                :src="direktoratPKHL.logo_url"
-                alt=""
-                class="img-fluid img-logo"
-              />
-            </b-col>
-            <b-col md="8" order-md="1" v-html="direktoratPKHL.text"> </b-col>
-          </b-row>
-        </div>
-      </div>
-
-      <div class="sidebar-slide sidebar-eight big">
-        <div class="content-head">
-          <b-link class="close" @click="openSidebarEight"
-            ><i class="fas fa-times"></i
-          ></b-link>
-          <h6>Tentang Sipongi+</h6>
-          <p>
-            SiPongi bertujuan untuk mengantisipasi dan melakukan upaya
-            pencegahan kebakaran hutan dengan lebih cepat sehingga bencana
-            tersebut dapat dikurangi.
-          </p>
-        </div>
-        <div class="content-list">
-          <b-row>
-            <b-col md="8">
-              <div class="nav-agni">
-                <b-link @click="showProfile" :class="{ active: profile }"
-                  >Profil</b-link
-                >
-                <b-link @click="showDaerahOp" :class="{ active: daerahOp }"
-                  >Daerah Operasional</b-link
-                >
-                <b-link @click="showSarana" :class="{ active: sarana }"
-                  >Sarana & Prasarana</b-link
-                >
-              </div>
-            </b-col>
-            <b-col lg="12">
-              <!-- Profil -->
-              <b-row v-if="profile">
-                <b-col lg="4" order-lg="2">
-                  <div
-                    :class="[
-                      { toBot: scrolledToBottom },
-                      { scrolling: isScroll },
-                      'nav-content',
-                    ]"
-                  >
-                    <h3>Profil</h3>
-                    <b-link
-                      v-for="prof in profil"
-                      :key="prof.id"
-                      v-scroll-to="'#data' + prof.urutan"
-                      to="#"
-                      >{{ prof.title }}</b-link
-                    >
-                  </div>
-                </b-col>
-                <b-col lg="8" order-lg="1">
-                  <h5 class="title">Profil</h5>
-                  <div v-for="prof in profil" :key="prof.id">
-                    <h6 class="subtitle" :id="'data' + prof.urutan">
-                      {{ prof.title }}
-                    </h6>
-                    <img
-                      v-if="prof.image !== null"
-                      :src="prof.image_url"
-                      alt=""
-                      class="img-fluid mb-3"
-                    />
-                    <div v-html="prof.text"></div>
-                  </div>
-                </b-col>
-              </b-row>
-              <!-- Daerah Operasi -->
-              <b-row v-if="daerahOp">
-                <b-col md="8">
-                  <h6 class="title">Daerah Operasional</h6>
-                  <div class="daerah-item" v-for="(d, i) in daerah" :key="i">
-                    <!-- <h5>Sumatra Utara-01</h5> -->
-                    <h5>{{ d.daerah }}</h5>
-                    <b-row v-for="(k, j) in d.kota" :key="j">
-                      <b-col md="6">
-                        <p class="heading">{{ k.daerah }}</p>
-                        <span class="alamat">{{ k.alamat }}</span>
-                      </b-col>
-                      <b-col md="3" cols="6">
-                        <span class="jumlah">Jumlah Regu</span>
-                        <span class="count">{{ k.jumlah_regu }}</span>
-                      </b-col>
-                      <b-col md="3" cols="6">
-                        <span class="jumlah">Jumlah Anggota </span>
-                        <span class="count">{{ k.jumlah_anggota }}</span>
-                      </b-col>
-                    </b-row>
-                  </div>
-                </b-col>
-              </b-row>
-              <!-- Sarana & Prasarana -->
-              <b-row v-if="sarana">
-                <b-col md="12" v-html="sarpras.text"> Sarana </b-col>
-              </b-row>
-            </b-col>
-          </b-row>
-        </div>
-      </div>
-
-      <div class="sidebar-slide sidebar-nine big">
-        <div class="content-head">
-          <b-link class="close" @click="openSidebarNine"
-            ><i class="fas fa-times"></i
-          ></b-link>
-          <h6>Tentang Sipongi+</h6>
-          <p>
-            SiPongi bertujuan untuk mengantisipasi dan melakukan upaya
-            pencegahan kebakaran hutan dengan lebih cepat sehingga bencana
-            tersebut dapat dikurangi.
-          </p>
-        </div>
-        <div class="content-list">
-          <b-row>
-            <b-col md="8">
-              <img
-                :src="strukturOrganisasi.image_url"
-                alt=""
-                class="img-fluid"
-              />
-            </b-col>
-          </b-row>
-        </div>
-      </div>
-
-      <div class="sidebar-slide sidebar-ten big">
-        <div class="content-head">
-          <b-link class="close" @click="openSidebarTen"
-            ><i class="fas fa-times"></i
-          ></b-link>
-          <h6>Kontak Kami</h6>
-        </div>
-        <div class="content-list">
-          <b-row>
-            <b-col md="12">
-              <div class="logo-footer">
-                <img src="/kementerian-logo.svg" />
-                <h6>Kementerian Lingkungan Hidup dan Kehutanan</h6>
-              </div>
-              <p font-size="14px" font-weight="100">
-                Gedung Pusat Kehutanan Manggala Wanabakti Blok VII Lt. 13
-                <br />Jl. Jend. Gatot Subroto Jakarta 10270
-              </p>
-              <p>
-                <i class="far fa-envelope"></i>
-                posko.karhutla@menlhk.go.id<br />
-                <i class="fas fa-phone"></i> 021-5704618
-              </p>
-            </b-col>
-          </b-row>
-        </div>
-      </div>
-
-      <div class="sidebar-slide sidebar-eleven big">
-        <div class="content-head">
-          <b-link class="close" @click="openSidebarEleven"
-            ><i class="fas fa-times"></i
-          ></b-link>
-          <h6>Link Terkait</h6>
-        </div>
-        <div class="content-list">
-          <b-row>
-            <b-col md="12">
-              <h6 class="sec-title">Link Terkait</h6>
-              <ul>
-                <li>
-                  <b-link href="http://www.menlhk.go.id/" class="w-logo"
-                    ><img src="/kementerian-logo.svg" alt="" /> KLHK</b-link
-                  >
-                </li>
-                <li>
-                  <b-link href="http://ditjenppi.menlhk.go.id/" class="w-logo"
-                    ><img src="/kementerian-logo.svg" alt="" />
-                    DitjenPPI</b-link
-                  >
-                </li>
-                <li>
-                  <b-link href="http://bmkg.go.id/" class="w-logo"
-                    ><img src="/bmkg.svg" alt="" /> BMKG</b-link
-                  >
-                </li>
-                <li>
-                  <b-link href="http://lapan.go.id/" class="w-logo"
-                    ><img src="/lapan.svg" alt="" /> LAPAN</b-link
-                  >
-                </li>
-                <li>
-                  <b-link href="http://bnpb.go.id/" class="w-logo"
-                    ><img src="/bnpb.svg" alt="" /> BNPB</b-link
-                  >
-                </li>
-              </ul>
-            </b-col>
-          </b-row>
-        </div>
-      </div>
-
-      <div class="sidebar-slide sidebar-twelve big">
-        <div class="content-head">
-          <b-link class="close" @click="openSidebarTwelve"
-            ><i class="fas fa-times"></i
-          ></b-link>
-          <h6>Laporan Harian Posko</h6>
-          <p></p>
-        </div>
-        <div class="content-list">
-          <b-row>
-            <b-col md="12">
-              <div
-                v-for="(laporan, i) in laporanHarian"
-                :key="i"
-                class="document-item"
-              >
-                <img :src="`/paper.svg`" alt="icon" />
-                <h5>{{ laporan.bulan_nama }}&nbsp;{{ laporan.tahun }}</h5>
-                <b-link
-                  :href="laporan.link"
-                  target="_blank"
-                  class="btn btn-secondary"
-                >
-                  Open
-                  <i class="fas fa-angle-right"></i>
-                </b-link>
-              </div>
-              <div v-if="loadMoreLaporan" class="text-center mt-4">
-                <b-button @click="loadMoreDataLaporan()" variant="primary"
-                  >Lihat lebih banyak</b-button
-                >
-              </div>
-            </b-col>
-          </b-row>
-        </div>
-      </div>
     </div>
 
     <div class="map-wrap" style="height: 100vh">
       <div id="logo_maps">
-        <img src="/sipongi_maps.png" class="img img-responsives" height="100" />
+        <!--<img src="/sipongi_maps.png" class="img img-responsives">-->
+        <ul>
+          <li>
+            <a href="http://www.menlhk.go.id" target="_blank"
+              ><img
+                src="/logo_klhk.png"
+                class="img img-responsives center-block"
+              />
+              KLHK
+            </a>
+          </li>
+          <li>
+            <a href="http://www.ditjenppi.menlhk.go.id" target="_blank"
+              ><img
+                src="/logo_klhk.png"
+                class="img img-responsives center-block"
+              />
+              DitjenPPI
+            </a>
+          </li>
+          <li>
+            <a href="http://www.bmkg.go.id" target="_blank"
+              ><img
+                src="/logo_bmkg.png"
+                class="img img-responsives center-block"
+              />
+              BMKG
+            </a>
+          </li>
+          <li>
+            <a href="http://www.lapan.go.id" target="_blank"
+              ><img
+                src="/logo_lapan.png"
+                class="img img-responsives center-block"
+              />
+              LAPAN
+            </a>
+          </li>
+          <li>
+            <a href="http://www.bnpb.go.id" target="_blank"
+              ><img
+                src="/logo_bnpb.png"
+                class="img img-responsives center-block"
+              />
+              BNPB
+            </a>
+          </li>
+        </ul>
       </div>
 
       <b-link href="https://wa.me/+6281310035000" target="_blank" class="call">
@@ -1109,7 +752,33 @@
             </div>
           </b-collapse>
         </div>
+
+        <v-sheet class="mx-auto" elevation="8" max-width="800">
+          <v-slide-group v-model="model" class="pa-4" center-active show-arrows>
+            <v-slide-item v-for="n in 15" :key="n" v-slot="{ active, toggle }">
+              <v-card
+                :color="active ? 'primary' : 'grey lighten-1'"
+                class="ma-4"
+                height="200"
+                width="100"
+                @click="toggle"
+              >
+                <v-row class="fill-height" align="center" justify="center">
+                  <v-scale-transition>
+                    <v-icon
+                      v-if="active"
+                      color="white"
+                      size="48"
+                      v-text="'mdi-close-circle-outline'"
+                    ></v-icon>
+                  </v-scale-transition>
+                </v-row>
+              </v-card>
+            </v-slide-item>
+          </v-slide-group>
+        </v-sheet>
       </div>
+
       <transition name="fade">
         <marquee
           v-show="beritaMarqueeText"
@@ -1268,401 +937,598 @@
       </div>
     </div>
 
-    <modal title="Disclaimer"></modal>
+    <!-- Modal Titik Panas -->
+    <b-modal
+      id="modal-titikpanas"
+      body-class="modal-titikpanas"
+      size="md"
+      hide-footer
+      title="Titik Panas"
+    >
+      <div class="content-list">
+        <b-form-select
+          v-model="cariProvinsi"
+          class="mb-3 form-control"
+          value-field="id"
+          text-field="nama_provinsi"
+          :options="provs"
+        ></b-form-select>
 
+        <b-form-select
+          v-model="cariKota"
+          class="form-control"
+          value-field="id"
+          text-field="nama"
+          :disabled="provs.length <= 0 || !cariProvinsi || kotakabs.length <= 1"
+          :options="kotakabs"
+        ></b-form-select>
+      </div>
+
+      <client-only>
+        <date-picker
+          id="published_at"
+          v-model="titikDate"
+          type="date"
+          format="dddd, DD MMMM YYYY"
+          placeholder="Pilih tanggal"
+        ></date-picker>
+      </client-only>
+
+      <b-link
+        :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
+        @click="changeSumber('LPN-MODIS')"
+        >Terra/Aqua
+      </b-link>
+      <b-link
+        :class="`status ${checkSumber('LPN-NPP') ? 'active' : ''}`"
+        @click="changeSumber('LPN-NPP')"
+        >SNPP
+      </b-link>
+      <b-link
+        :class="`status ${checkSumber('LPN-NOAA20') ? 'active' : ''}`"
+        @click="changeSumber('LPN-NOAA20')"
+        >NOAA20
+      </b-link>
+      <b-link
+        :class="`status ${checkSumber('LPN-LANDSAT8') ? 'active' : ''}`"
+        @click="changeSumber('LPN-LANDSAT8')"
+        >LANDSAT8
+      </b-link>
+
+      <div class="content-list titik">
+        <template v-for="datas in DataHotSpot.kabkota">
+          <template v-for="(kotakab, index2) in datas">
+            <b-link
+              :key="index2"
+              class="list-item"
+              v-if="checkSumber(kotakab.data.sumber)"
+              @click="changeCenter(kotakab.data)"
+            >
+              <h6>
+                {{ kotakab.data.kabkota }} - {{ kotakab.data.nama_provinsi }}
+              </h6>
+              <p>{{ kotakab.data.ori_sumber }}</p>
+              <span class="count">{{ kotakab.count }}</span>
+            </b-link>
+          </template>
+        </template>
+      </div>
+
+      <b-link to="" class="pdf">
+        <img src="/pdf.svg" alt="" />
+        <span>Download PDF</span>
+      </b-link>
+    </b-modal>
+
+    <!-- Modal Emisi CO2 -->
+    <b-modal
+      id="modal-emisico2"
+      body-class="modal-emisico2"
+      size="lg"
+      hide-footer
+      title="Emisi CO2 dari Kebakaran Hutan dan Lahan (Ton CO2e)"
+    >
+      <b-container>
+        <div class="mb-4">
+          <div class="row">
+            <div class="col-12">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <!-- <th scope="col">#</th> -->
+                    <th scope="col">Provinsi</th>
+                    <th scope="col" v-for="tahun in tahuns" :key="tahun">
+                      {{ tahun }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(data, i) in datas" :key="i">
+                    <td>{{ i }}</td>
+                    <td v-for="(total, j) in data" :key="j">
+                      {{
+                        total.luas != '' || total.luas != null ? total.luas : 0
+                      }}
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot style="font-weight: bold">
+                  <tr>
+                    <td>Total</td>
+                    <td v-for="(total, i) in totals" :key="i">
+                      {{ total.total }}
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      </b-container>
+    </b-modal>
+
+    <!-- Modal Luas Kebakaran -->
+    <b-modal
+      id="modal-luaskebakaran"
+      body-class="modal-luaskebakaran"
+      size="lg"
+      hide-footer
+      title="Rekapitulasi Luas Kebakaran Hutan dan Lahan (Ha) Per Provinsi Di Indonesia Tahun 2015-2020 (Data s/d 30 September 2020)"
+    >
+      <b-container>
+        <div class="mb-4">
+          <div class="row">
+            <div class="col-12">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <!-- <th scope="col">#</th> -->
+                    <th scope="col">Provinsi</th>
+                    <th scope="col" v-for="tahun in tahuns" :key="tahun">
+                      {{ tahun }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(data, i) in datas" :key="i">
+                    <td>{{ i }}</td>
+                    <td v-for="(total, j) in data" :key="j">
+                      {{
+                        total.luas != '' || total.luas != null ? total.luas : 0
+                      }}
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot style="font-weight: bold">
+                  <tr>
+                    <td>Total</td>
+                    <td v-for="(total, i) in totals" :key="i">
+                      {{ total.total }}
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      </b-container>
+    </b-modal>
+
+    <!-- Modal FDRS -->
+    <b-modal
+      id="modal-fdrs"
+      body-class="modal-fdrs"
+      size="lg"
+      hide-footer
+      title="FDRS"
+    >
+      <div class="content-list">
+        <b-container>
+          <div class="mb-4">
+            <div class="row">
+              <div class="col-12 col-md-4">
+                <!-- Option Wilayah -->
+                <div class="form-group">
+                  <div class="row">
+                    <!-- <label class="col-sm-2 control-label">Wilayah</label> -->
+                    <div class="col-sm-10">
+                      <b-form-select
+                        v-model="defaultWilayah"
+                        :options="opsiWilayah"
+                      >
+                      </b-form-select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-4">
+                <!-- Option Index -->
+                <div class="form-group">
+                  <div class="row">
+                    <!--  <label class="col-sm-2 control-label">Hari</label> -->
+                    <div class="col-sm-10">
+                      <b-form-select v-model="defaultHari" :options="opsiHari">
+                      </b-form-select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12 col-md-4">
+                <div class="form-group">
+                  <div class="row">
+                    <label class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10">
+                      <button variant="primary" @click="filter">Filter</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <b-row>
+            <b-col md="12">
+              <b-row>
+                <b-col md="12">
+                  <div>
+                    <img
+                      :src="dataFdrs.image"
+                      :alt="dataFdrs.wilayah"
+                      class="img-fluid"
+                    />
+                  </div>
+                  <div>
+                    <a
+                      href="#"
+                      @click="download(dataFdrs.image, dataFdrs.wilayah)"
+                    >
+                      Download
+                    </a>
+                  </div>
+                  <p class="pt-1" style="font-size: 12px">
+                    *Sumber data : Badan Meteorologi Dan Meteorologi Klimatologi
+                    dan Geofisika
+                  </p>
+                </b-col>
+              </b-row>
+            </b-col>
+          </b-row>
+        </b-container>
+      </div>
+    </b-modal>
+
+    <!-- Modal Berita -->
+    <b-modal
+      id="modal-berita"
+      centered
+      body-class="modal-berita"
+      size="lg"
+      hide-footer
+      title="Berita"
+    >
+      <div class="content-list">
+        <b-container>
+          <b-row>
+            <b-col md="6" v-for="blog in beritas" :key="blog.slug">
+              <b-link :to="`/blog/${blog.slug}`" class="blog-item">
+                <div
+                  class="image"
+                  :style="{ backgroundImage: `url(${blog.image_url})` }"
+                ></div>
+                <h5>{{ blog.title }}</h5>
+                <span>{{ blog.created_at }}</span>
+              </b-link>
+            </b-col>
+            <b-col v-if="loadMore" md="12" class="text-center">
+              <button class="btn btn-ghost" @click="loadMoreData()">
+                Tampilkan Lebih Banyak
+              </button>
+            </b-col>
+          </b-row>
+        </b-container>
+      </div>
+    </b-modal>
+
+    <!-- Modal Galeri -->
+    <b-modal
+      id="modal-galeri"
+      body-class="modal-galeri"
+      size="lg"
+      hide-footer
+      title="Galeri"
+    >
+      <div class="content-list">
+        <b-tabs>
+          <b-tab title="Kegiatan Pemadaman" active>
+            <b-row>
+              <b-col cols="6" v-for="blog in pemadamans" :key="blog.slug">
+                <b-link :to="`/galeri/` + blog.slug" class="blog-item">
+                  <div
+                    class="image"
+                    :style="{
+                      backgroundImage: `url(${blog.detail.image_url})`,
+                    }"
+                  ></div>
+                  <h5>{{ blog.title }}</h5>
+                  <span>{{
+                    $moment(blog.created_at).format('DD MMMM YYYY')
+                  }}</span>
+                </b-link>
+              </b-col>
+              <b-col v-if="loadMoreGal" md="12" class="text-center">
+                <b-button
+                  variant="primary"
+                  class="loadMore"
+                  @click="loadMoreDataGal()"
+                  >Lihat Lebih Banyak</b-button
+                >
+              </b-col>
+            </b-row>
+          </b-tab>
+          <b-tab title="Kegiatan Lainnya">
+            <b-row>
+              <b-col cols="6" v-for="blog in lains" :key="blog.slug">
+                <b-link :to="`/galeri/` + blog.slug" class="blog-item">
+                  <div
+                    class="image"
+                    :style="{
+                      backgroundImage: `url(${blog.detail.image_url})`,
+                    }"
+                  ></div>
+                  <h5>{{ blog.title }}</h5>
+                  <span>{{ blog.created_at }}</span>
+                </b-link>
+              </b-col>
+              <b-col v-if="loadMoreLain" md="12" class="text-center">
+                <b-button
+                  variant="primary"
+                  class="loadMore"
+                  @click="loadMoreDataLain()"
+                  >Lihat Lebih Banyak</b-button
+                >
+              </b-col>
+            </b-row>
+          </b-tab>
+        </b-tabs>
+      </div>
+    </b-modal>
+
+    <!-- Modal Perundangan -->
+    <b-modal
+      id="modal-perundangan"
+      body-class="modal-perundangan"
+      size="lg"
+      hide-footer
+      title="Peraturan Perundangan"
+    >
+      <div class="content-list">
+        <b-row>
+          <b-col md="12" class="text-center">
+            <div role="tablist" class="accordion-publikasipeta">
+              <b-card
+                style="background-color: #f7f7f7"
+                v-for="(kat, index) in kategories"
+                no-body
+                class="mb-1"
+                :key="kat.slug"
+              >
+                <b-card-header header-tag="header" role="tab">
+                  <b-button block v-b-toggle="`${kat.slug}`" variant="info">
+                    <h5>
+                      {{ kat.name }}
+                    </h5>
+                    <img src="/arrow-orange.svg" alt="" />
+                  </b-button>
+                </b-card-header>
+                <b-collapse
+                  :id="kat.slug"
+                  :visible="index === 0"
+                  accordion="my-accordion"
+                  role="tabpanel"
+                >
+                  <b-card-body>
+                    <div
+                      v-for="perpu in kat.perpu.data"
+                      :key="perpu.slug"
+                      class="uud-item"
+                    >
+                      <b-link
+                        :href="`${
+                          perpu.tipe === 'file'
+                            ? `/api/peraturan-perundangan/file/${perpu.slug}`
+                            : perpu.file_url
+                        }`"
+                        target="_blank"
+                      >
+                        {{ perpu.title }}
+                      </b-link>
+                      <span>
+                        {{ perpu.nomor }}
+                      </span>
+                    </div>
+                  </b-card-body>
+                </b-collapse>
+              </b-card>
+            </div>
+          </b-col>
+        </b-row>
+      </div>
+    </b-modal>
+
+    <!-- Modal Laporan Harian Posko -->
+    <b-modal
+      id="modal-laporanposko"
+      body-class="modal-laporanposko"
+      size="md"
+      hide-footer
+      title="Laporan Harian Posko"
+    >
+      <div class="content-list">
+        <b-row>
+          <b-col md="12">
+            <div
+              v-for="(laporan, i) in laporanHarian"
+              :key="i"
+              class="document-item"
+            >
+              <img :src="`/paper.svg`" alt="icon" />
+              <h5>{{ laporan.bulan_nama }}&nbsp;{{ laporan.tahun }}</h5>
+              <b-link
+                :href="laporan.link"
+                target="_blank"
+                class="btn btn-secondary"
+              >
+                Open
+                <i class="fas fa-angle-right"></i>
+              </b-link>
+            </div>
+            <div v-if="loadMoreLaporan" class="text-center mt-4">
+              <b-button @click="loadMoreDataLaporan()" variant="primary"
+                >Lihat lebih banyak</b-button
+              >
+            </div>
+          </b-col>
+        </b-row>
+      </div>
+    </b-modal>
+
+    <!-- Modal Dokumen Lainnya -->
+    <b-modal
+      id="modal-dokumenlain"
+      body-class="modal-dokumenlain"
+      size="md"
+      hide-footer
+      title="Dokumen Lainnya"
+    >
+      <div class="content-list">
+        <b-row>
+          <b-col md="12">
+            <div
+              v-for="dok in dokumen"
+              :key="dok.slug"
+              class="document-itempeta"
+            >
+              <img
+                :src="`/${
+                  dok.tipe === 'file'
+                    ? 'paper.svg'
+                    : dok.tipe === 'video'
+                    ? 'video.svg'
+                    : 'paper.svg'
+                }`"
+                alt="icon"
+              />
+              <h5>{{ dok.title }}</h5>
+              <b-link
+                :href="`${
+                  dok.tipe === 'file'
+                    ? `/api/dokumen-lain/file/${dok.slug}`
+                    : dok.file_url
+                }`"
+                target="_blank"
+                :class="`btn ${
+                  dok.tipe === 'file'
+                    ? 'btn-secondary'
+                    : dok.tipe === 'video'
+                    ? 'btn-third'
+                    : 'btn-secondary'
+                }`"
+              >
+                {{
+                  dok.tipe === 'file'
+                    ? 'Download'
+                    : dok.tipe === 'video'
+                    ? 'Watch'
+                    : 'Open'
+                }}
+                <i class="fas fa-angle-right"></i>
+              </b-link>
+            </div>
+            <div v-if="loadMorePerundangan" md="12" class="text-center">
+              <b-button
+                class="loadMore"
+                @click="loadMoreDataPerundangan()"
+                variant="primary"
+                >Lihat lebih banyak</b-button
+              >
+            </div>
+          </b-col>
+        </b-row>
+      </div>
+    </b-modal>
+
+    <!-- Modal Direktorat -->
     <b-modal
       id="modal-direktorat"
       body-class="modal-direktorat"
-      size="lg"
+      size="md"
       hide-footer
+      title="Dokumen Lainnya"
     >
-      <template #modal-title>
-        <h4 class="font-weight-bold">Tentang Sipongi+</h4>
-        <small class="text-muted">
-          SiPongi bertujuan untuk mengantisipasi dan melakukan upaya pencegahan
-          kebakaran hutan dengan lebih cepat sehingga bencana tersebut dapat
-          dikurangi.
-        </small>
-      </template>
-      <div class="d-block">
-        <div class="content-list">
-          <b-row>
-            <b-col md="4" order-md="2">
-              <img
-                :src="direktoratPKHL.logo_url"
-                alt=""
-                class="img-fluid img-logo"
-              />
-            </b-col>
-            <b-col md="8" order-md="1" v-html="direktoratPKHL.text"> </b-col>
-          </b-row>
-        </div>
-      </div>
+      <div class="content-list"></div>
     </b-modal>
 
+    <!-- Modal Manggala Agni -->
     <b-modal
       id="modal-manggala-agni"
-      body-class="modal-direktorat"
-      size="lg"
+      body-class="modal-manggala-agni"
+      size="md"
       hide-footer
+      title="Dokumen Lainnya"
     >
-      <template #modal-title>
-        <h4 class="font-weight-bold">Tentang Sipongi+</h4>
-        <small class="text-muted">
-          SiPongi bertujuan untuk mengantisipasi dan melakukan upaya pencegahan
-          kebakaran hutan dengan lebih cepat sehingga bencana tersebut dapat
-          dikurangi.
-        </small>
-      </template>
-      <div class="d-block">
-        <div class="content-list">
-          <b-row>
-            <b-col md="8">
-              <div class="nav-agni">
-                <b-link @click="showProfile" :class="{ active: profile }"
-                  >Profil</b-link
-                >
-                <b-link @click="showDaerahOp" :class="{ active: daerahOp }"
-                  >Daerah Operasional</b-link
-                >
-                <b-link @click="showSarana" :class="{ active: sarana }"
-                  >Sarana & Prasarana</b-link
-                >
-              </div>
-            </b-col>
-            <b-col lg="12">
-              <!-- Profil -->
-              <b-row v-if="profile">
-                <b-col lg="4" order-lg="2">
-                  <div
-                    :class="[
-                      { toBot: scrolledToBottom },
-                      { scrolling: isScroll },
-                      'nav-content',
-                    ]"
-                  >
-                    <h3>Profil</h3>
-                    <b-link
-                      v-for="prof in profil"
-                      :key="prof.id"
-                      v-scroll-to="'#data' + prof.urutan"
-                      to="#"
-                      >{{ prof.title }}</b-link
-                    >
-                  </div>
-                </b-col>
-                <b-col lg="8" order-lg="1">
-                  <h5 class="title">Profil</h5>
-                  <div v-for="prof in profil" :key="prof.id">
-                    <h6 class="subtitle" :id="'data' + prof.urutan">
-                      {{ prof.title }}
-                    </h6>
-                    <img
-                      v-if="prof.image !== null"
-                      :src="prof.image_url"
-                      alt=""
-                      class="img-fluid mb-3"
-                    />
-                    <div v-html="prof.text"></div>
-                  </div>
-                </b-col>
-              </b-row>
-              <!-- Daerah Operasi -->
-              <b-row v-if="daerahOp">
-                <b-col md="8">
-                  <h6 class="title">Daerah Operasional</h6>
-                  <div class="daerah-item" v-for="(d, i) in daerah" :key="i">
-                    <!-- <h5>Sumatra Utara-01</h5> -->
-                    <h5>{{ d.daerah }}</h5>
-                    <b-row v-for="(k, j) in d.kota" :key="j">
-                      <b-col md="6">
-                        <p class="heading">{{ k.daerah }}</p>
-                        <span class="alamat">{{ k.alamat }}</span>
-                      </b-col>
-                      <b-col md="3" cols="6">
-                        <span class="jumlah">Jumlah Regu</span>
-                        <span class="count">{{ k.jumlah_regu }}</span>
-                      </b-col>
-                      <b-col md="3" cols="6">
-                        <span class="jumlah">Jumlah Anggota </span>
-                        <span class="count">{{ k.jumlah_anggota }}</span>
-                      </b-col>
-                    </b-row>
-                  </div>
-                </b-col>
-              </b-row>
-              <!-- Sarana & Prasarana -->
-              <b-row v-if="sarana">
-                <b-col md="12" v-html="sarpras.text"> Sarana </b-col>
-              </b-row>
-            </b-col>
-          </b-row>
-        </div>
-      </div>
+      <div class="content-list"></div>
     </b-modal>
 
+    <!-- Modal Struktur Organisasi -->
     <b-modal
       id="modal-struktur-organisasi"
-      body-class="modal-direktorat"
-      size="lg"
+      body-class="modal-struktur-organisasi"
+      size="md"
       hide-footer
+      title="Dokumen Lainnya"
     >
-      <template #modal-title>
-        <h4 class="font-weight-bold">Struktur Organisasi</h4>
-        <small class="text-muted">
-          SiPongi bertujuan untuk mengantisipasi dan melakukan upaya pencegahan
-          kebakaran hutan dengan lebih cepat sehingga bencana tersebut dapat
-          dikurangi.
-        </small>
-      </template>
-      <div class="d-block">
-        <div class="content-list">
-          <b-row>
-            <b-col md="8">
-              <img
-                :src="strukturOrganisasi.image_url"
-                alt=""
-                class="img-fluid"
-              />
-            </b-col>
-          </b-row>
-        </div>
-      </div>
+      <div class="content-list"></div>
     </b-modal>
 
+    <!-- Modal Kontak Kami -->
     <b-modal
       id="modal-kontak-kami"
       body-class="modal-kontak-kami"
-      size="lg"
+      size="md"
       hide-footer
+      title="Dokumen Lainnya"
     >
-      <template #modal-title>
-        <h4 class="font-weight-bold">Kontak Kami</h4>
-      </template>
-      <div class="d-block">
-        <div class="content-list text-center">
-          <b-row>
-            <b-col md="12">
-              <div class="logo-footer">
-                <img src="/kementerian-logo.svg" />
-                <h6>Kementerian Lingkungan Hidup dan Kehutanan</h6>
-              </div>
-              <p font-size="14px" font-weight="100">
-                Gedung Pusat Kehutanan Manggala Wanabakti Blok VII Lt. 13
-                <br />Jl. Jend. Gatot Subroto Jakarta 10270
-              </p>
-              <p>
-                <i class="far fa-envelope"></i>
-                posko.karhutla@menlhk.go.id<br />
-                <i class="fas fa-phone"></i> 021-5704618
-              </p>
-            </b-col>
-          </b-row>
-        </div>
-      </div>
+      <div class="content-list"></div>
     </b-modal>
 
+    <!-- Modal Link Terkait -->
     <b-modal
       id="modal-link-terkait"
       body-class="modal-link-terkait"
-      size="lg"
+      size="md"
       hide-footer
+      title="Dokumen Lainnya"
     >
-      <template #modal-title>
-        <h4 class="font-weight-bold">Link Tekait</h4>
-      </template>
-      <div class="d-block">
-        <div class="content-list text-center">
-          <b-row>
-            <b-col md="12">
-              <h6 class="sec-title">Link Terkait</h6>
-              <ul>
-                <li>
-                  <b-link href="http://www.menlhk.go.id/" class="w-logo"
-                    ><img src="/kementerian-logo.svg" alt="" /> KLHK</b-link
-                  >
-                </li>
-                <li>
-                  <b-link href="http://ditjenppi.menlhk.go.id/" class="w-logo"
-                    ><img src="/kementerian-logo.svg" alt="" />
-                    DitjenPPI</b-link
-                  >
-                </li>
-                <li>
-                  <b-link href="http://bmkg.go.id/" class="w-logo"
-                    ><img src="/bmkg.svg" alt="" /> BMKG</b-link
-                  >
-                </li>
-                <li>
-                  <b-link href="http://lapan.go.id/" class="w-logo"
-                    ><img src="/lapan.svg" alt="" /> LAPAN</b-link
-                  >
-                </li>
-                <li>
-                  <b-link href="http://bnpb.go.id/" class="w-logo"
-                    ><img src="/bnpb.svg" alt="" /> BNPB</b-link
-                  >
-                </li>
-              </ul>
-            </b-col>
-          </b-row>
-        </div>
-      </div>
+      <div class="content-list"></div>
     </b-modal>
 
-    <!-- <b-modal
+    <!-- Modal Disclaimer -->
+    <b-modal
       id="modal-disclaimer"
       body-class="modal-disclaimer"
-      size="lg"
+      size="md"
       hide-footer
-      title="Disclaimer"
+      title="Dokumen Lainnya"
     >
-      <div class="d-block">
-        <p class="text-left">
-          Penggunaan anda atas setiap bagian dari Aplikasi ("Situs") online
-          (SiPongi) ini atau informasi atau data yang disediakan di Situs ini
-          tunduk pada syarat dan ketentuan yang tercantum sebagai berikut :
-        </p>
-        <p class="text-left mb-1">Penggunaan Terlarang</p>
-        <ol>
-          <li class="text-left">
-            Sebagai ketentuan dari penggunaan anda dari Situs ini, anda menjamin
-            kepada Kementerian LHK bahwa anda hanya akan menggunakan Informasi
-            yang terkandung atau terhasilkan dari Situs ini untuk tujuan
-            identifikasi dan pemantauan potensi kebakaran.
-          </li>
-          <li class="text-left">
-            Anda setuju untuk mematuhi semua peraturan lokal mengenai
-            tata-perilaku online dalam wilayah hukum dimana anda mengunjungi
-            situs ini.
-          </li>
-        </ol>
-        <p class="text-left mb-1">Tanggung Jawab</p>
-        <ol start="3">
-          <li class="text-left">
-            Anda setuju untuk tidak terlibat dalam penggunaan situs ini secara
-            ilegal, yang meliputi, tapi tidak terbatas pada:
-            <ol class="lower-alpha">
-              <li>
-                penggunaan Informasi tersedia untuk pengunduh dari Situs untuk
-                tujuan selain identifikasi dan pemantauan potensi kebakaran;
-              </li>
-              <li>
-                secara tidak sah, memperoleh akses ke Situs tanpa persetujuan
-                tertulis dari Kementerian LHK atau mitra yang ditunjuk;
-              </li>
-              <li>
-                menganggu atau mencoba untuk mendapatkan akses tidak sah ke
-                Situs atau jaringan komputer lainnya;
-              </li>
-              <li>
-                mentransfer, menetapkan, atau membuat terakses publik username
-                dan password yang diberikan kepada Anda untuk mengakses Situs;
-                atau
-              </li>
-              <li>
-                menyebarluaskan, menyimpan, atau mengirim virus, trojan horse,
-                atau kode dan program berbahaya lainnya.
-              </li>
-            </ol>
-          </li>
-        </ol>
-        <p class="text-left mb-1">Pernyataan</p>
-        <ol start="4">
-          <li class="text-left">
-            Anda setuju bahwa penggunaan Situs ini dengan resiko anda sendiri.
-            Situs ini dan perangkat lunaknya, kumpulan data dan konten lainnya,
-            termasuk konten dari pihak ketiga yang tersedia dalam hubungan
-            dengan atau melaui Situs, diberikan tanpa jaminan atau representasi
-            apapun, baik tersurat maupun tersirat. Oleh karena itu, Kementerian
-            LHK tidak bertanggung jawab atas kehilangan atau kerusakan apapun
-            yang disebabkan oleh penggunaan Situs.
-          </li>
-        </ol>
-        <p class="text-left mb-1">Tidak Ada Jaminan</p>
-        <ol start="5">
-          <li class="text-left">
-            Sejauh sesuai diizinkan hukum yang berlaku, Kementerian LHK menolak
-            semua jaminan, undang-undang, yang ternyatakan atau tersirat,
-            termasuk, tapi tidak dibatasi olehnya, jaminan tersirat, kesesuaian
-            untuk tujuan tertentu, gelar, dan hak kepemilikian yang tidak
-            melanggar. Tidak ada saran atau informasi, baik lisan maupun
-            tulisan, yang diperoleh anda dari Kementerian LHK atau melalui
-            Situs, akan membuat jaminan yang tidak secara jelas dinyatakan di
-            sini.
-          </li>
-        </ol>
-        <p class="text-left mb-1">Pengakuan</p>
-        <ol start="6">
-          <li class="text-left">
-            Situs ini memperbolehkan anda untuk mengakses dan melihat berbagai
-            konten, termasuk tetapi tidak terbatas pada, data peta dan medan,
-            dan informasi terkait lainnya yang dipersiapkan oleh Kementerian LHK
-            dan mitranya. Sehubungan dengan semua konten yang disediakan oleh
-            Situs ini, anda memahami dan menyetujui berikut bahwa:
-            <ol class="lower-alpha">
-              <li>
-                bahwa data peta dan konten terkait disediakan untuk tujuan
-                informasi saja, dan Kementerian LHK tidak memberikan jaminan
-                mengenai hal yang sama;
-              </li>
-              <li>
-                informasi di Situs mungkin saja tidak diperbarui secara real
-                time, dan oleh karena itu hasil peta mungkin tidak akurat; dan
-              </li>
-              <li>
-                Kementerian LHK tidak bertanggung jawab atas penggunaan atau
-                tindakan anda dalam ketergantungan pada informasi yang
-                terkandung di situs ini, oleh karena itu, anda sebaiknya
-                menggunakan pertimbangan dalam penggunaan anda pada semua konten
-                yang disediakan oleh atau melalui situs, termasuk tetapi tidak
-                terbatasi pada, mencari vertifikasi dari informasi faktual yang
-                Situs beri.
-              </li>
-            </ol>
-          </li>
-        </ol>
-        <p class="text-left mb-1">Reservasi Hak</p>
-        <ol start="7">
-          <li class="text-left">
-            Kementerian LHK merupakan pemilik semua hak yang tidak dinyatakan
-            kepada Anda. Penggunaan situs, termasuk pengunaan perangkat lunak,
-            layanan, peta, dan konten lainnya, hanya dilisensikan kepada anda
-            dan lisensi tersebut tidak dapat dipindahtangankan. Dalam kondisi
-            apapun,Anda ditidakperbolehkan untuk menyalin, meminjam, menyewa,
-            time-sharing, mensublisensikan, menetapkan, mentransfer, menjual
-            atau membuang perangkat lunak, peta, atau konten lainnya Kementerian
-            LHK secara sementara atau permanen kecuali yang tertera dalam
-            perjanjian.
-          </li>
-        </ol>
-        <p class="text-left mb-1">Ketentuan Tambahan</p>
-        <ol start="8">
-          <li class="text-left">
-            Perjanjian ini akan diatur oleh dan ditafsirkan sesuai dengen hukum
-            yang berlaku di wilayah Republik Indonesia. Anda setuju bahwa
-            tindakan hukum atau ekuitas yang timbul dari atau terkait dengan
-            perjanjian ini akan diajukan hanya dalam pengadilan Republik
-            Indonesia.
-          </li>
-          <li class="text-left">
-            Kementerian LHK berhak, atas kebijakannya sendiri, untuk mengubah,
-            menambah, atau menghapus bagian-bagian dari atau mengubah Ketentuan
-            Layanan ini sewaktu-waktu tanpa pemberitahuan kepada anda dengan
-            memasang Ketentuan Situs yang terubah. Semua perubahan akan berlaku
-            segera setelah posting. Silakan periksa Ketentuan ini secara berkala
-            untuk perubahan. Penerusan penggunaan anda dari layanan ini setelah
-            posting perubahan merupakan penerimaan mengikat anda dari perubahan
-            tersebut.
-          </li>
-          <li class="text-left">
-            Perjanjian ini merupakan seluruh perjanjian antara para pihak dan
-            menggantikan perjanjian sebelumnya atau kontemporer yang tertulis
-            atau lisan atau pemahaman terhadap materi pelajaran tersebut.
-          </li>
-        </ol>
-      </div>
-    </b-modal> -->
+      <div class="content-list"></div>
+    </b-modal>
+
+    <!--<b-link to="" class="pdf">
+          <img src="/pdf.svg" alt="" />
+          <span>Download PDF</span>
+        </b-link>-->
   </div>
 </template>
 
@@ -1842,7 +1708,6 @@ export default {
         page: 1,
         per_page: 6,
       },
-
       kategories: [],
       dokumen: [],
       options: {
@@ -1859,7 +1724,6 @@ export default {
         page: 1,
         per_page: 15,
       },
-
       direktoratPKHL: [],
       strukturOrganisasi: [],
       profil: [],
@@ -1870,12 +1734,38 @@ export default {
       profile: true,
       daerahOp: false,
       sarana: false,
-
       loadMoreGal: false,
       loadMoreLain: false,
       loadMore: false,
       loadMorePerundangan: false,
       loadMoreLaporan: false,
+
+      dataLuas: {},
+      nomor: 1,
+      tahuns: [],
+      datas: [],
+      totals: [],
+
+      dataEmisi: {},
+      nomor: 1,
+      tahuns: [],
+      datas: [],
+      totals: [],
+
+      dataFdrs: {},
+      //Default Opsi Wilayah
+      defaultWilayah: 'indonesia',
+      selectedWilayah: 'indonesia',
+      //Default Opsi Hari
+      defaultHari: 'obs',
+      selectedHari: 'obs',
+      //Filter
+      opsiWilayah: [],
+      opsiHari: [],
+      option: {
+        index: 'dc',
+      },
+      loading: false,
     }
   },
   watch: {
@@ -2391,8 +2281,11 @@ export default {
     await this.loadLain()
     await this.loadBerita()
     await this.loadPerundangan()
+    await this.loadFdrs()
     await this.loadAqms()
     await this.loadWind()
+    await this.loadDataLuas()
+    await this.loadDataEmisi()
     this.openLeg()
 
     window.addEventListener('resize', this.openLeg)
@@ -2401,7 +2294,7 @@ export default {
     window.removeEventListener('resize', this.openLeg)
   },
   async fetch() {
-    const url = !process.server ? `/v1/listBerita` : `/api/listBerita`
+    const url = !process.server ? `/api/listBerita` : `/api/listBerita`
 
     const params = {
       direction: this.options.direction,
@@ -2437,7 +2330,7 @@ export default {
   },
   methods: {
     async visitor() {
-      const url = !process.server ? `/v1/visitor` : `/api/visitor`
+      const url = !process.server ? `/api/visitor` : `/api/visitor`
 
       await this.$axios
         .$get(url)
@@ -2502,7 +2395,7 @@ export default {
 
     async getRunningText() {
       const url = !process.server
-        ? `/v1/data/running-text`
+        ? `/api/data/running-text`
         : `/api/data/running-text`
 
       await this.$axios
@@ -2522,6 +2415,134 @@ export default {
               this.$nuxt.error({ statusCode: 404, message: data.message })
             }
           }
+        })
+    },
+
+    openLeg() {
+      if (window.innerWidth > 767) {
+        this.openedLegend = true
+      } else {
+        this.openedLegend = false
+      }
+    },
+    getTotalLevel(key, level) {
+      return this.DataHotSpot.totalsLevel[key] &&
+        this.DataHotSpot.totalsLevel[key][level] &&
+        this.checkSumber(key)
+        ? this.DataHotSpot.totalsLevel[key][level]
+        : 0
+    },
+    getTotal(key) {
+      return this.DataHotSpot.totals[key] && this.checkSumber(key)
+        ? this.DataHotSpot.totals[key]
+        : 0
+    },
+    zoomUpdated(zoom) {
+      this.zoom = zoom
+    },
+    changeSumber(val) {
+      let index = this.chkSumber.indexOf(val)
+      if (index < 0) {
+        this.chkSumber.push(val)
+      } else {
+        this.scrolledToBottom = false
+      }
+    },
+    showProfile() {
+      this.profile = true
+      this.daerahOp = false
+      this.sarana = false
+    },
+    showDaerahOp() {
+      this.profile = false
+      this.daerahOp = true
+      this.sarana = false
+    },
+    showSarana() {
+      this.profile = false
+      this.daerahOp = false
+      this.sarana = true
+    },
+
+    async getRunningText() {
+      const url = !process.server
+        ? `/api/data/running-text`
+        : `/api/data/running-text`
+
+      await this.$axios
+        .$get(url)
+        .then((res) => {
+          this.runningText = res.text
+          // console.log(res)
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+    },
+
+    async loadDataLuas() {
+      this.loading = true
+      const url = !process.server
+        ? `/api/data/luas-kebakaran`
+        : `/api/data/luas-kebakaran`
+
+      await this.$axios
+        .$get(url)
+        .then((res) => {
+          this.tahuns = res.tahun
+          this.datas = res.data
+          this.totals = res.total
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+        .finally(async () => {
+          this.loading = false
+        })
+    },
+
+    async loadDataEmisi() {
+      this.loading = true
+      // const url = !process.server ? `/api/data/emisi-co2` : `/api/data/emisi-co2`
+      const url = `http://139.99.52.109:8285/api/data/emisi-co2`
+
+      await this.$axios
+        .$get(url)
+        .then((res) => {
+          this.tahuns = res.tahun
+          this.datas = res.data
+          this.totals = res.total
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+        .finally(async () => {
+          this.loading = false
         })
     },
 
@@ -2639,7 +2660,7 @@ export default {
     async loadHotspotSatelit() {
       // new version of hotspot
       const url = !process.server
-        ? `/v1/hotspot/satelit`
+        ? `/api/hotspot/satelit`
         : `/api/hotspot/satelit`
 
       await this.$axios
@@ -2659,7 +2680,7 @@ export default {
         })
     },
     async loadHotSpot() {
-      const url = !process.server ? `/v1/indoHotspot` : `/api/indoHotspot`
+      const url = !process.server ? `/api/indoHotspot` : `/api/indoHotspot`
       this.loading = true
 
       await this.$axios
@@ -2681,7 +2702,7 @@ export default {
     async loadClusterKabKota(kotakab_id) {
       if (this.clusterKabKota.oldId !== kotakab_id) {
         const url = !process.server
-          ? `/v1/getCluster/${kotakab_id}/kotakab`
+          ? `/api/getCluster/${kotakab_id}/kotakab`
           : `/api/getCluster/${kotakab_id}/kotakab`
         this.clusterKabKota.visible = false
         this.clusterKabKota.oldId = kotakab_id
@@ -2709,7 +2730,7 @@ export default {
     async loadClusterDesa(item) {
       if (this.clusterDesa.oldId !== item.desa_id) {
         const url = !process.server
-          ? `/v1/getCluster/${item.desa_id}/desa`
+          ? `/api/getCluster/${item.desa_id}/desa`
           : `/api/getCluster/${item.desa_id}/desa`
         this.clusterDesa.visible = false
         this.clusterDesa.oldId = item.desa_id
@@ -2728,7 +2749,7 @@ export default {
       }
     },
     async loadDaops(item) {
-      const url = !process.server ? `/v1/daops/all` : `/api/daops/all`
+      const url = !process.server ? `/api/daops/all` : `/api/daops/all`
       this.dataDaops.visible = false
       this.loading = true
       await this.$axios
@@ -2744,7 +2765,7 @@ export default {
         })
     },
     async loadWind() {
-      const url = !process.server ? `/v1/gfs` : `/api/gfs`
+      const url = !process.server ? `/api/gfs` : `/api/gfs`
 
       await this.$axios
         .$get(url)
@@ -2755,7 +2776,7 @@ export default {
         .finally(() => {})
     },
     async loadAqms() {
-      const url = !process.server ? `/v1/aqms` : `/api/aqms`
+      const url = !process.server ? `/api/aqms` : `/api/aqms`
 
       await this.$axios
         .$get(url)
@@ -2767,7 +2788,7 @@ export default {
     },
     async cmbProvs() {
       const url = !process.server
-        ? `/v1/getProvinsi/all`
+        ? `/api/getProvinsi/all`
         : `/api/getProvinsi/all`
       this.loading = true
 
@@ -2790,7 +2811,7 @@ export default {
     },
     async cmbKotaKab() {
       const url = !process.server
-        ? `/v1/getKotaKab/${this.cariProvinsi}`
+        ? `/api/getKotaKab/${this.cariProvinsi}`
         : `/api/getKotaKab/${this.cariProvinsi}`
 
       await this.$axios
@@ -2810,7 +2831,7 @@ export default {
     },
     async loadPemadaman() {
       this.loading = true
-      const url = !process.server ? `/v1/listGaleri` : `/api/listGaleri`
+      const url = !process.server ? `/api/listGaleri` : `/api/listGaleri`
 
       const params = {
         tipe: this.optionsGal.tipe,
@@ -2844,7 +2865,7 @@ export default {
 
     async loadLain() {
       this.loading = true
-      const url = !process.server ? `/v1/listGaleri` : `/api/listGaleri`
+      const url = !process.server ? `/api/listGaleri` : `/api/listGaleri`
 
       const params = {
         tipe: this.optionsLain.tipe,
@@ -2878,7 +2899,7 @@ export default {
 
     async loadBerita() {
       this.loading = true
-      const url = !process.server ? `/v1/listBerita` : `/api/listBerita`
+      const url = !process.server ? `/api/listBerita` : `/api/listBerita`
 
       const params = {
         direction: this.options.direction,
@@ -2912,7 +2933,7 @@ export default {
     },
 
     async loadPerundangan() {
-      const url = !process.server ? `/v1/listDokumen` : `/api/listDokumen`
+      const url = !process.server ? `/api/listDokumen` : `/api/listDokumen`
 
       const params = {
         direction: this.options.direction,
@@ -2941,7 +2962,7 @@ export default {
           }
         })
 
-      const urlPerpu = !process.server ? `/v1/listPerpu` : `/api/listPerpu`
+      const urlPerpu = !process.server ? `/api/listPerpu` : `/api/listPerpu`
 
       await this.$axios
         .$get(urlPerpu)
@@ -2962,7 +2983,7 @@ export default {
 
       // Laporan Harian
       const urlLaporan = !process.server
-        ? `/v1/data/laporan-harian`
+        ? `/api/data/laporan-harian`
         : `/api/data/laporan-harian`
 
       const paramsLaporan = {
@@ -2994,7 +3015,7 @@ export default {
 
       // Direktorat PKHL
       const urlPKHL = !process.server
-        ? `/v1/data/direktorat-pkhl`
+        ? `/api/data/direktorat-pkhl`
         : `/api/data/direktorat-pkhl`
       await this.$axios
         .$get(urlPKHL)
@@ -3015,7 +3036,7 @@ export default {
 
       // Struktur Organisasi
       const urlOrg = !process.server
-        ? `/v1/data/struktur-organisasi`
+        ? `/api/data/struktur-organisasi`
         : `/api/data/struktur-organisasi`
       await this.$axios
         .$get(urlOrg)
@@ -3035,7 +3056,9 @@ export default {
         })
 
       // Manggala Agni Profil
-      const urlProfil = !process.server ? `/v1/data/profil` : `/api/data/profil`
+      const urlProfil = !process.server
+        ? `/api/data/profil`
+        : `/api/data/profil`
       await this.$axios
         .$get(urlProfil)
         .then((res) => {
@@ -3055,7 +3078,7 @@ export default {
 
       // Manggala Agni Sarpas
       const urlSarpras = !process.server
-        ? `/v1/data/sarpras`
+        ? `/api/data/sarpras`
         : `/api/data/sarpras`
       await this.$axios
         .$get(urlSarpras)
@@ -3075,7 +3098,9 @@ export default {
         })
 
       // Manggala Agni Daerah Operasional
-      const urlDaerah = !process.server ? `/v1/data/daerah` : `/api/data/daerah`
+      const urlDaerah = !process.server
+        ? `/api/data/daerah`
+        : `/api/data/daerah`
       // const urlDaerah = 'http://127.0.0.1:8081/api/data/daerah'
       await this.$axios
         .$get(urlDaerah)
@@ -3093,6 +3118,67 @@ export default {
             }
           }
         })
+    },
+
+    async loadFdrs() {
+      this.loading = true
+      // const url = !process.server ? `/api/fdrs/getData` : `/api/fdrs/getData`
+      const url = `http://139.99.52.109:8285/api/fdrs/data`
+
+      const params = {
+        index: this.option.index,
+        wilayah: this.selectedWilayah,
+        hari: this.selectedHari,
+      }
+
+      await this.$axios
+        .$get(url, {
+          params,
+        })
+        .then((res) => {
+          this.dataFdrs = res.data
+          this.opsiWilayah = res.option.wilayah
+          this.opsiHari = res.option.hari
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+        .finally(async () => {
+          this.loading = false
+        })
+    },
+
+    async filter() {
+      this.selectedWilayah = this.defaultWilayah
+      this.selectedHari = this.defaultHari
+      await this.loadFdrs()
+    },
+
+    download(link, wilayah) {
+      const filename = wilayah + '.png'
+
+      this.$axios({
+        url: link,
+        method: 'GET',
+        responseType: 'blob',
+      }).then((response) => {
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]))
+        var fileLink = document.createElement('a')
+
+        fileLink.href = fileURL
+        fileLink.setAttribute('download', filename)
+        document.body.appendChild(fileLink)
+
+        fileLink.click()
+      })
     },
 
     async loadMoreDataGal() {
@@ -3122,458 +3208,6 @@ export default {
       var legend = document.querySelector('.legend-wrap')
 
       legend.classList.toggle('open')
-    },
-
-    openSidebarOne() {
-      var legend = document.querySelector('.legend-wrap')
-      var sidebar = document.querySelector('.sidebar-one')
-      var sidebar2 = document.querySelector('.sidebar-two')
-      var sidebar3 = document.querySelector('.sidebar-three')
-      var sidebar5 = document.querySelector('.sidebar-five')
-      var sidebar6 = document.querySelector('.sidebar-six')
-      var sidebar7 = document.querySelector('.sidebar-seven')
-      var sidebar8 = document.querySelector('.sidebar-eight')
-      var sidebar9 = document.querySelector('.sidebar-nine')
-      var sidebar10 = document.querySelector('.sidebar-ten')
-      var sidebar11 = document.querySelector('.sidebar-eleven')
-      var sidebar12 = document.querySelector('.sidebar-twelve')
-      var link = document.querySelector('.link-one')
-      var link2 = document.querySelector('.link-two')
-      var link3 = document.querySelector('.link-three')
-      var link4 = document.querySelector('.link-four')
-      var link5 = document.querySelector('.link-five')
-      var link6 = document.querySelector('.link-six')
-      var link7 = document.querySelector('.link-seven')
-      var link8 = document.querySelector('.link-eight')
-      var link9 = document.querySelector('.link-nine')
-      var link10 = document.querySelector('.link-ten')
-      var link11 = document.querySelector('.link-eleven')
-      var link12 = document.querySelector('.link-twelve')
-      var map = document.querySelector('.map-wrap')
-
-      if (
-        map.classList.contains('openSide') &&
-        (sidebar2.classList.contains('opened') ||
-          sidebar3.classList.contains('opened') ||
-          sidebar5.classList.contains('opened') ||
-          sidebar6.classList.contains('opened') ||
-          sidebar7.classList.contains('opened') ||
-          sidebar8.classList.contains('opened') ||
-          sidebar9.classList.contains('opened') ||
-          sidebar10.classList.contains('opened') ||
-          sidebar11.classList.contains('opened') ||
-          sidebar12.classList.contains('opened') ||
-          legend.classList.contains('open'))
-      ) {
-        sidebar2.classList.remove('opened')
-        sidebar3.classList.remove('opened')
-        sidebar5.classList.remove('opened')
-        sidebar6.classList.remove('opened')
-        sidebar7.classList.remove('opened')
-        sidebar8.classList.remove('opened')
-        sidebar9.classList.remove('opened')
-        sidebar10.classList.remove('opened')
-        sidebar11.classList.remove('opened')
-        sidebar12.classList.remove('opened')
-        link2.classList.remove('active')
-        link3.classList.remove('active')
-        link5.classList.remove('active')
-        link6.classList.remove('active')
-        link7.classList.remove('active')
-        link8.classList.remove('active')
-        link9.classList.remove('active')
-        link10.classList.remove('active')
-        link11.classList.remove('active')
-        link12.classList.remove('active')
-        map.classList.remove('big')
-        link.classList.add('active')
-        sidebar.classList.add('opened')
-        if (window.innerWidth < 767) {
-          legend.classList.remove('open')
-          link4.classList.remove('active')
-        }
-      } else {
-        sidebar.classList.toggle('opened')
-        map.classList.toggle('openSide')
-        link.classList.toggle('active')
-        legend.classList.remove('open')
-      }
-    },
-
-    openSidebarTwo() {
-      var legend = document.querySelector('.legend-wrap')
-      var sidebar = document.querySelector('.sidebar-one')
-      var sidebar2 = document.querySelector('.sidebar-two')
-      var sidebar3 = document.querySelector('.sidebar-three')
-      var sidebar5 = document.querySelector('.sidebar-five')
-      var sidebar6 = document.querySelector('.sidebar-six')
-      var sidebar7 = document.querySelector('.sidebar-seven')
-      var sidebar8 = document.querySelector('.sidebar-eight')
-      var sidebar9 = document.querySelector('.sidebar-nine')
-      var sidebar10 = document.querySelector('.sidebar-ten')
-      var sidebar11 = document.querySelector('.sidebar-eleven')
-      var sidebar12 = document.querySelector('.sidebar-twelve')
-      var link = document.querySelector('.link-one')
-      var link2 = document.querySelector('.link-two')
-      var link3 = document.querySelector('.link-three')
-      var link4 = document.querySelector('.link-four')
-      var link5 = document.querySelector('.link-five')
-      var link6 = document.querySelector('.link-six')
-      var link7 = document.querySelector('.link-seven')
-      var link8 = document.querySelector('.link-eight')
-      var link9 = document.querySelector('.link-nine')
-      var link10 = document.querySelector('.link-ten')
-      var link11 = document.querySelector('.link-eleven')
-      var link12 = document.querySelector('.link-twelve')
-      var map = document.querySelector('.map-wrap')
-
-      if (
-        map.classList.contains('openSide') &&
-        (sidebar.classList.contains('opened') ||
-          sidebar3.classList.contains('opened') ||
-          sidebar5.classList.contains('opened') ||
-          sidebar6.classList.contains('opened') ||
-          sidebar7.classList.contains('opened') ||
-          sidebar8.classList.contains('opened') ||
-          sidebar9.classList.contains('opened') ||
-          sidebar10.classList.contains('opened') ||
-          sidebar11.classList.contains('opened') ||
-          sidebar12.classList.contains('opened') ||
-          legend.classList.contains('open'))
-      ) {
-        sidebar.classList.remove('opened')
-        sidebar3.classList.remove('opened')
-        sidebar5.classList.remove('opened')
-        sidebar6.classList.remove('opened')
-        sidebar7.classList.remove('opened')
-        sidebar8.classList.remove('opened')
-        sidebar9.classList.remove('opened')
-        sidebar10.classList.remove('opened')
-        sidebar11.classList.remove('opened')
-        sidebar12.classList.remove('opened')
-        link3.classList.remove('active')
-        link5.classList.remove('active')
-        link6.classList.remove('active')
-        link7.classList.remove('active')
-        link8.classList.remove('active')
-        link9.classList.remove('active')
-        link10.classList.remove('active')
-        link11.classList.remove('active')
-        link12.classList.remove('active')
-        map.classList.remove('big')
-        link2.classList.add('active')
-        map.classList.add('big')
-        sidebar2.classList.add('opened')
-        if (window.innerWidth < 767) {
-          legend.classList.remove('open')
-          link4.classList.remove('active')
-        }
-      } else {
-        sidebar2.classList.toggle('opened')
-        map.classList.toggle('openSide')
-        link2.classList.toggle('active')
-      }
-    },
-
-    openSidebarThree() {
-      var legend = document.querySelector('.legend-wrap')
-      var sidebar = document.querySelector('.sidebar-one')
-      var sidebar2 = document.querySelector('.sidebar-two')
-      var sidebar3 = document.querySelector('.sidebar-three')
-      var sidebar5 = document.querySelector('.sidebar-five')
-      var sidebar6 = document.querySelector('.sidebar-six')
-      var sidebar7 = document.querySelector('.sidebar-seven')
-      var sidebar8 = document.querySelector('.sidebar-eight')
-      var sidebar9 = document.querySelector('.sidebar-nine')
-      var sidebar10 = document.querySelector('.sidebar-ten')
-      var sidebar11 = document.querySelector('.sidebar-eleven')
-      var sidebar12 = document.querySelector('.sidebar-twelve')
-      var link = document.querySelector('.link-one')
-      var link2 = document.querySelector('.link-two')
-      var link3 = document.querySelector('.link-three')
-      var link4 = document.querySelector('.link-four')
-      var link5 = document.querySelector('.link-five')
-      var link6 = document.querySelector('.link-six')
-      var link7 = document.querySelector('.link-seven')
-      var link8 = document.querySelector('.link-eight')
-      var link9 = document.querySelector('.link-nine')
-      var link10 = document.querySelector('.link-ten')
-      var link11 = document.querySelector('.link-eleven')
-      var link12 = document.querySelector('.link-twelve')
-      var map = document.querySelector('.map-wrap')
-
-      if (
-        map.classList.contains('openSide') &&
-        (sidebar.classList.contains('opened') ||
-          sidebar2.classList.contains('opened') ||
-          sidebar5.classList.contains('opened') ||
-          sidebar6.classList.contains('opened') ||
-          sidebar7.classList.contains('opened') ||
-          sidebar8.classList.contains('opened') ||
-          sidebar9.classList.contains('opened') ||
-          sidebar10.classList.contains('opened') ||
-          sidebar11.classList.contains('opened') ||
-          sidebar12.classList.contains('opened') ||
-          legend.classList.contains('open'))
-      ) {
-        sidebar.classList.remove('opened')
-        sidebar2.classList.remove('opened')
-        sidebar5.classList.remove('opened')
-        sidebar6.classList.remove('opened')
-        sidebar7.classList.remove('opened')
-        sidebar8.classList.remove('opened')
-        sidebar9.classList.remove('opened')
-        sidebar10.classList.remove('opened')
-        sidebar11.classList.remove('opened')
-        sidebar12.classList.remove('opened')
-        link2.classList.remove('active')
-        link5.classList.remove('active')
-        link6.classList.remove('active')
-        link7.classList.remove('active')
-        link8.classList.remove('active')
-        link9.classList.remove('active')
-        link10.classList.remove('active')
-        link11.classList.remove('active')
-        link12.classList.remove('active')
-        map.classList.remove('big')
-        link3.classList.add('active')
-        map.classList.add('big')
-        sidebar3.classList.add('opened')
-        if (window.innerWidth < 767) {
-          legend.classList.remove('open')
-          link4.classList.remove('active')
-        }
-      } else {
-        sidebar3.classList.toggle('opened')
-        map.classList.toggle('openSide')
-        map.classList.toggle('big')
-        link3.classList.toggle('active')
-      }
-    },
-
-    openSidebarFive() {
-      var legend = document.querySelector('.legend-wrap')
-      var sidebar = document.querySelector('.sidebar-one')
-      var sidebar2 = document.querySelector('.sidebar-two')
-      var sidebar3 = document.querySelector('.sidebar-three')
-      var sidebar5 = document.querySelector('.sidebar-five')
-      var sidebar6 = document.querySelector('.sidebar-six')
-      var sidebar7 = document.querySelector('.sidebar-seven')
-      var sidebar8 = document.querySelector('.sidebar-eight')
-      var sidebar9 = document.querySelector('.sidebar-nine')
-      var sidebar10 = document.querySelector('.sidebar-ten')
-      var sidebar11 = document.querySelector('.sidebar-eleven')
-      var sidebar12 = document.querySelector('.sidebar-twelve')
-      var link = document.querySelector('.link-one')
-      var link2 = document.querySelector('.link-two')
-      var link3 = document.querySelector('.link-three')
-      var link4 = document.querySelector('.link-four')
-      var link5 = document.querySelector('.link-five')
-      var link6 = document.querySelector('.link-six')
-      var link7 = document.querySelector('.link-seven')
-      var link8 = document.querySelector('.link-eight')
-      var link9 = document.querySelector('.link-nine')
-      var link10 = document.querySelector('.link-ten')
-      var link11 = document.querySelector('.link-eleven')
-      var link12 = document.querySelector('.link-twelve')
-      var map = document.querySelector('.map-wrap')
-
-      if (
-        map.classList.contains('openSide') &&
-        (sidebar.classList.contains('opened') ||
-          sidebar2.classList.contains('opened') ||
-          sidebar3.classList.contains('opened') ||
-          sidebar6.classList.contains('opened') ||
-          sidebar7.classList.contains('opened') ||
-          sidebar8.classList.contains('opened') ||
-          sidebar9.classList.contains('opened') ||
-          sidebar10.classList.contains('opened') ||
-          sidebar11.classList.contains('opened') ||
-          sidebar12.classList.contains('opened') ||
-          legend.classList.contains('open'))
-      ) {
-        sidebar.classList.remove('opened')
-        sidebar2.classList.remove('opened')
-        sidebar3.classList.remove('opened')
-        sidebar6.classList.remove('opened')
-        sidebar7.classList.remove('opened')
-        sidebar8.classList.remove('opened')
-        sidebar9.classList.remove('opened')
-        sidebar10.classList.remove('opened')
-        sidebar11.classList.remove('opened')
-        sidebar12.classList.remove('opened')
-        link2.classList.remove('active')
-        link3.classList.remove('active')
-        link6.classList.remove('active')
-        link7.classList.remove('active')
-        link8.classList.remove('active')
-        link9.classList.remove('active')
-        link10.classList.remove('active')
-        link11.classList.remove('active')
-        link12.classList.remove('active')
-        map.classList.remove('big')
-        link5.classList.add('active')
-        map.classList.add('big')
-        sidebar5.classList.add('opened')
-        if (window.innerWidth < 767) {
-          legend.classList.remove('open')
-          link4.classList.remove('active')
-        }
-      } else {
-        sidebar5.classList.toggle('opened')
-        map.classList.toggle('openSide')
-        link5.classList.toggle('active')
-      }
-    },
-
-    openSidebarSix() {
-      var legend = document.querySelector('.legend-wrap')
-      var sidebar = document.querySelector('.sidebar-one')
-      var sidebar2 = document.querySelector('.sidebar-two')
-      var sidebar3 = document.querySelector('.sidebar-three')
-      var sidebar5 = document.querySelector('.sidebar-five')
-      var sidebar6 = document.querySelector('.sidebar-six')
-      var sidebar7 = document.querySelector('.sidebar-seven')
-      var sidebar8 = document.querySelector('.sidebar-eight')
-      var sidebar9 = document.querySelector('.sidebar-nine')
-      var sidebar10 = document.querySelector('.sidebar-ten')
-      var sidebar11 = document.querySelector('.sidebar-eleven')
-      var sidebar12 = document.querySelector('.sidebar-twelve')
-      var link = document.querySelector('.link-one')
-      var link2 = document.querySelector('.link-two')
-      var link3 = document.querySelector('.link-three')
-      var link4 = document.querySelector('.link-four')
-      var link5 = document.querySelector('.link-five')
-      var link6 = document.querySelector('.link-six')
-      var link7 = document.querySelector('.link-seven')
-      var link8 = document.querySelector('.link-eight')
-      var link9 = document.querySelector('.link-nine')
-      var link10 = document.querySelector('.link-ten')
-      var link11 = document.querySelector('.link-eleven')
-      var link12 = document.querySelector('.link-twelve')
-      var map = document.querySelector('.map-wrap')
-
-      if (
-        map.classList.contains('openSide') &&
-        (sidebar.classList.contains('opened') ||
-          sidebar2.classList.contains('opened') ||
-          sidebar3.classList.contains('opened') ||
-          sidebar5.classList.contains('opened') ||
-          sidebar7.classList.contains('opened') ||
-          sidebar8.classList.contains('opened') ||
-          sidebar9.classList.contains('opened') ||
-          sidebar10.classList.contains('opened') ||
-          sidebar11.classList.contains('opened') ||
-          sidebar12.classList.contains('opened') ||
-          legend.classList.contains('open'))
-      ) {
-        sidebar.classList.remove('opened')
-        sidebar2.classList.remove('opened')
-        sidebar3.classList.remove('opened')
-        sidebar5.classList.remove('opened')
-        sidebar7.classList.remove('opened')
-        sidebar8.classList.remove('opened')
-        sidebar9.classList.remove('opened')
-        sidebar10.classList.remove('opened')
-        sidebar11.classList.remove('opened')
-        sidebar12.classList.remove('opened')
-        link2.classList.remove('active')
-        link3.classList.remove('active')
-        link5.classList.remove('active')
-        link7.classList.remove('active')
-        link8.classList.remove('active')
-        link9.classList.remove('active')
-        link10.classList.remove('active')
-        link11.classList.remove('active')
-        link12.classList.remove('active')
-        map.classList.remove('big')
-        link6.classList.add('active')
-        map.classList.add('big')
-        sidebar6.classList.add('opened')
-        if (window.innerWidth < 767) {
-          legend.classList.remove('open')
-          link4.classList.remove('active')
-        }
-      } else {
-        sidebar6.classList.toggle('opened')
-        map.classList.toggle('openSide')
-        link6.classList.toggle('active')
-      }
-    },
-
-    openSidebarSeven() {
-      var legend = document.querySelector('.legend-wrap')
-      var sidebar = document.querySelector('.sidebar-one')
-      var sidebar2 = document.querySelector('.sidebar-two')
-      var sidebar3 = document.querySelector('.sidebar-three')
-      var sidebar5 = document.querySelector('.sidebar-five')
-      var sidebar6 = document.querySelector('.sidebar-six')
-      var sidebar7 = document.querySelector('.sidebar-seven')
-      var sidebar8 = document.querySelector('.sidebar-eight')
-      var sidebar9 = document.querySelector('.sidebar-nine')
-      var sidebar10 = document.querySelector('.sidebar-ten')
-      var sidebar11 = document.querySelector('.sidebar-eleven')
-      var sidebar12 = document.querySelector('.sidebar-twelve')
-      var link = document.querySelector('.link-one')
-      var link2 = document.querySelector('.link-two')
-      var link3 = document.querySelector('.link-three')
-      var link4 = document.querySelector('.link-four')
-      var link5 = document.querySelector('.link-five')
-      var link6 = document.querySelector('.link-six')
-      var link7 = document.querySelector('.link-seven')
-      var link8 = document.querySelector('.link-eight')
-      var link9 = document.querySelector('.link-nine')
-      var link10 = document.querySelector('.link-ten')
-      var link11 = document.querySelector('.link-eleven')
-      var link12 = document.querySelector('.link-twelve')
-      var map = document.querySelector('.map-wrap')
-
-      if (
-        map.classList.contains('openSide') &&
-        (sidebar.classList.contains('opened') ||
-          sidebar2.classList.contains('opened') ||
-          sidebar3.classList.contains('opened') ||
-          sidebar5.classList.contains('opened') ||
-          sidebar6.classList.contains('opened') ||
-          sidebar8.classList.contains('opened') ||
-          sidebar9.classList.contains('opened') ||
-          sidebar10.classList.contains('opened') ||
-          sidebar11.classList.contains('opened') ||
-          sidebar12.classList.contains('opened') ||
-          legend.classList.contains('open'))
-      ) {
-        sidebar.classList.remove('opened')
-        sidebar2.classList.remove('opened')
-        sidebar3.classList.remove('opened')
-        sidebar5.classList.remove('opened')
-        sidebar6.classList.remove('opened')
-        sidebar8.classList.remove('opened')
-        sidebar9.classList.remove('opened')
-        sidebar10.classList.remove('opened')
-        sidebar11.classList.remove('opened')
-        sidebar12.classList.remove('opened')
-        link2.classList.remove('active')
-        link3.classList.remove('active')
-        link5.classList.remove('active')
-        link6.classList.remove('active')
-        link8.classList.remove('active')
-        link9.classList.remove('active')
-        link10.classList.remove('active')
-        link11.classList.remove('active')
-        link12.classList.remove('active')
-        map.classList.remove('big')
-        link7.classList.add('active')
-        map.classList.add('big')
-        sidebar7.classList.add('opened')
-        if (window.innerWidth < 767) {
-          legend.classList.remove('open')
-          link4.classList.remove('active')
-        }
-      } else {
-        sidebar7.classList.toggle('opened')
-        map.classList.toggle('openSide')
-        link7.classList.toggle('active')
-      }
     },
 
     openSidebarEight() {
@@ -3950,7 +3584,6 @@ export default {
         link12.classList.toggle('active')
       }
     },
-
     openLegend() {
       var legend = document.querySelector('.legend-wrap')
       var sidebar = document.querySelector('.sidebar-one')
@@ -4023,6 +3656,319 @@ export default {
         link4.classList.toggle('active')
         map.classList.toggle('openSide')
       }
+    },
+
+    openSidebarOne() {
+      var legend = document.querySelector('.legend-wrap')
+      var sidebar = document.querySelector('.sidebar-one')
+      var sidebar2 = document.querySelector('.sidebar-two')
+      var sidebar3 = document.querySelector('.sidebar-three')
+      var sidebar5 = document.querySelector('.sidebar-five')
+      var sidebar6 = document.querySelector('.sidebar-six')
+      var sidebar7 = document.querySelector('.sidebar-seven')
+      var sidebar8 = document.querySelector('.sidebar-eight')
+      var sidebar9 = document.querySelector('.sidebar-nine')
+      var sidebar10 = document.querySelector('.sidebar-ten')
+      var sidebar11 = document.querySelector('.sidebar-eleven')
+      var sidebar12 = document.querySelector('.sidebar-twelve')
+      var link = document.querySelector('.link-one')
+      var link2 = document.querySelector('.link-two')
+      var link3 = document.querySelector('.link-three')
+      var link4 = document.querySelector('.link-four')
+      var link5 = document.querySelector('.link-five')
+      var link6 = document.querySelector('.link-six')
+      var link7 = document.querySelector('.link-seven')
+      var link8 = document.querySelector('.link-eight')
+      var link9 = document.querySelector('.link-nine')
+      var link10 = document.querySelector('.link-ten')
+      var link11 = document.querySelector('.link-eleven')
+      var link12 = document.querySelector('.link-twelve')
+      var map = document.querySelector('.map-wrap')
+
+      if (
+        map.classList.contains('openSide') &&
+        (sidebar2.classList.contains('opened') ||
+          sidebar3.classList.contains('opened') ||
+          sidebar5.classList.contains('opened') ||
+          sidebar6.classList.contains('opened') ||
+          sidebar7.classList.contains('opened') ||
+          sidebar8.classList.contains('opened') ||
+          sidebar9.classList.contains('opened') ||
+          sidebar10.classList.contains('opened') ||
+          sidebar11.classList.contains('opened') ||
+          sidebar12.classList.contains('opened') ||
+          legend.classList.contains('open'))
+      ) {
+        sidebar2.classList.remove('opened')
+        sidebar3.classList.remove('opened')
+        sidebar5.classList.remove('opened')
+        sidebar6.classList.remove('opened')
+        sidebar7.classList.remove('opened')
+        sidebar8.classList.remove('opened')
+        sidebar9.classList.remove('opened')
+        sidebar10.classList.remove('opened')
+        sidebar11.classList.remove('opened')
+        sidebar12.classList.remove('opened')
+        link2.classList.remove('active')
+        link3.classList.remove('active')
+        link5.classList.remove('active')
+        link6.classList.remove('active')
+        link7.classList.remove('active')
+        link8.classList.remove('active')
+        link9.classList.remove('active')
+        link10.classList.remove('active')
+        link11.classList.remove('active')
+        link12.classList.remove('active')
+        map.classList.remove('big')
+        link.classList.add('active')
+        sidebar.classList.add('opened')
+        if (window.innerWidth < 767) {
+          legend.classList.remove('open')
+          link4.classList.remove('active')
+        }
+      } else {
+        sidebar.classList.toggle('opened')
+        map.classList.toggle('openSide')
+        link.classList.toggle('active')
+        legend.classList.remove('open')
+      }
+    },
+
+    openSidebarTwo() {
+      var legend = document.querySelector('.legend-wrap')
+      var sidebar = document.querySelector('.sidebar-one')
+      var sidebar2 = document.querySelector('.sidebar-two')
+      var sidebar3 = document.querySelector('.sidebar-three')
+      var sidebar5 = document.querySelector('.sidebar-five')
+      var sidebar6 = document.querySelector('.sidebar-six')
+      var sidebar7 = document.querySelector('.sidebar-seven')
+      var sidebar8 = document.querySelector('.sidebar-eight')
+      var sidebar9 = document.querySelector('.sidebar-nine')
+      var sidebar10 = document.querySelector('.sidebar-ten')
+      var sidebar11 = document.querySelector('.sidebar-eleven')
+      var sidebar12 = document.querySelector('.sidebar-twelve')
+      var link = document.querySelector('.link-one')
+      var link2 = document.querySelector('.link-two')
+      var link3 = document.querySelector('.link-three')
+      var link4 = document.querySelector('.link-four')
+      var link5 = document.querySelector('.link-five')
+      var link6 = document.querySelector('.link-six')
+      var link7 = document.querySelector('.link-seven')
+      var link8 = document.querySelector('.link-eight')
+      var link9 = document.querySelector('.link-nine')
+      var link10 = document.querySelector('.link-ten')
+      var link11 = document.querySelector('.link-eleven')
+      var link12 = document.querySelector('.link-twelve')
+      var map = document.querySelector('.map-wrap')
+
+      if (
+        map.classList.contains('openSide') &&
+        (sidebar.classList.contains('opened') ||
+          sidebar3.classList.contains('opened') ||
+          sidebar5.classList.contains('opened') ||
+          sidebar6.classList.contains('opened') ||
+          sidebar7.classList.contains('opened') ||
+          sidebar8.classList.contains('opened') ||
+          sidebar9.classList.contains('opened') ||
+          sidebar10.classList.contains('opened') ||
+          sidebar11.classList.contains('opened') ||
+          sidebar12.classList.contains('opened') ||
+          legend.classList.contains('open'))
+      ) {
+        sidebar.classList.remove('opened')
+        sidebar3.classList.remove('opened')
+        sidebar5.classList.remove('opened')
+        sidebar6.classList.remove('opened')
+        sidebar7.classList.remove('opened')
+        sidebar8.classList.remove('opened')
+        sidebar9.classList.remove('opened')
+        sidebar10.classList.remove('opened')
+        sidebar11.classList.remove('opened')
+        sidebar12.classList.remove('opened')
+        link3.classList.remove('active')
+        link5.classList.remove('active')
+        link6.classList.remove('active')
+        link7.classList.remove('active')
+        link8.classList.remove('active')
+        link9.classList.remove('active')
+        link10.classList.remove('active')
+        link11.classList.remove('active')
+        link12.classList.remove('active')
+        map.classList.remove('big')
+        link2.classList.add('active')
+        map.classList.add('big')
+        sidebar2.classList.add('opened')
+        if (window.innerWidth < 767) {
+          legend.classList.remove('open')
+          link4.classList.remove('active')
+        }
+      } else {
+        sidebar2.classList.toggle('opened')
+        map.classList.toggle('openSide')
+        link2.classList.toggle('active')
+      }
+    },
+
+    openSidebarThree() {
+      var legend = document.querySelector('.legend-wrap')
+      var sidebar = document.querySelector('.sidebar-one')
+      var sidebar2 = document.querySelector('.sidebar-two')
+      var sidebar3 = document.querySelector('.sidebar-three')
+      var sidebar5 = document.querySelector('.sidebar-five')
+      var sidebar6 = document.querySelector('.sidebar-six')
+      var sidebar7 = document.querySelector('.sidebar-seven')
+      var sidebar8 = document.querySelector('.sidebar-eight')
+      var sidebar9 = document.querySelector('.sidebar-nine')
+      var sidebar10 = document.querySelector('.sidebar-ten')
+      var sidebar11 = document.querySelector('.sidebar-eleven')
+      var sidebar12 = document.querySelector('.sidebar-twelve')
+      var link = document.querySelector('.link-one')
+      var link2 = document.querySelector('.link-two')
+      var link3 = document.querySelector('.link-three')
+      var link4 = document.querySelector('.link-four')
+      var link5 = document.querySelector('.link-five')
+      var link6 = document.querySelector('.link-six')
+      var link7 = document.querySelector('.link-seven')
+      var link8 = document.querySelector('.link-eight')
+      var link9 = document.querySelector('.link-nine')
+      var link10 = document.querySelector('.link-ten')
+      var link11 = document.querySelector('.link-eleven')
+      var link12 = document.querySelector('.link-twelve')
+      var map = document.querySelector('.map-wrap')
+
+      if (
+        map.classList.contains('openSide') &&
+        (sidebar.classList.contains('opened') ||
+          sidebar2.classList.contains('opened') ||
+          sidebar5.classList.contains('opened') ||
+          sidebar6.classList.contains('opened') ||
+          sidebar7.classList.contains('opened') ||
+          sidebar8.classList.contains('opened') ||
+          sidebar9.classList.contains('opened') ||
+          sidebar10.classList.contains('opened') ||
+          sidebar11.classList.contains('opened') ||
+          sidebar12.classList.contains('opened') ||
+          legend.classList.contains('open'))
+      ) {
+        sidebar.classList.remove('opened')
+        sidebar2.classList.remove('opened')
+        sidebar5.classList.remove('opened')
+        sidebar6.classList.remove('opened')
+        sidebar7.classList.remove('opened')
+        sidebar8.classList.remove('opened')
+        sidebar9.classList.remove('opened')
+        sidebar10.classList.remove('opened')
+        sidebar11.classList.remove('opened')
+        sidebar12.classList.remove('opened')
+        link2.classList.remove('active')
+        link5.classList.remove('active')
+        link6.classList.remove('active')
+        link7.classList.remove('active')
+        link8.classList.remove('active')
+        link9.classList.remove('active')
+        link10.classList.remove('active')
+        link11.classList.remove('active')
+        link12.classList.remove('active')
+        map.classList.remove('big')
+        link3.classList.add('active')
+        map.classList.add('big')
+        sidebar3.classList.add('opened')
+        if (window.innerWidth < 767) {
+          legend.classList.remove('open')
+          link4.classList.remove('active')
+        }
+      } else {
+        sidebar3.classList.toggle('opened')
+        map.classList.toggle('openSide')
+        map.classList.toggle('big')
+        link3.classList.toggle('active')
+      }
+    },
+
+    openSidebarFive() {
+      var legend = document.querySelector('.legend-wrap')
+      var sidebar = document.querySelector('.sidebar-one')
+      var sidebar2 = document.querySelector('.sidebar-two')
+      var sidebar3 = document.querySelector('.sidebar-three')
+      var sidebar5 = document.querySelector('.sidebar-five')
+      var sidebar6 = document.querySelector('.sidebar-six')
+      var sidebar7 = document.querySelector('.sidebar-seven')
+      var sidebar8 = document.querySelector('.sidebar-eight')
+      var sidebar9 = document.querySelector('.sidebar-nine')
+      var sidebar10 = document.querySelector('.sidebar-ten')
+      var sidebar11 = document.querySelector('.sidebar-eleven')
+      var sidebar12 = document.querySelector('.sidebar-twelve')
+      var link = document.querySelector('.link-one')
+      var link2 = document.querySelector('.link-two')
+      var link3 = document.querySelector('.link-three')
+      var link4 = document.querySelector('.link-four')
+      var link5 = document.querySelector('.link-five')
+      var link6 = document.querySelector('.link-six')
+      var link7 = document.querySelector('.link-seven')
+      var link8 = document.querySelector('.link-eight')
+      var link9 = document.querySelector('.link-nine')
+      var link10 = document.querySelector('.link-ten')
+      var link11 = document.querySelector('.link-eleven')
+      var link12 = document.querySelector('.link-twelve')
+      var map = document.querySelector('.map-wrap')
+
+      if (
+        map.classList.contains('openSide') &&
+        (sidebar.classList.contains('opened') ||
+          sidebar3.classList.contains('opened') ||
+          sidebar5.classList.contains('opened') ||
+          sidebar2.classList.contains('opened') ||
+          sidebar6.classList.contains('opened') ||
+          sidebar7.classList.contains('opened') ||
+          sidebar8.classList.contains('opened') ||
+          sidebar9.classList.contains('opened') ||
+          sidebar10.classList.contains('opened') ||
+          sidebar11.classList.contains('opened') ||
+          sidebar12.classList.contains('opened') ||
+          legend.classList.contains('open'))
+      ) {
+        sidebar.classList.remove('opened')
+        sidebar3.classList.remove('opened')
+        sidebar5.classList.remove('opened')
+        sidebar4.classList.remove('opened')
+        sidebar2.classList.remove('opened')
+        sidebar6.classList.remove('opened')
+        sidebar7.classList.remove('opened')
+        sidebar8.classList.remove('opened')
+        sidebar9.classList.remove('opened')
+        sidebar10.classList.remove('opened')
+        sidebar11.classList.remove('opened')
+        sidebar12.classList.remove('opened')
+        link3.classList.remove('active')
+        link5.classList.remove('active')
+        link2.classList.remove('active')
+        link6.classList.remove('active')
+        link7.classList.remove('active')
+        link8.classList.remove('active')
+        link9.classList.remove('active')
+        link10.classList.remove('active')
+        link11.classList.remove('active')
+        link12.classList.remove('active')
+        map.classList.remove('big')
+        link2.classList.add('active')
+        map.classList.add('big')
+        sidebar2.classList.add('opened')
+        link5.classList.add('active')
+        map.classList.add('big')
+        sidebar5.classList.add('opened')
+        if (window.innerWidth < 767) {
+          legend.classList.remove('open')
+          link4.classList.remove('active')
+        }
+      } else {
+        sidebar5.classList.toggle('opened')
+        map.classList.toggle('openSide')
+        link2.classList.toggle('active')
+      }
+    },
+
+    openSidebarThree() {
+      link5.classList.toggle('active')
     },
   },
 }

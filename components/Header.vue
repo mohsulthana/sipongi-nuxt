@@ -14,7 +14,7 @@
         <!-- Left aligned nav items -->
         <b-navbar-nav>
           <b-nav-item to="/peta">Peta</b-nav-item>
-
+          
           <b-nav-item-dropdown right>
           	<template v-slot:button-content>
               Data & Grafik
@@ -23,7 +23,7 @@
               <b-dropdown-item to="/luas-kebakaran">Luas Kabakaran</b-dropdown-item>
             	<b-dropdown-item to="/emisi-co2">Emisi CO2</b-dropdown-item>
           </b-nav-item-dropdown>
-
+          
           <b-nav-item to="/blog">Berita</b-nav-item>
           <b-nav-item to="/galeri">Galeri</b-nav-item>
           <b-nav-item to="/fdrs">FDRS</b-nav-item>
@@ -33,7 +33,7 @@
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-item
+          <b-nav-item 
             href="https://wa.me/+6281310035000"
             target="_blank"
           >

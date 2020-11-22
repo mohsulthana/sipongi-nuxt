@@ -81,9 +81,9 @@
             </b-link>
             <b-link
             id="counter">
-            		<p>Visitor Counters</p><h6 class="sec-title">{{counter}}</h6>
+            		<p>Visitor Counters</p><h6 class="sec-title">{{counter}}</h6> 
             </b-link>
-
+            
           </b-col>
         </b-row>
         <b-row>
