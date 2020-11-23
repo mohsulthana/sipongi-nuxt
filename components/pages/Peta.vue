@@ -509,14 +509,14 @@
               </div>
             </div>
           </b-collapse>
-        </div>	
+        </div>
       </div>
 
       <div class="geser">
       <div class="carousel-wrapper">
         <VueSlickCarousel v-bind="slickOptions" v-if="Object.keys(beritas).length > 0">
           <div v-for="blog in beritas" :key="blog.slug" class="img-wrapper">
-            <b-link :to="`/blog/${blog.slug}`" class="blog-item"> <img :src="blog.image_url"> 
+            <b-link :to="`/blog/${blog.slug}`" class="blog-item"> <img :src="blog.image_url">
             <div class="text-block">
               <h5>{{ blog.title }}</h5>
             </div>
@@ -556,11 +556,11 @@
         </marquee>
       </transition>
       -->
-    
-    
-   
-    
-    
+
+
+
+
+
 
       <client-only>
         <l-map
@@ -707,6 +707,14 @@
       title="Titik Panas"
     >
       <div class="content-list">
+        <b-form-select
+          @input="loadHotSpot()"
+          v-model="confidence_level"
+          class="mb-3 form-control"
+          value-field="id"
+          :options="['high', 'medium', 'low']"
+        >
+        </b-form-select>
         <b-form-select
           v-model="cariProvinsi"
           class="mb-3 form-control"
@@ -1321,7 +1329,7 @@ export default {
 
     return {
       open: false,
-
+      confidence_level: 'high',
       slickOptions: {
         slidesToShow: 8,
         arrows: false,
@@ -2081,16 +2089,16 @@ export default {
   async fetch() {
     this.loading = true
     await this.loadHotSpot()
-    await this.getRunningText()
-    await this.loadPemadaman()
-    await this.loadLain()
-    await this.loadBerita()
-    await this.loadPerundangan()
-    await this.loadFdrs()
-    await this.loadAqms()
-    await this.loadWind()
-    await this.loadDataLuas()
-    await this.loadDataEmisi()
+    // await this.getRunningText()
+    // await this.loadPemadaman()
+    // await this.loadLain()
+    // await this.loadBerita()
+    // await this.loadPerundangan()
+    // await this.loadFdrs()
+    // await this.loadAqms()
+    // await this.loadWind()
+    // await this.loadDataLuas()
+    // await this.loadDataEmisi()
     const url = !process.server ? `/api/listBerita` : `/api/listBerita`
 
     const params = {
@@ -2151,7 +2159,7 @@ export default {
     next() {
       this.$refs.flickity.next();
     },
-    
+
     previous() {
       this.$refs.flickity.previous();
     },
@@ -2460,7 +2468,7 @@ export default {
       await this.$axios
         .$get(url, {
           params: {
-            confidence: ['high'],
+            confidence: [this.confidence_level],
             from: this.fromDate,
             to: this.toDate,
           },
