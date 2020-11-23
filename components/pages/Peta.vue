@@ -509,21 +509,25 @@
               </div>
             </div>
           </b-collapse>
-        </div>	
+        </div>
       </div>
 
       <div class="geser">
-      <div class="carousel-wrapper">
-        <VueSlickCarousel v-bind="slickOptions" v-if="Object.keys(beritas).length > 0">
-          <div v-for="blog in beritas" :key="blog.slug" class="img-wrapper">
-            <b-link :to="`/blog/${blog.slug}`" class="blog-item"> <img :src="blog.image_url"> 
-            <div class="text-block">
-              <h5>{{ blog.title }}</h5>
+        <div class="carousel-wrapper">
+          <VueSlickCarousel
+            v-bind="slickOptions"
+            v-if="Object.keys(beritas).length > 0"
+          >
+            <div v-for="blog in beritas" :key="blog.slug" class="img-wrapper">
+              <b-link :to="`/blog/${blog.slug}`" class="blog-item">
+                <img :src="blog.image_url" />
+                <div class="text-block">
+                  <h5>{{ blog.title }}</h5>
+                </div>
+              </b-link>
             </div>
-            </b-link>
-          </div>
-        </VueSlickCarousel>
-      </div>
+          </VueSlickCarousel>
+        </div>
       </div>
       <!--
        <flickity v-if="Object.keys(beritas).length > 0" ref="flickity" :options="flickityOptions">
@@ -556,11 +560,6 @@
         </marquee>
       </transition>
       -->
-    
-    
-   
-    
-    
 
       <client-only>
         <l-map
@@ -1325,13 +1324,13 @@ export default {
       slickOptions: {
         slidesToShow: 8,
         arrows: false,
-        autoplay: true
+        autoplay: true,
       },
 
       flickityOptions: {
         prevNextButtons: false,
         pageDots: false,
-        wrapAround: true
+        wrapAround: true,
       },
 
       yesterday: new Date(today - 1),
@@ -2149,11 +2148,11 @@ export default {
     },
 
     next() {
-      this.$refs.flickity.next();
+      this.$refs.flickity.next()
     },
-    
+
     previous() {
-      this.$refs.flickity.previous();
+      this.$refs.flickity.previous()
     },
 
     hideBerita() {
