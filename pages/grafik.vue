@@ -3,10 +3,10 @@
     <div class="page-desc">
       <b-container>
         <b-row>
-          <b-col md="7">
+          <b-col md="8">
             <h3>Data & Grafik</h3>
-            <h6>
-              Pada tahun 2001s, Indonesia memiliki 93,8 juta hektar hutan primer
+            <h6 class="text-justify">
+              Pada tahun 2001, Indonesia memiliki 93,8 juta hektar hutan primer
               , yang mencakup lebih dari 50% wilayah daratannya. Pada tahun
               2019, ia kehilangan 324kha hutan primer , setara dengan 187 juta
               ton CO₂ dari emisi.
@@ -20,118 +20,162 @@
       <b-container>
         <b-row>
           <b-col md="8">
-            <b-row>
-              <b-tabs content-class="mt-3" fill>
-                <b-tab title="Grafik" active>
-                  <b-row>
-                    <h6 class="charts-title">
-                      Data Peringatan kebakaran mingguan
-                    </h6>
-                    <line-chart
+            <b-tabs content-class="mt-3" fill>
+              <b-tab title="Grafik" active>
+                <b-row class="align-items-center">
+                  <h6 class="charts-title">Data Hotspot Per Tahun</h6>
+                  <div class="compare-select">
+                    <label class="mr-sm-2" for="inline-form-custom-select-pref"
+                      >Bandingkan satelit</label
+                    >
+                    <b-form-select
+                      class="mb-2 mr-sm-2 mb-sm-0"
+                      value-field="id"
+                      text-field=""
+                      v-model="compareSatelit"
+                      :options="satelitOpt"
+                    ></b-form-select>
+                  </div>
+                  <line-chart
+                    :data="DataHotSpot"
+                    :options="DataHotSpotOpt"
+                    class="charts"
+                  />
+                </b-row>
+                <b-row class="align-items-center">
+                  <h6 class="charts-title">
+                    Data Peringatan kebakaran mingguan
+                  </h6>
+                  <line-chart
+                    v-if="!$fetchState.pending"
+                    :data="kebMingguan"
+                    :options="kebMingguanOpt"
+                    class="charts"
+                  />
+                </b-row>
+                <b-row class="align-items-center">
+                  <h6 class="charts-title">
+                    Data peringatan kebakaran kumulatif
+                  </h6>
+                  <div class="compare-select">
+                    <label class="mr-sm-2" for="inline-form-custom-select-pref"
+                      >Bandingkan dengan</label
+                    >
+                    <b-form-select
+                      id="inline-form-custom-select-pref"
+                      class="mb-2 mr-sm-2 mb-sm-0"
+                      value-field="id"
+                      text-field="name"
+                      v-model="compareYear"
+                      :options="tahuns"
+                    ></b-form-select>
+                  </div>
+                  <line-chart
+                    v-if="!loadingGrafiKum"
+                    :data="kebKumulatif"
+                    :options="kebKumulatifOpt"
+                    class="charts"
+                  />
+                </b-row>
+                <h6 class="charts-title">Luas kebakaran hutan dan lahan</h6>
+                <b-row class="align-items-center">
+                  <b-col md="6">
+                    <pie-chart
                       v-if="!$fetchState.pending"
-                      :data="kebMingguan"
-                      :options="kebMingguanOpt"
+                      :data="kebLuas"
+                      :options="kebLuasOpt"
                       class="charts"
                     />
-                  </b-row>
-                  <b-row>
-                                <h6 class="charts-title">Data peringatan kebakaran kumulatif</h6>
-            <div class="compare-select">
-              <label class="mr-sm-2" for="inline-form-custom-select-pref"
-                >Bandingkan dengan</label
-              >
-              <b-form-select
-                id="inline-form-custom-select-pref"
-                class="mb-2 mr-sm-2 mb-sm-0"
-                value-field="id"
-                text-field="name"
-                v-model="compareYear"
-                :options="tahuns"
-              ></b-form-select>
-            </div>
-            <line-chart
-              v-if="!loadingGrafiKum"
-              :data="kebKumulatif"
-              :options="kebKumulatifOpt"
-              class="charts"
-            />
-                  </b-row>
-                </b-tab>
-                <b-tab title="Tabel">
-                  <h6 class="charts-title">
-                    Tabel Peringatan kebakaran mingguan
-                  </h6>
-                  <b-row class="align-items-center">
-                    <b-col md="12">
-                      <b-table
-                        show-empty
-                        small
-                        striped
-                        responsive="sm"
-                        class="text-center"
-                        :items="kebMingguan.items"
-                        :fields="kebMingguan.tableFields"
-                        :per-page="perPage"
-                      >
-                        <template #cell(trend)="data">
-                          <i
-                            class="fas fa-angle-up text-success"
-                            v-if="data.item.trend == 'naik'"
-                          ></i>
-                          <i
-                            class="fas fa-angle-down text-danger"
-                            v-else-if="data.item.trend == 'turun'"
-                          ></i>
-                          <div v-else>-</div>
-                        </template>
-                      </b-table>
-                      <b-row>
-                        <b-col sm="7" md="6" class="mb-3 text-center">
-                          <b-pagination
-                            v-model="currentPage"
-                            :total-rows="totalRows"
-                            :per-page="perPage"
-                            align="fill"
-                            size="sm"
-                            class="my-0"
-                          ></b-pagination>
-                        </b-col>
-                      </b-row>
-                    </b-col>
-                  </b-row>
-                </b-tab>
-              </b-tabs>
-            </b-row>
+                  </b-col>
+                  <b-col md="6">
+                    <div
+                      v-for="(data, index) in kebLuasData"
+                      :key="index"
+                      class="legend-pie"
+                    >
+                      <span :class="`color ${kebLuasColor[index]}`"></span>
+                      <h6>{{ data.year }}</h6>
+                      <p>
+                        {{
+                          parseFloat(data.value).toLocaleString('id', {
+                            maximumFractionDigits: 2,
+                          })
+                        }}
+                        Ha
+                      </p>
+                    </div>
+                  </b-col>
+                </b-row>
+              </b-tab>
+              <b-tab title="Tabel">
+                <h6 class="charts-title">
+                  Tabel Peringatan kebakaran mingguan
+                </h6>
+                <b-row class="align-items-center">
+                  <b-col md="12">
+                    <b-table
+                      show-empty
+                      small
+                      striped
+                      responsive
+                      class="text-center"
+                      :items="kebMingguan.items"
+                      :fields="kebMingguan.tableFields"
+                      :per-page="perPage"
+                    >
+                      <template #cell(trend)="data">
+                        <i
+                          class="fas fa-angle-up text-success"
+                          v-if="data.item.trend == 'naik'"
+                        ></i>
+                        <i
+                          class="fas fa-angle-down text-danger"
+                          v-else-if="data.item.trend == 'turun'"
+                        ></i>
+                        <div v-else>-</div>
+                      </template>
+                    </b-table>
+                    <b-row>
+                      <b-col sm="7" md="6" class="mb-3 text-center">
+                        <b-pagination
+                          v-model="currentPage"
+                          :total-rows="totalRows"
+                          :per-page="perPage"
+                          align="fill"
+                          size="sm"
+                          class="my-0"
+                        ></b-pagination>
+                      </b-col>
+                    </b-row>
+                  </b-col>
+                </b-row>
 
-            <h6 class="charts-title">Luas kebakaran hutan dan lahan</h6>
-            <b-row class="align-items-center">
-              <b-col md="6">
-                <pie-chart
-                  v-if="!$fetchState.pending"
-                  :data="kebLuas"
-                  :options="kebLuasOpt"
-                  class="charts"
-                />
-              </b-col>
-              <b-col md="6">
-                <div
-                  v-for="(data, index) in kebLuasData"
-                  :key="index"
-                  class="legend-pie"
-                >
-                  <span :class="`color ${kebLuasColor[index]}`"></span>
-                  <h6>{{ data.year }}</h6>
-                  <p>
-                    {{
-                      parseFloat(data.value).toLocaleString('id', {
-                        maximumFractionDigits: 2,
-                      })
-                    }}
-                    Ha
-                  </p>
-                </div>
-              </b-col>
-            </b-row>
+                <!-- Tabel Hotspot -->
+                <h6 class="charts-title">Tabel Hotspot</h6>
+                <b-row class="align-items-center">
+                  <b-col lg="12">
+                    <b-table
+                      show-empty
+                      responsive
+                      striped
+                      class="text-center"
+                      :items="DataHotSpot.data"
+                      :fields="DataHotSpot.tableFields"
+                      :per-page="perPage"
+                    >
+                    </b-table>
+                    <b-pagination
+                      v-model="currentPage"
+                      :total-rows="totalRows"
+                      :per-page="perPage"
+                      align="fill"
+                      size="sm"
+                      class="my-0"
+                    ></b-pagination>
+                  </b-col>
+                </b-row>
+              </b-tab>
+            </b-tabs>
 
             <!-- <h6 class="charts-title">Tabel Peringatan kebakaran mingguan</h6>
             <b-row class="align-items-center">
@@ -214,6 +258,8 @@ import { BIconArrowUp, BIconArrowDown } from 'bootstrap-vue'
 export default {
   layout: 'front',
   data: () => ({
+    satelitOpt: ['TERRA-AQUA', 'SNPP', 'NOAA20', 'Landsat8'],
+    compareSatelit: null,
     currentPage: 1,
     totalRows: 1,
     perPage: 10,
@@ -221,10 +267,159 @@ export default {
     totalProv: 0,
     luasKebakaran: 0,
     compareYear: null,
-    tahuns: ['2019', '2018'],
+    tahuns: ['2019', '2018', '2017', '2016'],
     loadingGrafiKum: false,
     kebLuasData: [],
     kebLuasColor: ['blue', 'green', 'yellow', 'orange'],
+    DataHotSpotOpt: {
+      responsive: true,
+      maintainAspectRatio: false,
+      legend: {
+        align: 'start',
+        labels: {
+          boxWidth: 10,
+        },
+      },
+    },
+    DataHotSpot: {
+      labels: [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'Mei',
+        'Jun',
+        'Jul',
+        'Agu',
+        'Sep',
+        'Okt',
+        'Nov',
+        'Des',
+      ],
+      datasets: [
+        {
+          label: '2020',
+          backgroundColor: '#FE6500',
+          borderColor: '#FE6500',
+          fill: false,
+          lineTension: 0,
+          data: [],
+        },
+        {
+          label: '2019',
+          backgroundColor: '#C5CDD5',
+          borderColor: '#C5CDD5',
+          fill: false,
+          lineTension: 0,
+          data: [],
+        },
+        {
+          label: '2018',
+          backgroundColor: '#B5ADB5',
+          borderColor: '#B5ADB5',
+          fill: false,
+          lineTension: 0,
+          data: [],
+        },
+        {
+          label: '2017',
+          backgroundColor: '#B5ACF2',
+          borderColor: '#B5ADB5',
+          fill: false,
+          lineTension: 0,
+          data: [],
+        },
+      ],
+      data: [],
+      tableFields: [
+        {
+          key: 'time',
+          label: 'Time',
+          sortable: true,
+          sortDirection: 'desc',
+        },
+        {
+          key: 'lat',
+          label: 'Lat',
+          sortable: true,
+          sortDirection: 'desc',
+        },
+        {
+          key: 'long',
+          label: 'Long',
+          sortable: true,
+          sortDirection: 'desc',
+        },
+        {
+          key: 'provinsi',
+          label: 'Provinsi',
+          sortable: true,
+          sortDirection: 'desc',
+        },
+        {
+          key: 'kabkota',
+          label: 'Kabupaten/Kota',
+          sortable: true,
+          sortDirection: 'desc',
+        },
+        {
+          key: 'kecamatan',
+          label: 'Kecamatan',
+          sortable: true,
+          sortDirection: 'desc',
+        },
+        {
+          key: 'desa',
+          label: 'Desa',
+          sortable: true,
+          sortDirection: 'desc',
+        },
+        {
+          key: 'sumber',
+          label: 'Sumber',
+          sortable: true,
+          sortDirection: 'desc',
+        },
+        {
+          key: 'confidence_level',
+          label: 'Confidence',
+          sortable: true,
+          sortDirection: 'desc',
+        },
+      ],
+      totals: {
+        'LPN-LANDSAT8': 0,
+        'LPN-NOAA20': 0,
+        'LPN-NPP': 0,
+        'LPN-MODIS': 0,
+      },
+      totalsLevel: {
+        'LPN-LANDSAT8': {
+          low: 0,
+          medium: 0,
+          high: 0,
+        },
+        'LPN-NOAA20': {
+          low: 0,
+          medium: 0,
+          high: 0,
+        },
+        'LPN-NPP': {
+          low: 0,
+          medium: 0,
+          high: 0,
+        },
+        'LPN-MODIS': {
+          low: 0,
+          medium: 0,
+          high: 0,
+        },
+      },
+    },
+    DataHotSpotFeatures: {
+      features: [],
+      type: 'FeatureCollection',
+    },
     kebMingguan: {
       items: [],
       tableFields: [
@@ -360,7 +555,8 @@ export default {
       },
     },
   },
-  created() {
+  async created() {
+    await this.loadHotSpot()
     this.$nextTick(function () {
       this.updateHeader()
     })
@@ -429,13 +625,14 @@ export default {
         .catch((err) => {})
     },
     async loadGrafikMingguan() {
-      // const url = !process.server ? `/api/grafikMingguan` : `/api/grafikMingguan`
-      const url = 'http://139.99.52.109:8286/api/grafikMingguan'
+      const url = !process.server ? `/v1/grafikMingguan` : `/api/grafikMingguan`
 
       await this.$axios
         .$get(url)
         .then((res) => {
           this.kebMingguan.items = res.map((data) => {
+            this.kebMingguan.datasets[0].data.push(data.weekNow)
+            this.kebMingguan.datasets[1].data.push(data.weekBefore)
             if (data.weekNow > data.weekBefore) {
               return {
                 weekNow: data.weekNow,
@@ -477,7 +674,6 @@ export default {
         .then((res) => {
           this.kebKumulatif.datasets[0].data = res.yearNow
           this.kebKumulatif.datasets[1].data = res.yearBefore
-          console.log(this.kebKumulatif)
         })
         .catch((err) => {})
         .finally(() => {
@@ -494,12 +690,10 @@ export default {
         .$get(url)
         .then(async (res) => {
           this.kebLuasData = res
-          console.log(res)
           await Promise.all(
             res.forEach(async (data) => {
-              // console.log(data)
-              // this.kebLuas.labels.push(data.year)
-              // this.kebLuas.datasets[0].data.push(parseFloat(data.value))
+              this.kebLuas.labels.push(data.year)
+              this.kebLuas.datasets[0].data.push(parseFloat(data.value))
             })
           )
           this.kebKumulatif.datasets[0].data = res.yearNow
@@ -508,6 +702,51 @@ export default {
         .catch((err) => {})
         .finally(() => {
           this.loadingGrafiKum = false
+        })
+    },
+    async loadHotSpot() {
+      const url = !process.server ? `/v1/indoHotspot` : `/v1/indoHotspot`
+      // const url = 'http://139.99.52.109:8288/v1/indoHotspot'
+
+      await this.$axios
+        .$get(url, {
+          params: {
+            confidence: ['high'],
+            from: '2020-09-03',
+            to: '2020-09-04',
+          },
+        })
+        .then(({ data }) => {
+          data.features.forEach((element) => {
+            if (element.properties.date_hotspot.includes(2020)) {
+              this.DataHotSpot.datasets[0].data.push(element.properties.counter)
+            } else if (element.properties.date_hotspot.includes(2019)) {
+              this.DataHotSpot.datasets[1].data.push(element.properties.counter)
+            } else if (element.properties.date_hotspot.includes(2018)) {
+              this.DataHotSpot.datasets[2].data.push(element.properties.counter)
+            } else if (element.properties.date_hotspot.includes(2018)) {
+              this.DataHotSpot.datasets[3].data.push(element.properties.counter)
+            }
+          })
+
+          this.DataHotSpot.data = data.features.map((element) => {
+            return {
+              time: element.properties.date_hotspot,
+              lat: element.properties.lat,
+              long: element.properties.long,
+              provinsi: element.properties.nama_provinsi,
+              sumber: element.properties.sumber,
+              kabkota: element.properties.kabkota,
+              kecamatan: element.properties.kecamatan,
+              desa: element.properties.desa,
+              confidence_level: element.properties.confidence_level,
+            }
+          })
+          // this.DataHotSpot.data = data
+          // this.DataHotSpotFeatures.features = data.features
+        })
+        .catch((err) => {
+          console.error(err)
         })
     },
   },
