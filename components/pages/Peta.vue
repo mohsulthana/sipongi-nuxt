@@ -2698,7 +2698,8 @@ export default {
         })
     },
     async loadDataEmisi() {
-      const url = !process.server ? `/v1/data/emisi-co2` : `/api/data/emisi-co2`
+      // const url = !process.server ? `/api/data/emisi-co2` : `/api/data/emisi-co2`
+      const url = 'http://139.99.52.109:8285/api/data/emisi-co2'
 
       await this.$axios
         .$get(url)
