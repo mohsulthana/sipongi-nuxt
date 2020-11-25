@@ -226,7 +226,7 @@
             }
         }
     }
-    
+
     .hide{
         position: absolute;
         bottom: 0;
@@ -247,7 +247,7 @@
             background-color: darken(#FDF5EF, 10%);
         }
     }
-    
+
 
     .sidebar-slide{
         width: 275px;
@@ -445,7 +445,7 @@
         font-size: 15px;
         color: $t;
         font-weight: 600;
-        box-shadow: 0px 6px 16px rgba($color: #000000, $alpha: 0.16);
+        // box-shadow: 0px 6px 16px rgba($color: #000000, $alpha: 0.16);
         transition: all 0.3s ease;
         @media screen and (max-width: 767px){
             display: none;
@@ -480,18 +480,18 @@
             background-color: #FFF;
         }
     }
-
-    /*
-    .statik {
+    .tematic{
         position: absolute;
-        left: 75px;
+        right: 0px;
+        top: 38px;
         background-color: $wt;
-        padding: 6px 10px;
+        padding: 8px 10px;
+        /*border-radius: 8px;*/
         z-index: 9999;
-        font-size: 18px;
+        font-size: 15px;
         color: $t;
         font-weight: 600;
-        box-shadow: 0px 6px 16px rgba($color: #000000, $alpha: 0.16);
+        // box-shadow: 0px 6px 16px rgba($color: #000000, $alpha: 0.16);
         transition: all 0.3s ease;
         @media screen and (max-width: 767px){
             display: none;
@@ -501,8 +501,6 @@
             background-color: #f5f5f5;
         }
     }
-    */
-
     .statikstat {
         position: absolute;
         left: 60px;
@@ -516,14 +514,14 @@
         /*width: 36%;*/
         @media screen and (max-width: 767px){
             display: none;
-            
+
         }
         &:hover, &:focus{
             text-decoration: none;
             background-color: #FFF;
         }
     }
-	
+
 	.counter {
         position: absolute;
         /*top: 45px;
@@ -548,7 +546,7 @@
             background-color: #f5f5f5;
         }
     }
-	
+
 	.sec-title{
         font-size: 15px;
         font-weight: bold;
@@ -561,7 +559,7 @@
             margin-bottom: 10px;
         }
     }
-	
+
     .leaflet-control-zoom{
     		display : none !important;
         margin: 40px 0 0 15px !important;
@@ -615,10 +613,10 @@
     .geser{
         position: absolute;
         z-index: 1023;
-        
+
         color: $wt;
         font-size: 16px;
-        
+
         bottom: 0;
         width: 100%;
     }
@@ -627,7 +625,7 @@
         position: absolute;
         bottom: 20px;
         right: 20px;
-        transform: translate(0, -150%); 
+        transform: translate(0, -150%);
         color: #FFF;
         padding-left: 20px;
         padding-right: 20px;
@@ -1833,7 +1831,7 @@
 .carousel {
     background: #EEE;
 }
-  
+
 .carousel-cell {
     width: 20%;
     height: 100px;
@@ -1846,7 +1844,7 @@
     content: 'flickity';
     display: none; /* hide :after */
   }
-  
+
   @media screen and ( min-width: 768px ) {
     /* disable Flickity for large devices */
     .carousel:after {
@@ -1904,7 +1902,7 @@
             vertical-align: middle;
             width: 90px;
             margin: 0;
-            
+
         }
         h6{
             font-size: 11px;
@@ -1914,7 +1912,7 @@
             vertical-align: middle;
             width: 25px;
             margin: 0;
-            
+
         }
         span{
             font-size: 13px;

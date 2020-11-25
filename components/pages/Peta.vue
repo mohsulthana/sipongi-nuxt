@@ -75,6 +75,13 @@
                     >Pelaporan Dalkarhutla</b-dropdown-item
                   >
                   <b-dropdown-item
+                    to="/data-grafik-dalkarhutla"
+                    target="_blank"
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Data & Grafik Dalkarhutla</b-dropdown-item
+                  >
+                  <b-dropdown-item
                     v-b-modal.modal-fdrs
                     v-b-toggle.sidebar-backdrop
                     class="d-md-block d-none"
@@ -196,13 +203,6 @@
                     >Kontak Kami</b-dropdown-item
                   >
                   <b-dropdown-item
-                    class="link-eleven"
-                    v-b-toggle.sidebar-backdrop
-                    v-b-modal.modal-link-terkait
-                    style="text-align: left"
-                    >Link Terkait</b-dropdown-item
-                  >
-                  <b-dropdown-item
                     v-b-toggle.sidebar-backdrop
                     v-b-modal.modal-disclaimer
                     class="d-md-block d-none"
@@ -241,7 +241,7 @@
             <h6>Legend</h6>
           </div>
         </b-link>
-        
+
         <b-link class="main link-one d-md-none" v-b-modal.modal-titikpanas>
           <div class="wrap">
             <div class="image">
@@ -276,7 +276,7 @@
                     <img src="/forest-fire.svg" alt="" />
                     <h6>{{ totalTitik }}</h6>
                     <h5>Peringatan Kebakaran</h5>
-                    
+
                   </div>
                 </b-col>
                 <b-col md="4">
@@ -284,7 +284,7 @@
                     <img src="/box-fire.svg" alt="" />
                     <h6>{{ luasKebakaran }}</h6>
                     <h5>Hektar Hutan & Lahan</h5>
-                    
+
                   </div>
                 </b-col>
                 <b-col md="4">
@@ -292,7 +292,7 @@
                     <img src="/world.svg" alt="" />
                     <h6>{{ totalProv }}</h6>
                     <h5>Provinsi</h5>
-                  
+
                   </div>
                 </b-col>
               </b-row>
@@ -300,6 +300,13 @@
           </div>
       </b-link>
 
+      <b-link class="tematic">
+        <img
+          src="/national-planting-day.jpg"
+          class="img img-responsives center-block"
+          width="130"
+        />
+      </b-link>
       <b-link href="https://wa.me/+6281310035000" target="_blank" class="call">
         <img src="/phone-red.svg" alt="" class="mr-1 inner" />
         Sipongi
@@ -572,7 +579,7 @@
                     </div>
                   </div>
                 </b-collapse>
-              </div>	
+              </div>
             </div>
 
             </div>
@@ -592,8 +599,8 @@
             </b-collapse>
         </div>
       </div>
-      
-     
+
+
       <!--
       <transition name="fade">
         <marquee
@@ -785,6 +792,14 @@
       >
       <div class="content-list">
         <b-form-select
+          @input="loadHotSpot()"
+          v-model="confidence_level"
+          class="mb-3 form-control"
+          value-field="id"
+          :options="['high', 'medium', 'low']"
+        >
+        </b-form-select>
+        <b-form-select
           v-model="cariProvinsi"
           class="mb-3 form-control"
           value-field="id"
@@ -797,6 +812,7 @@
           class="form-control"
           value-field="id"
           text-field="nama"
+          @input="loadHotSpot()"
           :disabled="provs.length <= 0 || !cariProvinsi || kotakabs.length <= 1"
           :options="kotakabs"
         ></b-form-select>
@@ -823,7 +839,7 @@
         </div>
       </div>
 
-      <!-- Filter Periode 
+      <!-- Filter Periode
           <div class="mt-3">
             <div style="font-size: 12.5px;margin-bottom: 2px;color: #6c757d;">
               Periode
@@ -861,7 +877,7 @@
                     >Tinggi
                 </b-link>
             </div>
-            
+
 
           <!-- Filter Convidence  -->
             <div class="mt-2 mb-3">
@@ -913,8 +929,9 @@
 
             <div class="content-list titik">
               <template v-for="(datas) in DataHotSpot.kabkota">
-                <template v-for="(kotakab) in datas">
+                <template v-for="(kotakab, index) in datas">
                   <b-link
+                    :key="index"
                     class="list-item"
                     v-if="checkSumber(kotakab.data.sumber)"
                     @click="changeCenter(kotakab.data)"
@@ -1375,9 +1392,20 @@
       body-class="modal-direktorat"
       size="md"
       hide-footer
-      title="Dokumen Lainnya"
+      title="Direktorat PKHL"
     >
-      <div class="content-list"></div>
+      <div class="content-list">
+        <b-row>
+          <b-col md="4" order-md="2">
+            <img
+              :src="direktoratPKHL.logo_url"
+              alt=""
+              class="img-fluid img-logo"
+            />
+          </b-col>
+          <b-col md="8" order-md="1" v-html="direktoratPKHL.text"> </b-col>
+        </b-row>
+      </div>
     </b-modal>
 
     <!-- Modal Manggala Agni -->
@@ -1386,9 +1414,91 @@
       body-class="modal-manggala-agni"
       size="md"
       hide-footer
-      title="Dokumen Lainnya"
+      title="Manggala Agni"
     >
-      <div class="content-list"></div>
+      <div class="content-list">
+        <b-row>
+          <b-col md="12">
+            <div class="nav-agni2">
+              <b-link @click="showProfile" :class="{ active: profile }"
+                >Profil</b-link
+              >
+              <b-link @click="showDaerahOp" :class="{ active: daerahOp }"
+                >Daerah Operasional</b-link
+              >
+              <b-link @click="showSarana" :class="{ active: sarana }"
+                >Sarana & Prasarana</b-link
+              >
+            </div>
+          </b-col>
+          <b-col lg="12">
+            <!-- Profil -->
+            <b-row v-if="profile">
+              <b-col lg="4" order-lg="2">
+                <div
+                  :class="[
+                    { toBot: scrolledToBottom },
+                    { scrolling: isScroll },
+                    'nav-content',
+                  ]"
+                >
+                  <h3>Profil</h3>
+                  <b-link
+                    v-for="prof in profil"
+                    :key="prof.id"
+                    v-scroll-to="'#data' + prof.urutan"
+                    to="#"
+                    >{{ prof.title }}</b-link
+                  >
+                </div>
+              </b-col>
+              <b-col lg="8" order-lg="1">
+                <h5 class="title">Profil</h5>
+                <div v-for="prof in profil" :key="prof.id">
+                  <h6 class="subtitle" :id="'data' + prof.urutan">
+                    {{ prof.title }}
+                  </h6>
+                  <img
+                    v-if="prof.image !== null"
+                    :src="prof.image_url"
+                    alt=""
+                    class="img-fluid mb-3"
+                  />
+                  <div v-html="prof.text"></div>
+                </div>
+              </b-col>
+            </b-row>
+            <!-- Daerah Operasi -->
+            <b-row v-if="daerahOp">
+              <b-col md="12">
+                <h6 class="title">Daerah Operasional</h6>
+                <div class="daerah-item" v-for="(d, i) in daerah" :key="i">
+                  <!-- <h5>Sumatra Utara-01</h5> -->
+                  <h5>{{ d.daerah }}</h5>
+                  <b-row v-for="(k, j) in d.kota" :key="j">
+                    <b-col md="6">
+                      <p class="heading">{{ k.daerah }}</p>
+                      <span class="alamat">{{ k.alamat }}</span>
+                    </b-col>
+                    <b-col md="3" cols="6">
+                      <span class="jumlah">Jumlah Regu</span>
+                      <span class="count">{{ k.jumlah_regu }}</span>
+                    </b-col>
+                    <b-col md="3" cols="6">
+                      <span class="jumlah">Jumlah Anggota </span>
+                      <span class="count">{{ k.jumlah_anggota }}</span>
+                    </b-col>
+                  </b-row>
+                </div>
+              </b-col>
+            </b-row>
+            <!-- Sarana & Prasarana -->
+            <b-row v-if="sarana">
+              <b-col md="12" v-html="sarpras.text"> Sarana </b-col>
+            </b-row>
+          </b-col>
+        </b-row>
+      </div>
     </b-modal>
 
     <!-- Modal Struktur Organisasi -->
@@ -1397,9 +1507,15 @@
       body-class="modal-struktur-organisasi"
       size="md"
       hide-footer
-      title="Dokumen Lainnya"
+      title="Struktur Organisasi"
     >
-      <div class="content-list"></div>
+      <div class="content-list">
+        <b-row>
+          <b-col md="8">
+            <img :src="strukturOrganisasi.image_url" alt="" class="img-fluid" />
+          </b-col>
+        </b-row>
+      </div>
     </b-modal>
 
     <!-- Modal Kontak Kami -->
@@ -1408,20 +1524,26 @@
       body-class="modal-kontak-kami"
       size="md"
       hide-footer
-      title="Dokumen Lainnya"
+      title="Kontak Kami"
     >
-      <div class="content-list"></div>
-    </b-modal>
-
-    <!-- Modal Link Terkait -->
-    <b-modal
-      id="modal-link-terkait"
-      body-class="modal-link-terkait"
-      size="md"
-      hide-footer
-      title="Dokumen Lainnya"
-    >
-      <div class="content-list"></div>
+      <div class="content-list">
+        <b-row>
+          <b-col md="12">
+            <div class="logo-footer">
+              <img src="/kementerian-logo.svg" />
+              <h6>Kementerian Lingkungan Hidup dan Kehutanan</h6>
+            </div>
+            <p font-size="14px" font-weight="100">
+              Gedung Pusat Kehutanan Manggala Wanabakti Blok VII Lt. 13
+              <br />Jl. Jend. Gatot Subroto Jakarta 10270
+            </p>
+            <p>
+              <i class="far fa-envelope"></i> posko.karhutla@menlhk.go.id<br />
+              <i class="fas fa-phone"></i> 021-5704618
+            </p>
+          </b-col>
+        </b-row>
+      </div>
     </b-modal>
 
     <!-- Modal Disclaimer -->
@@ -1434,11 +1556,6 @@
     >
       <div class="content-list"></div>
     </b-modal>
-
-    <!--<b-link to="" class="pdf">
-          <img src="/pdf.svg" alt="" />
-          <span>Download PDF</span>
-        </b-link>-->
   </div>
 </template>
 
@@ -1451,18 +1568,23 @@ export default {
     const now = new Date()
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
     const yesterday = new Date(today - 1)
-
     return {
       totalTitik: 0,
       totalProv: 0,
       luasKebakaran: 0,
-
+      tematicImage: '',
       open: false,
-
+      confidence_level: 'high',
       slickOptions: {
         slidesToShow: 8,
         arrows: false,
-        autoplay: true
+        autoplay: true,
+      },
+
+      flickityOptions: {
+        prevNextButtons: false,
+        pageDots: false,
+        wrapAround: true,
       },
 
       yesterday: new Date(today - 1),
@@ -2310,49 +2432,17 @@ export default {
   async fetch() {
     this.loading = true
     await this.loadHotSpot()
-    await this.getRunningText()
-    await this.loadPemadaman()
-    await this.loadLain()
+    await this.loadTematicBar()
+    // await this.getRunningText()
+    // await this.loadPemadaman()
+    // await this.loadLain()
     await this.loadBerita()
     await this.loadPerundangan()
-    await this.loadFdrs()
-    await this.loadAqms()
-    await this.loadWind()
-    await this.loadDataLuas()
-    await this.loadDataEmisi()
-
-    await this.loadTotalTitik()
-    await this.loadLuasKebakaran()
-    await this.loadTotalProv()
-
-    const url = !process.server ? `/api/listBerita` : `/api/listBerita`
-
-    const params = {
-      direction: this.options.direction,
-      sortBy: this.options.sortBy,
-      page: this.options.page,
-      per_page: this.options.per_page,
-    }
-
-    await this.$axios
-      .$get(url, {
-        params,
-      })
-      .then((res) => {
-        this.beritas = this.beritas.concat(res.data)
-        this.loadMore = !!res.links.next
-      })
-      .catch((err) => {
-        if (err.response) {
-          const { status, data } = err.response
-          if (status === 500) {
-            this.$nuxt.error({ statusCode: 500, message: data.message })
-          }
-          if (status === 404) {
-            this.$nuxt.error({ statusCode: 404, message: data.message })
-          }
-        }
-      })
+    // await this.loadFdrs()
+    // await this.loadAqms()
+    // await this.loadWind()
+    // await this.loadDataLuas()
+    // await this.loadDataEmisi()
     this.loading = false
   },
   filters: {
@@ -2413,6 +2503,27 @@ export default {
         .catch((err) => {})
     },
 
+    async loadTematicBar() {
+      const url = !process.server ? `/api/data/tematic` : `/api/data/tematic`
+
+      await this.$axios
+        .$get(url)
+        .then((res) => {
+          this.tematicImage = res[0].image
+          console.log(this.tematicImage)
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+    },
     async visitor() {
       const url = !process.server ? `/api/visitor` : `/api/visitor`
 
@@ -2435,11 +2546,11 @@ export default {
     },
 
     next() {
-      this.$refs.flickity.next();
+      this.$refs.flickity.next()
     },
-    
+
     previous() {
-      this.$refs.flickity.previous();
+      this.$refs.flickity.previous()
     },
 
     hideBerita() {
@@ -2507,7 +2618,7 @@ export default {
           }
         })
     },
-    
+
     showProfile() {
       this.profile = true
       this.daerahOp = false
@@ -2729,7 +2840,7 @@ export default {
       await this.$axios
         .$get(url, {
           params: {
-            confidence: ['high'],
+            confidence: [this.confidence_level],
             from: this.fromDate,
             to: this.toDate,
           },
@@ -2887,7 +2998,7 @@ export default {
             )
           let self = this
           //self.clusterKabKota.visible = false
-          
+
           Array.prototype.push.apply(datas, data.kotakab)
           this.kotakabs = datas
         })
@@ -3071,7 +3182,7 @@ export default {
     },
 
     async loadPerundangan() {
-      const url = !process.server ? `/api/listDokumen` : `/api/listDokumen`
+      const url = !process.server ? `/v1/listDokumen` : `/api/listDokumen`
 
       const params = {
         direction: this.options.direction,
@@ -3153,7 +3264,7 @@ export default {
 
       // Direktorat PKHL
       const urlPKHL = !process.server
-        ? `/api/data/direktorat-pkhl`
+        ? `/v1/data/direktorat-pkhl`
         : `/api/data/direktorat-pkhl`
       await this.$axios
         .$get(urlPKHL)
