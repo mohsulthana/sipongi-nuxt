@@ -75,6 +75,13 @@
                     >Pelaporan Dalkarhutla</b-dropdown-item
                   >
                   <b-dropdown-item
+                    to="/data-grafik-dalkarhutla"
+                    target="_blank"
+                    class="d-md-block d-none"
+                    style="text-align: left"
+                    >Data & Grafik Dalkarhutla</b-dropdown-item
+                  >
+                  <b-dropdown-item
                     v-b-modal.modal-fdrs
                     v-b-toggle.sidebar-backdrop
                     class="d-md-block d-none"
@@ -196,13 +203,6 @@
                     >Kontak Kami</b-dropdown-item
                   >
                   <b-dropdown-item
-                    class="link-eleven"
-                    v-b-toggle.sidebar-backdrop
-                    v-b-modal.modal-link-terkait
-                    style="text-align: left"
-                    >Link Terkait</b-dropdown-item
-                  >
-                  <b-dropdown-item
                     v-b-toggle.sidebar-backdrop
                     v-b-modal.modal-disclaimer
                     class="d-md-block d-none"
@@ -291,6 +291,13 @@
         </ul>
       </div>
 
+      <b-link class="tematic">
+        <img
+          src="/national-planting-day.jpg"
+          class="img img-responsives center-block"
+          width="130"
+        />
+      </b-link>
       <b-link href="https://wa.me/+6281310035000" target="_blank" class="call">
         <img src="/phone-red.svg" alt="" class="mr-1 inner" />
         Sipongi
@@ -513,17 +520,21 @@
       </div>
 
       <div class="geser">
-      <div class="carousel-wrapper">
-        <VueSlickCarousel v-bind="slickOptions" v-if="Object.keys(beritas).length > 0">
-          <div v-for="blog in beritas" :key="blog.slug" class="img-wrapper">
-            <b-link :to="`/blog/${blog.slug}`" class="blog-item"> <img :src="blog.image_url">
-            <div class="text-block">
-              <h5>{{ blog.title }}</h5>
+        <div class="carousel-wrapper">
+          <VueSlickCarousel
+            v-bind="slickOptions"
+            v-if="Object.keys(beritas).length > 0"
+          >
+            <div v-for="blog in beritas" :key="blog.slug" class="img-wrapper">
+              <b-link :to="`/blog/${blog.slug}`" class="blog-item">
+                <img :src="blog.image_url" />
+                <div class="text-block">
+                  <h5>{{ blog.title }}</h5>
+                </div>
+              </b-link>
             </div>
-            </b-link>
-          </div>
-        </VueSlickCarousel>
-      </div>
+          </VueSlickCarousel>
+        </div>
       </div>
       <!--
        <flickity v-if="Object.keys(beritas).length > 0" ref="flickity" :options="flickityOptions">
@@ -532,35 +543,6 @@
         </div>
       </flickity>
       -->
-
-      <!--
-      <transition name="fade">
-        <marquee
-          v-show="beritaMarqueeText"
-          behavior=""
-          direction=""
-          :class="{
-            marqueeBottomMobile: !openedLegend,
-            marqueeBottom: openedLegend,
-          }"
-        >
-          <span v-for="(value, index) in pemadamans" :key="index">
-            <img :src="value.detail.image_url" width="250" height="100" />
-            <b-link class="logo"
-              :to="`/galeri/${value.slug}`"
-              style="color: #fff"
-            >
-             <h5 class="textcentered"> {{ value.title }} </h5>
-            </b-link>
-          </span>
-        </marquee>
-      </transition>
-      -->
-
-
-
-
-
 
       <client-only>
         <l-map
@@ -728,6 +710,7 @@
           class="form-control"
           value-field="id"
           text-field="nama"
+          @input="loadHotSpot()"
           :disabled="provs.length <= 0 || !cariProvinsi || kotakabs.length <= 1"
           :options="kotakabs"
         ></b-form-select>
@@ -1250,9 +1233,20 @@
       body-class="modal-direktorat"
       size="md"
       hide-footer
-      title="Dokumen Lainnya"
+      title="Direktorat PKHL"
     >
-      <div class="content-list"></div>
+      <div class="content-list">
+        <b-row>
+          <b-col md="4" order-md="2">
+            <img
+              :src="direktoratPKHL.logo_url"
+              alt=""
+              class="img-fluid img-logo"
+            />
+          </b-col>
+          <b-col md="8" order-md="1" v-html="direktoratPKHL.text"> </b-col>
+        </b-row>
+      </div>
     </b-modal>
 
     <!-- Modal Manggala Agni -->
@@ -1261,9 +1255,91 @@
       body-class="modal-manggala-agni"
       size="md"
       hide-footer
-      title="Dokumen Lainnya"
+      title="Manggala Agni"
     >
-      <div class="content-list"></div>
+      <div class="content-list">
+        <b-row>
+          <b-col md="12">
+            <div class="nav-agni2">
+              <b-link @click="showProfile" :class="{ active: profile }"
+                >Profil</b-link
+              >
+              <b-link @click="showDaerahOp" :class="{ active: daerahOp }"
+                >Daerah Operasional</b-link
+              >
+              <b-link @click="showSarana" :class="{ active: sarana }"
+                >Sarana & Prasarana</b-link
+              >
+            </div>
+          </b-col>
+          <b-col lg="12">
+            <!-- Profil -->
+            <b-row v-if="profile">
+              <b-col lg="4" order-lg="2">
+                <div
+                  :class="[
+                    { toBot: scrolledToBottom },
+                    { scrolling: isScroll },
+                    'nav-content',
+                  ]"
+                >
+                  <h3>Profil</h3>
+                  <b-link
+                    v-for="prof in profil"
+                    :key="prof.id"
+                    v-scroll-to="'#data' + prof.urutan"
+                    to="#"
+                    >{{ prof.title }}</b-link
+                  >
+                </div>
+              </b-col>
+              <b-col lg="8" order-lg="1">
+                <h5 class="title">Profil</h5>
+                <div v-for="prof in profil" :key="prof.id">
+                  <h6 class="subtitle" :id="'data' + prof.urutan">
+                    {{ prof.title }}
+                  </h6>
+                  <img
+                    v-if="prof.image !== null"
+                    :src="prof.image_url"
+                    alt=""
+                    class="img-fluid mb-3"
+                  />
+                  <div v-html="prof.text"></div>
+                </div>
+              </b-col>
+            </b-row>
+            <!-- Daerah Operasi -->
+            <b-row v-if="daerahOp">
+              <b-col md="12">
+                <h6 class="title">Daerah Operasional</h6>
+                <div class="daerah-item" v-for="(d, i) in daerah" :key="i">
+                  <!-- <h5>Sumatra Utara-01</h5> -->
+                  <h5>{{ d.daerah }}</h5>
+                  <b-row v-for="(k, j) in d.kota" :key="j">
+                    <b-col md="6">
+                      <p class="heading">{{ k.daerah }}</p>
+                      <span class="alamat">{{ k.alamat }}</span>
+                    </b-col>
+                    <b-col md="3" cols="6">
+                      <span class="jumlah">Jumlah Regu</span>
+                      <span class="count">{{ k.jumlah_regu }}</span>
+                    </b-col>
+                    <b-col md="3" cols="6">
+                      <span class="jumlah">Jumlah Anggota </span>
+                      <span class="count">{{ k.jumlah_anggota }}</span>
+                    </b-col>
+                  </b-row>
+                </div>
+              </b-col>
+            </b-row>
+            <!-- Sarana & Prasarana -->
+            <b-row v-if="sarana">
+              <b-col md="12" v-html="sarpras.text"> Sarana </b-col>
+            </b-row>
+          </b-col>
+        </b-row>
+      </div>
     </b-modal>
 
     <!-- Modal Struktur Organisasi -->
@@ -1272,9 +1348,15 @@
       body-class="modal-struktur-organisasi"
       size="md"
       hide-footer
-      title="Dokumen Lainnya"
+      title="Struktur Organisasi"
     >
-      <div class="content-list"></div>
+      <div class="content-list">
+        <b-row>
+          <b-col md="8">
+            <img :src="strukturOrganisasi.image_url" alt="" class="img-fluid" />
+          </b-col>
+        </b-row>
+      </div>
     </b-modal>
 
     <!-- Modal Kontak Kami -->
@@ -1283,20 +1365,26 @@
       body-class="modal-kontak-kami"
       size="md"
       hide-footer
-      title="Dokumen Lainnya"
+      title="Kontak Kami"
     >
-      <div class="content-list"></div>
-    </b-modal>
-
-    <!-- Modal Link Terkait -->
-    <b-modal
-      id="modal-link-terkait"
-      body-class="modal-link-terkait"
-      size="md"
-      hide-footer
-      title="Dokumen Lainnya"
-    >
-      <div class="content-list"></div>
+      <div class="content-list">
+        <b-row>
+          <b-col md="12">
+            <div class="logo-footer">
+              <img src="/kementerian-logo.svg" />
+              <h6>Kementerian Lingkungan Hidup dan Kehutanan</h6>
+            </div>
+            <p font-size="14px" font-weight="100">
+              Gedung Pusat Kehutanan Manggala Wanabakti Blok VII Lt. 13
+              <br />Jl. Jend. Gatot Subroto Jakarta 10270
+            </p>
+            <p>
+              <i class="far fa-envelope"></i> posko.karhutla@menlhk.go.id<br />
+              <i class="fas fa-phone"></i> 021-5704618
+            </p>
+          </b-col>
+        </b-row>
+      </div>
     </b-modal>
 
     <!-- Modal Disclaimer -->
@@ -1309,11 +1397,6 @@
     >
       <div class="content-list"></div>
     </b-modal>
-
-    <!--<b-link to="" class="pdf">
-          <img src="/pdf.svg" alt="" />
-          <span>Download PDF</span>
-        </b-link>-->
   </div>
 </template>
 
@@ -1326,20 +1409,20 @@ export default {
     const now = new Date()
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
     const yesterday = new Date(today - 1)
-
     return {
+      tematicImage: '',
       open: false,
       confidence_level: 'high',
       slickOptions: {
         slidesToShow: 8,
         arrows: false,
-        autoplay: true
+        autoplay: true,
       },
 
       flickityOptions: {
         prevNextButtons: false,
         pageDots: false,
-        wrapAround: true
+        wrapAround: true,
       },
 
       yesterday: new Date(today - 1),
@@ -2089,44 +2172,17 @@ export default {
   async fetch() {
     this.loading = true
     await this.loadHotSpot()
+    await this.loadTematicBar()
     // await this.getRunningText()
     // await this.loadPemadaman()
     // await this.loadLain()
-    // await this.loadBerita()
-    // await this.loadPerundangan()
+    await this.loadBerita()
+    await this.loadPerundangan()
     // await this.loadFdrs()
     // await this.loadAqms()
     // await this.loadWind()
     // await this.loadDataLuas()
     // await this.loadDataEmisi()
-    const url = !process.server ? `/api/listBerita` : `/api/listBerita`
-
-    const params = {
-      direction: this.options.direction,
-      sortBy: this.options.sortBy,
-      page: this.options.page,
-      per_page: this.options.per_page,
-    }
-
-    await this.$axios
-      .$get(url, {
-        params,
-      })
-      .then((res) => {
-        this.beritas = this.beritas.concat(res.data)
-        this.loadMore = !!res.links.next
-      })
-      .catch((err) => {
-        if (err.response) {
-          const { status, data } = err.response
-          if (status === 500) {
-            this.$nuxt.error({ statusCode: 500, message: data.message })
-          }
-          if (status === 404) {
-            this.$nuxt.error({ statusCode: 404, message: data.message })
-          }
-        }
-      })
     this.loading = false
   },
   filters: {
@@ -2135,6 +2191,27 @@ export default {
     },
   },
   methods: {
+    async loadTematicBar() {
+      const url = !process.server ? `/api/data/tematic` : `/api/data/tematic`
+
+      await this.$axios
+        .$get(url)
+        .then((res) => {
+          this.tematicImage = res[0].image
+          console.log(this.tematicImage)
+        })
+        .catch((err) => {
+          if (err.response) {
+            const { status, data } = err.response
+            if (status === 500) {
+              this.$nuxt.error({ statusCode: 500, message: data.message })
+            }
+            if (status === 404) {
+              this.$nuxt.error({ statusCode: 404, message: data.message })
+            }
+          }
+        })
+    },
     async visitor() {
       const url = !process.server ? `/api/visitor` : `/api/visitor`
 
@@ -2157,11 +2234,11 @@ export default {
     },
 
     next() {
-      this.$refs.flickity.next();
+      this.$refs.flickity.next()
     },
 
     previous() {
-      this.$refs.flickity.previous();
+      this.$refs.flickity.previous()
     },
 
     hideBerita() {
@@ -2696,7 +2773,7 @@ export default {
     },
 
     async loadPerundangan() {
-      const url = !process.server ? `/api/listDokumen` : `/api/listDokumen`
+      const url = !process.server ? `/v1/listDokumen` : `/api/listDokumen`
 
       const params = {
         direction: this.options.direction,
@@ -2778,7 +2855,7 @@ export default {
 
       // Direktorat PKHL
       const urlPKHL = !process.server
-        ? `/api/data/direktorat-pkhl`
+        ? `/v1/data/direktorat-pkhl`
         : `/api/data/direktorat-pkhl`
       await this.$axios
         .$get(urlPKHL)
