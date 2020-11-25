@@ -76,7 +76,7 @@
                     >Pelaporan Dalkarhutla</b-dropdown-item
                   >
                   <b-dropdown-item
-                    to="/data-grafik-dalkarhutla"
+                    to="/grafik"
                     target="_blank"
                     class="d-md-block d-none"
                     style="text-align: left"
@@ -1266,7 +1266,7 @@
                       <b-link
                         :href="`${
                           perpu.tipe === 'file'
-                            ? `/api/peraturan-perundangan/file/${perpu.slug}`
+                            ? `/v1/peraturan-perundangan/file/${perpu.slug}`
                             : perpu.file_url
                         }`"
                         target="_blank"
@@ -1357,7 +1357,7 @@
               <b-link
                 :href="`${
                   dok.tipe === 'file'
-                    ? `/api/dokumen-lain/file/${dok.slug}`
+                    ? `/v1/dokumen-lain/file/${dok.slug}`
                     : dok.file_url
                 }`"
                 target="_blank"
@@ -2551,7 +2551,7 @@ export default {
         })
     },
     async visitor() {
-      const url = !process.server ? `/api/visitor` : `/api/visitor`
+      const url = !process.server ? `/v1/visitor` : `/api/visitor`
 
       await this.$axios
         .$get(url)
@@ -2622,7 +2622,7 @@ export default {
 
     async getRunningText() {
       const url = !process.server
-        ? `/api/data/running-text`
+        ? `/v1/data/running-text`
         : `/api/data/running-text`
 
       await this.$axios
@@ -2663,7 +2663,7 @@ export default {
 
     async getRunningText() {
       const url = !process.server
-        ? `/api/data/running-text`
+        ? `/v1/data/running-text`
         : `/api/data/running-text`
 
       await this.$axios
@@ -2688,7 +2688,7 @@ export default {
 
     async loadDataLuas() {
       const url = !process.server
-        ? `/api/data/luas-kebakaran`
+        ? `/v1/data/luas-kebakaran`
         : `/api/data/luas-kebakaran`
 
       await this.$axios
@@ -2712,7 +2712,7 @@ export default {
     },
 
     async loadDataEmisi() {
-      // const url = !process.server ? `/api/data/emisi-co2` : `/api/data/emisi-co2`
+      // const url = !process.server ? `/v1/data/emisi-co2` : `/api/data/emisi-co2`
       const url = `http://139.99.52.109:8285/api/data/emisi-co2`
 
       await this.$axios
@@ -2882,7 +2882,7 @@ export default {
     async loadClusterKabKota(kotakab_id) {
       if (this.clusterKabKota.oldId !== kotakab_id) {
         const url = !process.server
-          ? `/api/getCluster/${kotakab_id}/kotakab`
+          ? `/v1/getCluster/${kotakab_id}/kotakab`
           : `/api/getCluster/${kotakab_id}/kotakab`
         this.clusterKabKota.visible = false
         this.clusterKabKota.oldId = kotakab_id
@@ -2911,7 +2911,7 @@ export default {
     async loadClusterDesa(item) {
       if (this.clusterDesa.oldId !== item.desa_id) {
         const url = !process.server
-          ? `/api/getCluster/${item.desa_id}/desa`
+          ? `/v1/getCluster/${item.desa_id}/desa`
           : `/api/getCluster/${item.desa_id}/desa`
         this.clusterDesa.visible = false
         this.clusterDesa.oldId = item.desa_id
@@ -2929,7 +2929,7 @@ export default {
       }
     },
     async loadDaops(item) {
-      const url = !process.server ? `/api/daops/all` : `/api/daops/all`
+      const url = !process.server ? `/v1/daops/all` : `/api/daops/all`
       this.dataDaops.visible = false
       this.loading = true
       await this.$axios
@@ -2944,7 +2944,7 @@ export default {
         })
     },
     async loadWind() {
-      const url = !process.server ? `/api/gfs` : `/api/gfs`
+      const url = !process.server ? `/v1/gfs` : `/api/gfs`
 
       await this.$axios
         .$get(url)
@@ -2955,7 +2955,7 @@ export default {
         .finally(() => {})
     },
     async loadAqms() {
-      const url = !process.server ? `/api/aqms` : `/api/aqms`
+      const url = !process.server ? `/v1/aqms` : `/api/aqms`
 
       await this.$axios
         .$get(url)
@@ -2967,7 +2967,7 @@ export default {
     },
     async cmbProvs() {
       const url = !process.server
-        ? `/api/getProvinsi/all`
+        ? `/v1/getProvinsi/all`
         : `/api/getProvinsi/all`
 
       await this.$axios
@@ -2988,7 +2988,7 @@ export default {
     },
     async cmbKotaKab() {
       const url = !process.server
-        ? `/api/getKotaKab/${this.cariProvinsi}`
+        ? `/v1/getKotaKab/${this.cariProvinsi}`
         : `/api/getKotaKab/${this.cariProvinsi}`
 
       this.loading = true
@@ -3112,7 +3112,7 @@ export default {
     },
 
     async loadPemadaman() {
-      const url = !process.server ? `/api/listGaleri` : `/api/listGaleri`
+      const url = !process.server ? `/v1/listGaleri` : `/api/listGaleri`
 
       const params = {
         tipe: this.optionsGal.tipe,
@@ -3143,7 +3143,7 @@ export default {
     },
 
     async loadLain() {
-      const url = !process.server ? `/api/listGaleri` : `/api/listGaleri`
+      const url = !process.server ? `/v1/listGaleri` : `/api/listGaleri`
 
       const params = {
         tipe: this.optionsLain.tipe,
@@ -3174,7 +3174,7 @@ export default {
     },
 
     async loadBerita() {
-      const url = !process.server ? `/api/listBerita` : `/api/listBerita`
+      const url = !process.server ? `/v1/listBerita` : `/api/listBerita`
 
       const params = {
         direction: this.options.direction,
@@ -3235,7 +3235,7 @@ export default {
           }
         })
 
-      const urlPerpu = !process.server ? `/api/listPerpu` : `/api/listPerpu`
+      const urlPerpu = !process.server ? `/v1/listPerpu` : `/api/listPerpu`
 
       await this.$axios
         .$get(urlPerpu)
@@ -3256,7 +3256,7 @@ export default {
 
       // Laporan Harian
       const urlLaporan = !process.server
-        ? `/api/data/laporan-harian`
+        ? `/v1/data/laporan-harian`
         : `/api/data/laporan-harian`
 
       const paramsLaporan = {
@@ -3309,7 +3309,7 @@ export default {
 
       // Struktur Organisasi
       const urlOrg = !process.server
-        ? `/api/data/struktur-organisasi`
+        ? `/v1/data/struktur-organisasi`
         : `/api/data/struktur-organisasi`
       await this.$axios
         .$get(urlOrg)
@@ -3330,7 +3330,7 @@ export default {
 
       // Manggala Agni Profil
       const urlProfil = !process.server
-        ? `/api/data/profil`
+        ? `/v1/data/profil`
         : `/api/data/profil`
       await this.$axios
         .$get(urlProfil)
@@ -3351,7 +3351,7 @@ export default {
 
       // Manggala Agni Sarpas
       const urlSarpras = !process.server
-        ? `/api/data/sarpras`
+        ? `/v1/data/sarpras`
         : `/api/data/sarpras`
       await this.$axios
         .$get(urlSarpras)
@@ -3372,7 +3372,7 @@ export default {
 
       // Manggala Agni Daerah Operasional
       const urlDaerah = !process.server
-        ? `/api/data/daerah`
+        ? `/v1/data/daerah`
         : `/api/data/daerah`
       // const urlDaerah = 'http://127.0.0.1:8081/api/data/daerah'
       await this.$axios
@@ -3417,7 +3417,7 @@ export default {
     },
 
     async loadFdrs() {
-      // const url = !process.server ? `/api/fdrs/getData` : `/api/fdrs/getData`
+      // const url = !process.server ? `/v1/fdrs/getData` : `/api/fdrs/getData`
       const url = `http://139.99.52.109:8285/api/fdrs/data`
 
       const params = {
