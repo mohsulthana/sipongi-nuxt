@@ -2173,16 +2173,16 @@ export default {
     this.loading = true
     await this.loadHotSpot()
     await this.loadTematicBar()
-    // await this.getRunningText()
-    // await this.loadPemadaman()
-    // await this.loadLain()
+    await this.getRunningText()
+    await this.loadPemadaman()
+    await this.loadLain()
     await this.loadBerita()
     await this.loadPerundangan()
-    // await this.loadFdrs()
-    // await this.loadAqms()
-    // await this.loadWind()
-    // await this.loadDataLuas()
-    // await this.loadDataEmisi()
+    await this.loadFdrs()
+    await this.loadAqms()
+    await this.loadWind()
+    await this.loadDataLuas()
+    await this.loadDataEmisi()
     this.loading = false
   },
   filters: {
