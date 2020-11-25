@@ -253,19 +253,18 @@
         </b-link>
       </div>
 
-      <b-link v-b-toggle.collapse-3 class="hide">
-        <img src="/mini_arrow_left-gray.svg" alt="" />
+      <b-link v-b-toggle.collapse-3 class="hide" data-toggle="collapse">
+        <!--<img src="/mini_arrow_left-gray.svg" alt="" />--><i class="fa"></i>
       </b-link>
-    </div>
+
+</div>
 
     <div class="map-wrap" style="height: 100vh">
       <!--<div class="notification">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <strong>Ini adalah teks notifikasi</strong> yang muncul di atas
       </div>-->
-
-      <b-link class="statik"> Karhutla Monitoring Sistem </b-link>
-
+      <b-link to="/" class="statik"> Karhutla Monitoring Sistem </b-link>
       <b-link class="statikstat">
         <div class="stat2" id="stat">
           <b-container>
@@ -585,33 +584,19 @@
             </div>
           </div>
 
-          <b-collapse visible id="collapse-3">
-            <div
-              class="carousel-wrapper"
-              style="
-                background-color: rgba(102, 97, 92, 0.6);
-                padding: 7px 15px;
-              "
-            >
-              <VueSlickCarousel
-                v-bind="slickOptions"
-                v-if="Object.keys(beritas).length > 0"
-              >
-                <div
-                  v-for="blog in beritas"
-                  :key="blog.slug"
-                  class="img-wrapper"
-                >
-                  <b-link :to="`/blog/${blog.slug}`" class="blog-item">
-                    <img :src="blog.image_url" />
-                    <div class="text-block">
-                      <h6>{{ blog.title }}</h6>
-                    </div>
-                  </b-link>
-                </div>
-              </VueSlickCarousel>
-            </div>
-          </b-collapse>
+            <b-collapse visible id="collapse-3" data-toggle="collapse">
+              <div class="carousel-wrapper" style="background-color: rgba(255, 255, 255, 0.5); padding: 7px 15px">
+                <VueSlickCarousel v-bind="slickOptions" v-if="Object.keys(beritas).length > 0">
+                  <div v-for="blog in beritas" :key="blog.slug" class="img-wrapper">
+                    <b-link :to="`/blog/${blog.slug}`" class="blog-item"> <img :src="blog.image_url">
+                      <div class="text-block">
+                        <h5>{{ blog.title }}</h5>
+                      </div>
+                    </b-link>
+                  </div>
+                </VueSlickCarousel>
+              </div>
+            </b-collapse>
         </div>
       </div>
 
@@ -957,13 +942,13 @@
                   <tr>
                     <!-- <th scope="col">#</th> -->
                     <th scope="col">Provinsi</th>
-                    <th scope="col" v-for="tahun in tahuns" :key="tahun">
+                    <th scope="col" v-for="tahun in emisis" :key="tahun">
                       {{ tahun }}
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(data, i) in datas" :key="i">
+                  <tr v-for="(data, i) in dataemisis" :key="i">
                     <td>{{ i }}</td>
                     <td v-for="(total, j) in data" :key="j">
                       {{
@@ -975,7 +960,7 @@
                 <tfoot style="font-weight: bold">
                   <tr>
                     <td>Total</td>
-                    <td v-for="(total, i) in totals" :key="i">
+                    <td v-for="(total, i) in totalemisis" :key="i">
                       {{ total.total }}
                     </td>
                   </tr>
@@ -1006,13 +991,13 @@
                   <tr>
                     <!-- <th scope="col">#</th> -->
                     <th scope="col">Provinsi</th>
-                    <th scope="col" v-for="tahun in tahuns" :key="tahun">
+                    <th scope="col" v-for="tahun in luass" :key="tahun">
                       {{ tahun }}
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(data, i) in datas" :key="i">
+                  <tr v-for="(data, i) in dataluass" :key="i">
                     <td>{{ i }}</td>
                     <td v-for="(total, j) in data" :key="j">
                       {{
@@ -1024,7 +1009,7 @@
                 <tfoot style="font-weight: bold">
                   <tr>
                     <td>Total</td>
-                    <td v-for="(total, i) in totals" :key="i">
+                    <td v-for="(total, i) in totalluass" :key="i">
                       {{ total.total }}
                     </td>
                   </tr>
@@ -1599,12 +1584,7 @@ export default {
         slidesToShow: 8,
         arrows: false,
         autoplay: true,
-      },
-
-      flickityOptions: {
-        prevNextButtons: false,
-        pageDots: false,
-        wrapAround: true,
+        autoplaySpeed: 6000
       },
 
       yesterday: new Date(today - 1),
@@ -1828,17 +1808,19 @@ export default {
       loadMorePerundangan: false,
       loadMoreLaporan: false,
 
-      dataLuas: {},
+      dataLuas: {
       nomor: 1,
-      tahuns: [],
-      datas: [],
-      totals: [],
+      luass: [],
+      dataluass: [],
+      totalluass: [],
+      },
 
-      dataEmisi: {},
+      dataEmisi: {
       nomor: 1,
-      tahuns: [],
-      datas: [],
-      totals: [],
+      emisis: [],
+      dataemisis: [],
+      totalemisis: [],
+      },
 
       dataFdrs: {},
       //Default Opsi Wilayah
@@ -1857,16 +1839,16 @@ export default {
     }
   },
   watch: {
-    // periodeData: {
-    //   async handler() {
-    //     await this.loadHotSpot()
-    //   },
-    // },
-    // trustData: {
-    //   async handler() {
-    //     await this.loadHotSpot()
-    //   },
-    // },
+    periodeData: {
+       async handler() {
+       await this.loadHotSpot()
+      },
+    },
+    trustData: {
+       async handler() {
+       await this.loadHotSpot()
+      },
+    },
     chkSumber: {
       async handler() {
         let self = this
@@ -2456,16 +2438,20 @@ export default {
     this.loading = true
     await this.loadHotSpot()
     await this.loadTematicBar()
-    // await this.getRunningText()
-    // await this.loadPemadaman()
-    // await this.loadLain()
+    await this.getRunningText()
+    await this.loadPemadaman()
+    await this.loadLain()
     await this.loadBerita()
     await this.loadPerundangan()
-    // await this.loadFdrs()
-    // await this.loadAqms()
-    // await this.loadWind()
-    // await this.loadDataLuas()
-    // await this.loadDataEmisi()
+    await this.loadFdrs()
+    await this.loadAqms()
+    await this.loadWind()
+    await this.loadDataLuas()
+    await this.loadDataEmisi()
+    await this.loadTotalTitik()
+    await this.loadLuasKebakaran()
+    await this.loadTotalProv()
+
     this.loading = false
   },
   filters: {
@@ -2527,7 +2513,8 @@ export default {
     },
 
     async loadTematicBar() {
-      const url = !process.server ? `/v1/data/tematic` : `/api/data/tematic`
+      // const url = !process.server ? `/api/data/tematic` : `/api/data/tematic`
+      const url = `http://139.99.52.109:8288/api/data/tematic`
 
       await this.$axios
         .$get(url)
@@ -2694,9 +2681,9 @@ export default {
       await this.$axios
         .$get(url)
         .then((res) => {
-          this.tahuns = res.tahun
-          this.datas = res.data
-          this.totals = res.total
+          this.luass = res.tahun
+          this.dataluass = res.data
+          this.totalluass = res.total
         })
         .catch((err) => {
           if (err.response) {
@@ -2712,15 +2699,14 @@ export default {
     },
 
     async loadDataEmisi() {
-      // const url = !process.server ? `/v1/data/emisi-co2` : `/api/data/emisi-co2`
-      const url = `http://139.99.52.109:8285/api/data/emisi-co2`
+      const url = !process.server ? `/v1/data/emisi-co2` : `/api/data/emisi-co2`
 
       await this.$axios
         .$get(url)
         .then((res) => {
-          this.tahuns = res.tahun
-          this.datas = res.data
-          this.totals = res.total
+          this.emisis = res.tahun
+          this.dataemisis = res.data
+          this.totalemisis = res.total
         })
         .catch((err) => {
           if (err.response) {
