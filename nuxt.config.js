@@ -95,11 +95,11 @@ export default {
     {
       src: '~plugins/ga.js', mode: 'client',
     },
-	{
+    {
       src: '~/plugins/vue-flickity.js',
       ssr: false,
     },
-	{
+    {
       src: '~/plugins/slide-menu.js',
       ssr: false,
     },
@@ -118,6 +118,20 @@ export default {
    ** Nuxt.js modules
    */
   modules: [
+    //[
+    //  'nuxt-fontawesome', {
+    //    imports: [
+    //      {
+    //        set: '@fortawesome/free-solid-svg-icons',
+    //        icons: ['fas']
+    //      },
+    //      {
+    //        set: '@fortawesome/free-brands-svg-icons',
+    //       icons: ['fab']
+    //      }
+    //    ]
+    // }
+    //],
     // Doc: https://bootstrap-vue.js.org
     'bootstrap-vue/nuxt',
     // Doc: https://axios.nuxtjs.org/usage
