@@ -2697,7 +2697,6 @@ export default {
           }
         })
     },
-
     async loadDataEmisi() {
       const url = !process.server ? `/v1/data/emisi-co2` : `/api/data/emisi-co2`
 
@@ -2720,7 +2719,6 @@ export default {
           }
         })
     },
-
     openLeg() {
       if (window.innerWidth > 767) {
         this.openedLegend = true
