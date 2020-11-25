@@ -22,7 +22,13 @@
           <b-col md="8">
             <b-row>
               <b-tabs content-class="mt-3" fill>
-                <b-tab title="Grafik" active> </b-tab>
+                <b-tab title="Grafik" active>
+                  <line-chart
+                    :data="DataHotSpot"
+                    :options="DataHotSpotOpt"
+                    class="charts"
+                  />
+                </b-tab>
                 <b-tab title="Tabel">
                   <h6 class="charts-title">Tabel Hotspot</h6>
                   <b-row class="align-items-center">
@@ -37,9 +43,16 @@
                         :per-page="perPage"
                       >
                       </b-table>
+                      <b-pagination
+                        v-model="currentPage"
+                        :total-rows="totalRows"
+                        :per-page="perPage"
+                        align="fill"
+                        size="sm"
+                        class="my-0"
+                      ></b-pagination>
                       <b-row>
-                        <b-col sm="7" md="6" class="mb-3 text-center">
-                        </b-col>
+                        <b-col sm="7" md="6" class="mb-3 text-center"> </b-col>
                       </b-row>
                     </b-col>
                   </b-row>
@@ -58,9 +71,104 @@ export default {
   layout: 'front',
   data: () => {
     return {
+      currentPage: 1,
+      perPage: 5,
+      totalRows: 1,
+      DataHotSpotOpt: {
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+          align: 'start',
+          labels: {
+            boxWidth: 10,
+          },
+        },
+      },
       DataHotSpot: {
+        labels: [
+          'Jan',
+          'Feb',
+          'Mar',
+          'Apr',
+          'Mei',
+          'Jun',
+          'Jul',
+          'Agu',
+          'Sep',
+          'Okt',
+          'Nov',
+          'Des',
+        ],
+        datasets: [
+          {
+            label: '2020',
+            backgroundColor: '#FE6500',
+            borderColor: '#FE6500',
+            fill: false,
+            lineTension: 0,
+            data: [],
+          },
+          {
+            label: '2019',
+            backgroundColor: '#C5CDD5',
+            borderColor: '#C5CDD5',
+            fill: false,
+            lineTension: 0,
+            data: [],
+          },
+          {
+            label: '2018',
+            backgroundColor: '#B5ADB5',
+            borderColor: '#B5ADB5',
+            fill: false,
+            lineTension: 0,
+            data: [],
+          },
+        ],
         data: [],
         tableFields: [
+          {
+            key: 'time',
+            label: 'Time',
+            sortable: true,
+            sortDirection: 'desc',
+          },
+          {
+            key: 'lat',
+            label: 'Lat',
+            sortable: true,
+            sortDirection: 'desc',
+          },
+          {
+            key: 'long',
+            label: 'Long',
+            sortable: true,
+            sortDirection: 'desc',
+          },
+          {
+            key: 'provinsi',
+            label: 'Provinsi',
+            sortable: true,
+            sortDirection: 'desc',
+          },
+          {
+            key: 'kabkota',
+            label: 'Kabupaten/Kota',
+            sortable: true,
+            sortDirection: 'desc',
+          },
+          {
+            key: 'kecamatan',
+            label: 'Kecamatan',
+            sortable: true,
+            sortDirection: 'desc',
+          },
+          {
+            key: 'desa',
+            label: 'Desa',
+            sortable: true,
+            sortDirection: 'desc',
+          },
           {
             key: 'sumber',
             label: 'Sumber',
@@ -68,14 +176,8 @@ export default {
             sortDirection: 'desc',
           },
           {
-            key: 'provinsi',
-            label: 'Nama Provinsi',
-            sortable: true,
-            sortDirection: 'desc',
-          },
-          {
-            key: 'kabkota',
-            label: 'Kabupaten Kota',
+            key: 'confidence_level',
+            label: 'Confidence',
             sortable: true,
             sortDirection: 'desc',
           },
@@ -120,8 +222,8 @@ export default {
   },
   methods: {
     async loadHotSpot() {
-      // const url = !process.server ? `/v1/indoHotspot` : `/v1/indoHotspot`
-      const url = 'http://139.99.52.109:8288/v1/indoHotspot'
+      const url = !process.server ? `/v1/indoHotspot` : `/v1/indoHotspot`
+      // const url = 'http://139.99.52.109:8288/v1/indoHotspot'
 
       await this.$axios
         .$get(url, {
@@ -132,13 +234,29 @@ export default {
           },
         })
         .then(({ data }) => {
-          this.DataHotSpot.data = data.features.map(element => {
+          data.features.forEach((element) => {
+            if (element.properties.date_hotspot.includes(2020)) {
+              this.DataHotSpot.datasets[0].data.push(element.properties.counter)
+            } else if (element.properties.date_hotspot.includes(2019)) {
+              this.DataHotSpot.datasets[1].data.push(element.properties.counter)
+            } else if (element.properties.date_hotspot.includes(2018)) {
+              this.DataHotSpot.datasets[2].data.push(element.properties.counter)
+            }
+          })
+
+          this.DataHotSpot.data = data.features.map((element) => {
             return {
+              time: element.properties.date_hotspot,
+              lat: element.properties.lat,
+              long: element.properties.long,
               provinsi: element.properties.nama_provinsi,
               sumber: element.properties.sumber,
-              kabkota: element.properties.kabkota
+              kabkota: element.properties.kabkota,
+              kecamatan: element.properties.kecamatan,
+              desa: element.properties.desa,
+              confidence_level: element.properties.confidence_level,
             }
-          });
+          })
           // this.DataHotSpot.data = data
           // this.DataHotSpotFeatures.features = data.features
         })
