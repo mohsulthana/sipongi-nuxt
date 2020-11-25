@@ -219,8 +219,14 @@ export default {
   },
   async created() {
     await this.loadHotSpot()
+    this.$nextTick(function () {
+      this.updateHeader()
+    })
   },
   methods: {
+    updateHeader() {
+      this.$store.commit('head/innerHeader', true)
+    },
     async loadHotSpot() {
       const url = !process.server ? `/v1/indoHotspot` : `/v1/indoHotspot`
       // const url = 'http://139.99.52.109:8288/v1/indoHotspot'
