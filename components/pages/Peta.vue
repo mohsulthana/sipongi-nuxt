@@ -581,7 +581,6 @@
                 </b-collapse>
               </div>
             </div>
-
             </div>
 
             <b-collapse visible id="collapse-3">
@@ -596,7 +595,6 @@
                   </div>
                 </VueSlickCarousel>
               </div>
-            </b-collapse>
         </div>
       </div>
 
