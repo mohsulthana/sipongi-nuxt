@@ -615,30 +615,6 @@
         </div>
       </div>
 
-      <!--
-      <transition name="fade">
-        <marquee
-          v-show="beritaMarqueeText"
-          behavior=""
-          direction=""
-          :class="{
-            marqueeBottomMobile: !openedLegend,
-            marqueeBottom: openedLegend,
-          }"
-        >
-          <span v-for="(value, index) in pemadamans" :key="index">
-            <img :src="value.detail.image_url" width="250" height="100" />
-            <b-link class="logo"
-              :to="`/galeri/${value.slug}`"
-              style="color: #fff"
-            >
-             <h5 class="textcentered"> {{ value.title }} </h5>
-            </b-link>
-          </span>
-        </marquee>
-      </transition>
-      -->
-
       <client-only>
         <l-map
           ref="mapSipongi"
@@ -799,6 +775,7 @@
     <!-- Modal Titik Panas -->
     <b-modal
       centered
+      scrollable
       id="modal-titikpanas"
       body-class="modal-titikpanas"
       size="xl"
@@ -964,6 +941,7 @@
     <!-- Modal Emisi CO2 -->
     <b-modal
       centered
+      scrollable
       id="modal-emisico2"
       body-class="modal-emisico2"
       size="lg"
@@ -1012,6 +990,7 @@
     <!-- Modal Luas Kebakaran -->
     <b-modal
       centered
+      scrollable
       id="modal-luaskebakaran"
       body-class="modal-luaskebakaran"
       size="lg"
@@ -1060,6 +1039,7 @@
     <!-- Modal FDRS -->
     <b-modal
       centered
+      scrollable
       id="modal-fdrs"
       body-class="modal-fdrs"
       size="lg"
@@ -1146,9 +1126,10 @@
     <!-- Modal Berita -->
     <b-modal
       centered
+      scrollable
       id="modal-berita"
       body-class="modal-berita"
-      size="lg"
+      size="md"
       hide-footer
       title="Berita"
     >
@@ -1178,6 +1159,7 @@
     <!-- Modal Galeri -->
     <b-modal
       centered
+      scrollable
       id="modal-galeri"
       body-class="modal-galeri"
       size="lg"
@@ -1243,6 +1225,7 @@
     <!-- Modal Perundangan -->
     <b-modal
       centered
+      scrollable
       id="modal-perundangan"
       body-class="modal-perundangan"
       size="lg"
@@ -1306,6 +1289,7 @@
     <!-- Modal Laporan Harian Posko -->
     <b-modal
       centered
+      scrollable
       id="modal-laporanposko"
       body-class="modal-laporanposko"
       size="md"
@@ -1344,6 +1328,7 @@
     <!-- Modal Dokumen Lainnya -->
     <b-modal
       centered
+      scrollable
       id="modal-dokumenlain"
       body-class="modal-dokumenlain"
       size="md"
@@ -1410,6 +1395,7 @@
     <!-- Modal Direktorat -->
     <b-modal
       centered
+      scrollable
       id="modal-direktorat"
       body-class="modal-direktorat"
       size="md"
@@ -1433,6 +1419,7 @@
     <!-- Modal Manggala Agni -->
     <b-modal
       centered
+      scrollable
       id="modal-manggala-agni"
       body-class="modal-manggala-agni"
       size="md"
@@ -1527,6 +1514,7 @@
     <!-- Modal Struktur Organisasi -->
     <b-modal
       centered
+      scrollable
       id="modal-struktur-organisasi"
       body-class="modal-struktur-organisasi"
       size="md"
@@ -1545,6 +1533,7 @@
     <!-- Modal Kontak Kami -->
     <b-modal
       centered
+      scrollable
       id="modal-kontak-kami"
       body-class="modal-kontak-kami"
       size="md"
@@ -1574,6 +1563,7 @@
     <!-- Modal Disclaimer -->
     <b-modal
       centered
+      scrollable
       id="modal-disclaimer"
       body-class="modal-disclaimer"
       size="md"
