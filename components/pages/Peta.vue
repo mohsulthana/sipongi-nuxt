@@ -256,8 +256,7 @@
       <b-link v-b-toggle.collapse-3 class="hide" data-toggle="collapse">
         <!--<img src="/mini_arrow_left-gray.svg" alt="" />--><i class="fa"></i>
       </b-link>
-
-</div>
+    </div>
 
     <div class="map-wrap" style="height: 100vh">
       <!--<div class="notification">
@@ -584,19 +583,33 @@
             </div>
           </div>
 
-            <b-collapse visible id="collapse-3" data-toggle="collapse">
-              <div class="carousel-wrapper" style="background-color: rgba(255, 255, 255, 0.5); padding: 7px 15px">
-                <VueSlickCarousel v-bind="slickOptions" v-if="Object.keys(beritas).length > 0">
-                  <div v-for="blog in beritas" :key="blog.slug" class="img-wrapper">
-                    <b-link :to="`/blog/${blog.slug}`" class="blog-item"> <img :src="blog.image_url">
-                      <div class="text-block">
-                        <h5>{{ blog.title }}</h5>
-                      </div>
-                    </b-link>
-                  </div>
-                </VueSlickCarousel>
-              </div>
-            </b-collapse>
+          <b-collapse visible id="collapse-3" data-toggle="collapse">
+            <div
+              class="carousel-wrapper"
+              style="
+                background-color: rgba(255, 255, 255, 0.5);
+                padding: 7px 15px;
+              "
+            >
+              <VueSlickCarousel
+                v-bind="slickOptions"
+                v-if="Object.keys(beritas).length > 0"
+              >
+                <div
+                  v-for="blog in beritas"
+                  :key="blog.slug"
+                  class="img-wrapper"
+                >
+                  <b-link :to="`/blog/${blog.slug}`" class="blog-item">
+                    <img :src="blog.image_url" />
+                    <div class="text-block">
+                      <h5>{{ blog.title }}</h5>
+                    </div>
+                  </b-link>
+                </div>
+              </VueSlickCarousel>
+            </div>
+          </b-collapse>
         </div>
       </div>
 
@@ -1584,7 +1597,7 @@ export default {
         slidesToShow: 8,
         arrows: false,
         autoplay: true,
-        autoplaySpeed: 6000
+        autoplaySpeed: 6000,
       },
 
       yesterday: new Date(today - 1),
@@ -1809,17 +1822,17 @@ export default {
       loadMoreLaporan: false,
 
       dataLuas: {
-      nomor: 1,
-      luass: [],
-      dataluass: [],
-      totalluass: [],
+        nomor: 1,
+        luass: [],
+        dataluass: [],
+        totalluass: [],
       },
 
       dataEmisi: {
-      nomor: 1,
-      emisis: [],
-      dataemisis: [],
-      totalemisis: [],
+        nomor: 1,
+        emisis: [],
+        dataemisis: [],
+        totalemisis: [],
       },
 
       dataFdrs: {},
@@ -1840,13 +1853,13 @@ export default {
   },
   watch: {
     periodeData: {
-       async handler() {
-       await this.loadHotSpot()
+      async handler() {
+        await this.loadHotSpot()
       },
     },
     trustData: {
-       async handler() {
-       await this.loadHotSpot()
+      async handler() {
+        await this.loadHotSpot()
       },
     },
     chkSumber: {
@@ -3314,9 +3327,7 @@ export default {
         })
 
       // Manggala Agni Profil
-      const urlProfil = !process.server
-        ? `/v1/data/profil`
-        : `/api/data/profil`
+      const urlProfil = !process.server ? `/v1/data/profil` : `/api/data/profil`
       await this.$axios
         .$get(urlProfil)
         .then((res) => {
@@ -3356,9 +3367,7 @@ export default {
         })
 
       // Manggala Agni Daerah Operasional
-      const urlDaerah = !process.server
-        ? `/v1/data/daerah`
-        : `/api/data/daerah`
+      const urlDaerah = !process.server ? `/v1/data/daerah` : `/api/data/daerah`
       // const urlDaerah = 'http://127.0.0.1:8081/api/data/daerah'
       await this.$axios
         .$get(urlDaerah)
