@@ -255,50 +255,68 @@
       <b-link v-b-toggle.collapse-3 class="hide">
         <img src="/mini_arrow_left-gray.svg" alt="" />
       </b-link>
+      
     </div>
 
     <div class="map-wrap" style="height: 100vh">
-      <!--<div class="notification">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>Ini adalah teks notifikasi</strong> yang muncul di atas
+      <!--<div id="logo_maps">
+        <ul>
+          <li>
+            <a href="http://www.menlhk.go.id" target="_blank"
+              ><img
+                src="/logo_klhk.png"
+                class="img img-responsives center-block"
+              />
+              KLHK
+            </a>
+          </li>
+          <li>
+            <a href="http://www.ditjenppi.menlhk.go.id" target="_blank"
+              ><img
+                src="/logo_klhk.png"
+                class="img img-responsives center-block"
+              />
+              DitjenPPI
+            </a>
+          </li>
+          <li>
+            <a href="http://www.bmkg.go.id" target="_blank"
+              ><img
+                src="/logo_bmkg.png"
+                class="img img-responsives center-block"
+              />
+              BMKG
+            </a>
+          </li>
+          <li>
+            <a href="http://www.lapan.go.id" target="_blank"
+              ><img
+                src="/logo_lapan.png"
+                class="img img-responsives center-block"
+              />
+              LAPAN
+            </a>
+          </li>
+          <li>
+            <a href="http://www.bnpb.go.id" target="_blank"
+              ><img
+                src="/logo_bnpb.png"
+                class="img img-responsives center-block"
+              />
+              BNPB
+            </a>
+          </li>
+        </ul>
       </div>-->
 
-      <b-link class="statik">
-          Karhutla Monitoring Sistem
-      </b-link>
+      <div class="notification">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Ini adalah teks notifikasi</strong> yang muncul di atas
+      </div>
 
-      <b-link class="statikstat">
-          <div class="stat2" id="stat">
-            <b-container>
-              <b-row>
-                <b-col md="4">
-                  <div class="stat2-item">
-                    <img src="/forest-fire.svg" alt="" />
-                    <h6>{{ totalTitik }}</h6>
-                    <h5>Peringatan Kebakaran</h5>
-                    
-                  </div>
-                </b-col>
-                <b-col md="4">
-                  <div class="stat2-item">
-                    <img src="/box-fire.svg" alt="" />
-                    <h6>{{ luasKebakaran }}</h6>
-                    <h5>Hektar Hutan & Lahan</h5>
-                    
-                  </div>
-                </b-col>
-                <b-col md="4">
-                  <div class="stat2-item">
-                    <img src="/world.svg" alt="" />
-                    <h6>{{ totalProv }}</h6>
-                    <h5>Provinsi</h5>
-                  
-                  </div>
-                </b-col>
-              </b-row>
-            </b-container>
-          </div>
-      </b-link>
+      <!--<b-link id="counter" class="counter">
+        <h6 class="sec-title" style="margin-bottom: 0px; font-weight: bolder">Visitor {{counter}}</h6>
+      </b-link>-->
 
       <b-link href="https://wa.me/+6281310035000" target="_blank" class="call">
         <img src="/phone-red.svg" alt="" class="mr-1 inner" />
@@ -312,6 +330,220 @@
         {{ runningText }}
       </marquee>
 
+      <!--
+      <div
+        :class="['legend-wrap', 'content-list', { open: openedLegend }]"
+        class="mb-5"
+        >
+        <b-link class="legend-head" @click="toggleOpen">
+          <h6 class="d-md-none d-block">Summary</h6>
+          <h6 class="d-md-block d-none">Summary</h6>
+          <img src="/arrow-serong.svg" alt="" class="shown" />
+          <i class="fas fa-times close"></i>
+        </b-link>
+        <div class="legend-body">
+          <div class="legend-item-contain">
+            
+            <div class="legend-item w-border-top">
+              <b-link @click="changeSumber('LPN-MODIS')"
+                ><h6>Satelit TERRA/AQUA</h6></b-link
+              >
+              <p class="count-total">
+                {{ getTotal('LPN-MODIS') }}
+              </p>
+              <span class="count-satellite">
+                <img src="/terra-red.svg" alt="" />
+                {{ getTotalLevel('LPN-MODIS', 'high') }}
+              </span>
+              <span class="count-satellite">
+                <img src="/terra-yw.svg" alt="" />
+                {{ getTotalLevel('LPN-MODIS', 'medium') }}
+              </span>
+              <span class="count-satellite">
+                <img src="/terra-gr.svg" alt="" />
+                {{ getTotalLevel('LPN-MODIS', 'low') }}
+              </span>
+            </div>
+            <div class="legend-item">
+              <b-link @click="changeSumber('LPN-NPP')"
+                ><h6>Satelit SNPP</h6></b-link
+              >
+              <p class="count-total">
+                {{ getTotal('LPN-NPP') }}
+              </p>
+              <span class="count-satellite">
+                <img src="/snpp-red.svg" alt="" />
+                {{ getTotalLevel('LPN-NPP', 'high') }}
+              </span>
+              <span class="count-satellite">
+                <img src="/snpp-yw.svg" alt="" />
+                {{ getTotalLevel('LPN-NPP', 'medium') }}
+              </span>
+              <span class="count-satellite">
+                <img src="/snpp-gr.svg" alt="" />
+                {{ getTotalLevel('LPN-NPP', 'low') }}
+              </span>
+            </div>
+            <div class="legend-item">
+              <b-link @click="changeSumber('LPN-NOAA20')"
+                ><h6>Satelit NOAA20</h6></b-link
+              >
+              <p class="count-total">
+                {{ getTotal('LPN-NOAA20') }}
+              </p>
+              <span class="count-satellite">
+                <img src="/noaa-red.svg" alt="" />
+                {{ getTotalLevel('LPN-NOAA20', 'high') }}
+              </span>
+              <span class="count-satellite">
+                <img src="/noaa-yw.svg" alt="" />
+                {{ getTotalLevel('LPN-NOAA20', 'medium') }}
+              </span>
+              <span class="count-satellite">
+                <img src="/noaa-gr.svg" alt="" />
+                {{ getTotalLevel('LPN-NOAA20', 'low') }}
+              </span>
+            </div>
+            <div class="legend-item">
+              <b-link @click="changeSumber('LPN-LANDSAT8')"
+                ><h6>Satelit LANDSAT8</h6></b-link
+              >
+              <p class="count-total">
+                {{ getTotal('LPN-LANDSAT8') }}
+              </p>
+              <span class="count-satellite">
+                <img src="/land-red.svg" alt="" />
+                {{ getTotalLevel('LPN-LANDSAT8', 'high') }}
+              </span>
+              <span class="count-satellite">
+                <img src="/land-yw.svg" alt="" />
+                {{ getTotalLevel('LPN-LANDSAT8', 'medium') }}
+              </span>
+              <span class="count-satellite">
+                <img src="/land-gr.svg" alt="" />
+                {{ getTotalLevel('LPN-LANDSAT8', 'low') }}
+              </span>
+            </div>
+          </div>
+          <b-button
+            variant="primary"
+            style="opacity: 0.5"
+            block
+            squared
+            v-b-toggle="'collapse-2'"
+            >Opsi</b-button
+          >
+          <b-collapse id="collapse-2">
+            <div class="filter-wrap">
+              <div class="select-wrap">
+                <label class="mr-sm-2">Periode</label>
+                <b-form-select
+                  v-model="periodeData"
+                  :options="[
+                    { value: 12, text: '12 Jam Terakhir' },
+                    { value: 24, text: '24 Jam Terakhir' },
+                    { value: 48, text: '48 Jam Terakhir' },
+                  ]"
+                ></b-form-select>
+              </div>
+              <div class="select-wrap w-border-bottom">
+                <label class="mr-sm-2">Confidence</label>
+
+                <b-form-checkbox
+                  background-color="green"
+                  id="checkbox-rendah"
+                  class="checkbox-rendah"
+                  v-model="trustData"
+                  name="checkbox-rendah"
+                  value="low"
+                >
+                  <span class="color low"></span>
+                  Rendah
+                </b-form-checkbox>
+                <b-form-checkbox
+                  background-color="yellow"
+                  id="checkbox-sedang"
+                  v-model="trustData"
+                  name="checkbox-sedang"
+                  value="medium"
+                >
+                  <span class="color med"></span>
+                  Sedang
+                </b-form-checkbox>
+                <b-form-checkbox
+                  background-color="red"
+                  id="checkbox-tinggi"
+                  v-model="trustData"
+                  name="checkbox-tinggi"
+                  value="high"
+                >
+                  <span class="color high"></span>
+                  Tinggi
+                </b-form-checkbox>
+              </div>
+
+              <div class="select-wrap">
+                <label class="float-left">Pergerakan Angin</label>
+                <b-form-checkbox
+                  v-model="windDir"
+                  name="check-button"
+                  switch
+                  class="float-right"
+                >
+                </b-form-checkbox>
+                <div class="ket-wind" v-if="windDir">
+                  <div class="bar"></div>
+                  <span class="speed">0 m/s</span>
+                  <span class="speed text-right">30 m/s</span>
+                </div>
+              </div>
+              <div class="select-wrap">
+                <label class="float-left">Indeks Kualitas Udara</label>
+                <b-form-checkbox
+                  v-model="aqmsShow"
+                  name="check-button"
+                  switch
+                  class="float-right"
+                >
+                </b-form-checkbox>
+                <ul class="index-udara-list" v-if="aqmsShow">
+                  <li>Baik (0-50)</li>
+                  <li>Sedang (51-100)</li>
+                  <li>Tidak Sehat (101-199)</li>
+                  <li>Sangat Tidak Sehat (200-299)</li>
+                  <li>Berbahaya (> 300)</li>
+                </ul>
+              </div>
+              <div class="select-wrap">
+                <label class="float-left">Lokasi Unit Kerja</label>
+                <b-form-checkbox
+                  v-model="unitKerja"
+                  name="check-button"
+                  switch
+                  class="float-right"
+                >
+                </b-form-checkbox>
+              </div>
+
+              <div class="select-wrap">
+                <label class="mr-sm-2"></label>
+                <b-form-select v-model="currentTiles">
+                  <option v-for="(t, i) in tiles" :key="i" :value="i">
+                    {{ t.name }}
+                  </option>
+                </b-form-select>
+              </div>
+            </div>
+          </b-collapse>
+        </div>	
+      </div> -->
+      
+        
+        
+
+
+
+      
       <div class="geser">
         <div class="bawah">
             <div id="logo_maps">
@@ -581,9 +813,9 @@
               <div class="carousel-wrapper" style="background-color: rgba(102, 97, 92, 0.6); padding: 7px 15px">
                 <VueSlickCarousel v-bind="slickOptions" v-if="Object.keys(beritas).length > 0">
                   <div v-for="blog in beritas" :key="blog.slug" class="img-wrapper">
-                    <b-link :to="`/blog/${blog.slug}`" class="blog-item"> <img :src="blog.image_url">
+                    <b-link :to="`/blog/${blog.slug}`" class="blog-item"> <img :src="blog.image_url"> 
                     <div class="text-block">
-                      <h6>{{ blog.title }}</h6>
+                      <!--<h5>{{ blog.title }}</h5>-->
                     </div>
                     </b-link>
                   </div>
@@ -640,35 +872,14 @@
             :opacity="0.4"
             :visible="windDir"
           />
-          <!-- Layer Cluster Kotakab -->
-          <l-layer-group v-if="clusterKabKota.visible">
+          <l-layer-group>
             <l-geo-json
               :geojson="clusterKabKota.data"
+              :visible="clusterKabKota.visible"
               :options="optionsKabKota"
               :options-style="styleFunction"
             ></l-geo-json>
           </l-layer-group>
-
-          <!-- Layer Cluster Gambut -->
-          <l-layer-group>
-            <l-geo-json
-              :geojson="clusterGambut"
-              :options="optionsGambut"
-              :visible="clusterGambutVisible"
-              :options-style="styleFunctionGambut"
-            ></l-geo-json>
-          </l-layer-group>
-
-          <!-- Layer Cluster Moratorium -->
-          <l-layer-group>
-            <l-geo-json
-              :geojson="clusterMoratorium"
-              :options="optionsMoratorium"
-              :visible="clusterMoratoriumVisible"
-              :options-style="styleFunctionMoratorium"
-            ></l-geo-json>
-          </l-layer-group>
-
           <l-layer-group>
             <l-geo-json
               :geojson="clusterDesa.data"
@@ -782,7 +993,7 @@
       size="xl"
       hide-footer
       title="Titik Panas"
-      >
+    >
       <div class="content-list">
         <b-form-select
           v-model="cariProvinsi"
@@ -823,112 +1034,56 @@
         </div>
       </div>
 
-      <!-- Filter Periode 
-          <div class="mt-3">
-            <div style="font-size: 12.5px;margin-bottom: 2px;color: #6c757d;">
-              Periode
-            </div>
-            <client-only>
-              <date-picker
-                id="published_at"
-                v-model="titikDate"
-                type="date"
-                format="dddd, DD MMMM YYYY"
-                placeholder="Pilih tanggal"
-              ></date-picker>
-            </client-only>
-          </div>
-          -->
+      <b-row class="d-flex justify-content-between px-3 my-4">
+        <div class="float-right">
+          <b-link to="" class="pdf">
+            <img src="/pdf.svg" alt="" />
+            <span>Download XLS</span>
+          </b-link>
+        </div>
+        <div class="float-left">
+          <b-link
+            :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
+            @click="changeSumber('LPN-MODIS')"
+            >Terra/Aqua
+          </b-link>
+          <b-link
+            :class="`status ${checkSumber('LPN-NPP') ? 'active' : ''}`"
+            @click="changeSumber('LPN-NPP')"
+            >SNPP
+          </b-link>
+          <b-link
+            :class="`status ${checkSumber('LPN-NOAA20') ? 'active' : ''}`"
+            @click="changeSumber('LPN-NOAA20')"
+            >NOAA20
+          </b-link>
+          <b-link
+            :class="`status ${checkSumber('LPN-LANDSAT8') ? 'active' : ''}`"
+            @click="changeSumber('LPN-LANDSAT8')"
+            >LANDSAT8
+          </b-link>
+        </div>
+      </b-row>
 
-          <!-- Filter Convidence  -->
-            <div class="mt-2 mb-3">
-                <div style="font-size: 12.5px;margin-bottom: 5px;color: #6c757d;">
-                    Confidence
-                </div>
-                <b-link
-                  :class="`status ${checkConvidence('low') ? 'active' : ''}`"
-                  @click="changeConvidence('low')"
-                  >Rendah
-                </b-link>
-                <b-link
-                    :class="`status ${checkConvidence('medium') ? 'medium' : ''}`"
-                    @click="changeConvidence('medium')"
-                    >Sedang
-                </b-link>
-                <b-link
-                    :class="`status ${checkConvidence('high') ? 'high' : ''}`"
-                    @click="changeConvidence('high')"
-                    >Tinggi
-                </b-link>
-            </div>
-            
-
-          <!-- Filter Convidence  -->
-            <div class="mt-2 mb-3">
-              <div style="font-size: 12.5px;margin-bottom: 5px;color: #6c757d;">
-                Lahan
-              </div>
-              <b-link
-                :class="`status ${checkGambut('gambut') ? 'gambut' : ''}`"
-                @click="changeGambut('gambut')"
-                >Gambut
-              </b-link>
-              <b-link
-                :class="`status ${checkMoratorium('moratorium') ? 'moratorium' : ''}`"
-                @click="changeMoratorium('moratorium')"
-                >Moratorium
-              </b-link>
-            </div>
-
-            <b-row class="d-flex justify-content-between px-3 my-4">
-              <div class="float-right">
-                <b-link to="" class="pdf">
-                  <img src="/pdf.svg" alt="" />
-                  <span>Download XLS</span>
-                </b-link>
-              </div>
-              <div class="float-left">
-                <b-link
-                  :class="`status ${checkSumber('LPN-MODIS') ? 'active' : ''}`"
-                  @click="changeSumber('LPN-MODIS')"
-                  >Terra/Aqua
-                </b-link>
-                <b-link
-                  :class="`status ${checkSumber('LPN-NPP') ? 'active' : ''}`"
-                  @click="changeSumber('LPN-NPP')"
-                  >SNPP
-                </b-link>
-                <b-link
-                  :class="`status ${checkSumber('LPN-NOAA20') ? 'active' : ''}`"
-                  @click="changeSumber('LPN-NOAA20')"
-                  >NOAA20
-                </b-link>
-                <b-link
-                  :class="`status ${checkSumber('LPN-LANDSAT8') ? 'active' : ''}`"
-                  @click="changeSumber('LPN-LANDSAT8')"
-                  >LANDSAT8
-                </b-link>
-              </div>
-            </b-row>
-
-            <div class="content-list titik">
-              <template v-for="(datas) in DataHotSpot.kabkota">
-                <template v-for="(kotakab) in datas">
-                  <b-link
-                    class="list-item"
-                    v-if="checkSumber(kotakab.data.sumber)"
-                    @click="changeCenter(kotakab.data)"
-                  >
-                    <h6>
-                      {{ kotakab.data.kabkota }} - {{ kotakab.data.nama_provinsi }}
-                    </h6>
-                    <p>{{ kotakab.data.ori_sumber }}</p>
-                    <span class="count">{{ kotakab.count }}</span>
-                  </b-link>
-                </template>
-              </template>
-            </div>
-      </b-modal>
+      <div class="content-list titik">
+        <template v-for="datas in DataHotSpot.kabkota">
+          <template v-for="(kotakab, index2) in datas">
+            <b-link
+              :key="`${kotakab.data.latcen} ${kotakab.data.loncen} + ${index2}`"
+              class="list-item"
+              v-if="checkSumber(kotakab.data.sumber)"
+              @click="changeCenter(kotakab.data)"
+            >
+              <h6>
+                {{ kotakab.data.kabkota }} - {{ kotakab.data.nama_provinsi }}
+              </h6>
+              <p>{{ kotakab.data.ori_sumber }}</p>
+              <span class="count">{{ kotakab.count }}</span>
+            </b-link>
+          </template>
+        </template>
+      </div>
+    </b-modal>
 
     <!-- Modal Emisi CO2 -->
     <b-modal
@@ -1453,10 +1608,6 @@ export default {
     const yesterday = new Date(today - 1)
 
     return {
-      totalTitik: 0,
-      totalProv: 0,
-      luasKebakaran: 0,
-
       open: false,
 
       slickOptions: {
@@ -1547,23 +1698,6 @@ export default {
         visible: false,
         oldId: null,
       },
-
-      // Gambut
-      clusterGambut: {
-        features: [],
-        type: 'FeatureCollection',
-      },
-      chkGambut: [],
-      clusterGambutVisible: false,
-
-      // Moratorium
-      clusterMoratorium: {
-        features: [],
-        type: 'FeatureCollection',
-      },
-      chkMoratorium: [],
-      clusterMoratoriumVisible: false,
-
       clusterDesa: {
         data: null,
         visible: false,
@@ -2055,63 +2189,6 @@ export default {
         layer.bindPopup(popupHtml)
       }
     },
-
-    optionsGambut() {
-      return {
-        onEachFeature: this.onEachFeatureGambut,
-      }
-    },
-    onEachFeatureGambut() {
-      return (feature, layer) => {
-        let popupHtml = `<div class='table-responsive'><table class='table b-table table-striped table-sm'>`
-        popupHtml += `<tbody>`
-        popupHtml += `<tr><th>Kota/Kabupaten</th><td>${
-          feature.properties.nama !== '' ? feature.properties.nama : '-'
-        }</td></tr>`
-        popupHtml += `<tr><th>Provinsi</th><td>${
-          feature.properties.provinsi !== '' ? feature.properties.provinsi : '-'
-        }</td></tr>`
-        popupHtml += `<tr><th>Lahan</th><td>${
-          feature.properties.lahan !== '' ? feature.properties.lahan : '-'
-        }</td></tr>`
-        popupHtml += `<tr><th>Kedalaman</th><td>${
-          feature.properties.kedalaman !== '' ? feature.properties.kedalaman : '-'
-        }</td></tr>`
-        popupHtml += `<tr><th>Sumber</th><td>${
-          feature.properties.sumber !== '' ? feature.properties.sumber : '-'
-        }</td></tr>`
-        popupHtml += `</tbody>`
-        popupHtml += `</table></div>`
-        layer.bindPopup(popupHtml)
-      }
-    },
-    optionsMoratorium() {
-      return {
-        onEachFeature: this.onEachFeatureMoratorium,
-      }
-    },
-    onEachFeatureMoratorium() {
-      return (feature, layer) => {
-        let popupHtml = `<div class='table-responsive'><table class='table b-table table-striped table-sm'>`
-        popupHtml += `<tbody>`
-        popupHtml += `<tr><th>Kota/Kabupaten</th><td>${
-          feature.properties.nama !== '' ? feature.properties.nama : '-'
-        }</td></tr>`
-        popupHtml += `<tr><th>Provinsi</th><td>${
-          feature.properties.provinsi !== '' ? feature.properties.provinsi : '-'
-        }</td></tr>`
-        popupHtml += `<tr><th>Lahan</th><td>${
-          feature.properties.lahan !== '' ? feature.properties.lahan : '-'
-        }</td></tr>`
-        popupHtml += `<tr><th>Sumber</th><td>${
-          feature.properties.sumber !== '' ? feature.properties.sumber : '-'
-        }</td></tr>`
-        popupHtml += `</tbody>`
-        popupHtml += `</table></div>`
-        layer.bindPopup(popupHtml)
-      }
-    },
-
     styleFunction() {
       return () => {
         return {
@@ -2123,30 +2200,6 @@ export default {
         }
       }
     },
-
-    styleFunctionGambut() {
-      return () => {
-        return {
-          weight: 2,
-          color: '#00807f',
-          opacity: 1,
-          fillColor: '#00807f',
-          fillOpacity: 0.15,
-        }
-      }
-    },
-    styleFunctionMoratorium() {
-      return () => {
-        return {
-          weight: 2,
-          color: '#9d6a89',
-          opacity: 1,
-          fillColor: '#9d6a89',
-          fillOpacity: 0.15,
-        }
-      }
-    },
-
     optionsAqms() {
       let self = this
       return {
@@ -2320,11 +2373,6 @@ export default {
     await this.loadWind()
     await this.loadDataLuas()
     await this.loadDataEmisi()
-
-    await this.loadTotalTitik()
-    await this.loadLuasKebakaran()
-    await this.loadTotalProv()
-
     const url = !process.server ? `/api/listBerita` : `/api/listBerita`
 
     const params = {
@@ -2361,58 +2409,6 @@ export default {
     },
   },
   methods: {
-    async loadTotalTitik() {
-      const url = !process.server
-        ? `/v1/totalIndoHotspot`
-        : `/api/totalIndoHotspot`
-
-      await this.$axios
-        .$get(url, {
-          params: {
-            day: 14,
-            confidence: ['high'],
-          },
-        })
-        .then((res) => {
-          this.totalTitik = res
-        })
-        .catch((err) => {})
-    },
-    async loadTotalProv() {
-      const url = !process.server
-        ? `/v1/totalIndoHotspotProv`
-        : `/api/totalIndoHotspotProv`
-
-      await this.$axios
-        .$get(url, {
-          params: {
-            day: 14,
-            confidence: ['high'],
-          },
-        })
-        .then((res) => {
-          this.totalProv = res
-        })
-        .catch((err) => {})
-    },
-    async loadLuasKebakaran() {
-      const url = !process.server
-        ? `/v1/totalLuasKebakaran`
-        : `/api/totalLuasKebakaran`
-
-      await this.$axios
-        .$get(url, {
-          params: {
-            year: this.$moment().format('YYYY'),
-            short: 1,
-          },
-        })
-        .then((res) => {
-          this.luasKebakaran = res
-        })
-        .catch((err) => {})
-    },
-
     async visitor() {
       const url = !process.server ? `/api/visitor` : `/api/visitor`
 
@@ -2507,7 +2503,37 @@ export default {
           }
         })
     },
-    
+
+    openLeg() {
+      if (window.innerWidth > 767) {
+        this.openedLegend = true
+      } else {
+        this.openedLegend = false
+      }
+    },
+    getTotalLevel(key, level) {
+      return this.DataHotSpot.totalsLevel[key] &&
+        this.DataHotSpot.totalsLevel[key][level] &&
+        this.checkSumber(key)
+        ? this.DataHotSpot.totalsLevel[key][level]
+        : 0
+    },
+    getTotal(key) {
+      return this.DataHotSpot.totals[key] && this.checkSumber(key)
+        ? this.DataHotSpot.totals[key]
+        : 0
+    },
+    zoomUpdated(zoom) {
+      this.zoom = zoom
+    },
+    changeSumber(val) {
+      let index = this.chkSumber.indexOf(val)
+      if (index < 0) {
+        this.chkSumber.push(val)
+      } else {
+        this.scrolledToBottom = false
+      }
+    },
     showProfile() {
       this.profile = true
       this.daerahOp = false
@@ -2631,19 +2657,6 @@ export default {
     checkSumber(val) {
       return this.chkSumber.indexOf(val) >= 0
     },
-
-    changeConvidence(val) {
-      let index = this.trustData.indexOf(val)
-      if (index < 0) {
-        this.trustData.push(val)
-      } else {
-        this.trustData.splice(index, 1)
-      }
-    },
-    checkConvidence(val) {
-      return this.trustData.indexOf(val) >= 0
-    },
-
     changeCenter(item) {
       if (this.btsAdmf) {
         this.loadClusterKabKota(item.kotakab_id)
@@ -2749,7 +2762,6 @@ export default {
           : `/api/getCluster/${kotakab_id}/kotakab`
         this.clusterKabKota.visible = false
         this.clusterKabKota.oldId = kotakab_id
-        this.loading = true
 
         await this.$axios
           .$get(url)
@@ -2759,16 +2771,12 @@ export default {
               10
             )
             let self = this
-            self.clusterProv.visible = false
             setTimeout(function () {
               self.clusterKabKota.data = data
               self.clusterKabKota.visible = true
-            }, 1000)
+            }, 500)
           })
           .catch((err) => {})
-          .finally(() => {
-            this.loading = false
-          })
       }
     },
     async loadClusterDesa(item) {
@@ -2778,7 +2786,6 @@ export default {
           : `/api/getCluster/${item.desa_id}/desa`
         this.clusterDesa.visible = false
         this.clusterDesa.oldId = item.desa_id
-        this.loading = true
 
         await this.$axios
           .$get(url)
@@ -2794,7 +2801,6 @@ export default {
     async loadDaops(item) {
       const url = !process.server ? `/api/daops/all` : `/api/daops/all`
       this.dataDaops.visible = false
-      this.loading = true
       await this.$axios
         .$get(url)
         .then(({ data }) => {
@@ -2854,23 +2860,6 @@ export default {
         ? `/api/getKotaKab/${this.cariProvinsi}`
         : `/api/getKotaKab/${this.cariProvinsi}`
 
-      this.loading = true
-      this.clusterKabKota.visible = false
-
-      // Check Gambut
-      this.clusterGambutVisible = false
-      let ckGambut = this.chkGambut.indexOf('gambut1')
-      if (ckGambut < 0) {
-        this.chkGambut.splice(ckGambut, 1)
-      }
-
-      // Check Gambut
-      this.clusterMoratoriumVisible = false
-      let ckMoratorium = this.chkMoratorium.indexOf('moratorium1')
-      if (ckMoratorium < 0) {
-        this.chkMoratorium.splice(ckMoratorium, 1)
-      }
-
       await this.$axios
         .$get(url)
         .then((data) => {
@@ -2880,102 +2869,12 @@ export default {
               nama: 'Pilih Kota/Kabupaten',
             },
           ]
-
-          this.$refs.mapSipongi.mapObject.setView(
-              [data.prov.center[1], data.prov.center[0]],
-              10
-            )
-          let self = this
-          //self.clusterKabKota.visible = false
-          
-          Array.prototype.push.apply(datas, data.kotakab)
+          Array.prototype.push.apply(datas, data)
           this.kotakabs = datas
         })
         .catch((err) => {})
-        .finally(() => {
-          this.loading = false
-        })
+        .finally(() => {})
     },
-
-    checkGambut(val) {
-      return this.chkGambut.indexOf(val) >= 0
-    },
-    async changeGambut(val) {
-      let index = this.chkGambut.indexOf(val)
-      if(this.cariProvinsi === null || this.cariProvinsi == ''){
-        alert('Provinsi belum dipilih')
-        return false
-      }
-      else if (index < 0) {
-        this.chkGambut.push(val)
-
-        const url = !process.server
-          ? `/v1/getDataGambut/${this.cariProvinsi}`
-          : `/api/getDataGambut/${this.cariProvinsi}`
-
-        this.loading = true
-
-        await this.$axios
-          .$get(url)
-          .then((data) => {
-            this.$refs.mapSipongi.mapObject.setView(
-                [data.prov.center[1], data.prov.center[0]],
-                8
-              )
-
-            this.clusterKabKota.visible = false
-            this.clusterGambutVisible = true
-            this.clusterGambut.features = data.kabkota
-          })
-          .catch((err) => {})
-          .finally(() => {
-            this.loading = false
-          })
-      } else {
-        this.chkGambut.splice(index, 1)
-        this.clusterGambutVisible = false
-      }
-    },
-    checkMoratorium(val) {
-      return this.chkMoratorium.indexOf(val) >= 0
-    },
-    async changeMoratorium(val) {
-      let index = this.chkMoratorium.indexOf(val)
-      if(this.cariProvinsi === null || this.cariProvinsi == ''){
-        alert('Provinsi belum dipilih')
-        return false
-      }
-      else if (index < 0) {
-        this.chkMoratorium.push(val)
-
-        const url = !process.server
-          ? `/v1/getDataMoratorium/${this.cariProvinsi}`
-          : `/api/getDataMoratorium/${this.cariProvinsi}`
-
-        this.loading = true
-
-        await this.$axios
-          .$get(url)
-          .then((data) => {
-            this.$refs.mapSipongi.mapObject.setView(
-                [data.prov.center[1], data.prov.center[0]],
-                8
-              )
-
-            this.clusterKabKota.visible = false
-            this.clusterMoratoriumVisible = true
-            this.clusterMoratorium.features = data.kabkota
-          })
-          .catch((err) => {})
-          .finally(() => {
-            this.loading = false
-          })
-      } else {
-        this.chkMoratorium.splice(index, 1)
-        this.clusterMoratoriumVisible = false
-      }
-    },
-
     async loadPemadaman() {
       const url = !process.server ? `/api/listGaleri` : `/api/listGaleri`
 
@@ -3381,31 +3280,6 @@ export default {
 .marqueeBottom {
   bottom: 0px;
 }
-
-.high {
-  background-color: #ff1415 !important;
-  color:white !important;
-}
-
-.medium {
-  background-color: #ffbf00 !important;
-  color:white !important;
-}
-
-.gambut {
-  background-color: #00807f !important;
-  color:white !important;
-}
-
-.moratorium {
-  background-color: #a06b8b !important;
-  color:white !important;
-}
-
-.sidebar-map .sidebar-slide .content-list.titik {
-    max-height: calc(100vh - 490px) !important;
-}
-
 .leaflet-fade-anim .leaflet-tile,
 .leaflet-zoom-anim .leaflet-zoom-animated {
   will-change: auto !important;
