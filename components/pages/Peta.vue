@@ -1147,7 +1147,6 @@
     <b-modal
       centered
       id="modal-berita"
-      centered
       body-class="modal-berita"
       size="lg"
       hide-footer
