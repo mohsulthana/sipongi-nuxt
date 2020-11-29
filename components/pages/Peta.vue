@@ -80,7 +80,7 @@
                     target="_blank"
                     class="d-md-block d-none"
                     style="text-align: left"
-                    >Data & Grafik Dalkarhutla</b-dropdown-item
+                    >Data & Grafik</b-dropdown-item
                   >
                   <b-dropdown-item
                     v-b-modal.modal-fdrs
@@ -776,7 +776,7 @@
       scrollable
       id="modal-titikpanas"
       body-class="modal-titikpanas"
-      size="xl"
+      size="md"
       hide-footer
       title="Titik Panas"
     >
@@ -802,7 +802,6 @@
           class="form-control"
           value-field="id"
           text-field="nama"
-          @input="loadHotSpot()"
           :disabled="provs.length <= 0 || !cariProvinsi || kotakabs.length <= 1"
           :options="kotakabs"
         ></b-form-select>
@@ -887,10 +886,10 @@
 
       <b-row class="d-flex justify-content-between px-3 my-4">
         <div class="float-right">
-          <b-link to="" class="pdf">
+          <b-button variant="outline-success" size="sm" @click="downloadXLS(DataHotSpot.kabkota)" class="mt-3">
             <img src="/pdf.svg" alt="" />
             <span>Download XLS</span>
-          </b-link>
+          </b-button>
         </div>
         <div class="float-left">
           <b-link
@@ -1577,6 +1576,7 @@
 
 <script>
 import modal from '../Modal'
+import XLSX from 'xlsx';
 
 export default {
   name: 'Peta',
@@ -1623,7 +1623,10 @@ export default {
             'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
         },
       ],
-
+  // cols: [{ name: "A", key: 0 }, { name: "B", key: 1 }, { name: "C", key: 2 }],
+  data: [
+    [ "Nama Provinsi", "Nama Kab Kota", "Counter", "Sumber" ]
+  ],
       isScroll: null,
       scrolledToBottom: false,
       profile: true,
@@ -1745,8 +1748,8 @@ export default {
         doubleClickZoom: false,
       },
       loading: false,
-      cariKota: null,
-      cariProvinsi: null,
+      cariKota: '',
+      cariProvinsi: '',
       provs: [],
       kotakabs: [
         {
@@ -1852,6 +1855,16 @@ export default {
     }
   },
   watch: {
+        toDate: {
+            async handler() {
+        await this.loadHotSpot()
+      },
+    },
+    fromDate: {
+            async handler() {
+        await this.loadHotSpot()
+      },
+    },
     periodeData: {
       async handler() {
         await this.loadHotSpot()
@@ -1935,6 +1948,12 @@ export default {
     modal,
   },
   computed: {
+    dataToDownload() {
+      for (const key in this.DataHotSpot.kabKota) {
+          console.log(key)
+      }
+      this.DataHotSpot.kabkota
+    },
     tilesUrl() {
       return this.tiles[this.currentTiles].url
     },
@@ -2867,9 +2886,12 @@ export default {
             confidence: [this.confidence_level],
             from: this.fromDate,
             to: this.toDate,
+            provinsi: this.cariProvinsi,
+            kabkota: this.cariKota
           },
         })
         .then(({ data }) => {
+          console.log(data)
           this.DataHotSpot = data
           this.dataHotSpot2.features = data.features
         })
@@ -3448,7 +3470,13 @@ export default {
       this.selectedHari = this.defaultHari
       await this.loadFdrs()
     },
+    downloadXLS(args) {
+      var worksheet = XLSX.utils.aoa_to_sheet(this.data);
+      var new_workbook = XLSX.utils.book_new();
+XLSX.utils.book_append_sheet(new_workbook, worksheet, "SheetJS");
+XLSX.writeFile(new_workbook, "test.xlsx");
 
+    },
     download(link, wilayah) {
       const filename = wilayah + '.png'
 
@@ -3518,6 +3546,7 @@ export default {
   },
 
   mounted() {
+    this.dataToDownload
     this.$nextTick(function () {
       this.visitor()
     })

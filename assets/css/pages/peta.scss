@@ -485,7 +485,7 @@
         position: absolute;
         right: 0px;
         top: 38px;
-        background-color: $wt;
+        background-color: transparent;
         padding: 8px 10px;
         /*border-radius: 8px;*/
         z-index: 9999;
@@ -1927,10 +1927,10 @@
     }
 }
 
-[data-toggle="collapse"] .fa:before {  
+[data-toggle="collapse"] .fa:before {
     content: "\f13a";
   }
-  
+
   [data-toggle="collapse"].collapsed .fa:before {
     content: "\f139";
   }
