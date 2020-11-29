@@ -36,6 +36,10 @@ export default {
         content: 'Website Sipongi+',
       },
     ],
+    script: [
+			{ src: "https://unpkg.com/xlsx/dist/shim.min.js" },
+			{ src: "https://unpkg.com/xlsx/dist/xlsx.full.min.js" }
+		],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/kementerian-logo.svg' },
       {
