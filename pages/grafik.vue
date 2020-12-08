@@ -59,7 +59,9 @@
                   </h6>
                   <b-row>
                     <div class="compare-select">
-                      <label class="mr-sm-2" for="inline-form-custom-select-pref"
+                      <label
+                        class="mr-sm-2"
+                        for="inline-form-custom-select-pref"
                         >Satelit</label
                       >
                       <b-form-select
@@ -72,20 +74,24 @@
                       ></b-form-select>
                     </div>
                     <div class="compare-select">
-                      <label class="mr-sm-2" for="inline-form-custom-select-pref"
-                        >Wilayah</label
+                      <label
+                        class="mr-sm-2"
+                        for="inline-form-custom-select-pref"
+                        >Provinsi</label
                       >
                       <b-form-select
                         id="inline-form-custom-select-pref"
                         class="mb-2 mr-sm-2 mb-sm-0"
                         value-field="id"
                         text-field="name"
-                        v-model="compareWilayah"
-                        :options="wilayahOpt"
+                        v-model="compareProvinsi"
+                        :options="provinsiOpt"
                       ></b-form-select>
                     </div>
                     <div class="compare-select">
-                      <label class="mr-sm-2" for="inline-form-custom-select-pref"
+                      <label
+                        class="mr-sm-2"
+                        for="inline-form-custom-select-pref"
                         >Level</label
                       >
                       <b-form-select
@@ -100,9 +106,125 @@
                   </b-row>
                   <line-chart
                     v-if="!loadingGrafiKum"
-                    :data="kebKumulatif"
-                    :options="kebKumulatifOpt"
-                    class="charts"
+                    :data="kebKumulatifTahunan"
+                    :options="kebKumulatifTahunanOpt"
+                    class="charts mt-5"
+                  />
+                </b-row>
+                <b-row class="align-items-center">
+                  <h6 class="charts-title">
+                    Data peringatan kebakaran kumulatif bulanan {{ `${compareBulanRegionalBulanan} - ${compareTahunRegionalBulanan}` }}
+                  </h6>
+                  <b-row>
+                    <div class="compare-select">
+                      <label
+                        class="mr-sm-2"
+                        for="inline-form-custom-select-pref"
+                        >Provinsi</label
+                      >
+                      <b-form-select
+                        id="inline-form-custom-select-pref"
+                        class="mb-2 mr-sm-2 mb-sm-0"
+                        value-field="id"
+                        text-field="name"
+                        v-model="compareProvinsiBulanan"
+                        :options="provinsiOpt"
+                      ></b-form-select>
+                    </div>
+                    <div class="compare-select">
+                      <label
+                        class="mr-sm-2"
+                        for="inline-form-custom-select-pref"
+                        >Tahun</label
+                      >
+                      <b-form-select
+                        id="inline-form-custom-select-pref"
+                        class="mb-2 mr-sm-2 mb-sm-0"
+                        value-field="id"
+                        text-field="name"
+                        v-model="compareTahunProvinsiBulanan"
+                        :options="tahunOpt"
+                      ></b-form-select>
+                    </div>
+                    <div class="compare-select">
+                      <label
+                        class="mr-sm-2"
+                        for="inline-form-custom-select-pref"
+                        >Bulan</label
+                      >
+                      <b-form-select
+                        id="inline-form-custom-select-pref"
+                        class="mb-2 mr-sm-2 mb-sm-0"
+                        value-field="id"
+                        text-field="name"
+                        v-model="compareBulanProvinsiBulanan"
+                        :options="bulanOpt"
+                      ></b-form-select>
+                    </div>
+                  </b-row>
+                  <line-chart
+                    v-if="!loadingGrafiKum"
+                    :data="kebKumulatifBulananProvinsi"
+                    :options="kebKumulatifBulananProvinsiOpt"
+                    class="charts mt-5"
+                  />
+                </b-row>
+                <b-row class="align-items-center">
+                  <h6 class="charts-title">
+                    Data peringatan kebakaran kumulatif bulanan {{ `${compareBulanRegionalBulanan} - ${compareTahunRegionalBulanan}` }}
+                  </h6>
+                  <b-row>
+                    <div class="compare-select">
+                      <label
+                        class="mr-sm-2"
+                        for="inline-form-custom-select-pref"
+                        >Regional</label
+                      >
+                      <b-form-select
+                        id="inline-form-custom-select-pref"
+                        class="mb-2 mr-sm-2 mb-sm-0"
+                        value-field="id"
+                        text-field="name"
+                        v-model="compareRegionalBulanan"
+                        :options="regionalOpt"
+                      ></b-form-select>
+                    </div>
+                    <div class="compare-select">
+                      <label
+                        class="mr-sm-2"
+                        for="inline-form-custom-select-pref"
+                        >Tahun</label
+                      >
+                      <b-form-select
+                        id="inline-form-custom-select-pref"
+                        class="mb-2 mr-sm-2 mb-sm-0"
+                        value-field="id"
+                        text-field="name"
+                        v-model="compareTahunRegionalBulanan"
+                        :options="tahunOpt"
+                      ></b-form-select>
+                    </div>
+                    <div class="compare-select">
+                      <label
+                        class="mr-sm-2"
+                        for="inline-form-custom-select-pref"
+                        >Bulan</label
+                      >
+                      <b-form-select
+                        id="inline-form-custom-select-pref"
+                        class="mb-2 mr-sm-2 mb-sm-0"
+                        value-field="id"
+                        text-field="name"
+                        v-model="compareBulanRegionalBulanan"
+                        :options="bulanOpt"
+                      ></b-form-select>
+                    </div>
+                  </b-row>
+                  <line-chart
+                    v-if="!loadingGrafiKum"
+                    :data="kebKumulatifBulananRegional"
+                    :options="kebKumulatifBulananRegionalOpt"
+                    class="charts mt-5"
                   />
                 </b-row>
                 <h6 class="charts-title">Luas kebakaran hutan dan lahan</h6>
@@ -288,25 +410,52 @@ export default {
   layout: 'front',
   data() {
     const currentYear = new Date().getFullYear()
+    const currentMonth = new Date().getMonth()
     return {
       currentYear: currentYear,
+      currentMonth: currentMonth,
       satelitOpt: [
         { id: 'TERRA-AQUA', name: 'TERRA-AQUA' },
         { id: 'SNPP', name: 'SNPP' },
         { id: 'NOAA20', name: 'NOAA20' },
         { id: 'Landsat8', name: 'Landsat8' },
       ],
-      wilayahOpt: [
-        { id: 'Papua', name: 'Papua' },
-        { id: 'Jakarta', name: 'Jakarta' },
+      provinsiOpt: [],
+      bulanOpt: [
+        { id: '01', name: '01' },
+        { id: '02', name: '02' },
+        { id: '03', name: '03' },
+        { id: '04', name: '04' },
+        { id: '05', name: '05' },
+        { id: '06', name: '06' },
+        { id: '07', name: '07' },
+        { id: '08', name: '08' },
+        { id: '09', name: '09' },
+        { id: '11', name: '11' },
+        { id: '12', name: '12' },
       ],
-            levelOpt: [
+      tahunOpt: [
+        { id: currentYear, name: currentYear },
+        { id: currentYear - 1, name: currentYear - 1 },
+        { id: currentYear - 2, name: currentYear - 2 },
+        { id: currentYear - 3, name: currentYear - 3 },
+        { id: currentYear - 4, name: currentYear - 4 },
+        { id: currentYear - 5, name: currentYear - 5 },
+      ],
+      regionalOpt: [],
+      levelOpt: [
         { id: 'High', name: 'High' },
         { id: 'Medium', name: 'Medium' },
         { id: 'Low', name: 'Low' },
       ],
       compareSatelit: 'TERRA-AQUA',
-      compareWilayah: 'Papua',
+      compareProvinsi: 'Dki Jakarta',
+      compareProvinsiBulanan: 'Dki Jakarta',
+      compareRegionalBulanan: 'Jabanusra',
+      compareBulanProvinsiBulanan: currentMonth,
+      compareTahunProvinsiBulanan: currentYear,
+      compareBulanRegionalBulanan: currentMonth,
+      compareTahunRegionalBulanan: currentYear,
       compareLevel: 'High',
       currentPage: 1,
       totalRows: 1,
@@ -323,6 +472,7 @@ export default {
         maintainAspectRatio: false,
         legend: {
           align: 'start',
+          position: 'bottom',
           labels: {
             boxWidth: 10,
           },
@@ -521,20 +671,54 @@ export default {
         maintainAspectRatio: false,
         legend: {
           align: 'start',
+          position: 'bottom',
           labels: {
             boxWidth: 10,
           },
         },
       },
-      kebKumulatifOpt: {
+      kebKumulatifTahunanOpt: {
         responsive: true,
         maintainAspectRatio: false,
         legend: {
           align: 'start',
+          position: 'bottom',
           labels: {
             boxWidth: 10,
           },
         },
+      },
+      kebKumulatifBulananProvinsiOpt: {
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+          align: 'start',
+          position: 'bottom',
+          labels: {
+            boxWidth: 10,
+          },
+        },
+      },
+      provinsiBulanan: '',
+      kebKumulatifBulananProvinsi: {
+        labels: [],
+        datasets: [],
+      },
+      kebKumulatifBulananRegionalOpt: {
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+          align: 'start',
+          position: 'bottom',
+          labels: {
+            boxWidth: 10,
+          },
+        },
+      },
+      regionalBulanan: '',
+      kebKumulatifBulananRegional: {
+        labels: [],
+        datasets: [],
       },
       kebLuas: {
         labels: [],
@@ -557,7 +741,7 @@ export default {
     }
   },
   computed: {
-    kebKumulatif() {
+    kebKumulatifTahunan() {
       return {
         labels: [
           'Jan',
@@ -626,24 +810,46 @@ export default {
     await this.loadGrafikLuasKebakaran()
   },
   watch: {
-    compareWilayah: {
+    compareBulanProvinsiBulanan: {
       async handler() {
-        await this.loadGrafikKumulatif()
+        await this.loadGrafikKumulatifBulananProvinsi()
+      },
+    },
+    compareRegionalBulanan: {
+      async handler() {
+        await this.loadGrafikRegionalBulanan()
+      },
+    },
+    compareTahunProvinsiBulanan: {
+      async handler() {
+        await this.loadGrafikKumulatifBulananProvinsi()
+      },
+    },
+    compareProvinsiBulanan: {
+      async handler() {
+        await this.loadGrafikKumulatifBulananProvinsi()
+      },
+    },
+    compareProvinsi: {
+      async handler() {
+        await this.loadGrafikKumulatifTahunan()
       },
     },
     compareLevel: {
       async handler() {
-        await this.loadGrafikKumulatif()
+        await this.loadGrafikKumulatifTahunan()
       },
     },
     compareSatelit: {
       async handler() {
-        await this.loadGrafikKumulatif()
+        await this.loadGrafikKumulatifTahunan()
       },
     },
   },
   async created() {
-    await this.loadGrafikKumulatif()
+    await this.loadGrafikKumulatifBulananProvinsi()
+    await this.loadGrafikKumulatifBulananRegional()
+    await this.loadGrafikKumulatifTahunan()
     await this.loadHotSpot()
     this.$nextTick(function () {
       this.updateHeader()
@@ -740,7 +946,7 @@ export default {
         })
         .catch((err) => {})
     },
-    async loadGrafikKumulatif() {
+    async loadGrafikKumulatifTahunan() {
       this.loadingGrafiKum = true
       // const url = !process.server
       //   ? `/v1/grafikKumulatif`
@@ -754,13 +960,109 @@ export default {
             to: this.currentYear,
             from: this.currentYear - 4,
             confidence: this.compareLevel,
-            wilayah: this.compareWilayah,
+            provinsi: this.compareProvinsi,
           },
         })
         .then((res) => {
           for (let i = 0; i < res.length; i++) {
-            this.kebKumulatif.datasets[i].data = res[i].value
+            this.kebKumulatifTahunan.datasets[i].data = res[i].value
           }
+        })
+        .catch((err) => {
+          console.error(err)
+        })
+        .finally(() => {
+          this.loadingGrafiKum = false
+        })
+    },
+    async loadGrafikKumulatifBulananProvinsi() {
+      this.loadingGrafiKum = true
+      this.kebKumulatifBulananProvinsi.labels = []
+      this.kebKumulatifBulananProvinsi.datasets = []
+      // const url = !process.server
+      //   ? `/v1/grafikKumulatif`
+      //   : `/api/grafikKumulatif`
+
+      const url = 'http://139.99.52.109:8288/v1/grafikHotspot/provinsi'
+      await this.$axios
+        .$get(url, {
+          params: {
+            bulan: this.compareBulanProvinsiBulanan,
+            year: this.compareTahunProvinsiBulanan,
+          },
+        })
+        .then((res) => {
+          for (let index = 1; index < 32; index++) {
+            this.kebKumulatifBulananProvinsi.labels.push(index)
+          }
+          res.forEach((element, index) => {
+            this.provinsiOpt.push({
+              id: element.provinsi,
+              name: element.provinsi,
+            })
+            this.kebKumulatifBulananProvinsi.datasets.push({
+              hidden:
+                element.provinsi !== this.compareProvinsiBulanan ? true : false,
+              label: element.provinsi,
+              data: element.value,
+              lineTension: 0,
+              backgroundColor: `#${Math.floor(
+                Math.random() * 16777215
+              ).toString(16)}`,
+              borderColor: `#${Math.floor(Math.random() * 16777215).toString(
+                16
+              )}`,
+              fill: false,
+            })
+          })
+        })
+        .catch((err) => {
+          console.error(err)
+        })
+        .finally(() => {
+          this.loadingGrafiKum = false
+        })
+    },
+    async loadGrafikKumulatifBulananRegional() {
+      this.loadingGrafiKum = true
+      this.kebKumulatifBulananRegional.labels = []
+      this.kebKumulatifBulananRegional.datasets = []
+      // const url = !process.server
+      //   ? `/v1/grafikKumulatif`
+      //   : `/api/grafikKumulatif`
+
+      const url = 'http://139.99.52.109:8288/v1/grafikHotspot/regional'
+      await this.$axios
+        .$get(url, {
+          params: {
+            bulan: this.compareBulanRegionalBulanan,
+            year: this.compareTahunRegionalBulanan,
+          },
+        })
+        .then((res) => {
+          for (let index = 1; index < 32; index++) {
+            this.kebKumulatifBulananRegional.labels.push(index)
+          }
+          res.forEach((element, index) => {
+            this.regionalOpt.push({
+              id: element.regional,
+              name: element.regional,
+            })
+            this.kebKumulatifBulananRegional.datasets.push({
+              hidden:
+                element.regional !== this.compareRegionalBulanan ? true : false,
+              label: element.regional,
+              data: element.value,
+              lineTension: 0,
+              backgroundColor: `#${Math.floor(
+                Math.random() * 16777215
+              ).toString(16)}`,
+              borderColor: `#${Math.floor(Math.random() * 16777215).toString(
+                16
+              )}`,
+              fill: false,
+            })
+          })
         })
         .catch((err) => {
           console.error(err)
@@ -785,8 +1087,8 @@ export default {
               this.kebLuas.datasets[0].data.push(parseFloat(data.value))
             })
           )
-          this.kebKumulatif.datasets[0].data = res.yearNow
-          this.kebKumulatif.datasets[1].data = res.yearBefore
+          this.kebKumulatifTahunan.datasets[0].data = res.yearNow
+          this.kebKumulatifTahunan.datasets[1].data = res.yearBefore
         })
         .catch((err) => {})
         .finally(() => {

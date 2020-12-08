@@ -583,33 +583,51 @@
             </div>
           </div>
 
-          <b-collapse visible id="collapse-3" data-toggle="collapse">
-            <div
-              class="carousel-wrapper"
-              style="
-                background-color: rgba(255, 255, 255, 0.5);
-                padding: 7px 15px;
-              "
+          <b-row style="margin-right: 0px">
+            <b-collapse
+              visible
+              id="collapse-3"
+              data-toggle="collapse"
+              style="width: 85%"
             >
-              <VueSlickCarousel
-                v-bind="slickOptions"
-                v-if="Object.keys(beritas).length > 0"
+              <div
+                class="carousel-wrapper"
+                style="
+                  background-color: rgba(255, 255, 255, 0.5);
+                  padding: 7px 15px;
+                "
               >
-                <div
-                  v-for="blog in beritas"
-                  :key="blog.slug"
-                  class="img-wrapper"
+                <VueSlickCarousel
+                  v-bind="slickOptions"
+                  v-if="Object.keys(beritas).length > 0"
                 >
-                  <b-link :to="`/blog/${blog.slug}`" class="blog-item">
-                    <img :src="blog.image_url" />
-                    <div class="text-block">
-                      <h5>{{ blog.title }}</h5>
-                    </div>
-                  </b-link>
+                  <div
+                    v-for="blog in beritas"
+                    :key="blog.slug"
+                    class="img-wrapper"
+                  >
+                    <b-link :to="`/blog/${blog.slug}`" class="blog-item">
+                      <img :src="blog.image_url" />
+                      <div class="text-block">
+                        <h5>{{ blog.title }}</h5>
+                      </div>
+                    </b-link>
+                  </div>
+                </VueSlickCarousel>
+              </div>
+            </b-collapse>
+            <div style="15%" class="img-wrapper pl-5" id="chart-tahunan">
+              <!-- <div > -->
+              <b-link class="blog-item" v-b-modal.modal-chart>
+                <img src="/grafik.png" />
+                <div class="text-block text-primary" style="top: 75px">
+                  <h5>Grafik HS Tahunan</h5>
                 </div>
-              </VueSlickCarousel>
+              </b-link>
+              <!-- </div> -->
+              <!-- <b-link class="chart text-primary" v-b-modal.modal-chart><font-awesome-icon :icon="['fas', 'chart-line']"/> Grafik HS Tahunan</b-link> -->
             </div>
-          </b-collapse>
+          </b-row>
         </div>
       </div>
 
@@ -760,7 +778,7 @@
         </l-map>
       </client-only>
     </div>
-    <div class="splash-screen" v-if="loading">
+    <div class="splash-screen" v-if="loading || loadingGrafiKum">
       <div class="wrap">
         <h4>Mohon Tunggu Sebentar, Kami Sedang Mengambil Data</h4>
         <b-spinner
@@ -886,7 +904,12 @@
 
       <b-row class="d-flex justify-content-between px-3 my-4">
         <div class="float-right">
-          <b-button variant="outline-success" size="sm" @click="downloadXLS(DataHotSpot.kabkota)" class="mt-3">
+          <b-button
+            variant="outline-success"
+            size="sm"
+            @click="downloadXLS(DataHotSpot.kabkota)"
+            class="mt-3"
+          >
             <img src="/pdf.svg" alt="" />
             <span>Download XLS</span>
           </b-button>
@@ -954,7 +977,11 @@
                   <tr>
                     <!-- <th scope="col">#</th> -->
                     <th scope="col">Provinsi</th>
-                    <th scope="col" v-for="tahun in emisis" :key="tahun">
+                    <th
+                      scope="col"
+                      v-for="tahun in dataEmisi.emisis"
+                      :key="tahun"
+                    >
                       {{ tahun }}
                     </th>
                   </tr>
@@ -984,6 +1011,42 @@
       </b-container>
     </b-modal>
 
+    <!-- Modal Chart -->
+    <b-modal
+      centered
+      scrollable
+      id="modal-chart"
+      body-class="modal-chart"
+      size="lg"
+      hide-footer
+      title="Grafik HS Tahunan"
+    >
+      <b-container>
+                            <div class="compare-select">
+                      <label
+                        class="mr-sm-2"
+                        for="inline-form-custom-select-pref"
+                        >Satelit</label
+                      >
+                      <b-form-select
+                        id="inline-form-custom-select-pref"
+                        class="mb-2 mr-sm-2 mb-sm-0"
+                        value-field="id"
+                        text-field="name"
+                        v-model="compareSatelit"
+                        :options="satelitOpt"
+                      ></b-form-select>
+                    </div>
+        <line-chart
+          style="height: 480px"
+          v-if="!loadingGrafiKum"
+          :data="kebKumulatifTahunan"
+          :options="kebKumulatifTahunanOpt"
+          class="charts mt-5"
+        />
+      </b-container>
+    </b-modal>
+
     <!-- Modal Luas Kebakaran -->
     <b-modal
       centered
@@ -1003,7 +1066,11 @@
                   <tr>
                     <!-- <th scope="col">#</th> -->
                     <th scope="col">Provinsi</th>
-                    <th scope="col" v-for="tahun in luass" :key="tahun">
+                    <th
+                      scope="col"
+                      v-for="tahun in dataLuas.luass"
+                      :key="tahun"
+                    >
                       {{ tahun }}
                     </th>
                   </tr>
@@ -1576,20 +1643,27 @@
 
 <script>
 import modal from '../Modal'
-import XLSX from 'xlsx';
+import XLSX from 'xlsx'
 
 export default {
   name: 'Peta',
   data() {
     const now = new Date()
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+    const currentTime = now.getTime()
     const yesterday = new Date(today - 1)
+    const currentYear = new Date().getFullYear()
+    const currentMonth = new Date().getMonth()
     return {
+      currentYear: currentYear,
+      currentMonth: currentMonth,
+      time: currentTime,
       fromDate: '',
       toDate: '',
       totalTitik: 0,
       totalProv: 0,
       luasKebakaran: 0,
+      loadingGrafiKum: false,
       tematicImage: [],
       open: false,
       confidence_level: 'high',
@@ -1599,7 +1673,13 @@ export default {
         autoplay: true,
         autoplaySpeed: 6000,
       },
-
+      compareSatelit: 'TERRA-AQUA',
+            satelitOpt: [
+        { id: 'TERRA-AQUA', name: 'TERRA-AQUA' },
+        { id: 'SNPP', name: 'SNPP' },
+        { id: 'NOAA20', name: 'NOAA20' },
+        { id: 'Landsat8', name: 'Landsat8' },
+      ],
       yesterday: new Date(today - 1),
       today: now,
       dataHotSpotSatelit: [],
@@ -1623,10 +1703,7 @@ export default {
             'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
         },
       ],
-  // cols: [{ name: "A", key: 0 }, { name: "B", key: 1 }, { name: "C", key: 2 }],
-  data: [
-    [ "Nama Provinsi", "Nama Kab Kota", "Counter", "Sumber" ]
-  ],
+      dataXls: [['Nama Provinsi', 'Nama Kab Kota', 'Counter', 'Sumber']],
       isScroll: null,
       scrolledToBottom: false,
       profile: true,
@@ -1685,7 +1762,17 @@ export default {
         visible: false,
         oldId: null,
       },
-
+      kebKumulatifTahunanOpt: {
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+          align: 'start',
+          position: 'bottom',
+          labels: {
+            boxWidth: 10,
+          },
+        },
+      },
       // Gambut
       clusterGambut: {
         features: [],
@@ -1855,13 +1942,18 @@ export default {
     }
   },
   watch: {
-        toDate: {
-            async handler() {
+    toDate: {
+      async handler() {
         await this.loadHotSpot()
       },
     },
+    compareSatelit: {
+      async handler() {
+        await this.loadGrafikKumulatifTahunan()
+      },
+    },
     fromDate: {
-            async handler() {
+      async handler() {
         await this.loadHotSpot()
       },
     },
@@ -1948,11 +2040,65 @@ export default {
     modal,
   },
   computed: {
-    dataToDownload() {
-      for (const key in this.DataHotSpot.kabKota) {
-          console.log(key)
+    kebKumulatifTahunan() {
+      return {
+        labels: [
+          'Jan',
+          'Feb',
+          'Mar',
+          'Apr',
+          'Mei',
+          'Jun',
+          'Jul',
+          'Agu',
+          'Sep',
+          'Okt',
+          'Nov',
+          'Des',
+        ],
+        datasets: [
+          {
+            label: this.currentYear,
+            backgroundColor: '#FE6500',
+            borderColor: '#FE6500',
+            fill: false,
+            lineTension: 0,
+            data: [],
+          },
+          {
+            label: this.currentYear - 1,
+            backgroundColor: '#C5CDD5',
+            borderColor: '#C5CDD5',
+            fill: false,
+            lineTension: 0,
+            data: [],
+          },
+          {
+            label: this.currentYear - 2,
+            backgroundColor: '#BDB76B',
+            borderColor: '#BDB76B',
+            fill: false,
+            lineTension: 0,
+            data: [],
+          },
+          {
+            label: this.currentYear - 3,
+            backgroundColor: '#800080',
+            borderColor: '#800080',
+            fill: false,
+            lineTension: 0,
+            data: [],
+          },
+          {
+            label: this.currentYear - 4,
+            backgroundColor: '#B22222',
+            borderColor: '#B22222',
+            fill: false,
+            lineTension: 0,
+            data: [],
+          },
+        ],
       }
-      this.DataHotSpot.kabkota
     },
     tilesUrl() {
       return this.tiles[this.currentTiles].url
@@ -2469,22 +2615,26 @@ export default {
   async fetch() {
     this.loading = true
     await this.loadHotSpot()
-    await this.loadTematicBar()
-    await this.getRunningText()
-    await this.loadPemadaman()
-    await this.loadLain()
+    await this.loadGrafikKumulatifTahunan()
+    // await this.loadTematicBar()
+    // await this.getRunningText()
+    // await this.loadPemadaman()
+    // await this.loadLain()
     await this.loadBerita()
-    await this.loadPerundangan()
-    await this.loadFdrs()
-    await this.loadAqms()
-    await this.loadWind()
-    await this.loadDataLuas()
-    await this.loadDataEmisi()
-    await this.loadTotalTitik()
-    await this.loadLuasKebakaran()
-    await this.loadTotalProv()
+    // await this.loadPerundangan()
+    // await this.loadFdrs()
+    // await this.loadAqms()
+    // await this.loadWind()
+    // await this.loadDataLuas()
+    // await this.loadDataEmisi()
+    // await this.loadTotalTitik()
+    // await this.loadLuasKebakaran()
+    // await this.loadTotalProv()
 
     this.loading = false
+    this.$nextTick(() => {
+      this.dataToDownload
+    })
   },
   filters: {
     petaFilter: function (value) {
@@ -2492,6 +2642,35 @@ export default {
     },
   },
   methods: {
+    async loadGrafikKumulatifTahunan() {
+      this.loadingGrafiKum = true
+      // const url = !process.server
+      //   ? `/v1/grafikKumulatif`
+      //   : `/api/grafikKumulatif`
+
+      const url = 'http://139.99.52.109:8288/v1/grafikKumulatif'
+
+      await this.$axios
+        .$get(url, {
+          params: {
+            to: this.currentYear,
+            from: this.currentYear - 4,
+            confidence: 'high',
+            provinsi: '',
+          },
+        })
+        .then((res) => {
+          for (let i = 0; i < res.length; i++) {
+            this.kebKumulatifTahunan.datasets[i].data = res[i].value
+          }
+        })
+        .catch((err) => {
+          console.error(err)
+        })
+        .finally(() => {
+          this.loadingGrafiKum = false
+        })
+    },
     async loadTotalTitik() {
       const url = !process.server
         ? `/v1/totalIndoHotspot`
@@ -2713,9 +2892,9 @@ export default {
       await this.$axios
         .$get(url)
         .then((res) => {
-          this.luass = res.tahun
-          this.dataluass = res.data
-          this.totalluass = res.total
+          this.dataLuas.luass = res.tahun
+          this.dataLuas.dataluass = res.data
+          this.dataLuas.totalluass = res.total
         })
         .catch((err) => {
           if (err.response) {
@@ -2736,9 +2915,9 @@ export default {
       await this.$axios
         .$get(url)
         .then((res) => {
-          this.emisis = res.tahun
-          this.dataemisis = res.data
-          this.totalemisis = res.total
+          this.dataEmisi.emisis = res.tahun
+          this.dataEmisi.dataemisis = res.data
+          this.dataEmisi.totalemisis = res.total
         })
         .catch((err) => {
           if (err.response) {
@@ -2887,16 +3066,25 @@ export default {
             from: this.fromDate,
             to: this.toDate,
             provinsi: this.cariProvinsi,
-            kabkota: this.cariKota
+            kabkota: this.cariKota,
           },
         })
         .then(({ data }) => {
-          console.log(data)
           this.DataHotSpot = data
           this.dataHotSpot2.features = data.features
         })
         .catch((err) => {
           console.error(err)
+        })
+        .finally(() => {
+          this.dataHotSpot2.features.forEach((element, index) => {
+            this.dataXls[index + 1] = [
+              element.properties.nama_provinsi,
+              element.properties.kabkota,
+              element.properties.counter,
+              element.properties.sumber,
+            ]
+          })
         })
     },
     async loadClusterKabKota(kotakab_id) {
@@ -3471,11 +3659,10 @@ export default {
       await this.loadFdrs()
     },
     downloadXLS(args) {
-      var worksheet = XLSX.utils.aoa_to_sheet(this.data);
-      var new_workbook = XLSX.utils.book_new();
-XLSX.utils.book_append_sheet(new_workbook, worksheet, "SheetJS");
-XLSX.writeFile(new_workbook, "test.xlsx");
-
+      var worksheet = XLSX.utils.aoa_to_sheet(this.dataXls)
+      var new_workbook = XLSX.utils.book_new()
+      XLSX.utils.book_append_sheet(new_workbook, worksheet, 'SheetJS')
+      XLSX.writeFile(new_workbook, `Data titik panas - ${this.time}.xlsx`)
     },
     download(link, wilayah) {
       const filename = wilayah + '.png'
@@ -3546,7 +3733,6 @@ XLSX.writeFile(new_workbook, "test.xlsx");
   },
 
   mounted() {
-    this.dataToDownload
     this.$nextTick(function () {
       this.visitor()
     })
