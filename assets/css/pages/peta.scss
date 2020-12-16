@@ -1,5 +1,5 @@
 @media screen and (max-width: 575.98px) and (max-width: 767.98px) and (max-width: 991.98px) and (max-width: 1199.98px) {
-    #collapse-3, #chart-tahunan {
+    #collapse-3{
         display: none;
     }
 }
@@ -364,6 +364,7 @@
                     background-position: center center;
                     margin-bottom: 12px;
                     border-radius: 4px;
+                    background: linear-gradient(rgba(255, 0, 0, 0.45), rgba(255, 0, 0, 0.45));
                     @media screen and (max-width: 767px){
                         height: 180px;
                     }
@@ -1637,16 +1638,16 @@
                     font-size: 16px;
                     display: block;
                 }
-                &:before{
-                    content: "";
-                    width: 10px;
-                    height: 10px;
-                    position: absolute;
-                    top: 7px;
-                    left: 0;
-                    border: 3px solid #FE6500;
-                    border-radius: 50%;
-                }
+                // &:before{
+                //     content: "";
+                //     width: 10px;
+                //     height: 10px;
+                //     position: absolute;
+                //     top: 7px;
+                //     left: 0;
+                //     border: 3px solid #FE6500;
+                //     border-radius: 50%;
+                // }
             }
         }
     }

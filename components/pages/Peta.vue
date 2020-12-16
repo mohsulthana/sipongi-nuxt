@@ -588,7 +588,7 @@
               visible
               id="collapse-3"
               data-toggle="collapse"
-              style="width: 85%"
+              style="width: 88%"
             >
               <div
                 class="carousel-wrapper"
@@ -607,7 +607,7 @@
                     class="img-wrapper"
                   >
                     <b-link :to="`/blog/${blog.slug}`" class="blog-item">
-                      <img :src="blog.image_url" />
+                      <img :src="blog.image_url"/>
                       <div class="text-block">
                         <h5>{{ blog.title }}</h5>
                       </div>
@@ -616,17 +616,21 @@
                 </VueSlickCarousel>
               </div>
             </b-collapse>
-            <div style="15%" class="img-wrapper pl-5" id="chart-tahunan">
+            <b-collapse
+              style="15%"
+              class="img-wrapper pl-2"
+              visible
+              id="collapse-3"
+              data-toggle="collapse"
+            >
               <!-- <div > -->
-              <b-link class="blog-item" v-b-modal.modal-chart>
+              <b-link class="blog-item" v-b-modal.modal-chart id="collapse-3">
                 <img src="/grafik.png" />
                 <div class="text-block text-primary" style="top: 75px">
                   <h5>Grafik HS Tahunan</h5>
                 </div>
               </b-link>
-              <!-- </div> -->
-              <!-- <b-link class="chart text-primary" v-b-modal.modal-chart><font-awesome-icon :icon="['fas', 'chart-line']"/> Grafik HS Tahunan</b-link> -->
-            </div>
+            </b-collapse>
           </b-row>
         </div>
       </div>
@@ -799,14 +803,6 @@
       title="Titik Panas"
     >
       <div class="content-list">
-        <b-form-select
-          @input="loadHotSpot()"
-          v-model="confidence_level"
-          class="mb-3 form-control"
-          value-field="id"
-          :options="['high', 'medium', 'low']"
-        >
-        </b-form-select>
         <b-form-select
           v-model="cariProvinsi"
           class="mb-3 form-control"
@@ -1022,21 +1018,19 @@
       title="Grafik HS Tahunan"
     >
       <b-container>
-                            <div class="compare-select">
-                      <label
-                        class="mr-sm-2"
-                        for="inline-form-custom-select-pref"
-                        >Satelit</label
-                      >
-                      <b-form-select
-                        id="inline-form-custom-select-pref"
-                        class="mb-2 mr-sm-2 mb-sm-0"
-                        value-field="id"
-                        text-field="name"
-                        v-model="compareSatelit"
-                        :options="satelitOpt"
-                      ></b-form-select>
-                    </div>
+        <div class="compare-select">
+          <label class="mr-sm-2" for="inline-form-custom-select-pref"
+            >Satelit</label
+          >
+          <b-form-select
+            id="inline-form-custom-select-pref"
+            class="mb-2 mr-sm-2 mb-sm-0"
+            value-field="id"
+            text-field="name"
+            v-model="compareSatelit"
+            :options="satelitOpt"
+          ></b-form-select>
+        </div>
         <line-chart
           style="height: 480px"
           v-if="!loadingGrafiKum"
@@ -1657,9 +1651,8 @@ export default {
     return {
       currentYear: currentYear,
       currentMonth: currentMonth,
-      time: currentTime,
-      fromDate: '',
-      toDate: '',
+      fromDate: '2020-11-04',
+      toDate: today,
       totalTitik: 0,
       totalProv: 0,
       luasKebakaran: 0,
@@ -1674,7 +1667,7 @@ export default {
         autoplaySpeed: 6000,
       },
       compareSatelit: 'TERRA-AQUA',
-            satelitOpt: [
+      satelitOpt: [
         { id: 'TERRA-AQUA', name: 'TERRA-AQUA' },
         { id: 'SNPP', name: 'SNPP' },
         { id: 'NOAA20', name: 'NOAA20' },
@@ -1944,7 +1937,9 @@ export default {
   watch: {
     toDate: {
       async handler() {
+        this.loading = true
         await this.loadHotSpot()
+        this.loading = false
       },
     },
     compareSatelit: {
@@ -1954,17 +1949,23 @@ export default {
     },
     fromDate: {
       async handler() {
+        this.loading = true
         await this.loadHotSpot()
+        this.loading = false
       },
     },
     periodeData: {
       async handler() {
+        this.loading = true
         await this.loadHotSpot()
+        this.loading = false
       },
     },
     trustData: {
       async handler() {
+        this.loading = true
         await this.loadHotSpot()
+        this.loading = false
       },
     },
     chkSumber: {
@@ -1989,6 +1990,7 @@ export default {
         this.cariKota = null
         if (this.cariProvinsi) {
           await this.cmbKotaKab()
+          this.loadHotSpot()
         }
       },
     },
@@ -1996,6 +1998,7 @@ export default {
       async handler() {
         if (this.cariKota) {
           await this.loadClusterKabKota(this.cariKota)
+          this.loadHotSpot()
         }
       },
     },
@@ -2632,9 +2635,6 @@ export default {
     await this.loadTotalProv()
 
     this.loading = false
-    this.$nextTick(() => {
-      this.dataToDownload
-    })
   },
   filters: {
     petaFilter: function (value) {
@@ -3062,14 +3062,14 @@ export default {
       await this.$axios
         .$get(url, {
           params: {
-            confidence: [this.confidence_level],
+            confidence: this.trustData,
             from: this.fromDate,
             to: this.toDate,
-            provinsi: this.cariProvinsi,
-            kabkota: this.cariKota,
+            provinsi_id: this.cariProvinsi,
           },
         })
         .then(({ data }) => {
+          console.log(data)
           this.DataHotSpot = data
           this.dataHotSpot2.features = data.features
         })
@@ -3183,7 +3183,7 @@ export default {
         .then((data) => {
           this.provs = [
             {
-              id: null,
+              id: data.id,
               nama_provinsi: 'Pilih Provinsi',
             },
           ]
@@ -3221,7 +3221,7 @@ export default {
         .then((data) => {
           const datas = [
             {
-              id: null,
+              id: data.id,
               nama: 'Pilih Kota/Kabupaten',
             },
           ]
@@ -3662,7 +3662,7 @@ export default {
       var worksheet = XLSX.utils.aoa_to_sheet(this.dataXls)
       var new_workbook = XLSX.utils.book_new()
       XLSX.utils.book_append_sheet(new_workbook, worksheet, 'SheetJS')
-      XLSX.writeFile(new_workbook, `Data titik panas - ${this.time}.xlsx`)
+      XLSX.writeFile(new_workbook, `Data titik panas - ${Date.now()}.xlsx`)
     },
     download(link, wilayah) {
       const filename = wilayah + '.png'

@@ -113,7 +113,10 @@
                 </b-row>
                 <b-row class="align-items-center">
                   <h6 class="charts-title">
-                    Data peringatan kebakaran kumulatif bulanan {{ `${compareBulanRegionalBulanan} - ${compareTahunRegionalBulanan}` }}
+                    Data peringatan kebakaran kumulatif bulanan
+                    {{
+                      `${compareBulanRegionalBulanan} - ${compareTahunRegionalBulanan}`
+                    }}
                   </h6>
                   <b-row>
                     <div class="compare-select">
@@ -171,7 +174,10 @@
                 </b-row>
                 <b-row class="align-items-center">
                   <h6 class="charts-title">
-                    Data peringatan kebakaran kumulatif bulanan {{ `${compareBulanRegionalBulanan} - ${compareTahunRegionalBulanan}` }}
+                    Data peringatan kebakaran kumulatif bulanan
+                    {{
+                      `${compareBulanRegionalBulanan} - ${compareTahunRegionalBulanan}`
+                    }}
                   </h6>
                   <b-row>
                     <div class="compare-select">
@@ -271,6 +277,7 @@
                       class="text-center"
                       :items="kebMingguan.items"
                       :fields="kebMingguan.tableFields"
+                      :current-page="currentPage"
                       :per-page="perPage"
                     >
                       <template #cell(trend)="data">
@@ -285,18 +292,13 @@
                         <div v-else>-</div>
                       </template>
                     </b-table>
-                    <b-row>
-                      <b-col sm="7" md="6" class="mb-3 text-center">
-                        <b-pagination
-                          v-model="currentPage"
-                          :total-rows="totalRows"
-                          :per-page="perPage"
+                                            <b-pagination
+                          size="md"
                           align="fill"
-                          size="sm"
-                          class="my-0"
+                          :total-rows="kebMingguan.length"
+                          v-model="currentPage"
+                          :per-page="perPage"
                         ></b-pagination>
-                      </b-col>
-                    </b-row>
                   </b-col>
                 </b-row>
 
@@ -306,54 +308,26 @@
                   <b-col lg="12">
                     <b-table
                       show-empty
-                      responsive
                       striped
                       class="text-center"
                       :items="DataHotSpot.data"
                       :fields="DataHotSpot.tableFields"
-                      :per-page="perPage"
                       :current-page="currentPage"
+                      :per-page="perPage"
                     >
                     </b-table>
                     <b-pagination
                       v-model="currentPage"
-                      :total-rows="totalRows"
+                      :total-rows="DataHotSpot.length"
                       :per-page="perPage"
                       align="fill"
-                      size="sm"
+                      size="md"
                       class="my-0"
                     ></b-pagination>
                   </b-col>
                 </b-row>
               </b-tab>
             </b-tabs>
-
-            <!-- <h6 class="charts-title">Tabel Peringatan kebakaran mingguan</h6>
-            <b-row class="align-items-center">
-              <b-col md="12">
-                <b-table
-                  show-empty
-                  small
-                  class="text-center"
-                  stacked="md"
-                  :items="kebMingguan.items"
-                  :fields="kebMingguan.tableFields"
-                  :per-page="10"
-                />
-                <b-row>
-                  <b-col sm="7" md="6" class="mb-3 text-center">
-                    <b-pagination
-                      v-model="currentPage"
-                      :total-rows="totalRows"
-                      :per-page="perPage"
-                      align="fill"
-                      size="sm"
-                      class="my-0"
-                    ></b-pagination>
-                  </b-col>
-                </b-row>
-              </b-col>
-            </b-row> -->
           </b-col>
           <b-col md="4">
             <div class="statistik-wrap">
@@ -458,8 +432,7 @@ export default {
       compareTahunRegionalBulanan: currentYear,
       compareLevel: 'High',
       currentPage: 1,
-      totalRows: 1,
-      perPage: 10,
+      perPage: 7,
       totalTitik: 0,
       totalProv: 0,
       luasKebakaran: 0,
@@ -479,6 +452,7 @@ export default {
         },
       },
       DataHotSpot: {
+        length: null,
         labels: [
           'Jan',
           'Feb',
@@ -618,6 +592,7 @@ export default {
         type: 'FeatureCollection',
       },
       kebMingguan: {
+        length: null,
         items: [],
         tableFields: [
           {
@@ -918,6 +893,7 @@ export default {
       await this.$axios
         .$get(url)
         .then((res) => {
+          this.kebMingguan.length = res.length
           this.kebMingguan.items = res.map((data) => {
             this.kebMingguan.datasets[0].data.push(data.weekNow)
             this.kebMingguan.datasets[1].data.push(data.weekBefore)
@@ -1108,6 +1084,7 @@ export default {
           },
         })
         .then(({ data }) => {
+          this.DataHotSpot.length = data.features.length
           data.features.forEach((element) => {
             if (element.properties.date_hotspot == 2020) {
               this.DataHotSpot.datasets[0].data.push(element.properties.counter)
