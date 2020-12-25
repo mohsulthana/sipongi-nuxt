@@ -607,7 +607,7 @@
                     class="img-wrapper"
                   >
                     <b-link :to="`/blog/${blog.slug}`" class="blog-item">
-                      <img :src="blog.image_url"/>
+                      <img :src="blog.image_url" />
                       <div class="text-block">
                         <h5>{{ blog.title }}</h5>
                       </div>
@@ -718,9 +718,15 @@
           <l-layer-group>
             <l-geo-json
               v-if="dataHotSpotVisible"
-              :geojson="dataHotSpot2"
+              :geojson="dataHotSpotGeojson"
               :options="optionsHotspot"
               :visible="dataHotSpotVisible"
+            ></l-geo-json>
+            <l-geo-json
+              v-else
+              :geojson="dataHotSpotSummaryGeojson"
+              :options="optionsHotspot"
+              :visible="dataHotSpotSummaryVisible"
             ></l-geo-json>
           </l-layer-group>
           <!-- <l-layer-group>
@@ -983,21 +989,21 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(data, i) in dataemisis" :key="i">
+                  <!-- <tr v-for="(data, i) in dataemisis" :key="i">
                     <td>{{ i }}</td>
                     <td v-for="(total, j) in data" :key="j">
                       {{
                         total.luas != '' || total.luas != null ? total.luas : 0
                       }}
                     </td>
-                  </tr>
+                  </tr> -->
                 </tbody>
                 <tfoot style="font-weight: bold">
                   <tr>
                     <td>Total</td>
-                    <td v-for="(total, i) in totalemisis" :key="i">
+                    <!-- <td v-for="(total, i) in totalemisis" :key="i">
                       {{ total.total }}
-                    </td>
+                    </td> -->
                   </tr>
                 </tfoot>
               </table>
@@ -1643,16 +1649,22 @@ export default {
   name: 'Peta',
   data() {
     const now = new Date()
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
     const currentTime = now.getTime()
-    const yesterday = new Date(today - 1)
+    const twoDaysBack = new Date()
     const currentYear = new Date().getFullYear()
     const currentMonth = new Date().getMonth()
     return {
       currentYear: currentYear,
       currentMonth: currentMonth,
       fromDate: '2020-11-04',
-      toDate: today,
+      toDate: '2020-12-24',
+      twoDaysBack: `${now.getFullYear()}-${now.getMonth() + 1}-${
+        now.getDate() - 2
+      }`,
+      yesterday: `${now.getFullYear()}-${now.getMonth() + 1}-${
+        now.getDate() - 1
+      }`,
+      today: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`,
       totalTitik: 0,
       totalProv: 0,
       luasKebakaran: 0,
@@ -1673,8 +1685,6 @@ export default {
         { id: 'NOAA20', name: 'NOAA20' },
         { id: 'Landsat8', name: 'Landsat8' },
       ],
-      yesterday: new Date(today - 1),
-      today: now,
       dataHotSpotSatelit: [],
       beritaMarqueeText: true,
       currentTiles: 0,
@@ -1714,6 +1724,36 @@ export default {
       windDir: false,
       unitKerja: false,
       btsAdmf: false,
+      DataHotSpotSummary: {
+        totals: {
+          'LPN-LANDSAT8': 0,
+          'LPN-NOAA20': 0,
+          'LPN-NPP': 0,
+          'LPN-MODIS': 0,
+        },
+        totalsLevel: {
+          'LPN-LANDSAT8': {
+            low: 0,
+            medium: 0,
+            high: 0,
+          },
+          'LPN-NOAA20': {
+            low: 0,
+            medium: 0,
+            high: 0,
+          },
+          'LPN-NPP': {
+            low: 0,
+            medium: 0,
+            high: 0,
+          },
+          'LPN-MODIS': {
+            low: 0,
+            medium: 0,
+            high: 0,
+          },
+        },
+      },
       DataHotSpot: {
         totals: {
           'LPN-LANDSAT8': 0,
@@ -1744,11 +1784,16 @@ export default {
           },
         },
       },
-      dataHotSpot2: {
+      dataHotSpotGeojson: {
         features: [],
         type: 'FeatureCollection',
       },
-      dataHotSpotVisible: true,
+      dataHotSpotSummaryGeojson: {
+        features: [],
+        type: 'FeatureCollection',
+      },
+      dataHotSpotVisible: false,
+      dataHotSpotSummaryVisible: true,
       chkSumber: ['LPN-MODIS', 'LPN-NPP', 'LPN-NOAA20', 'LPN-LANDSAT8'],
       clusterKabKota: {
         data: null,
@@ -1957,7 +2002,7 @@ export default {
     periodeData: {
       async handler() {
         this.loading = true
-        await this.loadHotSpot()
+        await this.loadHotSpotSummary()
         this.loading = false
       },
     },
@@ -2043,6 +2088,19 @@ export default {
     modal,
   },
   computed: {
+    sumberSatelit() {
+      var satelit = null
+      if (this.compareSatelit === 'TERRA-AQUA') {
+        satelit = 'LPN-MODIS'
+      } else if (this.compareSatelit === 'SNPP') {
+        satelit = 'LPN-NPP'
+      } else if (this.compareSatelit === 'NOAA20') {
+        satelit = 'LPN-NOAA20'
+      } else {
+        satelit = 'LPN-LANDSAT8'
+      }
+      return satelit
+    },
     kebKumulatifTahunan() {
       return {
         labels: [
@@ -2618,6 +2676,7 @@ export default {
   async fetch() {
     this.loading = true
     await this.loadHotSpot()
+    await this.loadHotSpotSummary()
     await this.loadGrafikKumulatifTahunan()
     await this.loadTematicBar()
     await this.getRunningText()
@@ -2656,7 +2715,8 @@ export default {
             to: this.currentYear,
             from: this.currentYear - 4,
             confidence: 'high',
-            provinsi: '',
+            // provinsi: '',
+            satelit: [this.sumberSatelit],
           },
         })
         .then((res) => {
@@ -2939,15 +2999,15 @@ export default {
       }
     },
     getTotalLevel(key, level) {
-      return this.DataHotSpot.totalsLevel[key] &&
-        this.DataHotSpot.totalsLevel[key][level] &&
+      return this.DataHotSpotSummary.totalsLevel[key] &&
+        this.DataHotSpotSummary.totalsLevel[key][level] &&
         this.checkSumber(key)
-        ? this.DataHotSpot.totalsLevel[key][level]
+        ? this.DataHotSpotSummary.totalsLevel[key][level]
         : 0
     },
     getTotal(key) {
-      return this.DataHotSpot.totals[key] && this.checkSumber(key)
-        ? this.DataHotSpot.totals[key]
+      return this.DataHotSpotSummary.totals[key] && this.checkSumber(key)
+        ? this.DataHotSpotSummary.totals[key]
         : 0
     },
     zoomUpdated(zoom) {
@@ -3055,6 +3115,33 @@ export default {
         },
       }
     },
+    async loadHotSpotSummary() {
+      // const url = !process.server ? `/v1/indoHotspot` : `/v1/indoHotspot`
+      const url = 'http://139.99.52.109:8288/v1/indoHotspot'
+
+      await this.$axios
+        .$get(url, {
+          params: {
+            confidence: this.trustData,
+            from:
+              this.periodeData == 12 || this.periodeData == 24
+                ? this.yesterday
+                : this.twoDaysBack,
+            to: this.today,
+          },
+        })
+        .then(({ data }) => {
+          this.DataHotSpotSummary = data
+          this.dataHotSpotSummaryGeojson.features = data.features
+        })
+        .catch((err) => {
+          console.error(err)
+        })
+        .finally(() => {
+          this.dataHotSpotSummaryVisible = true
+          this.dataHotSpotVisible = false
+        })
+    },
     async loadHotSpot() {
       // const url = !process.server ? `/v1/indoHotspot` : `/v1/indoHotspot`
       const url = 'http://139.99.52.109:8288/v1/indoHotspot'
@@ -3069,15 +3156,16 @@ export default {
           },
         })
         .then(({ data }) => {
-          console.log(data)
           this.DataHotSpot = data
-          this.dataHotSpot2.features = data.features
+          this.dataHotSpotGeojson.features = data.features
         })
         .catch((err) => {
           console.error(err)
         })
         .finally(() => {
-          this.dataHotSpot2.features.forEach((element, index) => {
+          this.dataHotSpotSummaryVisible = false;
+          this.dataHotSpotVisible = true
+          this.dataHotSpotGeojson.features.forEach((element, index) => {
             this.dataXls[index + 1] = [
               element.properties.nama_provinsi,
               element.properties.kabkota,
