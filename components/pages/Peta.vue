@@ -550,11 +550,11 @@
                         class="float-right"
                       >
                       </b-form-checkbox>
-                      <ul class="index-udara-list" v-if="aqmsShow">
+                      <ul class="index-udara-list list-unstyled" v-if="aqmsShow">
                         <li>Baik (0-50)</li>
                         <li>Sedang (51-100)</li>
-                        <li>Tidak Sehat (101-199)</li>
-                        <li>Sangat Tidak Sehat (200-299)</li>
+                        <li>Tdk Sehat (101-199)</li>
+                        <li>Sgt Tidak Sehat (200-299)</li>
                         <li>Berbahaya (> 300)</li>
                       </ul>
                     </div>
@@ -3268,6 +3268,7 @@ export default {
         .catch((err) => {})
         .finally(() => {
           this.dataDaops.visible = true
+          this.loading = false
         })
     },
     async loadWind() {
