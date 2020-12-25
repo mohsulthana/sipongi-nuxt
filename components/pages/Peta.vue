@@ -389,7 +389,7 @@
                     hutan melalui petugas patroli pencegahan
                   </p> -->
                   <div class="legend-item w-border-top">
-                    <b-link @click="changeSumber('LPN-MODIS')"
+                    <b-link @click="changeSumberSummary('LPN-MODIS')"
                       ><h6>Satelit TERRA/AQUA</h6></b-link
                     >
                     <p class="count-total">
@@ -409,7 +409,7 @@
                     </span>
                   </div>
                   <div class="legend-item">
-                    <b-link @click="changeSumber('LPN-NPP')"
+                    <b-link @click="changeSumberSummary('LPN-NPP')"
                       ><h6>Satelit SNPP</h6></b-link
                     >
                     <p class="count-total">
@@ -429,7 +429,7 @@
                     </span>
                   </div>
                   <div class="legend-item">
-                    <b-link @click="changeSumber('LPN-NOAA20')"
+                    <b-link @click="changeSumberSummary('LPN-NOAA20')"
                       ><h6>Satelit NOAA20</h6></b-link
                     >
                     <p class="count-total">
@@ -449,7 +449,7 @@
                     </span>
                   </div>
                   <div class="legend-item">
-                    <b-link @click="changeSumber('LPN-LANDSAT8')"
+                    <b-link @click="changeSumberSummary('LPN-LANDSAT8')"
                       ><h6>Satelit LANDSAT8</h6></b-link
                     >
                     <p class="count-total">
@@ -497,7 +497,7 @@
                         background-color="green"
                         id="checkbox-rendah"
                         class="checkbox-rendah"
-                        v-model="trustData"
+                        v-model="trustDataSummary"
                         name="checkbox-rendah"
                         value="low"
                       >
@@ -507,7 +507,7 @@
                       <b-form-checkbox
                         background-color="yellow"
                         id="checkbox-sedang"
-                        v-model="trustData"
+                        v-model="trustDataSummary"
                         name="checkbox-sedang"
                         value="medium"
                       >
@@ -517,7 +517,7 @@
                       <b-form-checkbox
                         background-color="red"
                         id="checkbox-tinggi"
-                        v-model="trustData"
+                        v-model="trustDataSummary"
                         name="checkbox-tinggi"
                         value="high"
                       >
@@ -1024,13 +1024,13 @@
       title="Grafik HS Tahunan"
     >
       <b-container>
-        <div class="compare-select">
+        <div class="compare-select pb-5">
           <label class="mr-sm-2" for="inline-form-custom-select-pref"
             >Satelit</label
           >
           <b-form-select
             id="inline-form-custom-select-pref"
-            class="mb-2 mr-sm-2 mb-sm-0"
+            class="mr-sm-2 mb-sm-0"
             value-field="id"
             text-field="name"
             v-model="compareSatelit"
@@ -1720,6 +1720,7 @@ export default {
       centerMap: [-2.548926, 118.0148634],
       periodeData: 24,
       trustData: ['high'],
+      trustDataSummary: ['high'],
       zoom: 5.4,
       windDir: false,
       unitKerja: false,
@@ -2010,6 +2011,13 @@ export default {
       async handler() {
         this.loading = true
         await this.loadHotSpot()
+        this.loading = false
+      },
+    },
+    trustDataSummary: {
+      async handler() {
+        this.loading = true
+        await this.loadHotSpotSummary()
         this.loading = false
       },
     },
@@ -2315,6 +2323,21 @@ export default {
         iconUrl: '/udara-black.svg',
         iconSize: [20, 20],
       })
+    },
+    totalHotspotSummary() {
+      let datas = this.DataHotSpotSummary.totals
+      let sum = 0
+
+      if (datas) {
+        Object.keys(datas).forEach((key) => {
+          let index = this.chkSumber.indexOf(key)
+          if (index >= 0) {
+            sum += datas[key]
+          }
+        })
+      }
+
+      return sum
     },
     totalHotspot() {
       let datas = this.DataHotSpot.totals
@@ -3021,6 +3044,14 @@ export default {
         this.chkSumber.splice(index, 1)
       }
     },
+    changeSumberSummary(val) {
+      let index = this.chkSumber.indexOf(val)
+      if (index < 0) {
+        this.chkSumber.push(val)
+      } else {
+        this.chkSumber.splice(index, 1)
+      }
+    },
     checkSumber(val) {
       return this.chkSumber.indexOf(val) >= 0
     },
@@ -3122,7 +3153,7 @@ export default {
       await this.$axios
         .$get(url, {
           params: {
-            confidence: this.trustData,
+            confidence: this.trustDataSummary,
             from:
               this.periodeData == 12 || this.periodeData == 24
                 ? this.yesterday
