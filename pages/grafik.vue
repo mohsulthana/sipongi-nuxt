@@ -5,6 +5,7 @@
         <b-row>
           <b-col md="8">
             <h3>Data & Grafik</h3>
+            {{sumberSatelit}}
             <h6 class="text-justify">
               Pada tahun 2001, Indonesia memiliki 93,8 juta hektar hutan primer
               , yang mencakup lebih dari 50% wilayah daratannya. Pada tahun
@@ -392,7 +393,7 @@ export default {
         { id: 'TERRA-AQUA', name: 'TERRA-AQUA' },
         { id: 'SNPP', name: 'SNPP' },
         { id: 'NOAA20', name: 'NOAA20' },
-        { id: 'Landsat8', name: 'Landsat8' },
+        { id: 'LANDSAT8', name: 'Landsat8' },
       ],
       provinsiOpt: [],
       bulanOpt: [
@@ -716,6 +717,19 @@ export default {
     }
   },
   computed: {
+    sumberSatelit() {
+      var satelit = null;
+      if (this.compareSatelit === 'TERRA-AQUA') {
+        satelit = 'LPN-MODIS'
+      } else if (this.compareSatelit === 'SNPP') {
+        satelit = 'LPN-NPP'
+      } else if (this.compareSatelit === 'NOAA20') {
+        satelit = 'LPN-NOAA20'
+      } else {
+        satelit = 'LPN-LANDSAT8'
+      }
+      return satelit
+    },
     kebKumulatifTahunan() {
       return {
         labels: [
@@ -785,6 +799,20 @@ export default {
     await this.loadGrafikLuasKebakaran()
   },
   watch: {
+        compareBulanRegionalBulanan: {
+      async handler() {
+        this.loading = true
+        await this.loadGrafikKumulatifBulananRegional()
+        this.loading = false
+      },
+    },
+    compareTahunRegionalBulanan: {
+      async handler() {
+        this.loading = true
+        await this.loadGrafikKumulatifBulananRegional()
+        this.loading = false
+      },
+    },
     compareBulanProvinsiBulanan: {
       async handler() {
         await this.loadGrafikKumulatifBulananProvinsi()
@@ -937,6 +965,7 @@ export default {
             from: this.currentYear - 4,
             confidence: this.compareLevel,
             provinsi: this.compareProvinsi,
+            satelit: [this.sumberSatelit]
           },
         })
         .then((res) => {
