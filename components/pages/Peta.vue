@@ -1086,12 +1086,12 @@
                   </tr>
                 </tbody>
                 <tfoot style="font-weight: bold">
-                  <tr>
+                  <!-- <tr>
                     <td>Total</td>
                     <td v-for="(total, i) in totalluass" :key="i">
                       {{ total.total }}
                     </td>
-                  </tr>
+                  </tr> -->
                 </tfoot>
               </table>
             </div>
@@ -1796,6 +1796,7 @@ export default {
       dataHotSpotVisible: false,
       dataHotSpotSummaryVisible: true,
       chkSumber: ['LPN-MODIS', 'LPN-NPP', 'LPN-NOAA20', 'LPN-LANDSAT8'],
+      chkSumberSummary: ['LPN-MODIS', 'LPN-NPP', 'LPN-NOAA20', 'LPN-LANDSAT8'],
       clusterKabKota: {
         data: null,
         visible: false,
@@ -1949,14 +1950,12 @@ export default {
       loadMore: false,
       loadMorePerundangan: false,
       loadMoreLaporan: false,
-
       dataLuas: {
         nomor: 1,
         luass: [],
         dataluass: [],
         totalluass: [],
       },
-
       dataEmisi: {
         nomor: 1,
         emisis: [],
@@ -2019,6 +2018,17 @@ export default {
         this.loading = true
         await this.loadHotSpotSummary()
         this.loading = false
+      },
+    },
+    chkSumberSummary: {
+      async handler() {
+        let self = this
+        this.dataHotSpotSummaryVisible = false
+        setTimeout(function () {
+          self.dataHotSpotSummaryVisible = true
+        }, 100)
+        this.$refs.mapSipongi.mapObject.setView([-2.548926, 118.0148634], 5)
+        this.$refs.mapSipongi.mapObject.doubleClickZoom = false
       },
     },
     chkSumber: {
@@ -2819,7 +2829,6 @@ export default {
           })
         })
         .catch((err) => {
-          console.log(err)
           if (err.response) {
             const { status, data } = err.response
             if (status === 500) {
@@ -3024,12 +3033,12 @@ export default {
     getTotalLevel(key, level) {
       return this.DataHotSpotSummary.totalsLevel[key] &&
         this.DataHotSpotSummary.totalsLevel[key][level] &&
-        this.checkSumber(key)
+        this.checkSumberSummary(key)
         ? this.DataHotSpotSummary.totalsLevel[key][level]
         : 0
     },
     getTotal(key) {
-      return this.DataHotSpotSummary.totals[key] && this.checkSumber(key)
+      return this.DataHotSpotSummary.totals[key] && this.checkSumberSummary(key)
         ? this.DataHotSpotSummary.totals[key]
         : 0
     },
@@ -3045,17 +3054,19 @@ export default {
       }
     },
     changeSumberSummary(val) {
-      let index = this.chkSumber.indexOf(val)
+      let index = this.chkSumberSummary.indexOf(val)
       if (index < 0) {
-        this.chkSumber.push(val)
+        this.chkSumberSummary.push(val)
       } else {
-        this.chkSumber.splice(index, 1)
+        this.chkSumberSummary.splice(index, 1)
       }
     },
     checkSumber(val) {
       return this.chkSumber.indexOf(val) >= 0
     },
-
+    checkSumberSummary(val) {
+      return this.chkSumberSummary.indexOf(val) >= 0
+    },
     changeConvidence(val) {
       let index = this.trustData.indexOf(val)
       if (index < 0) {
