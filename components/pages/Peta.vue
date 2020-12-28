@@ -723,7 +723,7 @@
               :visible="dataHotSpotVisible"
             ></l-geo-json>
             <l-geo-json
-              v-else
+              v-else-if="dataHotSpotSummaryVisible"
               :geojson="dataHotSpotSummaryGeojson"
               :options="optionsHotspot"
               :visible="dataHotSpotSummaryVisible"
@@ -2023,10 +2023,7 @@ export default {
     chkSumberSummary: {
       async handler() {
         let self = this
-        this.dataHotSpotSummaryVisible = false
-        setTimeout(function () {
-          self.dataHotSpotSummaryVisible = true
-        }, 100)
+        this.dataHotSpotSummaryVisible = !this.dataHotSpotSummaryVisible
         this.$refs.mapSipongi.mapObject.setView([-2.548926, 118.0148634], 5)
         this.$refs.mapSipongi.mapObject.doubleClickZoom = false
       },
@@ -2886,8 +2883,6 @@ export default {
       let bottomOfWindow =
         Math.ceil((window.scrollY || window.scrollTop) + window.innerHeight) >=
         heightDoc
-      console.log(heightDoc)
-      console.log(bottomOfWindow)
       if (bottomOfWindow) {
         this.scrolledToBottom = true
       } else {
