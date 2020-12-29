@@ -550,7 +550,10 @@
                         class="float-right"
                       >
                       </b-form-checkbox>
-                      <ul class="index-udara-list list-unstyled" v-if="aqmsShow">
+                      <ul
+                        class="index-udara-list list-unstyled"
+                        v-if="aqmsShow"
+                      >
                         <li>Baik (0-50)</li>
                         <li>Sedang (51-100)</li>
                         <li>Tdk Sehat (101-199)</li>
@@ -1650,14 +1653,15 @@ export default {
   data() {
     const now = new Date()
     const currentTime = now.getTime()
-    const twoDaysBack = new Date()
     const currentYear = new Date().getFullYear()
     const currentMonth = new Date().getMonth()
     return {
       currentYear: currentYear,
       currentMonth: currentMonth,
-      fromDate: '2020-11-04',
-      toDate: '2020-12-24',
+      fromDate: `${now.getFullYear()}-${now.getMonth() + 1}-${
+        now.getDate() - 1
+      }`,
+      toDate: `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`,
       twoDaysBack: `${now.getFullYear()}-${now.getMonth() + 1}-${
         now.getDate() - 2
       }`,
@@ -3027,13 +3031,12 @@ export default {
     },
     getTotalLevel(key, level) {
       return this.DataHotSpotSummary.totalsLevel[key] &&
-        this.DataHotSpotSummary.totalsLevel[key][level] &&
-        this.checkSumberSummary(key)
+        this.DataHotSpotSummary.totalsLevel[key][level]
         ? this.DataHotSpotSummary.totalsLevel[key][level]
         : 0
     },
     getTotal(key) {
-      return this.DataHotSpotSummary.totals[key] && this.checkSumberSummary(key)
+      return this.DataHotSpotSummary.totals[key] && this.checkSumberSummary(key) && key !== 0
         ? this.DataHotSpotSummary.totals[key]
         : 0
     },
@@ -3200,7 +3203,7 @@ export default {
           console.error(err)
         })
         .finally(() => {
-          this.dataHotSpotSummaryVisible = false;
+          this.dataHotSpotSummaryVisible = false
           this.dataHotSpotVisible = true
           this.dataHotSpotGeojson.features.forEach((element, index) => {
             this.dataXls[index + 1] = [
